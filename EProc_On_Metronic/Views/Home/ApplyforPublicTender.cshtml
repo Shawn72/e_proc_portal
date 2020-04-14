@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "ApplyforThisTender";
+    Layout = "~/Views/Shared/_EBid_Layout.cshtml";
+    var tendorNumber = Request.QueryString["tenderNor"];
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>APPLY FOR THIS TENDER NO: <strong>@tendorNumber</strong></h2>
+        </div>
+        <div class="panel panel-table">
+            <div class="panel-body">
+                <div id="bidAmmount">
+                    <span id="feedbackMsg" style="display: none"></span><br />
+                    <form action="" method="post" enctype="multipart/form-data" id="upld_form" name="upld_form">
+                        <input type="hidden" value="@tendorNumber" id="txtTendorNo" />
+                        <input type="hidden" id="tendorNum" value="@tendorNumber" />
+                        
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label" style="font-weight: bold;">Tender Document</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileTenderdocOpen" name="inputFileTenderdocOpen[]" style="display: block" multiple />&nbsp;
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label" style="font-weight: bold;">KRA PIN</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileKraOpen" name="inputFileKraOpen[]" style="display: block" multiple />&nbsp;
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label" style="font-weight: bold;">Confidential Business Questionnare</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCBQOpen" name="inputFileCBQOpen[]" style="display: block" />&nbsp;
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label" style="font-weight: bold;">Certficate of Registration</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCertofRegOpen" name="inputFileCertofRegOpen[]" style="display: block" />&nbsp;
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label" style="font-weight: bold;">Tax compliance Cert</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileTxComplyOpen" name="inputFileTxComplyOpen[]" style="display: block" />&nbsp;
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <span class="btn bg-pink waves-effect rounded pull-left btn-sm">
+                                    <i class="fas fa-arrow-circle-left"></i>&nbsp; <a href="/Home/TendersOpentoPublic" style="background: none; border: 0"><strong style="color: aliceblue">Back</strong></a>
+                                </span>
+                            </div>
+                            <div class="col-md-6 pull-right">
+                                <button type="submit" class="btn bg-pink waves-effect rounded" id="btnApplyTenderPublic" style="background: none; border: 0; width: 43em;"><i class="fa fa-save m-r-5">&nbsp;Apply</i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="form-group">
+                <span id="uploadsMsg" style="display: none"></span><br />
+            </div>
+
+        </div>
+    </div>
+</section>
+

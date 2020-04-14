@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = "UploadFiles";
+    if ((string)Session["logintype"] == "eprocurement")
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else if ((string)Session["logintype"] == "ebid")
+    {
+        Layout = "~/Views/Shared/_EBid_Layout.cshtml";
+    }
+
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<!-- BEGIN CONTENT BODY -->
+<div class="page-content">
+<!-- BEGIN PAGE HEADER-->
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="Index_EBid.cshtml">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Upload Documents</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
+            <i class="icon-calendar"></i>&nbsp;
+            <span class="thin uppercase hidden-xs"></span>&nbsp;
+            <i class="fa fa-angle-down"></i>
+        </div>
+    </div>
+</div>
+   
+<div class="clearfix"></div>
+    
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-settings font-green"></i>
+                    <span class="caption-subject font-green sbold uppercase">Upload Documents</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group">
+                        <span class="btn green btn-outline btn-circle">
+                            <i class="fas fa-upload"></i>&nbsp;<a href="/Home/UploadsCustorVendor" style="background: none; border: 0"><strong style="color: aliceblue">See Uploads</strong></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="panel-body">
+                    <h4><strong>OPTION 1: UPLOAD ALL FILES AT ONCE</strong></h4>
+                    <div class="col-md-12">
+                        <span id="feedbackMsg" style="display: none"></span><br/>
+                        <form action="" method="post" enctype="multipart/form-data" id="upld_form" name="upld_form">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label" style="font-weight: bold;">KRA PIN</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileKraUplds" name="inputFileKraUplds[]" style="display: block" multiple/>&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label" style="font-weight: bold;">Confidential Business Questionnare</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCBQUplds" name="inputFileCBQUplds[]" style="display: block"/>&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label" style="font-weight: bold;">Certficate of Registration</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCertofRegUplds" name="inputFileCertofRegUplds[]" style="display: block"/>&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label" style="font-weight: bold;">Tax compliance Cert</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileTxComplyUplds" name="inputFileTxComplyUplds[]" style="display: block"/>&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    @if ((string) Session["logintype"] == "eprocurement")
+                                    {
+                                        <span class="btn green btn-outline btn-circle">
+                                            <a href="/Home/Index_EProc"><i class="fa fa-arrow-circle-left m-r-5" style="background: none; border: 0"></i>&nbsp;Back</a>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="btn green btn-outline btn-circle">
+                                            <a href="/Home/Index_EBid"><i class="fa fa-arrow-circle-left m-r-5" style="background: none; border: 0"></i>&nbsp;Back</a>
+                                        </span>
+                                    }
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn green btn-outline btn-circle" id="btnUploadDocs" style="width: 43em;"><i class="fa fa-upload m-r-5">&nbsp;Upload Files</i></button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="form-group">
+                        <span id="uploadsMsg" style="display: none"></span><br/>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <h4><strong>OPTION 2: SELECT SPECIFIC DOCUMENTS TO UPLOAD, IDEAL WHEN UPDATING YOUR UPLOADS</strong></h4>
+                    <div class="col-md-12">
+                        <span id="uploadfeedbackMsg" style="display: none"></span><br/>
+                        <form action="" method="post" enctype="multipart/form-data" id="upld_form_selected" name="upld_form_selected">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label" style="font-weight: bold;">Choose Document to Upload</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select data-live-search="true" class="form-control select2" id="doctoupload" onchange="return getPullfileChooser(this)">
+                                        <option value="noChoice">--Choose Document--</option>
+                                        <option value="KRA PIN">KRA PIN</option>
+                                        <option value="Confidential Business Questionnare">Confidential Business Questionnare</option>
+                                        <option value="Certficate of Registration">Certficate of Registration</option>
+                                        <option value="Tax compliance Cert">Tax compliance Cert</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br/>
+                    
+                            <div id="pullupafilechooser" style="display: none;">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="control-label" style="font-weight: bold;" id="selectedKindafile"></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileSelected" name="inputFileSelected[]" style="display: block" multiple/>&nbsp;
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        @if ((string) Session["logintype"] == "eprocurement")
+                                        {
+                                            <span class="btn green btn-outline btn-circle">
+                                                <a href="/Home/Index_EProc"><i class="fa fa-arrow-circle-left m-r-5"></i>&nbsp;Back</a>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="btn green btn-outline btn-circle">
+                                                <a href="/Home/Index_EBid"><i class="fa fa-arrow-circle-left m-r-5"></i>&nbsp;Back</a>
+                                            </span>
+                                        }
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn green btn-outline btn-circle" id="btnUploadDocsSelect" style="width: 43em;"><i class="fa fa-upload m-r-5">&nbsp;Upload File</i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form-group">
+                        <span id="uploadsMsgselected" style="display: none"></span><br/>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- End: life time stats -->
+
+    </div>
+</div>
+</div>
+
+
+
+

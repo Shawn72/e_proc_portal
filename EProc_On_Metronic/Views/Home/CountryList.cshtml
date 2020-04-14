@@ -1,0 +1,14 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.DropdownListsModel>
+
+@{
+    Layout = null;
+}
+<select class="form-control select2" id="ddlallcountries" name="ddlallcountries" data_live_search = "true">
+    <option value="">--Select Country--</option>
+    <optgroup label="Countries List">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Code">@item.Name</option>
+        }
+    </optgroup>
+</select>

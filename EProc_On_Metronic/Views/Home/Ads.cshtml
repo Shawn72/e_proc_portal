@@ -1,0 +1,19 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.TenderModel>
+
+@{
+    Layout = null;
+}
+@if (!Model.Any())
+{
+    <div class="alert alert-danger">No Ads or notices for now! check out later!</div>
+}
+else
+{
+<ul style="list-style-type: none">
+    @foreach (var item in Model)
+    {
+        <li><a href="#">@item.Advert_Description</a></li>
+    }
+</ul>
+}
+    

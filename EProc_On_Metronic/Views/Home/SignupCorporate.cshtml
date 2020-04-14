@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "SignupCorporate";
+    Layout = "~/Views/Shared/_Registration_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid-signup ">
+        <div class="block-header">
+            <h4>REGISTRATION FORM</h4>
+        </div>
+        <!-- Advanced Form Example With Validation -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 signuppanel">
+                <div class="card">
+                    <div class="header">
+                        <h2>CORPORATE ACCOUNT REGISTRATION FORM</h2>
+                    </div>
+                    <div class="body">
+                        <div id="regfeedback" style="display: none"></div>
+                        <form id="corporate_wizard_with_validation" method="POST">
+                            <h3>Account Information</h3>
+                            <fieldset>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="email" class="form-control" name="txtEmailAddInd" required id="txtEmailAddInd" onblur="validateEmail()">
+                                        <label class="form-label">Email Address*</label>
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="password" class="form-control" name="txtPass1Ind" id="txtPass1Ind" required>
+                                        <label class="form-label">Password*</label>
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="password" class="form-control" name="txtPass2Ind" id="txtPass2Ind" required>
+                                        <label class="form-label">Confirm Password*</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <h3>Profile Information</h3>
+                            <fieldset>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" name="txtOrgName" class="form-control" required id="txtOrgName" onkeypress="inputLimit(this, 20);"
+                                               ondrop="return false;" onpaste="return false;">
+                                        <label class="form-label">Organization Name*</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" name="txtRegNo" class="form-control" required id="txtRegNo" value="" onkeypress="inputLimit(this, 20);"
+                                               ondrop="return false;" onpaste="return false;">
+                                        <label class="form-label">Company Registration No.*</label>
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" name="txtKRAPin" class="form-control" required id="txtKRAPin" value="" onkeypress="inputLimit(this, 20);"
+                                               ondrop="return false;" onpaste="return false;">
+                                        <label class="form-label">K.R.A Pin*</label>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                            <h3>Contact Information</h3>
+                            <fieldset>
+                                <div class="form-group form-float rmvdiv">
+                                    <label class="form-label">Country*</label>
+                                    @Html.Action("CountryList", "Home")
+                                </div>
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="number" name="txtAddress" class="form-control" required id="txtAddress" onkeypress="IsNumericPOBox(event); inputLimit(this, 10);"
+                                               ondrop="return false;" onpaste="return false;">
+                                        <span id="poboxerror" style="color: red; display: none">* Input digits only (0 - 9)</span>
+                                        <label class="form-label">P.O Box*</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-float" id="rmvdivid">
+                                    <label class="form-label">Postal Code*</label>
+                                    @Html.Action("PostalCodeList", "Home")
+                                </div>
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" name="txtCity" class="form-control" required id="txtCity" disabled="disabled" value="" >
+                                        <label class="form-label">City</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" name="txtPhonenumberInd" class="form-control" required id="txtPhonenumberInd" value="" onkeypress="inputLimit(this, 15);"
+                                               ondrop="return false;" onpaste="return false;" onblur="PhoneNoValidator(this)">
+                                        <label class="form-label">Phone Number*</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <h3>Terms & Conditions - Finish</h3>
+                            <fieldset>
+                                <input id="acceptTerms-2" name="acceptTerms" type="checkbox" required>
+                                <label for="acceptTerms-2">I agree with the <a href="#" target="_blank">Terms and Conditions</a></label>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Advanced Form Example With Validation -->
+    </div>
+</section>
+

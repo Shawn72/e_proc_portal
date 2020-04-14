@@ -1,0 +1,204 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Registration_Layout.cshtml";
+}
+
+<!-- BEGIN CONTENT BODY -->
+<div class="page-content">
+<!-- BEGIN PAGE HEADER-->
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="Homepage.cshtml">Home</a>
+            <i class="fas fa-circle"></i>
+        </li>
+        <li>
+            <span>Supplier Registration Request</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+
+<!-- END PAGE HEADER-->
+<div class="row">
+<div class="col-md-12">
+<div class="portlet light bordered" id="form_wizard_1">
+<div class="portlet-title">
+    <div class="caption">
+        <i class="icon-layers font-red"></i>
+        <span class="caption-subject font-red bold uppercase"> Supplier Registration Request-
+            <span class="step-title"> Step 1 of 4 </span>
+        </span>
+    </div>
+    <div class="actions">
+        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+            <i class="icon-cloud-upload"></i>
+        </a>
+        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+            <i class="icon-wrench"></i>
+        </a>
+        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+            <i class="icon-trash"></i>
+        </a>
+    </div>
+</div>
+<div class="portlet-body form">
+<form class="form-horizontal" action="#" id="submit_form" method="POST">
+<div class="form-wizard">
+<div class="form-body">
+<ul class="nav nav-pills nav-justified steps">
+    <li>
+        <a href="#tab1" data-toggle="tab" class="step">
+            <span class="number"> 1 </span><span class="desc"><i class="icon-check"></i> Company Details </span>
+        </a>
+    </li>
+    <li>
+        <a href="#tab2" data-toggle="tab" class="step">
+            <span class="number"> 2 </span><span class="desc"><i class="icon-check"></i> Contact Details </span>
+        </a>
+    </li>
+    <li>
+        <a href="#tab3" data-toggle="tab" class="step active">
+            <span class="number"> 3 </span><span class="desc"><i class="icon-check"></i> Confirm </span>
+        </a>
+    </li>
+    
+</ul>
+<div id="bar" class="progress progress-striped" role="progressbar">
+    <div class="progress-bar progress-bar-success"> </div>
+</div>
+<div class="tab-content">
+<div class="alert alert-danger display-none">
+    <button class="close" data-dismiss="alert"></button> You have some form errors. Please check below.
+</div>
+<div class="alert alert-success display-none">
+    <button class="close" data-dismiss="alert"></button> Your form validation is successful!
+</div>
+<div id="regfeedback" style="display: none" data-dismiss="alert"></div>
+<div class="tab-pane active" id="tab1">
+    <h3 class="block">Provide your Company details</h3>
+    <div class="form-group">
+        <label class="control-label col-md-3">Registered Business Name
+            <span class="required"> * </span>
+        </label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="txtBusinessName" id="txtBusinessName"/>
+            <span class="help-block"> Provide your Registered Business name </span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-md-3">Tax Registration (PIN) No:
+            <span class="required"> * </span>
+        </label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="txtKRAPinInd" id="txtKRAPinInd"/>
+            <span class="help-block"> Provide your KRA Pin </span>
+        </div>
+    </div>
+</div>
+<div class="tab-pane" id="tab2">
+    <h3 class="block">Provide your Contact details</h3>
+    <div class="form-group">
+        <label class="control-label col-md-4">
+            Contact Person (Name):
+            <span class="required"> * </span>
+        </label>
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="txtContPerName" id="txtContPerName" />
+            <span class="help-block"> Provide your phone number </span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-4">
+            Primary Email Address
+            <span class="required"> * </span>
+        </label>
+        <div class="col-md-6">
+            <input type="email" class="form-control" name="email" id="txtEmailAddInd" />
+            <span class="help-block"> Provide your email address </span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-4">
+            Mobile Phone No
+            <span class="required"> * </span>
+        </label>
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="txtPhonenumberInd" id="txtPhonenumberInd" />
+            <span class="help-block"> Provide your phone number </span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-md-3">Terms and Conditions
+            <span class="required"> * </span>
+        </label>
+        <div class="col-md-4">
+            <div class="checkbox-list">
+                <label>
+                    <input type="checkbox" name="payment[]" value="1" data-title="Accept to our terms of use" /> Accept to our <a href="#">Terms & Conditions</a> </label>
+            </div>
+            <div id="form_payment_error"> </div>
+        </div>
+    </div>
+ 
+</div>
+
+<div class="tab-pane" id="tab3">
+    <h3 class="block">Confirm your account</h3>
+    <h4 class="form-section">Company Details</h4>
+    <div class="form-group">
+        <label class="control-label col-md-3">Business Name:</label>
+        <div class="col-md-4">
+            <p class="form-control-static" data-display="txtBusinessName"> </p>
+        </div>
+    </div>
+        
+    <div class="form-group">
+        <label class="control-label col-md-3">Tax Registration Pin:</label>
+        <div class="col-md-4">
+            <p class="form-control-static" data-display="txtKRAPinInd"> </p>
+        </div>
+    </div>
+    
+    <h4 class="form-section">Contact Details</h4>
+    <div class="form-group">
+        <label class="control-label col-md-3">Contact Person Name:</label>
+        <div class="col-md-4">
+            <p class="form-control-static" data-display="txtContPerName"> </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3">Contact Person Phone No:</label>
+        <div class="col-md-4">
+            <p class="form-control-static" data-display="txtPhonenumberInd"> </p>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="form-actions">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-8">
+            <a href="javascript:;" class="btn green btn-outline btn-circle button-previous"><i class="fas fa fa-angle-left"></i> &nbsp;Back </a>
+            <a href="javascript:;" class="btn green btn-outline btn-circle button-next">Continue &nbsp;<i class="fas fa fa-angle-right"></i></a>
+            <a href="javascript:;" class="btn green btn-outline btn-circle button-submit">Submit Request &nbsp;<i class="fas fa fa-check"></i></a>
+        </div>
+    </div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END CONTENT BODY -->

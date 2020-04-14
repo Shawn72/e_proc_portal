@@ -1,0 +1,68 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.ProcurementModel>
+@{
+    ViewBag.Title = "OpenTenders";
+    Layout = "~/Views/Shared/_EBid_Layout.cshtml";
+    var sno = 0;
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>TENDERS OPEN FOR APPLICATION</h2>
+        </div>
+        <div id="openTenderId" style="display: none;"></div>
+        <div class="table table-responsive" style="background-color: aliceblue;">
+           
+            <table class="table table-bordered table-striped table-hover dataTable xportabletable" id="openTenders">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>No.</th>
+                    <th>Description</th>
+                    <th>Return Date</th>
+                    <th>Actions</th>
+                </tr>
+
+                </thead>
+                <tbody>
+
+                @if (Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        sno++;
+                        <tr>
+                            <td>
+                                @sno
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.No)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Convert.ToDateTime(item.Return_Date).ToShortDateString()
+                            </td>
+                            <td class="text-right">
+                                <button type="submit" class="btn btn-primary pull-left btn-sm pull-left rounded btnGoapplytender" tenderNum='@item.No' ><i class="fas fa-edit" id="edittenderfavicon"></i> Go to Apply</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            <div class="alert alert-danger">No tenders open for application yet!</div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</section>
+
+

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.ProcurementModel>
+@{
+    ViewBag.Title = "TendersOpentoPublic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var sno = 0;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>TENDERS OPEN FOR APPLICATION</h2>
+        </div>
+        <div id="openTendertoPId" style="display: none;"></div>
+        <div class="table table-responsive" style="background-color: aliceblue;">
+            <table class="table table-bordered table-striped table-hover dataTable xportabletable" id="openTenderstoPublc">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>No.</th>
+                    <th>Description</th>
+                    <th>Deadline Date</th>
+                    <th>Download</th>
+                    <th>Actions</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    sno++;
+                    <tr>
+                        <td>
+                            @sno
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.No)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Convert.ToDateTime(item.Return_Date).ToShortDateString()
+                        </td>
+                        <td class="text-right">
+                            <button type="submit" class="btn btn-primary pull-left btn-sm pull-left rounded btnDownloadTenderOtoP" tenderNo='@item.No'><i class="fas fa-cloud-download-alt downloadtenderfavicon"></i> Download </button>
+                        </td>
+                        <td class="text-right">
+                            <span class="btn btn-primary pull-left btn-sm rounded">
+                                <a href="#" style="background: none; border: 0"><i class="fa fa-pencil m-r-5"></i> Go to Apply</a>
+                            </span>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</section>
+

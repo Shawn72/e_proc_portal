@@ -1,0 +1,43 @@
+﻿
+@{
+    if ((string)Session["logintype"] == "eprocurement")
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else if ((string)Session["logintype"] == "ebid")
+    {
+        Layout = "~/Views/Shared/_EBid_Layout.cshtml";
+
+    }
+
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+
+    }
+}
+<section class="content container-fluid">
+    <div class="block-header">
+        <h2>UPLOADED DOCUMENTS</h2>
+    </div>
+    <div class="content">
+        <div class="panel-body">
+            <span id="feedbackMsg" style="display: none"></span><br />
+            @Html.Action("UploadsList", "Home")
+
+            <span class="btn btn-primary pull-left rounded btn-sm">
+                @if ((string) Session["logintype"] == "eprocurement")
+                {
+                  <a href="/Home/Index_EProc"><i class="fa fa-arrow-circle-left m-r-5" style="background: none; border: 0;"></i>&nbsp;<strong style="color: aliceblue">Back</strong></a>
+                }
+                else if ((string) Session["logintype"] == "ebid")
+                {
+                <a href="/Home/Index_EBid"><i class="fa fa-arrow-circle-left m-r-5" style="background: none; border: 0;"></i>&nbsp;<strong style="color: aliceblue">Back</strong></a>
+                }
+            </span>
+
+        </div>
+
+    </div>
+</section>
+

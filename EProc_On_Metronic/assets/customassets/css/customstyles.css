@@ -1,0 +1,109 @@
+﻿.ffooter {
+    padding-left: 250px;
+}
+@media screen and  (max-width: 348px) {
+    .ffooter { padding-left: 74px; }
+}
+@media screen and  (max-width: 768px) {
+    .ffooter { padding-left: 160px; }
+}
+
+@media screen and  (max-width: 992px) {
+    .ffooter { padding-left: 2500px;}
+}
+
+@media screen and  (min-width: 1200px) {
+    .ffooter { padding-left: 250px;}
+}
+
+.main-footer {
+    background: #fff;
+    padding: 15px!important;
+    color: #444;
+    border-top: 1px solid #d2d6de;
+    bottom: 0;
+    width: 100%;
+    min-height: 100%;
+    margin-bottom: -50px;
+}
+.homepage-footer {
+    background: #fff;
+    padding: 15px!important;
+    color: #444;
+    border-top: 1px solid #d2d6de;
+    bottom: -150px;
+    width: 100%;
+    min-height: 100%;
+    margin-bottom: -50px;
+}
+.wordwrapped {
+    overflow-wrap: break-word!important;
+    word-wrap: break-word!important;
+    hyphens: auto!important;
+}
+section.homepage-content {
+    margin: 100px 15px 0 100px;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    transition: 0.5s; 
+}
+
+.banner {
+    font-family: "Roboto", sans-serif;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    border: none;
+    top: 0;
+    left: 0;
+    z-index: 12;
+    width: 100%;
+    background: #d5e1f1;
+
+}
+.container-fluid-signup {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: -205px;
+}
+.imglogo {
+    height: 8em;
+}
+.signuppanel {
+    margin-top: 1em;
+}
+/*Password CSS*/
+.pass_show{position: relative} 
+
+.pass_show .ptxt { 
+
+    position: absolute; 
+
+    top: 50%; 
+
+    right: 10px; 
+
+    z-index: 1; 
+
+    color: #f36c01; 
+
+    margin-top: -10px; 
+
+    cursor: pointer; 
+
+    transition: .3s ease all; 
+
+} 
+.pass_show .ptxt:hover{color: #333333;} 
+
+.customlogo {
+    height: 4em; 
+    margin: -5px!important;
+}
+.proflogo {
+    height: 50px!important; 
+    width: 50px!important;
+}
+

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.UploadedFile>
+
+@{
+    ViewBag.Title = "UploadsList";
+    Layout = "";
+}
+
+<div class="col-md-12">
+    <div class="table-responsive" style="background-color: aliceblue;">
+        @if (Session["userNo"] != null)
+        {
+            if (!Model.Any())
+            {
+                <div class="alert alert-danger">
+                    <h3 style="color: red">
+                        Kindly <a href="/Home/UploadFiles">UPLOAD</a> documents for consideration!
+                    </h3>
+                </div>
+            }
+            else
+            {
+                var sno = 0;
+                <table class="table table-bordered table-striped table-hover dataTable xportabletable" id="tbluploads">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>File Name</th>
+                            <th>File Size (KiB)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            sno++;
+                            <tr>
+                                <td>@sno</td>
+                                <td>@Html.DisplayFor(modelItem => item.FileName)</td>
+                                <td>@string.Format("{0:0,0}", item.Size)</td>
+
+                                <td>
+                                    <div class="txtfilepath" style="display: none;">
+                                        <span>@item.Path</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-danger pull-left rounded delete"><i class="fa fa-trash"></i> Remove</button>
+                                    <i class="fa fa-eye m-r-5 btn btn-primary pull-right rounded" style="color: white; font-size: 16px"> @Html.ActionLink("View", "ViewDocument", new { filepath = @item.Path })</i>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <a href="/Home/Login">Login First</a>
+            </div>
+        }
+    </div>
+</div>
+      

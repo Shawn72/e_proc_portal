@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "ApplyforOpenRfQ";
+    Layout = "~/Views/Shared/_EBid_Layout.cshtml";
+    var desc = Request.QueryString["descrptn"];
+    var rqNo = Request.QueryString["reqno"];
+}
+
+<section class="content container-fluid">
+    <div class="block-header">
+        <h2>APPLY FOR RFQ</h2>
+    </div>
+    <span id="feedbackMsg" style="display: none"></span>
+    <form action="" method="post" enctype="multipart/form-data" id="preqappl_form" name="preqappl_form">
+        <div class="form-group">
+            <div class="col-md-6">
+                <label class="form-label" style="font-weight: bold;">RFQ Number:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="text" id="inputRfqNumber"  style="width: 40em" value="@rqNo"  disabled="disabled"/>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="form-group">
+            <div class="col-md-6">
+                <label class="form-label" style="font-weight: bold;">RFQ Description:</label>
+            </div>
+            <div class="col-md-6">
+                <textarea type="text" id="inputRfqDescr"  disabled="disabled" style="width: 40em" >@desc</textarea>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="form-group">
+            @Html.Action("RfQLines", "Home")
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <label class="form-label" style="font-weight: bold;">Fully Filled RfQ Document</label>
+            </div>
+            <div class="col-md-6">
+                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileRfQdoc" name="inputFileRfQdoc[]" style="display: block" multiple/>&nbsp;
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <label class="form-label" style="font-weight: bold;">KRA PIN</label>
+            </div>
+            <div class="col-md-6">
+                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileKra" name="inputFileKra[]" style="display: block" multiple/>&nbsp;
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <label class="form-label" style="font-weight: bold;">Confidential Business Questionnare</label>
+            </div>
+            <div class="col-md-6">
+                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCBQ" name="inputFileCBQ[]" style="display: block"/>&nbsp;
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <label class="control-label" style="font-weight: bold;">Certficate of Registration</label>
+            </div>
+            <div class="col-md-6">
+                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCertofReg" name="inputFileCertofReg[]" style="display: block"/>&nbsp;
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <label class="control-label" style="font-weight: bold;">Tax compliance Cert</label>
+            </div>
+            <div class="col-md-6">
+                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileTxComply" name="inputFileTxComply[]" style="display: block"/>&nbsp;
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <span class="btn bg-pink waves-effect rounded pull-left btn-sm">
+                    <i class="fas fa-arrow-circle-left"></i>&nbsp; <a href="/Home/OpenRfQs" style="background: none; border: 0"><strong style="color: aliceblue">Back</strong></a>
+                </span>
+            </div>
+            <div class="col-md-6 pull-right">
+                <button type="submit" class="btn bg-pink waves-effect rounded" id="btnApplyRfQ" style="background: none; border: 0; width: 43em;"><i class="fa fa-save">&nbsp;Submit Request</i></button>
+            </div>
+        </div>
+    </form>
+    <br />
+    <br/>
+    <div class="form-group">
+        <span id="uploadsMsg" style="display: none"></span><br />
+    </div>
+
+</section>
+
+

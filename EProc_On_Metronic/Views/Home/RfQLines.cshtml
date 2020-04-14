@@ -1,0 +1,68 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.RfQsModel>
+@{
+    Layout = "";
+    var sno = 0;
+    var rfqnumber = Request.QueryString["reqno"];
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-danger">No Items found for this RFQ</div>
+}
+else
+{
+    <table class="table table-bordered table-striped table-hover dataTable xportabletable" id="tblRfQs">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Line No.</th>
+                <th>Type</th>
+                <th>No.</th>
+                <th>Specification</th>
+                <th>Quantity</th>
+                <th style="width: 10em">Quote Amt per Unit (KES)</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th class="text-left"><button type="submit" class="btn btn-primary pull-left btn-sm pull-left rounded btnInsertRfQs" ><i class="fa fa-save" id="savefavicondld"></i> Submit RFQ Items</button></th>
+            </tr>
+        </tfoot>
+        <tbody>
+
+        @foreach (var item in Model)
+        {
+            sno++;
+            <tr>
+                <td>
+                    @sno
+                </td>
+                <td>
+                    <input type="text" value="@item.Line_No" disabled="disabled" />
+                </td>
+                <td>
+                    <input type="text" value="@item.Type" disabled="disabled" />
+                </td>
+                <td>
+                    <input type="text" value="@item.No" disabled="disabled" />
+                </td>
+                <td style="width: 15em">
+                    @item.Description
+                </td>
+                <td>
+                    <input type="number" value="@item.Quantity" disabled="disabled"/>
+                </td>
+                <td class="text-left">
+                   <input type="number" placeholder="Amount(KES)"/>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

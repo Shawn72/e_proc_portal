@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "ApplyCategorization";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- BEGIN CONTENT BODY -->
+<div class="page-content">
+    <!-- BEGIN PAGE HEADER-->
+
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="Index_EBid.cshtml">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Apply Categorization</span>
+            </li>
+        </ul>
+        <div class="page-toolbar">
+            <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
+                <i class="icon-calendar"></i>&nbsp;
+                <span class="thin uppercase hidden-xs"></span>&nbsp;
+                <i class="fa fa-angle-down"></i>
+            </div>
+        </div>
+    </div>
+   
+    <div class="clearfix"></div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Begin: life time stats -->
+            <div class="portlet light portlet-fit portlet-datatable bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-green"></i>
+                        <span class="caption-subject font-green sbold uppercase">Apply for Supply Category</span>
+                    </div>
+               
+                </div>
+                <div class="portlet-body">
+                    <div class="panel-body">
+                        <span id="feedbackMsg" style="display: none"></span>
+                        <form action="" method="post" enctype="multipart/form-data" id="preqappl_form" name="preqappl_form">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    @Html.Action("AllSupplierCategories", "Home")
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                            <br/>
+                            <br/>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-weight: bold;">KRA PIN</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileKra" name="inputFileKra[]" style="display: block" multiple/>&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-weight: bold;">Confidential Business Questionnare</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCBQ" name="inputFileCBQ[]" style="display: block"/>&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label" style="font-weight: bold;">Certficate of Registration</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCertofReg" name="inputFileCertofReg[]" style="display: block"/>&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label" style="font-weight: bold;">Tax compliance Cert</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileTxComply" name="inputFileTxComply[]" style="display: block"/>&nbsp;
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+
+                                </div>
+                                <div class="col-md-6 pull-right">
+                                    <button type="submit" class="btn green btn-outline btn-circle" id="btnApplyPreQ" style="width: 43em;"><i class="fa fa-save">&nbsp;Submit Request</i></button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="form-group">
+                            <span id="uploadsMsg" style="display: none"></span><br/>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END CONTENT BODY -->

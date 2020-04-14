@@ -1,0 +1,51 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.PreQualificationModel>
+@{
+    ViewBag.Title = "AppliedCategories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var sno = 0;
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>MY APPLIED SUPPLIER CATEGORIES</h2>
+        </div>
+        <div class="table table-responsive" style="background-color: aliceblue;">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-danger">no supplier categories applied yet</div>
+        }
+        else
+        {
+            <table class="table table-bordered table-striped table-hover dataTable xportabletable">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Description</th>
+                    <th>PreQualified Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    sno++;
+                    <tr>
+                        <td>
+                            @sno
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                           @item.Pre_Qualified.ToString();
+                        </td>
+                    </tr>
+                }
+
+                </tbody>
+
+            </table>
+        }
+        </div>
+    </div>
+</section>
+

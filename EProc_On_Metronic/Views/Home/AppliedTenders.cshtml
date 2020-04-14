@@ -1,0 +1,65 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.TenderModel>
+@{
+    ViewBag.Title = "AppliedTenders";
+    Layout = "~/Views/Shared/_EBid_Layout.cshtml";
+    var sno = 0;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>MY APPLIED SUPPLIER CATEGORIES</h2>
+        </div>
+        <div class="table table-responsive" style="background-color: aliceblue;">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-danger">no applied tenders list yet, kindly check again later</div>
+        }
+        else
+        {
+            <table class="table table-bordered table-striped table-hover dataTable xportabletable">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tender No</th>
+                    <th>Title</th>
+                    <th>Prequalified</th>
+                    <th>Selected</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                sno++;
+                <tr>
+                    <td>@sno</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ref_No)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prequalified)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Selected)
+                    </td>
+                    <td class="text-right">
+                        <span class="btn btn-primary pull-left btn-sm">
+                            <a href="/Home/ViewOneTenderRef?entryNo=@item.EntryNo&&tenderNo=@item.Ref_No" style="background: none; border: 0"><i class="fa fa-eye m-r-5"></i> View</a>
+                        </span>
+                    </td>
+                </tr>
+
+                }
+                </tbody>
+
+            </table>
+
+        }
+        </div>
+    </div>
+</section>
+

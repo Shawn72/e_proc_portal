@@ -1,0 +1,75 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.ProcurementModel>
+@{
+    ViewBag.Title = "OpenRfQs";
+    Layout = "~/Views/Shared/_EBid_Layout.cshtml";
+    var sno = 0;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>RFQs OPEN FOR APPLICATION</h2>
+        </div>
+        <div id="openRfqId" style="display: none;"></div>
+        <div class="table table-responsive" style="background-color: aliceblue;">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-danger">no RFQs open for application, kindly check again later</div>
+        }
+        else
+        {
+            <table class="table table-bordered table-striped table-hover dataTable xportabletable" id="openRfQs">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>No.</th>
+                    <th>Description</th>
+                    <th>Return Date</th>
+                    <th>Return Time</th>
+                    <th>Status</th>
+                    <th>Generate</th>
+                    <th>Apply</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach (var item in Model)
+                {
+                    sno++;
+                    <tr>
+                        <td>
+                            @sno
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.No)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Convert.ToDateTime(item.Return_Date).ToShortDateString()
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Return_Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td class="text-right">
+                            <button type="submit" class="btn btn-primary pull-left btn-sm pull-left rounded btnDownloadRfq" rfqNo='@item.No' ><i class="fas fa-cloud-download-alt" id="downloadfavicon"></i> Generate RFQ</button>
+                            <button type="submit" class="btn btn-primary pull-left btn-sm pull-left rounded btnGetrfq" dwldfilepath='' style="display: none;"><i class="fa fa-download" id="downloadfavicondld"></i> Download RFQ</button>
+                        </td>
+                        <td class="text-right">
+                            <button type="submit" class="btn btn-primary pull-left btn-sm pull-left rounded btnGoApply" theRfQNo="@item.No" theRfQtitle="@item.Title" style="display: block;"><i class="fa fa-edit" id="applyfavicondld"></i> Apply RFQ</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+
+            </table>
+        }
+        </div>
+    </div>
+</section>
+
+
