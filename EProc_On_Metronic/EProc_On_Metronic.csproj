@@ -203,11 +203,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BankModel.cs" />
     <Compile Include="Models\BlogsModel.cs" />
     <Compile Include="Models\ContactsModel.cs" />
+    <Compile Include="Models\DirectorModel.cs" />
     <Compile Include="Models\DropdownListsModel.cs" />
     <Compile Include="Models\Enum.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IFPRequestsModel.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PreQualificationModel.cs" />
@@ -2771,6 +2774,7 @@
     <Content Include="assets\plugins\light-gallery\fonts\lgd641.ttf" />
     <Content Include="assets\plugins\light-gallery\fonts\lgd641.woff" />
     <Content Include="assets\global\plugins\backstretch\jquery.backstretch.js" />
+    <None Include="Properties\PublishProfiles\eProconMetronic.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -2886,6 +2890,7 @@
     <Content Include="Views\Home\Supplier_Registration_Form.cshtml" />
     <Content Include="Views\Home\BankDetails.cshtml" />
     <Content Include="Views\Home\TestForm.cshtml" />
+    <Content Include="Views\Home\IfpRequestsList.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

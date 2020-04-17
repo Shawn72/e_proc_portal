@@ -404,6 +404,105 @@
           <sequence />
         </complexType>
       </element>
+      <element name="FnSupplierRegistration">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="businessType" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="vendorType" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="ownershipType" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="industryGroup" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="postacode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="countryofOrigin" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="companysize" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="nominalCap" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="dealerType" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="dateofIncorporation" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="dateofOps" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="languageCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vision" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="mision" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="poAddress" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="locationAddress" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="postaCity" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="webUrl" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="telephoneNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="buildingNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="floorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="plotNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="streetorRoad" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="faxNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="maxbizvalue" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="mobileNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="natureofBiz" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="certofIncopNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSupplierRegistration_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertBank">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bankCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bankName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="currencyCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bankAccountNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertBank_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnDeleteBank">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bankCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bankName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="currencyCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bankAccountNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnDeleteBank_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertDirector">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="phoneNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="ownershippercentage" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="country" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="email" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="address" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="directorFullname" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="idNumber" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertDirector_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
   <message name="FnRegisterVendor">
@@ -556,6 +655,30 @@
   <message name="FnDownloadRfQPTDoc_Result">
     <part name="parameters" element="tns:FnDownloadRfQPTDoc_Result" />
   </message>
+  <message name="FnSupplierRegistration">
+    <part name="parameters" element="tns:FnSupplierRegistration" />
+  </message>
+  <message name="FnSupplierRegistration_Result">
+    <part name="parameters" element="tns:FnSupplierRegistration_Result" />
+  </message>
+  <message name="FnInsertBank">
+    <part name="parameters" element="tns:FnInsertBank" />
+  </message>
+  <message name="FnInsertBank_Result">
+    <part name="parameters" element="tns:FnInsertBank_Result" />
+  </message>
+  <message name="FnDeleteBank">
+    <part name="parameters" element="tns:FnDeleteBank" />
+  </message>
+  <message name="FnDeleteBank_Result">
+    <part name="parameters" element="tns:FnDeleteBank_Result" />
+  </message>
+  <message name="FnInsertDirector">
+    <part name="parameters" element="tns:FnInsertDirector" />
+  </message>
+  <message name="FnInsertDirector_Result">
+    <part name="parameters" element="tns:FnInsertDirector_Result" />
+  </message>
   <portType name="eprocurement_Port">
     <operation name="FnRegisterVendor">
       <input name="FnRegisterVendor" message="tns:FnRegisterVendor" />
@@ -656,6 +779,22 @@
     <operation name="FnDownloadRfQPTDoc">
       <input name="FnDownloadRfQPTDoc" message="tns:FnDownloadRfQPTDoc" />
       <output name="FnDownloadRfQPTDoc_Result" message="tns:FnDownloadRfQPTDoc_Result" />
+    </operation>
+    <operation name="FnSupplierRegistration">
+      <input name="FnSupplierRegistration" message="tns:FnSupplierRegistration" />
+      <output name="FnSupplierRegistration_Result" message="tns:FnSupplierRegistration_Result" />
+    </operation>
+    <operation name="FnInsertBank">
+      <input name="FnInsertBank" message="tns:FnInsertBank" />
+      <output name="FnInsertBank_Result" message="tns:FnInsertBank_Result" />
+    </operation>
+    <operation name="FnDeleteBank">
+      <input name="FnDeleteBank" message="tns:FnDeleteBank" />
+      <output name="FnDeleteBank_Result" message="tns:FnDeleteBank_Result" />
+    </operation>
+    <operation name="FnInsertDirector">
+      <input name="FnInsertDirector" message="tns:FnInsertDirector" />
+      <output name="FnInsertDirector_Result" message="tns:FnInsertDirector_Result" />
     </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
@@ -882,6 +1021,42 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnDownloadRfQPTDoc_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnSupplierRegistration">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSupplierRegistration" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnSupplierRegistration">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnSupplierRegistration_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertBank">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertBank" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertBank">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertBank_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnDeleteBank">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnDeleteBank" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnDeleteBank">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnDeleteBank_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertDirector">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertDirector" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertDirector">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertDirector_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

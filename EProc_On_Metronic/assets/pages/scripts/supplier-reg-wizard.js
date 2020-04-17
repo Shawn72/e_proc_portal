@@ -130,7 +130,6 @@ var FormWizard = function () {
                         txtBuildNo: {
                             minlength: 2,
                             required: !0,
-                            number:!0
                         },
 
                         txtStreetroad: {
@@ -145,6 +144,7 @@ var FormWizard = function () {
                         },
                         txtFloor: {
                             minlength: 2,
+                            maxlength:3,
                             required: !0
                         },
                         ddlCompanysize: {
@@ -157,8 +157,8 @@ var FormWizard = function () {
                             required: !0
                         },
                        
-                        txtFloor: {
-                            minlength: 2,
+                        txtwebsiteurl: {
+                            minlength: 5,
                             required: !0
                         },
                         txtMaxbzVal: {
@@ -175,7 +175,10 @@ var FormWizard = function () {
                             maxlength:50,
                             required: !0
                         },
-
+                        txtPlotNo: {
+                            minlength: 2,
+                            required: !0
+                        },
                         //custom validators
                         "payment[]": {
                             required: !0,
@@ -297,6 +300,12 @@ var FormWizard = function () {
                                    // $("#form_wizard_2").find(".button-next").attr("disabled", "disabled");
                                 $("#form_wizard_2").find(".button-interimsave").show();
                                 break;
+                            case "li3":
+                                $("#regfeedback").css("display", "none");
+                                break;
+                            case "li4":
+                                $("#regfeedback").css("display", "none");
+                                break;
                             default:
                                 $("#form_wizard_2").find(".button-interimsave").hide(),
                                 $("#form_wizard_2").find(".button-next").show();
@@ -339,16 +348,8 @@ var FormWizard = function () {
                     }),
                     $("#form_wizard_2").find(".button-previous").hide(),
                     $("#form_wizard_2 .button-interimsave").click(function () {
-                        alert("Include data insert!)");
 
                         //Insert data 
-
-                        //execute this after insert success
-                        $("#form_wizard_2").find(".button-interimsave").hide(),
-                        $("#form_wizard_2").find(".button-next").show(),
-                        $("#form_wizard_2").find(".button-next").removeAttr("disabled");
-
-
                         //To prevent form submit after ajax call
                         event.preventDefault();
 
@@ -356,10 +357,7 @@ var FormWizard = function () {
                         $("#regfeedback").html("");
                         var vendormodel = {};
 
-                        //var selHigh = document.getElementById("ddlhighestAcademicQlic");
-                        //oneinputitem.highAcadlevel = selHigh.options[selHigh.selectedIndex].text;
-
-                        //Set data to be sent
+                        //dropdownlist
                         vendormodel.BusinessType = $("#ddlBusinesstype").val();;
                         vendormodel.VendorType = $("#ddlVendortype").val(); 
                         vendormodel.OwnerType = $("#ddlOwnershiptype").val(); 
@@ -370,6 +368,7 @@ var FormWizard = function () {
                         vendormodel.NominalCap = $("#ddlNominalCap").val();
                         vendormodel.DealerType = $("#txtDealertype").val();
 
+                        //input textfields
                         vendormodel.CertofIncorporation = $("#txtCertofIncorp").val();
                         vendormodel.OpsDate = $("#dtOps").val();
                         vendormodel.DateofIncorporation = $("#dtIncorp").val();
@@ -390,19 +389,24 @@ var FormWizard = function () {
                         vendormodel.MobileNo = $("#txtCntPhoneno").val();
                         vendormodel.NatureofBz = $("#txtareaNatureofBz").val();
 
+                        //for test, delete after the test passes
+                        $("#form_wizard_2").find(".button-interimsave").hide(),
+                            $("#form_wizard_2").find(".button-next").show(),
+                            $("#form_wizard_2").find(".button-next").removeAttr("disabled");
+
                         $("#divCollecteddataTest").css("display", "block"),
                             $("#txtCollectedData").val('Collected Data : ' + JSON.stringify(vendormodel)),
                             console.log(JSON.stringify(vendormodel)),
-                            console.log("Business Type for Test : "+$("#ddlBusinesstype option:selected").text());
+                            console.log("Business Type for Test : " + $("#ddlBusinesstype option:selected").text());
 
 
                         //Swal.fire({
                         //    title: "Are you sure?",
-                        //    text: "Are you sure you'd like to proceed with account creation?",
+                        //    text: "Are you sure you'd like to proceed with Supplier Registration?",
                         //    type: "warning",
                         //    showCancelButton: true,
                         //    closeOnConfirm: true,
-                        //    confirmButtonText: "Yes, Create Account!",
+                        //    confirmButtonText: "Yes, Register as a Supplier!",
                         //    confirmButtonClass: "btn-success",
                         //    confirmButtonColor: "#008000",
                         //    position: "center"
@@ -416,96 +420,43 @@ var FormWizard = function () {
                         //            dataType: "json",
                         //            contentType: "application/json"
                         //        }).done(function (status) {
-                        //                switch (status) {
-                        //                case "Your account created successfully!":
+                        //                var splitstatus = status.split('*');
+                        //                switch (splitstatus[0]) {
+                        //                case "success":
                         //                    Swal.fire
                         //                    ({
                         //                        title: "Account Created!",
-                        //                        text: status,
+                        //                        text: splitstatus[1],
                         //                        type: "success"
                         //                    }).then(() => {
                         //                        $("#regfeedback").css("display", "block");
                         //                        $("#regfeedback").css("color", "green");
                         //                        $('#regfeedback').addClass("alert alert-success");
-                        //                        $("#regfeedback").html(status);
-                        //                        window.location.href = "/Home/Homepage/";
-                        //                    });
-                        //                    break;
+                        //                        $("#regfeedback").html(splitstatus[1]);
 
-                        //                case "vendorEmpty":
-                        //                    Swal.fire
-                        //                    ({
-                        //                        title: "Error!!!",
-                        //                        text: "Registered Business name cannot be empty!",
-                        //                        type: "error"
-                        //                    }).then(() => {
-                        //                        $("#regfeedback").css("display", "block");
-                        //                        $("#regfeedback").css("color", "red");
-                        //                        $('#regfeedback').attr('class', 'alert alert-danger');
-                        //                        $("#regfeedback").html("Registered Business name cannot be empty!");
-                        //                        $("#txtBusinessName").focus();
-                        //                        $("#txtBusinessName").css("border", "solid 1px red");
-                        //                    });
-                        //                    break;
+                        //                        //execute this after insert success
+                        //                        $("#form_wizard_2").find(".button-interimsave").hide(),
+                        //                        $("#form_wizard_2").find(".button-next").show(),
+                        //                        $("#form_wizard_2").find(".button-next").removeAttr("disabled");
 
-                        //                case "contactEmpty":
-                        //                    Swal.fire
-                        //                    ({
-                        //                        title: "Error!!!",
-                        //                        text: "Contact name cannot be empty!",
-                        //                        type: "error"
-                        //                    }).then(() => {
-                        //                        $("#regfeedback").css("display", "block");
-                        //                        $("#regfeedback").css("color", "red");
-                        //                        $('#regfeedback').attr('class', 'alert alert-danger');
-                        //                        $("#regfeedback").html("Contact name cannot be empty!");
-                        //                        $("#txtContPerName").focus();
-                        //                        $("#txtContPerName").css("border", "solid 1px red");
-                        //                    });
-                        //                    break;
-                        //                case "EmailEmpty":
-                        //                    Swal.fire
-                        //                    ({
-                        //                        title: "Error!!!",
-                        //                        text: "Email Address cannot be empty!",
-                        //                        type: "error"
-                        //                    }).then(() => {
-                        //                        $("#regfeedback").css("display", "block");
-                        //                        $("#regfeedback").css("color", "red");
-                        //                        $('#regfeedback').attr('class', 'alert alert-danger');
-                        //                        $("#regfeedback").html("Email Address cannot be empty!");
-                        //                        $("#txtEmailAddInd").focus();
-                        //                        $("#txtEmailAddInd").css("border", "solid 1px red");
-                        //                    });
-                        //                    break;
-                        //                case "KRAEmpty":
-                        //                    Swal.fire
-                        //                    ({
-                        //                        title: "Error!!!",
-                        //                        text: "KRA Pin cannot be empty!",
-                        //                        type: "error"
-                        //                    }).then(() => {
-                        //                        $("#regfeedback").css("display", "block");
-                        //                        $("#regfeedback").css("color", "red");
-                        //                        $('#regfeedback').addClass('alert alert-danger');
-                        //                        $("#regfeedback").html("KRA Pin cannot be empty!");
-                        //                        $("#txtKRAPinInd").focus();
-                        //                        $("#txtKRAPinInd").css("border", "solid 1px red");
+                        //                        $("#divCollecteddataTest").css("display", "block"),
+                        //                        $("#txtCollectedData").val('Collected Data : ' + JSON.stringify(vendormodel)),
+                        //                        console.log(JSON.stringify(vendormodel)),
+                        //                        console.log("Business Type for Test : " + $("#ddlBusinesstype option:selected").text());
 
                         //                    });
                         //                    break;
-
                         //                default:
                         //                    Swal.fire
                         //                    ({
                         //                        title: "Error!!!",
-                        //                        text: status,
+                        //                        text: splitstatus[1],
                         //                        type: "error"
                         //                    }).then(() => {
                         //                        $("#regfeedback").css("display", "block");
                         //                        $("#regfeedback").css("color", "red");
                         //                        $('#regfeedback').addClass('alert alert-danger');
-                        //                        $("#regfeedback").html(status);
+                        //                        $("#regfeedback").html(splitstatus[1]);
                         //                    });
                         //                    break;
                         //                }

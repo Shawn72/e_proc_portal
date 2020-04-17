@@ -29,7 +29,7 @@
     <div class="caption">
         <i class="icon-layers font-red"></i>
         <span class="caption-subject font-red bold uppercase"> Supplier Self Registration Form -
-            <span class="step-title"> Step 1 of 4 </span>
+            <span class="step-title"> Step 1 of 8 </span>
         </span>
     </div>
     <div class="actions">
@@ -108,7 +108,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <select data-live-search="true" class="form-control select2" id="ddlBusinesstype" name="ddlbzTypename">
+                                <select data-live-search="true" class="form-control input-circle select2" id="ddlBusinesstype" name="ddlbzTypename">
                                     <option value="">--Choose Type--</option>
                                     <option value="1">Unit Trust</option>
                                     <option value="2">Broker</option>
@@ -123,7 +123,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <select data-live-search="true" class="form-control select2" id="ddlVendortype" name="ddlVendortype">
+                                <select data-live-search="true" class="form-control input-circle select2" id="ddlVendortype" name="ddlVendortype">
                                     <option value="">--Choose Type--</option>
                                     <option value="0">Local</option>
                                     <option value="1">Foreign</option>
@@ -137,10 +137,10 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <select data-live-search="true" class="form-control select2" id="ddlOwnershiptype" name="ddlOwnershiptype">
+                                <select data-live-search="true" class="form-control input-circle input-circle select2" id="ddlOwnershiptype" name="ddlOwnershiptype">
                                     <option value="">--Choose Type--</option>
-                                    <option value="0">Sole Ownership</option>
-                                    <option value="1">Registered Company</option>
+                                    <option value="1">Sole Ownership</option>
+                                    <option value="2">Registered Company</option>
                                 </select>
                                 <span class="help-block"> Provide your Ownership type </span>
                             </div>
@@ -151,7 +151,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="txtCertofIncorp" id="txtCertofIncorp"/>
+                                <input type="text" class="form-control input-circle input-circle" name="txtCertofIncorp" id="txtCertofIncorp"/>
                                 <span class="help-block"> Provide your Cert of Incorporation No </span>
                             </div>
                         </div>
@@ -165,8 +165,8 @@
                             
                             <div class="col-md-6">
                                 <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                                    <input type="text" class="form-control" readonly  id="dtIncorp" name="dtIncorp">
-                                    <span class="input-group-btn">
+                                    <input type="text" class="form-control input-circle-left" readonly  id="dtIncorp" name="dtIncorp" style="width: 550px">
+                                    <span class="input-group-btn input-circle-right">
                                         <button class="btn default" type="button">
                                             <i class="fa fa-calendar"></i>
                                         </button>
@@ -183,8 +183,8 @@
                             </label>
                             <div class="col-md-6">
                                 <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                                    <input type="text" class="form-control" readonly  id="dtOps" name="dtOps">
-                                    <span class="input-group-btn">
+                                    <input type="text" class="form-control input-circle-left" readonly  id="dtOps" name="dtOps" style="width: 550px">
+                                    <span class="input-group-btn input-circle-right">
                                         <button class="btn default" type="button">
                                             <i class="fa fa-calendar"></i>
                                         </button>
@@ -199,12 +199,12 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <select data-live-search="true" class="form-control select2" id="ddlLanguageCode" name="ddlLanguageCode">
+                                <select data-live-search="true" class="input-circle form-control select2" id="ddlLanguageCode" name="ddlLanguageCode">
                                     <option value="">--Choose Language--</option>
-                                    <option value="ENG">ENG</option>
-                                    <option value="ESP">ESP</option>
-                                    <option value="GER">GER</option>
-                                    <option value="FR">FR</option>
+                                    <option value="ENG">ENGLISH</option>
+                                    <option value="ESP">ESPANOL</option>
+                                    <option value="GER">GERMAN</option>
+                                    <option value="FR">FRENCH</option>
                                 </select>
                                 <span class="help-block"> Provide your Language </span>
                             </div>
@@ -215,7 +215,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <select data-live-search="true" class="form-control select2" id="ddlIndustrygroup" name="ddlIndustrygroup">
+                                <select data-live-search="true" class="input-circle form-control select2" id="ddlIndustrygroup" name="ddlIndustrygroup">
                                     <option value="">--Select Industry Group--</option>
                                     <option value="Software">ICT/ Software</option>
                                     <option value="Supplies">Supplies</option>
@@ -231,7 +231,7 @@
                             </label>
                             <div class="col-md-6">
                                 <label id="lblCharleftTextarea1" style="color: red;"></label>
-                                <textarea class="form-control" id="txtareaVision" name="txtareaVision" onkeyup="checkTextAreaVision(this, 250)"></textarea>
+                                <textarea class="form-control input-circle" id="txtareaVision" name="txtareaVision" onkeyup="checkTextAreaVision(this, 250)"></textarea>
                                 <span class="help-block"> Your Vision </span>
                             </div>
                         </div>
@@ -242,7 +242,7 @@
                             </label>
                             <div class="col-md-6">
                                 <label id="lblCharleftTextarea2" style="color: red;"></label>
-                                <textarea class="form-control" id="txtareaMision" name="txtareaMision" onkeyup="checkTextAreaMision(this,250)"></textarea>
+                                <textarea class="form-control input-circle" id="txtareaMision" name="txtareaMision" onkeyup="checkTextAreaMision(this,250)"></textarea>
                                 <span class="help-block"> Your Mision </span>
                             </div>
                         </div>
@@ -254,17 +254,17 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="txtPoBox" id="txtPoBox"/>
+                                <input type="text" class="form-control input-circle" name="txtPoBox" id="txtPoBox" placeholder="P.O Box Office"/>
                                 <span class="help-block"> Provide your PO Box address </span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-md-4">Physical Location /Address 2
+                            <label class="control-label col-md-4">Physical Location / Address 2
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="txtLocation" id="txtLocation"/>
+                                <input type="text" class="form-control input-circle" name="txtLocation" id="txtLocation"/>
                                 <span class="help-block"> Provide your Physical Location Address </span>
                             </div>
                         </div>
@@ -286,7 +286,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="txtCity" id="txtCity" readonly="readonly" />
+                                <input type="text" class="form-control input-circle" name="txtCity" id="txtCity" readonly="readonly" />
                                 <span class="help-block"> Your Postal City </span>
                             </div>
                         </div>
@@ -308,7 +308,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="url" class="form-control" name="txtwebsiteurl" id="txtwebsiteurl" />
+                                <input type="url" class="form-control input-circle" name="txtwebsiteurl" id="txtwebsiteurl" placeholder="http://myexamplesite.com/" />
                                 <span class="help-block"> Your Website Url </span>
                             </div>
                         </div>
@@ -319,7 +319,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="txtTelphNo" id="txtTelphNo" />
+                                <input type="text" class="form-control input-circle" name="txtTelphNo" id="txtTelphNo" />
                                 <span class="help-block"> Your Telephone Number</span>
                             </div>
                         </div>
@@ -330,7 +330,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="number" class="form-control" name="txtBuildNo" id="txtBuildNo" />
+                                <input type="number" class="form-control input-circle" name="txtBuildNo" id="txtBuildNo" />
                                 <span class="help-block"> Building / house Number </span>
                             </div>
                         </div>
@@ -341,7 +341,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="txtFloor" id="txtFloor" />
+                                <input type="text" class="form-control input-circle" name="txtFloor" id="txtFloor" />
                                 <span class="help-block"> Building Floor </span>
                             </div>
                         </div>
@@ -352,7 +352,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="txtPlotNo" id="txtPlotNo" />
+                                <input type="text" class="form-control input-circle" name="txtPlotNo" id="txtPlotNo" />
                                 <span class="help-block"> Your Plot No </span>
                             </div>
                         </div>
@@ -363,7 +363,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="txtStreetroad" id="txtStreetroad" />
+                                <input type="text" class="form-control input-circle" name="txtStreetroad" id="txtStreetroad" />
                                 <span class="help-block"> Location Street / Road </span>
                             </div>
                         </div>
@@ -375,7 +375,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="txtFaxNo" id="txtFaxNo" />
+                                <input type="text" class="form-control input-circle" name="txtFaxNo" id="txtFaxNo" />
                                 <span class="help-block"> Fax Number </span>
                             </div>
                         </div>
@@ -389,7 +389,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <select data-live-search="true" class="form-control select2" id="ddlCompanysize" name="ddlCompanysize">
+                                <select data-live-search="true" class="form-control input-circle select2" id="ddlCompanysize" name="ddlCompanysize">
                                     <option value="">--Select Company size--</option>
                                     <option value="10-15">10-15</option>
                                     <option value="15-30">15-30</option>
@@ -405,7 +405,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <select data-live-search="true" class="form-control select2" id="ddlNominalCap" name="ddlNominalCap">
+                                <select data-live-search="true" class="form-control input-circle select2" id="ddlNominalCap" name="ddlNominalCap">
                                     <option value="">--Select Nominal Capital--</option>
                                     <option value="100000">100,000</option>
                                     <option value="200000">200,000</option>
@@ -421,8 +421,8 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <select data-live-search="true" class="form-control select2" id="txtDealertype" name="txtDealertype">
-                                    <option value="noChoice">--Select Dealer Type--</option>
+                                <select data-live-search="true" class="form-control input-circle select2" id="txtDealertype" name="txtDealertype">
+                                    <option value="">--Select Dealer Type--</option>
                                     <option value="1">Manufacturer</option>
                                     <option value="2">Distributor</option>
                                     <option value="3">Partner</option>
@@ -438,7 +438,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="number" class="form-control" name="txtMaxbzVal" id="txtMaxbzVal"/>
+                                <input type="number" class="form-control input-circle" name="txtMaxbzVal" id="txtMaxbzVal"/>
                                 <span class="help-block"> Provide Maximum Business Value</span>
                             </div>
                         </div>
@@ -449,7 +449,7 @@
                                 <span class="required"> * </span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="txtCntPhoneno" id="txtCntPhoneno" />
+                                <input type="text" class="form-control input-circle" name="txtCntPhoneno" id="txtCntPhoneno" />
                                 <span class="help-block"> Provide contact mobile number</span>
                             </div>
                         </div>
@@ -460,7 +460,7 @@
                             </label>
                             <div class="col-md-6">
                                 <label id="lblCharleftTextarea3" style="color: red;"></label>
-                                <textarea class="form-control" id="txtareaNatureofBz" name="txtareaNatureofBz" onkeyup="checkTextAreaNtrBz(this,50)"></textarea>
+                                <textarea class="form-control input-circle" id="txtareaNatureofBz" name="txtareaNatureofBz" onkeyup="checkTextAreaNtrBz(this,50)"></textarea>
                                 <span class="help-block"> Describe nature of your Business </span>
                             </div>
                         </div>
@@ -471,7 +471,7 @@
                             </label>
                             <div class="col-md-6">
                                 <textarea class="form-control" id="txtCollectedData" name="txtCollectedData" readonly="readonly"></textarea>
-                                <span class="help-block"> Collected Information </span>
+                                <span class="help-block"> Collected Information so far </span>
                             </div>
                         </div>
 
@@ -501,7 +501,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="btn-group">
-                                                        <button id="sample_editable_1_new2" class="btn green">
+                                                        <button id="btn_add_director_new" class="btn green">
                                                             Add New
                                                             <i class="fa fa-plus"></i>
                                                         </button>
@@ -528,13 +528,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <table class="table table-striped table-hover table-bordered" id="tblNationality">
+                                        <table class="table table-striped table-hover table-bordered" id="tbl_directors">
                                             <thead>
                                             <tr>
                                                 <th> Director Name </th>
                                                 <th> Nationality</th>
-                                                <th> Citizenship </th>
-                                                <th> Ownership (%) </th>
+                                                <th> ID Number</th>
+                                                <th> Ownership Percentage (%) </th>
                                                 <th> Phone Number </th>
                                                 <th> Address </th>
                                                 <th> Email </th>
@@ -542,49 +542,13 @@
                                                 <th> Delete </th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td> Gilbert Kugun </td>
-                                                <td> KE </td>
-                                                <td> KES </td>
-                                                <td> Birth </td>
-                                                <td> 50 </td>
-                                                <td> 9047474743 </td>
-                                                <td> PO box 45-2900 </td>
-                                                <td> placeholderemail@mail.corona </td>
-                                                <td>
-                                                    <a class="edit" href="javascript:;"> Edit </a>
-                                                </td>
-                                                <td>
-                                                    <a class="delete" href="javascript:;"> Delete </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Gilbert Kugun </td>
-                                                <td> KE </td>
-                                                <td> KES </td>
-                                                <td> Birth </td>
-                                                <td> 50 </td>
-                                                <td> 9047474743 </td>
-                                                <td> PO box 45-2900 </td>
-                                                <td> placeholderemail@mail.corona </td>
-                                                <td>
-                                                    <a class="edit" href="javascript:;"> Edit </a>
-                                                </td>
-                                                <td>
-                                                    <a class="delete" href="javascript:;"> Delete </a>
-                                                </td>
-                                            </tr>
-
-                                            </tbody>
+                                            <tbody></tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <!-- END EXAMPLE TABLE PORTLET-->
                             </div>
                         </div>
-                       
-                       
                     </div>
                     <div class="tab-pane" id="tab6">
                     <h3 class="block">Please select atleast one product category. Your selection should be in line with an Open Invitation for Prequalification </h3>
@@ -607,58 +571,25 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select data-live-search="true" class="form-control select2" id="ddlIFP">
-                                                        <option value="noChoice">--Select IFP Number--</option>
-                                                        <option value="100000">IFP0000005663</option>
-                                                        <option value="200000">IFP0000005666</option>
-                                                        <option value="300000">IFP0000005668</option>
-                                                    </select>
+                                                    @Html.Action("IfpRequestsList", "Home")
                                                     <span class="help-block"> Provide choose your Nominal capital </span>
                                                 </div>
                                             </div>
                                                 
                                         </div>
                                     </div>
-                                    <table class="table table-striped table-hover table-bordered" id="tbl">
+                                    <table class="table table-striped table-hover table-bordered" id="tbl_ifps">
                                         <thead>
                                         <tr>
-                                            <th> Procurement Type</th>
-                                            <th> Category Code</th>
-                                            <th> Product CAtegory Description </th>
-                                            <th> Region Code</th>
+                                            <th> Code</th>
+                                            <th> Description</th>
+                                            <th> Submission Date </th>
+                                            <th> Submision Time</th>
                                             <th> Edit </th>
                                             <th> Delete </th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td> Goods </td>
-                                            <td> KERRA/GOODS/01 </td>
-                                            <td> General Office Supplies </td>
-                                            <td> HQ </td>
-                                            <td class="center"> power user </td>
-                                            <td>
-                                                <a class="edit" href="javascript:;"> Edit </a>
-                                            </td>
-                                            <td>
-                                                <a class="delete" href="javascript:;"> Delete </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> Goods </td>
-                                            <td> KERRA/GOODS/01 </td>
-                                            <td> General Office Supplies </td>
-                                            <td> HQ </td>
-                                            <td class="center"> power user </td>
-                                            <td>
-                                                <a class="edit" href="javascript:;"> Edit </a>
-                                            </td>
-                                            <td>
-                                                <a class="delete" href="javascript:;"> Delete </a>
-                                            </td>
-                                        </tr>
-
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div>

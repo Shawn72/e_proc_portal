@@ -1,0 +1,15 @@
+﻿
+@model IEnumerable<EProc_On_Metronic.Models.IFPRequestsModel>
+
+@{
+    Layout = null;
+}
+<select class="form-control select2" id="ddlifprequest" name="ddlifprequest" data_live_search="true">
+    <option value="">--Select IFP Code--</option>
+    <optgroup label="IFPs List">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Code">@item.Code</option>
+        }
+    </optgroup>
+</select>

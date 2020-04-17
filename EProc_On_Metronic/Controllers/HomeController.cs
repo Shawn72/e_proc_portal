@@ -21,7 +21,8 @@ namespace EProc_On_Metronic.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
-       // public static string Baseurl = "http://192.168.1.87:3030/";
+        //public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
+        //public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
         public static string Baseurl = "https://sngutu30:3031/";
         public ActionResult Index_Eproc()
         {
@@ -364,6 +365,21 @@ namespace EProc_On_Metronic.Controllers
             return View(countryitems);
         }
 
+        public ActionResult IfpRequestsList()
+        {
+            
+
+            List<IFPRequestsModel> ifpRequests = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            string json = wc.DownloadString(Baseurl + "api/GetIfPs");
+            ifpRequests = JsonConvert.DeserializeObject<List<IFPRequestsModel>>(json);
+            var ifpitems = (from a in ifpRequests select a).ToList();
+
+            return View(ifpitems);
+        }
+
+
         public JsonResult SelectedPosta(string postcode)
         {
             List<DropdownListsModel> postacode = null;
@@ -381,38 +397,15 @@ namespace EProc_On_Metronic.Controllers
             return Json("notfound", JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public JsonResult RegisterVendorIndividual(SignupModel vendormodel)
+        public JsonResult DynamicDDlCountryList()
         {
-            try
-            {
-                var nvWebref = WsConfig.EProcWebRef;
-                if (string.IsNullOrWhiteSpace(vendormodel.VendorName))
-                    return Json("vendorEmpty", JsonRequestBehavior.AllowGet);
-                if (string.IsNullOrWhiteSpace(vendormodel.ContactName))
-                    return Json("contactEmpty", JsonRequestBehavior.AllowGet);
-                if (string.IsNullOrWhiteSpace(vendormodel.Email))
-                    return Json("EmailEmpty", JsonRequestBehavior.AllowGet);
-                if (string.IsNullOrWhiteSpace(vendormodel.KraPin))
-                    return Json("KRAEmpty", JsonRequestBehavior.AllowGet);
-
-                var status = nvWebref.FnRegisterVendorInd(vendormodel.VendorName, vendormodel.Phonenumber, vendormodel.Email, vendormodel.KraPin,vendormodel.ContactName);
-
-                var res = status.Split('*');
-                switch (res[0])
-                {
-                    case "success":
-                        return Json("Your account created successfully!", JsonRequestBehavior.AllowGet);
-
-                    default:
-                        return Json(res[1], JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(ex.Message, JsonRequestBehavior.AllowGet);
-            }
+            List<DropdownListsModel> countries = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            string json = wc.DownloadString(Baseurl + "api/GetCountry");
+            countries = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
+            var countryitems = (from a in countries select a).ToList();
+            return Json(countryitems, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -421,37 +414,83 @@ namespace EProc_On_Metronic.Controllers
         {
             try
             {
-                //var nvWebref = WsConfig.EProcWebRef;
-                //if (string.IsNullOrWhiteSpace(vendormodel.VendorName))
-                //    return Json("vendorEmpty", JsonRequestBehavior.AllowGet);
-                //if (string.IsNullOrWhiteSpace(vendormodel.ContactName))
-                //    return Json("contactEmpty", JsonRequestBehavior.AllowGet);
-                //if (string.IsNullOrWhiteSpace(vendormodel.Email))
-                //    return Json("EmailEmpty", JsonRequestBehavior.AllowGet);
-                //if (string.IsNullOrWhiteSpace(vendormodel.KraPin))
-                //    return Json("KRAEmpty", JsonRequestBehavior.AllowGet);
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
 
-                //var status = nvWebref.FnRegisterVendorInd(vendormodel.VendorName, vendormodel.Phonenumber, vendormodel.Email, vendormodel.KraPin, vendormodel.ContactName);
+                var status = nvWebref.FnSupplierRegistration(vendormodel.BusinessType, vendormodel.VendorType, vendormodel.OwnerType, vendormodel.IndustryGroup,
+                    vendormodel.PostaCode, vendormodel.CountryofOrigin, vendormodel.CompanySize, vendormodel.NominalCap, vendormodel.DealerType, vendormodel.DateofIncorporation,
+                    vendormodel.OpsDate, vendormodel.LanguageCode, vendormodel.Vision, vendormodel.Mision, vendormodel.PoBox, vendormodel.PhysicalLocation,
+                    vendormodel.PostaCity, vendormodel.WebUrl, vendormodel.TelephoneNo, vendormodel.HouseNo, vendormodel.FloorNo, vendormodel.PlotNo,
+                    vendormodel.StreetorRoad, vendormodel.Fax, vendormodel.MaxBizValue, vendormodel.MobileNo, vendormodel.NatureofBz, vendorNo, vendormodel.CertofIncorporation);
 
-                //var res = status.Split('*');
-                //switch (res[0])
-                //{
-                //    case "success":
-                //        return Json("Your account created successfully!", JsonRequestBehavior.AllowGet);
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
 
-                //    default:
-                //        return Json(res[1], JsonRequestBehavior.AllowGet);
-                //}
-
-                //remove code below
-                return Json("", JsonRequestBehavior.AllowGet);
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
-                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult AddaBank(BankModel bankmodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+
+                var status = nvWebref.FnInsertBank(vendorNo, bankmodel.BankCode, bankmodel.BankName,bankmodel.CurrencyCode, bankmodel.BankAccountNo);
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult AddaDirector(DirectorModel directormodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+
+                var status = nvWebref.FnInsertDirector(vendorNo, directormodel.Phonenumber, directormodel.OwnershipPercentage, 
+                    directormodel.Nationality, directormodel.Email, directormodel.Address, directormodel.Fullname, directormodel.IdNumber);
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         static string EncryptP(string mypass)
         {
