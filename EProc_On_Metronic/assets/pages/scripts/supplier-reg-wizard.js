@@ -306,6 +306,9 @@ var FormWizard = function () {
                             case "li4":
                                 $("#regfeedback").css("display", "none");
                                 break;
+                            case "li5":
+                                $("#regfeedback").css("display", "none");
+                                break;
                             default:
                                 $("#form_wizard_2").find(".button-interimsave").hide(),
                                 $("#form_wizard_2").find(".button-next").show();
@@ -398,6 +401,7 @@ var FormWizard = function () {
                             $("#txtCollectedData").val('Collected Data : ' + JSON.stringify(vendormodel)),
                             console.log(JSON.stringify(vendormodel)),
                             console.log("Business Type for Test : " + $("#ddlBusinesstype option:selected").text());
+                        //for test, delete after the test passes
 
 
                         //Swal.fire({
@@ -425,7 +429,7 @@ var FormWizard = function () {
                         //                case "success":
                         //                    Swal.fire
                         //                    ({
-                        //                        title: "Account Created!",
+                        //                        title: "Details Submitted!",
                         //                        text: splitstatus[1],
                         //                        type: "success"
                         //                    }).then(() => {
@@ -470,7 +474,6 @@ var FormWizard = function () {
                         //        );
                         //    }
                         //});
-
 
                     }).hide(),
                     $("#form_wizard_2 .button-submit").click(function() {

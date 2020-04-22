@@ -367,8 +367,6 @@ namespace EProc_On_Metronic.Controllers
 
         public ActionResult IfpRequestsList()
         {
-            
-
             List<IFPRequestsModel> ifpRequests = null;
             WebClient wc = new WebClient();
             wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
@@ -388,14 +386,26 @@ namespace EProc_On_Metronic.Controllers
             string json = wc.DownloadString(Baseurl + "api/GetPostaCodes");
             postacode = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
 
-            var result = postacode.FirstOrDefault();
+            var result = (from a in postacode where  a.Code== postcode select a.City).FirstOrDefault();
 
             if (result != null)
             {
-                return Json(result.City, JsonRequestBehavior.AllowGet);
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json("notfound", JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ListtheIfPsTable(string ifpnumber)
+        {
+            List<IFPRequestsModel> ifpRequests = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            string json = wc.DownloadString(Baseurl + "api/GetIfPs");
+            ifpRequests = JsonConvert.DeserializeObject<List<IFPRequestsModel>>(json);
+            var ifpitems = (from a in ifpRequests where a.Code== ifpnumber select a).ToList();
+            
+            return Json(ifpitems, JsonRequestBehavior.AllowGet);
+        }       
 
         public JsonResult DynamicDDlCountryList()
         {
@@ -476,6 +486,65 @@ namespace EProc_On_Metronic.Controllers
 
                 var status = nvWebref.FnInsertDirector(vendorNo, directormodel.Phonenumber, directormodel.OwnershipPercentage, 
                     directormodel.Nationality, directormodel.Email, directormodel.Address, directormodel.Fullname, directormodel.IdNumber);
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult AddLitigation(LitigationModel litgmodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                int catdispute = 0, awardtype = 0;
+
+                var discat = litgmodel.CategoryofDispute;
+                var ardtyp = litgmodel.AwardType;
+                switch (discat)
+                {
+                    case "Litigation":
+                        catdispute = 1;
+                        break;
+                    case "Arbitration":
+                        catdispute = 2;
+                        break;
+                    case "Mediation":
+                        catdispute = 3;
+                        break;
+                   default:
+                        catdispute = 0;
+                        break;
+                }
+               
+                switch (ardtyp)
+                {
+                    case "Pending Verdict":
+                        awardtype = 1;
+                        break;
+                    case "Won":
+                        awardtype = 2;
+                        break;
+                    case "Lost":
+                        awardtype = 3;
+                        break;
+                    default:
+                        awardtype = 0;
+                        break;
+                }
+
+                var status = nvWebref.FnInsertLitigationH(vendorNo, litgmodel.DisputeDescription, catdispute, litgmodel.Year, litgmodel.TheotherDisputeparty, litgmodel.DisputeAmount, awardtype);
                 var res = status.Split('*');
                 switch (res[0])
                 {

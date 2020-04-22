@@ -1,5 +1,6 @@
 ﻿'use-strict';
 $(function() {
+
     $('.exportopentenderstable').DataTable({
         stateSave: true,
         bDestroy: true,

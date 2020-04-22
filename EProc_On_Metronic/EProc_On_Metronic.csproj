@@ -211,6 +211,7 @@
     <Compile Include="Models\Enum.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IFPRequestsModel.cs" />
+    <Compile Include="Models\LitigationModel.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PreQualificationModel.cs" />
@@ -248,7 +249,6 @@
     <Content Include="assets\customassets\js\buttonClicks.js" />
     <Content Include="assets\customassets\js\custompluginsjs.js" />
     <Content Include="assets\customassets\js\inputvalidations.js" />
-    <Content Include="assets\customassets\js\jsDirectorTable.js" />
     <Content Include="assets\customassets\js\jsFunctions.js" />
     <Content Include="assets\fontawesome\css\all.css" />
     <Content Include="assets\fontawesome\css\all.min.css" />
@@ -2517,6 +2517,7 @@
     <Content Include="assets\pages\scripts\ecommerce-products.min.js" />
     <Content Include="assets\pages\scripts\form-dropzone.min.js" />
     <Content Include="assets\pages\scripts\form-editable.min.js" />
+    <Content Include="assets\pages\scripts\form-fileupload.js" />
     <Content Include="assets\pages\scripts\form-fileupload.min.js" />
     <Content Include="assets\pages\scripts\form-icheck.min.js" />
     <Content Include="assets\pages\scripts\form-image-crop.min.js" />
@@ -2545,6 +2546,7 @@
     <Content Include="assets\pages\scripts\search.min.js" />
     <Content Include="assets\pages\scripts\supplier-reg-wizard.js" />
     <Content Include="assets\pages\scripts\table-bootstrap.min.js" />
+    <Content Include="assets\pages\scripts\table-datatables-ajax.js" />
     <Content Include="assets\pages\scripts\table-datatables-ajax.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-buttons.js" />
     <Content Include="assets\pages\scripts\table-datatables-buttons.min.js" />

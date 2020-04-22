@@ -45,7 +45,7 @@
     </div>
 </div>
 <div class="portlet-body form">
-    <form class="form-horizontal" action="#" id="submit_supplier_form" method="POST">
+    <form class="form-horizontal" action="#" id="submit_supplier_form" method="POST" enctype="multipart/form-data">
         <div class="form-wizard">
             <div class="form-body">
                 <ul class="nav nav-pills nav-justified steps">
@@ -411,7 +411,7 @@
                                     <option value="200000">200,000</option>
                                     <option value="300000">300,000</option>
                                 </select>
-                                <span class="help-block"> Provide choose your Nominal capital </span>
+                                <span class="help-block"> Provide your Nominal capital </span>
                             </div>
                         </div>
                     
@@ -550,7 +550,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab6">
+                <div class="tab-pane" id="tab6">
                     <h3 class="block">Please select atleast one product category. Your selection should be in line with an Open Invitation for Prequalification </h3>
                     <div class="row">
                         <div class="col-md-12">
@@ -572,7 +572,7 @@
                                                 </label>
                                                 <div class="col-md-6">
                                                     @Html.Action("IfpRequestsList", "Home")
-                                                    <span class="help-block"> Provide choose your Nominal capital </span>
+                                                    <span class="help-block"> Choose IFP Number </span>
                                                 </div>
                                             </div>
                                                 
@@ -583,8 +583,70 @@
                                         <tr>
                                             <th> Code</th>
                                             <th> Description</th>
-                                            <th> Submission Date </th>
-                                            <th> Submision Time</th>
+                                            <th> Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab7">
+                    <h3 class="block">Provide a summary of any litigation and arbitration history for your organization</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings font-red"></i>
+                                        <span class="caption-subject font-red sbold uppercase">Litigation History</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="table-toolbar">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="btn-group">
+                                                    <button id="btn_add_litigation_new" class="btn green">
+                                                        Add New &nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="btn-group pull-right">
+                                                    <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
+                                                        Tools
+                                                        <i class="fa fa-angle-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li>
+                                                            <a href="javascript:;"> Print </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;"> Save as PDF </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;"> Export to Excel </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-hover table-bordered" id="tbl_litigation">
+                                        <thead>
+                                        <tr>
+                                            <th> Category of Dispute </th>
+                                            <th> Description of Dispute matter </th>
+                                            <th> Dispute Amount </th>
+                                            <th> Dispute Parties </th>
+                                            <th> Year </th>
+                                            <th> Award Type </th>
                                             <th> Edit </th>
                                             <th> Delete </th>
                                         </tr>
@@ -596,9 +658,170 @@
                             <!-- END EXAMPLE TABLE PORTLET-->
                         </div>
                     </div>
-
-
                 </div>
+                    
+                <div class="tab-pane" id="tab8">
+                        <h3 class="block">Upload mandatory Documents</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                <div class="portlet light portlet-fit bordered">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="icon-settings font-red"></i>
+                                            <span class="caption-subject font-red sbold uppercase">Mandatory Documents</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                   
+                                        <!-- END PAGE BAR -->
+                                        <!-- BEGIN PAGE TITLE-->
+                                        <h1 class="page-title"> Multiple File Upload
+                                            <small>amazing file upload experience</small>
+                                        </h1>
+                                        <!-- END PAGE TITLE-->
+                                        <!-- END PAGE HEADER-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                               
+                                                <div id="fileupload" >
+                                                    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                                                    <div class="row fileupload-buttonbar">
+                                                        <div class="col-lg-7">
+                                                            <!-- The fileinput-button span is used to style the file input field as button -->
+                                                            <span class="btn green fileinput-button">
+                                                                <i class="fa fa-plus"></i>
+                                                                <span> KRa File </span>
+                                                                <input type="file" name="files[]" multiple="" id="inputFilekra">
+                                                            </span>
+                                                            <button type="submit" class="btn blue start"><i class="fa fa-upload"></i><span> Start upload </span></button>
+                                                            <button type="reset" class="btn warning cancel"><i class="fa fa-ban-circle"></i><span> Cancel upload </span></button>
+                                                            <button type="button" class="btn red delete"><i class="fa fa-trash"></i><span> Delete </span></button>
+                                                            <input type="checkbox" class="toggle">
+                                                            <!-- The global file processing state -->
+                                                            <span class="fileupload-process"> </span>
+                                                        </div>
+                                                        <!-- The global progress information -->
+                                                        <div class="col-lg-5 fileupload-progress fade">
+                                                            <!-- The global progress bar -->
+                                                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                                                <div class="progress-bar progress-bar-success" style="width:0%;"> </div>
+                                                            </div>
+                                                            <!-- The extended global progress information -->
+                                                            <div class="progress-extended"> &nbsp; </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="row fileupload-buttonbar">
+                                                        <div class="col-lg-7">
+                                                            <!-- The fileinput-button span is used to style the file input field as button -->
+                                                            <span class="btn green fileinput-button">
+                                                                <i class="fa fa-plus"></i>
+                                                                <span> CRB TestFile </span>
+                                                                <input type="file" name="filescrb[]" multiple="" id="inputFileCrb">
+                                                            </span>
+                                                            <button type="submit" class="btn blue start"><i class="fa fa-upload"></i><span> Start upload </span></button>
+                                                            <button type="reset" class="btn warning cancel"><i class="fa fa-ban-circle"></i><span> Cancel upload </span></button>
+                                                            <button type="button" class="btn red delete"><i class="fa fa-trash"></i><span> Delete </span></button>
+                                                            <input type="checkbox" class="toggle">
+                                                            <!-- The global file processing state -->
+                                                            <span class="fileupload-process"> </span>
+                                                        </div>
+                                                        <!-- The global progress information -->
+                                                        <div class="col-lg-5 fileupload-progress fade">
+                                                            <!-- The global progress bar -->
+                                                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                                                <div class="progress-bar progress-bar-success" style="width:0%;"> </div>
+                                                            </div>
+                                                            <!-- The extended global progress information -->
+                                                            <div class="progress-extended"> &nbsp; </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- The table listing the files available for upload/download -->
+                                                    <table role="presentation" class="table table-striped clearfix">
+                                                        <tbody class="files"> </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="panel panel-success">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">Demo Notes</h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <ul>
+                                                            <li> Metronic does not include server side demo scripts(php, .net, ruby, etc) since server side part must be revised by a developer(buyer) in terms of secure file uploading according to his project requirements.
+                                                                Also This dome does not implement the server side part of the plugin. For server side demos you can refer to the plugin's official documentation above. </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      
+                                        <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+                                        <script id="template-upload" type="text/x-tmpl"> {% for (var i=0, file; file=o.files[i]; i++) { %}
+                                            <tr class="template-upload fade">
+                                                <td>
+                                                    <span class="preview"></span>
+                                                </td>
+                                                <td>
+                                                    <p class="name">{%=file.name%}</p>
+                                                    <strong class="error label label-danger"></strong>
+                                                </td>
+                                                <td>
+                                                    <p class="size">Processing...</p>
+                                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                        <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                                                    </div>
+                                                </td>
+                                                <td> {% if (!i && !o.options.autoUpload) { %}
+                                    <button class="btn blue start" disabled>
+                                        <i class="fa fa-upload"></i>
+                                        <span>Start</span>
+                                    </button> {% } %} {% if (!i) { %}
+                                    <button class="btn red cancel">
+                                        <i class="fa fa-ban"></i>
+                                        <span>Cancel</span>
+                                    </button> {% } %} </td>
+                            </tr> {% } %} </script>
+                                        <!-- The template to display files available for download -->
+                                        <script id="template-download" type="text/x-tmpl"> {% for (var i=0, file; file=o.files[i]; i++) { %}
+                            <tr class="template-download fade">
+                                <td>
+                                    <span class="preview"> {% if (file.thumbnailUrl) { %}
+                                        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery>
+                                            <img src="{%=file.thumbnailUrl%}">
+                                        </a> {% } %} </span>
+                                </td>
+                                <td>
+                                    <p class="name"> {% if (file.url) { %}
+                                        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl? 'data-gallery': ''%}>{%=file.name%}</a> {% } else { %}
+                                        <span>{%=file.name%}</span> {% } %} </p> {% if (file.error) { %}
+                                    <div>
+                                        <span class="label label-danger">Error</span> {%=file.error%}</div> {% } %} </td>
+                                <td>
+                                    <span class="size">{%=o.formatFileSize(file.size)%}</span>
+                                </td>
+                                <td> {% if (file.deleteUrl) { %}
+                                    <button class="btn red delete btn-sm" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                                        <i class="fa fa-trash-o"></i>
+                                        <span>Delete</span>
+                                    </button>
+                                    <input type="checkbox" name="delete" value="1" class="toggle"> {% } else { %}
+                                    <button class="btn yellow cancel btn-sm">
+                                        <i class="fa fa-ban"></i>
+                                        <span>Cancel</span>
+                                    </button> {% } %} </td>
+                            </tr> {% } %} </script>
+                                     
+                                        
+                                        
+                                        
+
+                                    </div>
+                                </div>
+                                <!-- END EXAMPLE TABLE PORTLET-->
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 

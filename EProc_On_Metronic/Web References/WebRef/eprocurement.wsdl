@@ -503,6 +503,26 @@
           </sequence>
         </complexType>
       </element>
+      <element name="FnInsertLitigationH">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="disputeDescription" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="categoryofDispute" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="year" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="theotherDisputeparty" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="disputeAmount" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="awardType" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertLitigationH_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
   <message name="FnRegisterVendor">
@@ -679,6 +699,12 @@
   <message name="FnInsertDirector_Result">
     <part name="parameters" element="tns:FnInsertDirector_Result" />
   </message>
+  <message name="FnInsertLitigationH">
+    <part name="parameters" element="tns:FnInsertLitigationH" />
+  </message>
+  <message name="FnInsertLitigationH_Result">
+    <part name="parameters" element="tns:FnInsertLitigationH_Result" />
+  </message>
   <portType name="eprocurement_Port">
     <operation name="FnRegisterVendor">
       <input name="FnRegisterVendor" message="tns:FnRegisterVendor" />
@@ -795,6 +821,10 @@
     <operation name="FnInsertDirector">
       <input name="FnInsertDirector" message="tns:FnInsertDirector" />
       <output name="FnInsertDirector_Result" message="tns:FnInsertDirector_Result" />
+    </operation>
+    <operation name="FnInsertLitigationH">
+      <input name="FnInsertLitigationH" message="tns:FnInsertLitigationH" />
+      <output name="FnInsertLitigationH_Result" message="tns:FnInsertLitigationH_Result" />
     </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
@@ -1057,6 +1087,15 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnInsertDirector_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertLitigationH">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertLitigationH" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertLitigationH">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertLitigationH_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

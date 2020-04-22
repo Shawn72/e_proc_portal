@@ -87,6 +87,8 @@ namespace EProc_On_Metronic.WebRef {
         
         private System.Threading.SendOrPostCallback FnInsertDirectorOperationCompleted;
         
+        private System.Threading.SendOrPostCallback FnInsertLitigationHOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -211,6 +213,9 @@ namespace EProc_On_Metronic.WebRef {
         
         /// <remarks/>
         public event FnInsertDirectorCompletedEventHandler FnInsertDirectorCompleted;
+        
+        /// <remarks/>
+        public event FnInsertLitigationHCompletedEventHandler FnInsertLitigationHCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendor", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnRegisterVendor_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -1368,6 +1373,48 @@ namespace EProc_On_Metronic.WebRef {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertLitigationH", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnInsertLitigationH_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertLitigationH(string vendorNo, string disputeDescription, int categoryofDispute, string year, string theotherDisputeparty, decimal disputeAmount, int awardType) {
+            object[] results = this.Invoke("FnInsertLitigationH", new object[] {
+                        vendorNo,
+                        disputeDescription,
+                        categoryofDispute,
+                        year,
+                        theotherDisputeparty,
+                        disputeAmount,
+                        awardType});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertLitigationHAsync(string vendorNo, string disputeDescription, int categoryofDispute, string year, string theotherDisputeparty, decimal disputeAmount, int awardType) {
+            this.FnInsertLitigationHAsync(vendorNo, disputeDescription, categoryofDispute, year, theotherDisputeparty, disputeAmount, awardType, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertLitigationHAsync(string vendorNo, string disputeDescription, int categoryofDispute, string year, string theotherDisputeparty, decimal disputeAmount, int awardType, object userState) {
+            if ((this.FnInsertLitigationHOperationCompleted == null)) {
+                this.FnInsertLitigationHOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertLitigationHOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertLitigationH", new object[] {
+                        vendorNo,
+                        disputeDescription,
+                        categoryofDispute,
+                        year,
+                        theotherDisputeparty,
+                        disputeAmount,
+                        awardType}, this.FnInsertLitigationHOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertLitigationHOperationCompleted(object arg) {
+            if ((this.FnInsertLitigationHCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertLitigationHCompleted(this, new FnInsertLitigationHCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -2105,6 +2152,32 @@ namespace EProc_On_Metronic.WebRef {
         private object[] results;
         
         internal FnInsertDirectorCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnInsertLitigationHCompletedEventHandler(object sender, FnInsertLitigationHCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertLitigationHCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertLitigationHCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
