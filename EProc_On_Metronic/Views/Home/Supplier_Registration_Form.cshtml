@@ -231,7 +231,7 @@
                             </label>
                             <div class="col-md-6">
                                 <label id="lblCharleftTextarea1" style="color: red;"></label>
-                                <textarea class="form-control input-circle" id="txtareaVision" name="txtareaVision" onkeyup="checkTextAreaVision(this, 250)"></textarea>
+                                <textarea class="form-control input-circle" id="txtareaVision" name="txtareaVision" onkeyup="checkTextAreaVision(this, 250)" maxlength="250"></textarea>
                                 <span class="help-block"> Your Vision </span>
                             </div>
                         </div>
@@ -242,7 +242,7 @@
                             </label>
                             <div class="col-md-6">
                                 <label id="lblCharleftTextarea2" style="color: red;"></label>
-                                <textarea class="form-control input-circle" id="txtareaMision" name="txtareaMision" onkeyup="checkTextAreaMision(this,250)"></textarea>
+                                <textarea class="form-control input-circle" id="txtareaMision" name="txtareaMision" onkeyup="checkTextAreaMision(this,250)" maxlength="250"></textarea>
                                 <span class="help-block"> Your Mision </span>
                             </div>
                         </div>
@@ -460,7 +460,7 @@
                             </label>
                             <div class="col-md-6">
                                 <label id="lblCharleftTextarea3" style="color: red;"></label>
-                                <textarea class="form-control input-circle" id="txtareaNatureofBz" name="txtareaNatureofBz" onkeyup="checkTextAreaNtrBz(this,50)"></textarea>
+                                <textarea class="form-control input-circle" id="txtareaNatureofBz" name="txtareaNatureofBz" onkeyup="checkTextAreaNtrBz(this,50)" maxlength="50"></textarea>
                                 <span class="help-block"> Describe nature of your Business </span>
                             </div>
                         </div>
@@ -673,149 +673,104 @@
                                         </div>
                                     </div>
                                     <div class="portlet-body">
-                                   
-                                        <!-- END PAGE BAR -->
-                                        <!-- BEGIN PAGE TITLE-->
-                                        <h1 class="page-title"> Multiple File Upload
-                                            <small>amazing file upload experience</small>
-                                        </h1>
-                                        <!-- END PAGE TITLE-->
-                                        <!-- END PAGE HEADER-->
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <!-- file inputs here--> 
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">KRA Pin</label>
+                                                    <div class="col-md-6">
+                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                            <div class="input-group input-large">
+                                                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                                                    <span class="fileinput-filename"> </span>
+                                                                </div>
+                                                                <span class="input-group-addon btn default btn-file">
+                                                                    <span class="fileinput-new"> Select file </span>
+                                                                    <span class="fileinput-exists"> Change </span>
+                                                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileKraUplds" name="inputFileKraUplds[]"> </span>
+                                                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">Confidential Business Questionnaire</label>
+                                                    <div class="col-md-6">
+                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                            <div class="input-group input-large">
+                                                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                                                    <span class="fileinput-filename"> </span>
+                                                                </div>
+                                                                <span class="input-group-addon btn default btn-file">
+                                                                    <span class="fileinput-new"> Select file </span>
+                                                                    <span class="fileinput-exists"> Change </span>
+                                                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCBQUplds" name="inputFileCBQUplds[]"> </span>
+                                                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">Certificate of Registration</label>
+                                                    <div class="col-md-6">
+                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                            <div class="input-group input-large">
+                                                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                                                    <span class="fileinput-filename"> </span>
+                                                                </div>
+                                                                <span class="input-group-addon btn default btn-file">
+                                                                    <span class="fileinput-new"> Select file </span>
+                                                                    <span class="fileinput-exists"> Change </span>
+                                                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCertofRegUplds" name="inputFileCertofRegUplds[]"> </span>
+                                                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">Tax Compliance Certificate</label>
+                                                    <div class="col-md-6">
+                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                            <div class="input-group input-large">
+                                                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                                                    <span class="fileinput-filename"> </span>
+                                                                </div>
+                                                                <span class="input-group-addon btn default btn-file">
+                                                                    <span class="fileinput-new"> Select file </span>
+                                                                    <span class="fileinput-exists"> Change </span>
+                                                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileTxComplyUplds" name="inputFileTxComplyUplds[]"> </span>
+                                                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                
-                                                <div id="fileupload" >
-                                                    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-                                                    <div class="row fileupload-buttonbar">
-                                                        <div class="col-lg-7">
-                                                            <!-- The fileinput-button span is used to style the file input field as button -->
-                                                            <span class="btn green fileinput-button">
-                                                                <i class="fa fa-plus"></i>
-                                                                <span> KRa File </span>
-                                                                <input type="file" name="files[]" multiple="" id="inputFilekra">
-                                                            </span>
-                                                            <button type="submit" class="btn blue start"><i class="fa fa-upload"></i><span> Start upload </span></button>
-                                                            <button type="reset" class="btn warning cancel"><i class="fa fa-ban-circle"></i><span> Cancel upload </span></button>
-                                                            <button type="button" class="btn red delete"><i class="fa fa-trash"></i><span> Delete </span></button>
-                                                            <input type="checkbox" class="toggle">
-                                                            <!-- The global file processing state -->
-                                                            <span class="fileupload-process"> </span>
-                                                        </div>
-                                                        <!-- The global progress information -->
-                                                        <div class="col-lg-5 fileupload-progress fade">
-                                                            <!-- The global progress bar -->
-                                                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                                                <div class="progress-bar progress-bar-success" style="width:0%;"> </div>
-                                                            </div>
-                                                            <!-- The extended global progress information -->
-                                                            <div class="progress-extended"> &nbsp; </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="row fileupload-buttonbar">
-                                                        <div class="col-lg-7">
-                                                            <!-- The fileinput-button span is used to style the file input field as button -->
-                                                            <span class="btn green fileinput-button">
-                                                                <i class="fa fa-plus"></i>
-                                                                <span> CRB TestFile </span>
-                                                                <input type="file" name="filescrb[]" multiple="" id="inputFileCrb">
-                                                            </span>
-                                                            <button type="submit" class="btn blue start"><i class="fa fa-upload"></i><span> Start upload </span></button>
-                                                            <button type="reset" class="btn warning cancel"><i class="fa fa-ban-circle"></i><span> Cancel upload </span></button>
-                                                            <button type="button" class="btn red delete"><i class="fa fa-trash"></i><span> Delete </span></button>
-                                                            <input type="checkbox" class="toggle">
-                                                            <!-- The global file processing state -->
-                                                            <span class="fileupload-process"> </span>
-                                                        </div>
-                                                        <!-- The global progress information -->
-                                                        <div class="col-lg-5 fileupload-progress fade">
-                                                            <!-- The global progress bar -->
-                                                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                                                <div class="progress-bar progress-bar-success" style="width:0%;"> </div>
-                                                            </div>
-                                                            <!-- The extended global progress information -->
-                                                            <div class="progress-extended"> &nbsp; </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- The table listing the files available for upload/download -->
-                                                    <table role="presentation" class="table table-striped clearfix">
-                                                        <tbody class="files"> </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="panel panel-success">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Demo Notes</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <ul>
-                                                            <li> Metronic does not include server side demo scripts(php, .net, ruby, etc) since server side part must be revised by a developer(buyer) in terms of secure file uploading according to his project requirements.
-                                                                Also This dome does not implement the server side part of the plugin. For server side demos you can refer to the plugin's official documentation above. </li>
-                                                        </ul>
+                                                <!-- The global progress bar -->
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4"></label>
+                                                    <div class="col-md-6">
+                                                        <!-- Display upload status -->
+                                                        <div id="uploadsMsg" style="display: none"></div>
                                                     </div>
                                                 </div>
+                                               
+                                                <div class="row">
+                                                    <div class="col-md-offset-4 col-md-8">
+                                                        <a href="javascript:;" class="btn green btn-outline btn-circle button-upload">Upload All &nbsp;<i class="fas fa fa-upload"></i></a>
+                                                   </div>
+                                                </div>
+                                              
                                             </div>
                                         </div>
-                                      
-                                        <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-                                        <script id="template-upload" type="text/x-tmpl"> {% for (var i=0, file; file=o.files[i]; i++) { %}
-                                            <tr class="template-upload fade">
-                                                <td>
-                                                    <span class="preview"></span>
-                                                </td>
-                                                <td>
-                                                    <p class="name">{%=file.name%}</p>
-                                                    <strong class="error label label-danger"></strong>
-                                                </td>
-                                                <td>
-                                                    <p class="size">Processing...</p>
-                                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                                        <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                                                    </div>
-                                                </td>
-                                                <td> {% if (!i && !o.options.autoUpload) { %}
-                                    <button class="btn blue start" disabled>
-                                        <i class="fa fa-upload"></i>
-                                        <span>Start</span>
-                                    </button> {% } %} {% if (!i) { %}
-                                    <button class="btn red cancel">
-                                        <i class="fa fa-ban"></i>
-                                        <span>Cancel</span>
-                                    </button> {% } %} </td>
-                            </tr> {% } %} </script>
-                                        <!-- The template to display files available for download -->
-                                        <script id="template-download" type="text/x-tmpl"> {% for (var i=0, file; file=o.files[i]; i++) { %}
-                            <tr class="template-download fade">
-                                <td>
-                                    <span class="preview"> {% if (file.thumbnailUrl) { %}
-                                        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery>
-                                            <img src="{%=file.thumbnailUrl%}">
-                                        </a> {% } %} </span>
-                                </td>
-                                <td>
-                                    <p class="name"> {% if (file.url) { %}
-                                        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl? 'data-gallery': ''%}>{%=file.name%}</a> {% } else { %}
-                                        <span>{%=file.name%}</span> {% } %} </p> {% if (file.error) { %}
-                                    <div>
-                                        <span class="label label-danger">Error</span> {%=file.error%}</div> {% } %} </td>
-                                <td>
-                                    <span class="size">{%=o.formatFileSize(file.size)%}</span>
-                                </td>
-                                <td> {% if (file.deleteUrl) { %}
-                                    <button class="btn red delete btn-sm" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
-                                        <i class="fa fa-trash-o"></i>
-                                        <span>Delete</span>
-                                    </button>
-                                    <input type="checkbox" name="delete" value="1" class="toggle"> {% } else { %}
-                                    <button class="btn yellow cancel btn-sm">
-                                        <i class="fa fa-ban"></i>
-                                        <span>Cancel</span>
-                                    </button> {% } %} </td>
-                            </tr> {% } %} </script>
-                                     
-                                        
-                                        
-                                        
-
                                     </div>
                                 </div>
                                 <!-- END EXAMPLE TABLE PORTLET-->

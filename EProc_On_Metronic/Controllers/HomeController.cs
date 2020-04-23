@@ -21,9 +21,9 @@ namespace EProc_On_Metronic.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        //public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
+        public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
         //public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
-        public static string Baseurl = "https://sngutu30:3031/";
+        //public static string Baseurl = "https://sngutu30:3031/";
         public ActionResult Index_Eproc()
         {
             return View();
@@ -906,18 +906,30 @@ namespace EProc_On_Metronic.Controllers
         }
         public JsonResult FnUploadAllDocs(HttpPostedFileBase krapinFile, HttpPostedFileBase cbqFile, HttpPostedFileBase certofRegFile, HttpPostedFileBase taxcomplyFile)
         {
+            var cntNo = Convert.ToString(Session["contactNo"]);
+            int errCounter = 0, filesCounter = 4, succCounter = 0;
             try
             {
-                var cntNo = Convert.ToString(Session["contactNo"]);
-
                 if (krapinFile == null)
+                {
+                    errCounter++;
                     return Json("KRApinnull", JsonRequestBehavior.AllowGet);
+                }
                 if (cbqFile == null)
+                {
+                    errCounter++;
                     return Json("cbqFilenull", JsonRequestBehavior.AllowGet);
+                }
                 if (certofRegFile == null)
+                {
+                    errCounter++;
                     return Json("certofRegFilenull", JsonRequestBehavior.AllowGet);
+                }
                 if (taxcomplyFile == null)
+                {
+                    errCounter++;
                     return Json("taxcomplyFilenull", JsonRequestBehavior.AllowGet);
+                }
 
                 if (cntNo.Contains(":"))
                     cntNo = cntNo.Replace(":", "[58]");
@@ -927,6 +939,8 @@ namespace EProc_On_Metronic.Controllers
 
                 if (!Directory.Exists(subfolder))
                     Directory.CreateDirectory(subfolder);
+
+                succCounter = (filesCounter - errCounter) / filesCounter * 100;
 
                 string fileName0 = Path.GetFileName(krapinFile.FileName);
                 string ext0 = _getFileextension(krapinFile);
@@ -950,15 +964,15 @@ namespace EProc_On_Metronic.Controllers
                 taxcomplyFile.SaveAs(subfolder + "/" + savedF3);
                 string uploads = string.Format("{0}",
                     "<div class='form-group'>" +
-                    "<h4><strong style='color: chocolate'>List of files you uploaded successfully!</strong></h4>" +
+                    "<h4><strong style='color: chocolate'>List of files you uploaded successfully ("+ succCounter + "%)!</strong></h4>" +
                     fileName0 + "<br/>" + fileName1 + "<br/>" + fileName2 + "<br/>" + fileName3 +
                     "<br/></div>");
-                return Json("success*" + uploads, JsonRequestBehavior.AllowGet);
+                return Json("success*" + uploads+"*"+ succCounter, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
             {
-                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+                return Json("danger*"+ex.Message + "*" + succCounter, JsonRequestBehavior.AllowGet);
             }
         }
         public JsonResult FnUploadSelectedDoc(HttpPostedFileBase browsedfile, string typauploadselect)

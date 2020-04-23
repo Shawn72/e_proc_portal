@@ -2488,6 +2488,7 @@
     <Content Include="assets\pages\scripts\charts-highstock.min.js" />
     <Content Include="assets\pages\scripts\charts-morris.min.js" />
     <Content Include="assets\pages\scripts\coming-soon.min.js" />
+    <Content Include="assets\pages\scripts\components-bootstrap-maxlength.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-maxlength.min.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-multiselect.min.js" />
     <Content Include="assets\pages\scripts\components-bootstrap-select-splitter.min.js" />

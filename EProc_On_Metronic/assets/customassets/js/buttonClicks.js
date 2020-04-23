@@ -1343,4 +1343,152 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('.button-upload').click(function (e) {
+        //To prevent form submit after ajax call
+        e.preventDefault();
+        //reset to empty
+        $("#uploadsMsg").html("");
+        var krapin = document.getElementById('inputFileKraUplds').files[0];
+        var certfreg = document.getElementById('inputFileCertofRegUplds').files[0];
+        var cbq = document.getElementById('inputFileCBQUplds').files[0];
+        var txcomply = document.getElementById('inputFileTxComplyUplds').files[0];
+
+        var formDt = new FormData();
+        formDt.append("krapinFile", krapin);
+        formDt.append("cbqFile", cbq);
+        formDt.append("certofRegFile", certfreg);
+        formDt.append("taxcomplyFile", txcomply);
+
+        Swal.fire({
+            title: "Upload Documents?",
+            text: "Proceed to upload all the selected documents once?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: true,
+            confirmButtonText: "Yes, Upload!",
+            confirmButtonClass: "btn-success",
+            confirmButtonColor: "#008000",
+            position: "center"
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: "/Home/FnUploadAllDocs",
+                    type: "POST",
+                    data: formDt,
+                    contentType: false,
+                    cache: false,
+                    processData: false
+                }).done(function (status) {
+                        var uploadsfs = status.split('*');
+                        status = uploadsfs[0];
+                        switch (status) {
+                        case "success":
+                            Swal.fire
+                            ({
+                                title: "Files Uploaded!",
+                                text: "All Selected Files Uploaded Successfully!",
+                                type: "success"
+                            }).then(() => {
+                                $("#regfeedback").css("display", "block");
+                                $("#regfeedback").css("color", "green");
+                                $('#regfeedback').attr("class", "alert alert-success");
+                                $("#regfeedback").html("All Selected Files Uploaded Successfully!");
+                                $("#uploadsMsg").css("display", "block");
+                                $("#uploadsMsg").css("color", "green");
+                                $("#uploadsMsg").html(uploadsfs[1]);
+                            });
+
+                            break;
+
+                        case "KRApinnull":
+                            Swal.fire
+                            ({
+                                title: "KRA Pin Null!",
+                                text: "KRA Pin file cannot be empty!",
+                                type: "error"
+                            }).then(() => {
+                                $("#regfeedback").css("display", "block");
+                                $("#regfeedback").css("color", "red");
+                                $('#regfeedback').attr('class', 'alert alert-danger');
+                                $("#regfeedback").html("KRA Pin file cannot be empty!");
+                                $("#inputFileKraUplds").focus();
+                                $("#inputFileKraUplds").css("border", "solid 1px red");
+                            });
+                            break;
+
+                        case "cbqFilenull":
+                            Swal.fire
+                            ({
+                                title: "Confidential Business Questionnare Null!",
+                                text: "Confidential Business Questionnare cannot be empty!",
+                                type: "error"
+                            }).then(() => {
+                                $("#regfeedback").css("display", "block");
+                                $("#regfeedback").css("color", "red");
+                                $('#regfeedback').attr('class', 'alert alert-danger');
+                                $("#regfeedback").html("Confidential Business Questionnare  file cannot be empty!");
+                                $("#inputFileCBQUplds").focus();
+                                $("#inputFileCBQUplds").css("border", "solid 1px red");
+                            });
+                            break;
+
+                        case "certofRegFilenull":
+                            Swal.fire
+                            ({
+                                title: "Certificate of Registration Null!",
+                                text: "Certificate of Registrationfile cannot be empty!",
+                                type: "error"
+                            }).then(() => {
+                                $("#regfeedback").css("display", "block");
+                                $("#regfeedback").css("color", "red");
+                                $('#regfeedback').attr('class', 'alert alert-danger');
+                                $("#regfeedback").html("Certificate of Registration file cannot be empty!");
+                                $("#inputFileCertofRegUplds").focus();
+                                $("#inputFileCertofRegUplds").css("border", "solid 1px red");
+                            });
+                            break;
+
+                        case "taxcomplyFilenull":
+                            Swal.fire
+                            ({
+                                title: "Tax Compliance Cert Null!",
+                                text: "Tax Compliance Cert file cannot be empty!",
+                                type: "error"
+                            }).then(() => {
+                                $("#regfeedback").css("display", "block");
+                                $("#regfeedback").css("color", "red");
+                                $('#regfeedback').attr('class', 'alert alert-danger');
+                                $("#regfeedback").html("Tax Compliance Certfile cannot be empty!");
+                                $("#inputFileCertofRegUplds").focus();
+                                $("#inputFileCertofRegUplds").css("border", "solid 1px red");
+                            });
+                            break;
+
+                        default:
+                            Swal.fire
+                            ({
+                                title: "Error!!!",
+                                text: uploadsfs[1],
+                                type: "error"
+                            }).then(() => {
+                                $("#regfeedback").css("display", "block");
+                                $("#regfeedback").css("color", "red");
+                                $('#regfeedback').addClass('alert alert-danger');
+                                $("#regfeedback").html(uploadsfs[1]);
+                            });
+
+                            break;
+                        }
+                    }
+                );
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelled',
+                    'You cancelled your submission!',
+                    'error'
+                );
+            }
+        });
+    });
 });
