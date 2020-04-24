@@ -1,0 +1,14 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.DocumentsTModel>
+
+@{
+    Layout = null;
+}
+<select class="form-control select2" id="ddldocumentdroplist" name="ddldocumentdroplist" data_live_search="true">
+    <option value="">--Select Cocument--</option>
+    <optgroup label="Mandatory Documents List">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Description">@item.Description</option>
+        }
+    </optgroup>
+</select>

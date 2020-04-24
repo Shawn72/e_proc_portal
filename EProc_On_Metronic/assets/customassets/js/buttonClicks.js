@@ -1349,20 +1349,17 @@ $(document).ready(function () {
         e.preventDefault();
         //reset to empty
         $("#uploadsMsg").html("");
-        var krapin = document.getElementById('inputFileKraUplds').files[0];
-        var certfreg = document.getElementById('inputFileCertofRegUplds').files[0];
-        var cbq = document.getElementById('inputFileCBQUplds').files[0];
-        var txcomply = document.getElementById('inputFileTxComplyUplds').files[0];
+        var selectedFtype = $('#ddldocumentdroplist').find(":selected").attr('value');
+        var browsedDoc = document.getElementById('inputFileselector').files[0];
 
         var formDt = new FormData();
-        formDt.append("krapinFile", krapin);
-        formDt.append("cbqFile", cbq);
-        formDt.append("certofRegFile", certfreg);
-        formDt.append("taxcomplyFile", txcomply);
+        formDt.append("typauploadselect", selectedFtype);
+        formDt.append("browsedfile", browsedDoc);
+
 
         Swal.fire({
-            title: "Upload Documents?",
-            text: "Proceed to upload all the selected documents once?",
+            title: "Upload Document?",
+            text: "Proceed to upload all the selected document once?",
             type: "warning",
             showCancelButton: true,
             closeOnConfirm: true,
@@ -1372,14 +1369,35 @@ $(document).ready(function () {
             position: "center"
         }).then((result) => {
             if (result.value) {
+
                 $.ajax({
-                    url: "/Home/FnUploadAllDocs",
-                    type: "POST",
+                    xhr: function() {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener("progress", function(evt) {
+                            if (evt.lengthComputable) {
+                                var percentComplete = ((evt.loaded / evt.total) * 100);
+                                $(".progress-bar").width(percentComplete + '%');
+                                $(".progress-bar").html(percentComplete+'%');
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    type: 'POST',
+                    url: '/Home/FnUploadmandatoryDoc',
                     data: formDt,
                     contentType: false,
                     cache: false,
-                    processData: false
-                }).done(function (status) {
+                    processData:false,
+                    beforeSend: function(){
+                        $(".progress-bar").width('0%');
+                        $('#uploadsMsg').html('<img src="/assets/loaders/load.gif"/>');
+                    },
+                    error:function(){
+                        $("#uploadsMsg").css("color", "red");
+                        $('#uploadsMsg').addClass('alert alert-danger');
+                        $("#uploadsMsg").html("File upload failed, choose another file and try again!");
+                    },
+                    success: function (status) {
                         var uploadsfs = status.split('*');
                         status = uploadsfs[0];
                         switch (status) {
@@ -1387,81 +1405,32 @@ $(document).ready(function () {
                             Swal.fire
                             ({
                                 title: "Files Uploaded!",
-                                text: "All Selected Files Uploaded Successfully!",
+                                text: "File Uploaded Successfully!",
                                 type: "success"
                             }).then(() => {
                                 $("#regfeedback").css("display", "block");
                                 $("#regfeedback").css("color", "green");
                                 $('#regfeedback').attr("class", "alert alert-success");
-                                $("#regfeedback").html("All Selected Files Uploaded Successfully!");
+                                $("#regfeedback").html("Selected File Uploaded Successfully!");
                                 $("#uploadsMsg").css("display", "block");
                                 $("#uploadsMsg").css("color", "green");
                                 $("#uploadsMsg").html(uploadsfs[1]);
                             });
 
                             break;
-
-                        case "KRApinnull":
+                       case "browsedfilenull":
                             Swal.fire
                             ({
-                                title: "KRA Pin Null!",
-                                text: "KRA Pin file cannot be empty!",
+                                title: "File Selection Null!",
+                                text: "File input cannot be empty!",
                                 type: "error"
                             }).then(() => {
                                 $("#regfeedback").css("display", "block");
                                 $("#regfeedback").css("color", "red");
                                 $('#regfeedback').attr('class', 'alert alert-danger');
-                                $("#regfeedback").html("KRA Pin file cannot be empty!");
-                                $("#inputFileKraUplds").focus();
-                                $("#inputFileKraUplds").css("border", "solid 1px red");
-                            });
-                            break;
-
-                        case "cbqFilenull":
-                            Swal.fire
-                            ({
-                                title: "Confidential Business Questionnare Null!",
-                                text: "Confidential Business Questionnare cannot be empty!",
-                                type: "error"
-                            }).then(() => {
-                                $("#regfeedback").css("display", "block");
-                                $("#regfeedback").css("color", "red");
-                                $('#regfeedback').attr('class', 'alert alert-danger');
-                                $("#regfeedback").html("Confidential Business Questionnare  file cannot be empty!");
-                                $("#inputFileCBQUplds").focus();
-                                $("#inputFileCBQUplds").css("border", "solid 1px red");
-                            });
-                            break;
-
-                        case "certofRegFilenull":
-                            Swal.fire
-                            ({
-                                title: "Certificate of Registration Null!",
-                                text: "Certificate of Registrationfile cannot be empty!",
-                                type: "error"
-                            }).then(() => {
-                                $("#regfeedback").css("display", "block");
-                                $("#regfeedback").css("color", "red");
-                                $('#regfeedback').attr('class', 'alert alert-danger');
-                                $("#regfeedback").html("Certificate of Registration file cannot be empty!");
-                                $("#inputFileCertofRegUplds").focus();
-                                $("#inputFileCertofRegUplds").css("border", "solid 1px red");
-                            });
-                            break;
-
-                        case "taxcomplyFilenull":
-                            Swal.fire
-                            ({
-                                title: "Tax Compliance Cert Null!",
-                                text: "Tax Compliance Cert file cannot be empty!",
-                                type: "error"
-                            }).then(() => {
-                                $("#regfeedback").css("display", "block");
-                                $("#regfeedback").css("color", "red");
-                                $('#regfeedback').attr('class', 'alert alert-danger');
-                                $("#regfeedback").html("Tax Compliance Certfile cannot be empty!");
-                                $("#inputFileCertofRegUplds").focus();
-                                $("#inputFileCertofRegUplds").css("border", "solid 1px red");
+                                $("#regfeedback").html("File input cannot be empty!");
+                                $("#inputFileselector").focus();
+                                $("#inputFileselector").css("border", "solid 1px red");
                             });
                             break;
 
@@ -1480,8 +1449,10 @@ $(document).ready(function () {
 
                             break;
                         }
+
+
                     }
-                );
+                });
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(
                     'Cancelled',
@@ -1491,4 +1462,8 @@ $(document).ready(function () {
             }
         });
     });
+
+
+
+
 });

@@ -21,9 +21,14 @@ namespace EProc_On_Metronic.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
+        ///for use on localhost testing
+       // public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
+
+        ///uncomment this while publishing on live server
         //public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
-        //public static string Baseurl = "https://sngutu30:3031/";
+
+        ///for use on localhost testing
+        public static string Baseurl = "https://sngutu30:3031/";
         public ActionResult Index_Eproc()
         {
             return View();
@@ -1426,6 +1431,74 @@ namespace EProc_On_Metronic.Controllers
             ads = JsonConvert.DeserializeObject<List<TenderModel>>(json);
             var record = (from a in ads select a).ToList();
             return View(record);
+        }
+
+        public ActionResult DocumentTemplateList()
+        {
+            List<DocumentsTModel> docTModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            string json = wc.DownloadString(Baseurl + "api/GetDocumentsTemplates");
+            docTModel = JsonConvert.DeserializeObject<List<DocumentsTModel>>(json);
+            var madocs = (from a in docTModel where a.Blocked==false select a).ToList();
+
+            return View(madocs);
+        }
+        public ActionResult DocumentTemplateDroplist()
+        {
+            List<DocumentsTModel> docTModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            string json = wc.DownloadString(Baseurl + "api/GetDocumentsTemplates");
+            docTModel = JsonConvert.DeserializeObject<List<DocumentsTModel>>(json);
+            var madocs = (from a in docTModel where a.Blocked == false select a).ToList();
+
+            return View(madocs);
+        }
+
+        public JsonResult FnUploadmandatoryDoc(HttpPostedFileBase browsedfile, string typauploadselect)
+        {
+            var vendorNo = Convert.ToString(Session["vendorNo"]);
+            int errCounter = 0, filesCounter = 1, succCounter = 0;
+            try
+            {
+                if (browsedfile == null)
+                {
+                    errCounter++;
+                    return Json("danger*browsedfilenull", JsonRequestBehavior.AllowGet);
+                }
+
+                if (vendorNo.Contains(":"))
+                    vendorNo = vendorNo.Replace(":", "[58]");
+                    vendorNo = vendorNo.Replace("/", "[47]");
+
+                var rootFolder = Server.MapPath("~/Uploads/Mandatory Docs");
+                var subfolder = Path.Combine(rootFolder, vendorNo);
+
+                if (!Directory.Exists(subfolder))
+                    Directory.CreateDirectory(subfolder);
+
+                succCounter = (filesCounter - errCounter) / filesCounter * 100;
+
+
+                string fileName0 = Path.GetFileName(browsedfile.FileName);
+                string ext0 = _getFileextension(browsedfile);
+                string savedF0 = vendorNo + "_"+ typauploadselect + ext0;
+                
+                browsedfile.SaveAs(subfolder + "/" + savedF0);
+
+                string uploads = string.Format("{0}",
+                    "<div class='form-group'>" +
+                    "<h4><strong style='color: chocolate'>List of files you uploaded successfully!</strong></h4>" +
+                    fileName0 + "<br/>" +
+                    "<br/></div>");
+                return Json("success*" + uploads+"*"+ succCounter, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*"+ex.Message, JsonRequestBehavior.AllowGet);
+            }
         }
 
 

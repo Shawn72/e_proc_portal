@@ -207,6 +207,7 @@
     <Compile Include="Models\BlogsModel.cs" />
     <Compile Include="Models\ContactsModel.cs" />
     <Compile Include="Models\DirectorModel.cs" />
+    <Compile Include="Models\DocumentsTModel.cs" />
     <Compile Include="Models\DropdownListsModel.cs" />
     <Compile Include="Models\Enum.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -2894,6 +2895,8 @@
     <Content Include="Views\Home\BankDetails.cshtml" />
     <Content Include="Views\Home\TestForm.cshtml" />
     <Content Include="Views\Home\IfpRequestsList.cshtml" />
+    <Content Include="Views\Home\DocumentTemplateList.cshtml" />
+    <Content Include="Views\Home\DocumentTemplateDroplist.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

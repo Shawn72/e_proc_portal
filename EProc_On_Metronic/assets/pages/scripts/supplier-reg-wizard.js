@@ -398,88 +398,88 @@ var FormWizard = function () {
                         vendormodel.MobileNo = $("#txtCntPhoneno").val();
                         vendormodel.NatureofBz = $("#txtareaNatureofBz").val();
 
-                        ////for test, delete after the test passes
-                            //$("#form_wizard_2").find(".button-interimsave").hide(),
-                            //    $("#form_wizard_2").find(".button-next").show(),
-                            //    $("#form_wizard_2").find(".button-next").removeAttr("disabled");
+                        //for test, delete after the test passes
+                            $("#form_wizard_2").find(".button-interimsave").hide(),
+                                $("#form_wizard_2").find(".button-next").show(),
+                                $("#form_wizard_2").find(".button-next").removeAttr("disabled");
 
-                            //$("#divCollecteddataTest").css("display", "block"),
-                            //    $("#txtCollectedData").val('Collected Data : ' + JSON.stringify(vendormodel)),
-                            //    console.log(JSON.stringify(vendormodel)),
-                            //    console.log("Business Type for Test : " + $("#ddlBusinesstype option:selected").text());
-                        ////for test, delete after the test passes
+                            $("#divCollecteddataTest").css("display", "block"),
+                                $("#txtCollectedData").val('Collected Data : ' + JSON.stringify(vendormodel)),
+                                console.log(JSON.stringify(vendormodel)),
+                                console.log("Business Type for Test : " + $("#ddlBusinesstype option:selected").text());
+                        //for test, delete after the test passes
 
 
-                        Swal.fire({
-                            title: "Are you sure?",
-                            text: "Are you sure you'd like to proceed with Supplier Registration?",
-                            type: "warning",
-                            showCancelButton: true,
-                            closeOnConfirm: true,
-                            confirmButtonText: "Yes, Register as a Supplier!",
-                            confirmButtonClass: "btn-success",
-                            confirmButtonColor: "#008000",
-                            position: "center"
-                        }).then((result) => {
-                            if (result.value) {
-                                $.ajax({
-                                    url: "/Home/RegisterSupplier",
-                                    type: "POST",
-                                    data: '{vendormodel: ' + JSON.stringify(vendormodel) + '}',
-                                    // data: JSON.stringify(data),
-                                    dataType: "json",
-                                    contentType: "application/json"
-                                }).done(function (status) {
-                                        var splitstatus = status.split('*');
-                                        switch (splitstatus[0]) {
-                                        case "success":
-                                            Swal.fire
-                                            ({
-                                                title: "Details Submitted!",
-                                                text: splitstatus[1],
-                                                type: "success"
-                                            }).then(() => {
-                                                $("#regfeedback").css("display", "block");
-                                                $("#regfeedback").css("color", "green");
-                                                $('#regfeedback').addClass("alert alert-success");
-                                                $("#regfeedback").html(splitstatus[1]);
+                        //Swal.fire({
+                        //    title: "Are you sure?",
+                        //    text: "Are you sure you'd like to proceed with Supplier Registration?",
+                        //    type: "warning",
+                        //    showCancelButton: true,
+                        //    closeOnConfirm: true,
+                        //    confirmButtonText: "Yes, Register as a Supplier!",
+                        //    confirmButtonClass: "btn-success",
+                        //    confirmButtonColor: "#008000",
+                        //    position: "center"
+                        //}).then((result) => {
+                        //    if (result.value) {
+                        //        $.ajax({
+                        //            url: "/Home/RegisterSupplier",
+                        //            type: "POST",
+                        //            data: '{vendormodel: ' + JSON.stringify(vendormodel) + '}',
+                        //            // data: JSON.stringify(data),
+                        //            dataType: "json",
+                        //            contentType: "application/json"
+                        //        }).done(function (status) {
+                        //                var splitstatus = status.split('*');
+                        //                switch (splitstatus[0]) {
+                        //                case "success":
+                        //                    Swal.fire
+                        //                    ({
+                        //                        title: "Details Submitted!",
+                        //                        text: splitstatus[1],
+                        //                        type: "success"
+                        //                    }).then(() => {
+                        //                        $("#regfeedback").css("display", "block");
+                        //                        $("#regfeedback").css("color", "green");
+                        //                        $('#regfeedback').addClass("alert alert-success");
+                        //                        $("#regfeedback").html(splitstatus[1]);
 
-                                                //execute this after insert success
-                                                $("#form_wizard_2").find(".button-interimsave").hide(),
-                                                $("#form_wizard_2").find(".button-next").show(),
-                                                $("#form_wizard_2").find(".button-next").removeAttr("disabled");
+                        //                        //execute this after insert success
+                        //                        $("#form_wizard_2").find(".button-interimsave").hide(),
+                        //                        $("#form_wizard_2").find(".button-next").show(),
+                        //                        $("#form_wizard_2").find(".button-next").removeAttr("disabled");
 
-                                                $("#divCollecteddataTest").css("display", "block"),
-                                                $("#txtCollectedData").val('Collected Data : ' + JSON.stringify(vendormodel)),
-                                                console.log(JSON.stringify(vendormodel)),
-                                                console.log("Business Type for Test : " + $("#ddlBusinesstype option:selected").text());
+                        //                        $("#divCollecteddataTest").css("display", "block"),
+                        //                        $("#txtCollectedData").val('Collected Data : ' + JSON.stringify(vendormodel)),
+                        //                        console.log(JSON.stringify(vendormodel)),
+                        //                        console.log("Business Type for Test : " + $("#ddlBusinesstype option:selected").text());
 
-                                            });
-                                            break;
-                                        default:
-                                            Swal.fire
-                                            ({
-                                                title: "Error!!!",
-                                                text: splitstatus[1],
-                                                type: "error"
-                                            }).then(() => {
-                                                $("#regfeedback").css("display", "block");
-                                                $("#regfeedback").css("color", "red");
-                                                $('#regfeedback').addClass('alert alert-danger');
-                                                $("#regfeedback").html(splitstatus[1]);
-                                            });
-                                            break;
-                                        }
-                                    }
-                                );
-                            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                Swal.fire(
-                                    'Cancelled',
-                                    'You cancelled your submission!',
-                                    'error'
-                                );
-                            }
-                        });
+                        //                    });
+                        //                    break;
+                        //                default:
+                        //                    Swal.fire
+                        //                    ({
+                        //                        title: "Error!!!",
+                        //                        text: splitstatus[1],
+                        //                        type: "error"
+                        //                    }).then(() => {
+                        //                        $("#regfeedback").css("display", "block");
+                        //                        $("#regfeedback").css("color", "red");
+                        //                        $('#regfeedback').addClass('alert alert-danger');
+                        //                        $("#regfeedback").html(splitstatus[1]);
+                        //                    });
+                        //                    break;
+                        //                }
+                        //            }
+                        //        );
+                        //    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        //        Swal.fire(
+                        //            'Cancelled',
+                        //            'You cancelled your submission!',
+                        //            'error'
+                        //        );
+                        //    }
+                        //});
 
                     }).hide(),
                     $("#form_wizard_2 .button-submit").click(function() {

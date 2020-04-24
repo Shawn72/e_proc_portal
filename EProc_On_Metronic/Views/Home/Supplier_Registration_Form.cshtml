@@ -672,8 +672,138 @@
                                             <span class="caption-subject font-red sbold uppercase">Mandatory Documents</span>
                                         </div>
                                     </div>
-                                    <div class="portlet-body">
-                                        <div class="row">
+                                        <div class="portlet-body">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active">
+                                                    <a href="#tab_1_1" data-toggle="tab"> Required Registration Documents </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab_1_2" data-toggle="tab"> Attach Document </a>
+                                                </li>
+                                                
+                                                <li>
+                                                    <a href="#tab_1_3" data-toggle="tab"> Attached Document </a>
+                                                </li>
+                                                
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade active in" id="tab_1_1">
+                                                    @Html.Action("DocumentTemplateList", "Home")
+                                                </div>
+                                                <div class="tab-pane fade" id="tab_1_2">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Select Document to Upload:
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            @Html.Action("DocumentTemplateDroplist", "Home")
+                                                            <span class="help-block"> Document to Upload </span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            External Document (Certificate No):
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control input-circle" name="txtCertNo" id="txtCertNo" />
+                                                            <span class="help-block"> Provide the Document Number</span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Issue Date:
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                                                <input type="text" class="form-control input-circle-left" readonly  id="dtOfIssue" name="dtOfIssue" style="width: 550px">
+                                                                <span class="input-group-btn input-circle-right">
+                                                                    <button class="btn default" type="button">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                            <span class="help-block"> Select Cerificate Date of Issue </span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Expiry Date:
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                                                <input type="text" class="form-control input-circle-left" readonly  id="dtOfexpiry" name="dtOfexpiry" style="width: 550px">
+                                                                <span class="input-group-btn input-circle-right">
+                                                                    <button class="btn default" type="button">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                            <span class="help-block"> Select Certificate Date of Expiry </span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div id="pullUpfileselector" style="display: none">
+                                                        <div class="form-group" >
+                                                            <label class="control-label col-md-4">KRA Pin</label>
+                                                            <div class="col-md-6">
+                                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                    <div class="input-group input-large">
+                                                                        <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                                                            <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                                                            <span class="fileinput-filename"> </span>
+                                                                        </div>
+                                                                        <span class="input-group-addon btn default btn-file">
+                                                                            <span class="fileinput-new"> Select file </span>
+                                                                            <span class="fileinput-exists"> Change </span>
+                                                                            <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileselector" name="inputFileselector[]"> </span>
+                                                                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- The global progress bar -->
+                                                        <div class="progress progress-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                            <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4"></label>
+                                                            <div class="col-md-6">
+                                                                <!-- Display upload status -->
+                                                                <div id="uploadsMsg" style="display: none"></div>
+                                                            </div>
+                                                        </div>
+                                               
+                                                        <div class="row">
+                                                            <div class="col-md-offset-4 col-md-8">
+                                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-upload">Upload All &nbsp;<i class="fas fa fa-upload"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        
+
+                                                    </div>
+                                                    
+
+                                                </div>
+                                                
+                                                <div class="tab-pane fade" id="tab_1_3">
+                                                    <p> Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
+                                                        craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar
+                                                        helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art
+                                                        party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park. </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @*<div class="row">
                                             <div class="col-md-12">
                                                 <!-- file inputs here--> 
                                                 <div class="form-group">
@@ -770,8 +900,8 @@
                                                 </div>
                                               
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div>*@
+                                   
                                 </div>
                                 <!-- END EXAMPLE TABLE PORTLET-->
                             </div>

@@ -418,6 +418,31 @@ var TableDatatablesIFPs = function () {
            
         });
 
+        $("#ddldocumentdroplist").change(function () {
+            var selectedVal = $('#ddldocumentdroplist').find(":selected").attr('value');
+            $('#pullUpfileselector').css("display", "block");
+            switch (selectedVal) {
+            case "":
+                Swal.fire
+                ({
+                    title: "Wrong Choice",
+                    text: "Kindly select kind of Doc to upload!",
+                    type: "error"
+                }).then(() => {
+                    $("#regfeedback").css("display", "block");
+                    $("#regfeedback").css("color", "red");
+                    $('#regfeedback').attr('class', 'alert alert-danger');
+                    $("#regfeedback").html("Kindly select kind of Doc to upload!");
+                    $("#pullUpfileselector").css("display", "none");
+                });
+                break;
+            default:
+                $("#regfeedback").css("display", "none");
+                $("#pullUpfileselector").css("display", "block");
+                break;
+            }
+          });
+
         a.on("click",".applyifp",
             function (a) {
                 a.preventDefault();
@@ -653,9 +678,44 @@ var TableDatatablesLitigation= function () {
     }
 }();
 
+var TableDatatablesAll = function () {
+    var e = function () {
+        
+        var a = $("#tbl_mandatory_docs"),
+            l = a.dataTable({
+                lengthMenu: [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"]
+                ],
+                pageLength: 5,
+                language: {
+                    lengthMenu: " _MENU_ records"
+                },
+                columnDefs: [{
+                    orderable: !0,
+                    targets: [0]
+                }, {
+                    searchable: !0,
+                    targets: [0]
+                }],
+                order: [
+                    [0, "asc"]
+                ]
+            })
+     
+           
+    };
+    return {
+        init: function () {
+            e()
+        }
+    }
+}();
+
 jQuery(document).ready(function () {
     TableDatatablesEditable.init(),
-    TableDatatablesDirector.init(),
-    TableDatatablesIFPs.init(),
+        TableDatatablesDirector.init(),
+        TableDatatablesIFPs.init(),
+        TableDatatablesAll.init(),
     TableDatatablesLitigation.init();
 });
