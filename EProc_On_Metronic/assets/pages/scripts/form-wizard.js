@@ -159,20 +159,26 @@
                     }),
                     $("#form_wizard_1").find(".button-previous").hide(),
                     $("#form_wizard_1 .button-submit").click(function() {
-                        //alert("Finished! Hope you like it :)")
+                        $("#regfavicon").removeClass("fas fa fa-check");
+
+                       // $("#regfavicon").addClass("fa fa-spinner fa-spin");
+                        $('.button-submit').text("Please wait...");
+                        $('.button-submit').css("width", "200px");
+                        $('.button-submit').attr("disabled", "disabled");
+                        $('#regfavicon').attr("class", "fa fa-spinner fa-spin");
 
                         //To prevent form submit after ajax call
                         event.preventDefault();
 
                         //reset to empty
                         $("#regfeedback").html("");
-                        var vendormodel = {};
+                        var signupmodel = {};
                         //Set data to be sent
-                        vendormodel.VendorName = $("#txtBusinessName").val();
-                        vendormodel.Phonenumber = $("#txtPhonenumberInd").val();
-                        vendormodel.KraPin = $("#txtKRAPinInd").val();
-                        vendormodel.ContactName = $("#txtContPerName").val();
-                        vendormodel.Email = $("#txtEmailAddInd").val();
+                        signupmodel.VendorName = $("#txtBusinessName").val();
+                        signupmodel.Phonenumber = $("#txtPhonenumberInd").val();
+                        signupmodel.KraPin = $("#txtKRAPinInd").val();
+                        signupmodel.ContactName = $("#txtContPerName").val();
+                        signupmodel.Email = $("#txtEmailAddInd").val();
 
                         Swal.fire({
                             title: "Are you sure?",
@@ -186,104 +192,58 @@
                             position: "center"
                         }).then((result) => {
                             if (result.value) {
-                                $.ajax({
-                                    url: "/Home/RegisterVendorIndividual",
+                                $.ajaxSetup({
+                                    global: false,
+                                    url: "/Home/SupplierRegReq",
                                     type: "POST",
-                                    data: '{vendormodel: ' + JSON.stringify(vendormodel) + '}',
-                                    // data: JSON.stringify(data),
+                                    beforeSend: function () {
+                                        $(".modalspinner").show();
+                                    },
+                                    complete: function () {
+                                        $(".modalspinner").hide();
+                                    }
+                                });
+
+                                $.ajax({
+                                    data: '{signupmodel: ' + JSON.stringify(signupmodel) + '}',
                                     dataType: "json",
                                     contentType: "application/json"
                                 }).done(function (status) {
-                                        switch (status) {
-                                        case "Your account created successfully!":
+                                        var splitstat = status.split('*');
+                                        switch (splitstat[0]) {
+                                        case "success":
                                             Swal.fire
                                             ({
                                                 title: "Account Created!",
-                                                text: status,
+                                                text: splitstat[1],
                                                 type: "success"
                                             }).then(() => {
                                                 $("#regfeedback").css("display", "block");
                                                 $("#regfeedback").css("color", "green");
                                                 $('#regfeedback').addClass("alert alert-success");
-                                                $("#regfeedback").html(status);
+                                                $("#regfeedback").html(splitstat[1]);
+                                                $("#regfavicon").removeClass("fa fa-spinner fa-spin");
+                                                $("#regfavicon").addClass("fas fa fa-check");
+                                                $('.button-submit').text("Submit Request");
                                                 window.location.href = "/Home/Homepage/";
                                             });
                                             break;
-
-                                        case "vendorEmpty":
-                                            Swal.fire
-                                            ({
-                                                title: "Error!!!",
-                                                text: "Registered Business name cannot be empty!",
-                                                type: "error"
-                                            }).then(() => {
-                                                $("#regfeedback").css("display", "block");
-                                                $("#regfeedback").css("color", "red");
-                                                $('#regfeedback').attr('class', 'alert alert-danger');
-                                                $("#regfeedback").html("Registered Business name cannot be empty!");
-                                                $("#txtBusinessName").focus();
-                                                $("#txtBusinessName").css("border", "solid 1px red");
-                                            });
-                                            break;
-
-                                       case "contactEmpty":
-                                            Swal.fire
-                                            ({
-                                                title: "Error!!!",
-                                                text: "Contact name cannot be empty!",
-                                                type: "error"
-                                            }).then(() => {
-                                                $("#regfeedback").css("display", "block");
-                                                $("#regfeedback").css("color", "red");
-                                                $('#regfeedback').attr('class', 'alert alert-danger');
-                                                $("#regfeedback").html("Contact name cannot be empty!");
-                                                $("#txtContPerName").focus();
-                                                $("#txtContPerName").css("border", "solid 1px red");
-                                            });
-                                            break;
-                                        case "EmailEmpty":
-                                            Swal.fire
-                                            ({
-                                                title: "Error!!!",
-                                                text: "Email Address cannot be empty!",
-                                                type: "error"
-                                            }).then(() => {
-                                                $("#regfeedback").css("display", "block");
-                                                $("#regfeedback").css("color", "red");
-                                                $('#regfeedback').attr('class', 'alert alert-danger');
-                                                $("#regfeedback").html("Email Address cannot be empty!");
-                                                $("#txtEmailAddInd").focus();
-                                                $("#txtEmailAddInd").css("border", "solid 1px red");
-                                            });
-                                            break;
-                                        case "KRAEmpty":
-                                            Swal.fire
-                                            ({
-                                                title: "Error!!!",
-                                                text: "KRA Pin cannot be empty!",
-                                                type: "error"
-                                            }).then(() => {
-                                                $("#regfeedback").css("display", "block");
-                                                $("#regfeedback").css("color", "red");
-                                                $('#regfeedback').addClass('alert alert-danger');
-                                                $("#regfeedback").html("KRA Pin cannot be empty!");
-                                                $("#txtKRAPinInd").focus();
-                                                $("#txtKRAPinInd").css("border", "solid 1px red");
-
-                                            });
-                                            break;
-                                      
                                         default:
                                             Swal.fire
                                             ({
                                                 title: "Error!!!",
-                                                text: status,
+                                                text: splitstat[1],
                                                 type: "error"
                                             }).then(() => {
                                                 $("#regfeedback").css("display", "block");
                                                 $("#regfeedback").css("color", "red");
                                                 $('#regfeedback').addClass('alert alert-danger');
-                                                $("#regfeedback").html(status);
+                                                $("#regfeedback").html(splitstat[1]);
+
+                                                $("#regfavicon").removeClass("fa fa-spinner fa-spin");
+                                                $("#regfavicon").addClass("fas fa fa-check");
+                                                $('.button-submit').text("Submit Request");
+                                                $('.button-submit').removeAttr("disabled");
                                             });
                                             break;
                                         }
@@ -297,10 +257,7 @@
                                 );
                             }
                         });
-
-                    }).hide(), $("#country_list", r).change(function() {
-                        r.validate().element($(this))
-                    });
+                  }).hide();
             }
         }
     }

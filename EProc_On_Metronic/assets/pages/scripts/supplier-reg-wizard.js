@@ -179,6 +179,63 @@ var FormWizard = function () {
                             minlength: 2,
                             required: !0
                         },
+
+                        txtTotalcurrentassets: {
+                            minlength: 4,
+                            required: !0,
+                            number:!0
+                        },
+                        txtTotalfixedassets: {
+                            minlength: 4,
+                            required: !0,
+                            number: !0
+                        },
+                        txtTotalcurrentliability: {
+                            minlength: 4,
+                            required: !0,
+                            number: !0
+                        },
+                        txtTotalLongtermliability: {
+                            minlength: 4,
+                            required: !0,
+                            number: !0
+                        },
+                        txtTotalOwnerequity: {
+                            minlength: 4,
+                            required: !0,
+                            number: !0
+                        },
+
+
+
+                        txtTotalRevenue: {
+                            minlength: 4,
+                            required: !0,
+                            number: !0
+                        },
+                        txtTotalOprXpens: {
+                            minlength: 4,
+                            required: !0,
+                            number: !0
+                        },
+                        txtTotalCoGs: {
+                            minlength: 4,
+                            required: !0,
+                            number: !0
+                        },
+
+                        txtTotalOthernonOprexp: {
+                            minlength: 4,
+                            required: !0,
+                            number: !0
+                        },
+                        txtInterestExpense: {
+                            minlength: 4,
+                            required: !0,
+                            number: !0
+                        },
+                       
+
                         //custom validators
                         "payment[]": {
                             required: !0,
@@ -294,11 +351,14 @@ var FormWizard = function () {
                        
                         //for debugging
                         console.log(p);
-                        switch(p) {
+                        switch (p) {
+                            case "li1":
+                                $("#regfeedback").css("display", "none");
+                                break;
                             case "li2":
                                 $("#form_wizard_2").find(".button-next").hide(),
-                                   // $("#form_wizard_2").find(".button-next").attr("disabled", "disabled");
                                 $("#form_wizard_2").find(".button-interimsave").show();
+                                $("#regfeedback").css("display", "none");
                                 break;
                             case "li3":
                                 $("#regfeedback").css("display", "none");
@@ -337,10 +397,10 @@ var FormWizard = function () {
                         onTabClick: function(e, r, t, i) {
                             return !1;
                         },
-                        onNext: function (e, a, n) {
+                        onNext: function(e, a, n) {
                             return i.hide(), t.hide(), 0 != r.valid() && void o(e, a, n);
                         },
-                        onInterim: function (e, a, n) {
+                        onInterim: function(e, a, n) {
                             return i.hide(), t.hide(), 0 != r.valid() && void o(e, a, n);
                         },
                         onPrevious: function(e, r, a) {
@@ -356,7 +416,275 @@ var FormWizard = function () {
                         }
                     }),
                     $("#form_wizard_2").find(".button-previous").hide(),
-                    $("#form_wizard_2 .button-interimsave").click(function () {
+                    $("#form_wizard_2 .button-insert-agpo").click(function() {
+
+                        alert("am being developed,...hang on!");
+                        //Insert data 
+                        //To prevent form submit after ajax call
+                        event.preventDefault();
+
+                        //reset to empty
+                        $("#regfeedback").html("");
+                        var agpomodel = {};
+
+                        //input textfields
+                        agpomodel.Certifcate_No = $("#txtAgpoCertNo").val();
+                        agpomodel.Products_Service_Category = $("#txtProdservCat").val();
+                        agpomodel.Vendor_Category = $("#ddlRegSpgrp").val();
+                        agpomodel.Effective_Date = $("#dtagpoCEDt").val();
+                        agpomodel.End_Date = $("#dtagpoCEXt").val();
+
+                        ///for test, delete after the test passes
+
+
+                        ///for test, delete after the test passes
+
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "Are you sure you'd like to proceed with submission?",
+                            type: "warning",
+                            showCancelButton: true,
+                            closeOnConfirm: true,
+                            confirmButtonText: "Yes, save Special group!",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonColor: "#008000",
+                            position: "center"
+                        }).then((result) => {
+                            if (result.value) {
+                                $.ajax({
+                                    url: "/Home/AddSpecialGroupEntry",
+                                    type: "POST",
+                                    data: '{agpomodel: ' + JSON.stringify(agpomodel) + '}',
+                                    // data: JSON.stringify(data),
+                                    dataType: "json",
+                                    contentType: "application/json"
+                                }).done(function(status) {
+                                        var splitstatus = status.split('*');
+                                        switch (splitstatus[0]) {
+                                        case "success":
+                                            Swal.fire
+                                            ({
+                                                title: "Details Submitted!",
+                                                text: splitstatus[1],
+                                                type: "success"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "green");
+                                                $('#regfeedback').addClass("alert alert-success");
+                                                $("#regfeedback").html(splitstatus[1]);
+
+                                                //go back to first tab
+                                                //$("#genTab").css("class", "active");
+                                                //$("#specTab").removeClass("active");
+                                                window.location.href = '/Home/Supplier_Registration_Form/';
+
+                                            });
+                                            break;
+                                        default:
+                                            Swal.fire
+                                            ({
+                                                title: "Error!!!",
+                                                text: splitstatus[1],
+                                                type: "error"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "red");
+                                                $('#regfeedback').addClass('alert alert-danger');
+                                                $("#regfeedback").html(splitstatus[1]);
+                                            });
+                                            break;
+                                        }
+                                    }
+                                );
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                Swal.fire(
+                                    'Cancelled',
+                                    'You cancelled your submission!',
+                                    'error'
+                                );
+                            }
+                        });
+
+                    }),
+                    $("#form_wizard_2 .button-insert-balsheet").click(function() {
+                        //Insert data 
+                        //To prevent form submit after ajax call
+                        event.preventDefault();
+
+                        //reset to empty
+                        $("#regfeedback").html("");
+                        var financemodel = {};
+
+                        //input textfields
+                        financemodel.Year = $("#ddlYear").val();
+                        financemodel.TotalCurrentAssets = $("#txtTotalcurrentassets").val();
+                        financemodel.TotalFixedAssets = $("#txtTotalfixedassets").val();
+                        financemodel.TotalCurrentLiabilty = $("#txtTotalcurrentliability").val();
+                        financemodel.TotalLongTermLiability = $("#txtTotalLongtermliability").val();
+                        financemodel.TotalOwnersEquity = $("#txtTotalOwnerequity").val();
+
+                        ///for test, delete after the test passes
+
+                        ///for test, delete after the test passes
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "Are you sure you'd like to proceed with submission?",
+                            type: "warning",
+                            showCancelButton: true,
+                            closeOnConfirm: true,
+                            confirmButtonText: "Yes, save balance sheet entry!",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonColor: "#008000",
+                            position: "center"
+                        }).then((result) => {
+                            if (result.value) {
+                                $.ajax({
+                                    url: "/Home/AddBalanceSheetEntry",
+                                    type: "POST",
+                                    data: '{financemodel: ' + JSON.stringify(financemodel) + '}',
+                                    // data: JSON.stringify(data),
+                                    dataType: "json",
+                                    contentType: "application/json"
+                                }).done(function(status) {
+                                        var splitstatus = status.split('*');
+                                        switch (splitstatus[0]) {
+                                        case "success":
+                                            Swal.fire
+                                            ({
+                                                title: "Details Submitted!",
+                                                text: splitstatus[1],
+                                                type: "success"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "green");
+                                                $('#regfeedback').addClass("alert alert-success");
+                                                $("#regfeedback").html(splitstatus[1]);
+                                                bs.init();
+                                            });
+                                            break;
+                                        default:
+                                            Swal.fire
+                                            ({
+                                                title: "Error!!!",
+                                                text: splitstatus[1],
+                                                type: "error"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "red");
+                                                $('#regfeedback').addClass('alert alert-danger');
+                                                $("#regfeedback").html(splitstatus[1]);
+                                            });
+                                            break;
+                                        }
+                                    }
+                                );
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                Swal.fire(
+                                    'Cancelled',
+                                    'You cancelled your submission!',
+                                    'error'
+                                );
+                            }
+                        });
+
+                    }),
+                    $("#form_wizard_2 .button-insert-savestaff").click(function() {
+                        //To prevent form submit after ajax call
+                        event.preventDefault();
+
+                        //reset to empty
+                        $("#regfeedback").html("");
+                        var staffmodel = {};
+                        //input textfields
+                        staffmodel.StaffNumber = $("#txtStaffNo").val();
+                        staffmodel.StaffName = $("#txtStaffName").val();
+                        staffmodel.StaffProfession = $("#txtProfession").val();
+                        staffmodel.StaffDesignation = $("#txtDesignation").val();
+                        staffmodel.StaffDateofBirth = $("#dobStaff").val();
+                        staffmodel.StaffJoiningDate = $("#dtJoining").val();
+                        staffmodel.StaffYearswithfirm = $("#txtYrscount").val();
+                        staffmodel.StaffPhonenumber = $("#txtStaffphonenumber").val();
+                        staffmodel.StaffNationality = $("#ddlstaffcountries").val();
+                        staffmodel.StaffEmail = $("#txtStaffEmail").val();
+
+                        ///for test, delete after the test passes
+
+
+                        ///for test, delete after the test passes
+
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "Are you sure you'd like to proceed with submission?",
+                            type: "warning",
+                            showCancelButton: true,
+                            closeOnConfirm: true,
+                            confirmButtonText: "Yes, save staff entry!",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonColor: "#008000",
+                            position: "center"
+                        }).then((result) => {
+                            if (result.value) {
+                                $.ajaxSetup({
+                                    global: false,
+                                    url: "/Home/AddStaffEntry",
+                                    type: "POST",
+                                    beforeSend: function() {
+                                        $(".modalspinner").show();
+                                    },
+                                    complete: function() {
+                                        $(".modalspinner").hide();
+                                    }
+                                });
+
+                                $.ajax({
+                                    data: '{staffmodel: ' + JSON.stringify(staffmodel) + '}',
+                                    dataType: "json",
+                                    contentType: "application/json"
+                                }).done(function(status) {
+                                        var splitstatus = status.split('*');
+                                        switch (splitstatus[0]) {
+                                        case "success":
+                                            Swal.fire
+                                            ({
+                                                title: "Staff details submitted!",
+                                                text: splitstatus[1],
+                                                type: "success"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "green");
+                                                $('#regfeedback').addClass("alert alert-success");
+                                                $("#regfeedback").html(splitstatus[1]);
+                                                $("#pullupstaffXpr").css("display", "block");
+                                            });
+                                            break;
+                                        default:
+                                            Swal.fire
+                                            ({
+                                                title: "Error!!!",
+                                                text: splitstatus[1],
+                                                type: "error"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "red");
+                                                $('#regfeedback').addClass('alert alert-danger');
+                                                $("#regfeedback").html(splitstatus[1]);
+                                                $("#pullupstaffXpr").css("display", "none");
+                                            });
+                                            break;
+                                        }
+                                    }
+                                );
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                Swal.fire(
+                                    'Cancelled',
+                                    'You cancelled your submission!',
+                                    'error'
+                                );
+                            }
+                        });
+
+                    }),
+                    $("#form_wizard_2 .button-insert-incomestates").click(function() {
 
                         //Insert data 
                         //To prevent form submit after ajax call
@@ -364,16 +692,97 @@ var FormWizard = function () {
 
                         //reset to empty
                         $("#regfeedback").html("");
-                        var vendormodel = {};
+                        var incomemodel = {};
+                        //input textfields
+                        incomemodel.YearI = $("#ddlYearI").val();
+                        incomemodel.TotalRevenue = $("#txtTotalRevenue").val();
+                        incomemodel.TotalCogs = $("#txtTotalCoGs").val();
+                        incomemodel.TotalOpsExpense = $("#txtTotalOprXpens").val();
+                        incomemodel.OtherNonOpsExpense = $("#txtTotalOthernonOprexp").val();
+                        incomemodel.InterestExpense = $("#txtInterestExpense").val();
 
+                        ///for test, delete after the test passes
+
+
+                        ///for test, delete after the test passes
+
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "Are you sure you'd like to proceed with submission?",
+                            type: "warning",
+                            showCancelButton: true,
+                            closeOnConfirm: true,
+                            confirmButtonText: "Yes, save income statement entry!",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonColor: "#008000",
+                            position: "center"
+                        }).then((result) => {
+                            if (result.value) {
+                                $.ajax({
+                                    url: "/Home/AddIncomestatementEntry",
+                                    type: "POST",
+                                    data: '{incomemodel: ' + JSON.stringify(incomemodel) + '}',
+                                    // data: JSON.stringify(data),
+                                    dataType: "json",
+                                    contentType: "application/json"
+                                }).done(function(status) {
+                                        var splitstatus = status.split('*');
+                                        switch (splitstatus[0]) {
+                                        case "success":
+                                            Swal.fire
+                                            ({
+                                                title: "Details Submitted!",
+                                                text: splitstatus[1],
+                                                type: "success"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "green");
+                                                $('#regfeedback').addClass("alert alert-success");
+                                                $("#regfeedback").html(splitstatus[1]);
+                                                incs.init();
+                                            });
+                                            break;
+                                        default:
+                                            Swal.fire
+                                            ({
+                                                title: "Error!!!",
+                                                text: splitstatus[1],
+                                                type: "error"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "red");
+                                                $('#regfeedback').addClass('alert alert-danger');
+                                                $("#regfeedback").html(splitstatus[1]);
+                                            });
+                                            break;
+                                        }
+                                    }
+                                );
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                Swal.fire(
+                                    'Cancelled',
+                                    'You cancelled your submission!',
+                                    'error'
+                                );
+                            }
+                        });
+
+                    }),
+                    $("#form_wizard_2 .button-interimsave").click(function() {
+
+                        //Insert data 
+                        event.preventDefault();
+                        //reset to empty
+                        $("#regfeedback").html("");
+                        var vendormodel = {};
                         //dropdownlist
-                        vendormodel.BusinessType = $("#ddlBusinesstype").val();;
-                        vendormodel.VendorType = $("#ddlVendortype").val(); 
-                        vendormodel.OwnerType = $("#ddlOwnershiptype").val(); 
-                        vendormodel.IndustryGroup = $("#ddlIndustrygroup").val(); 
+                        vendormodel.BusinessType = $("#ddlBusinesstype").val();
+                        vendormodel.VendorType = $("#ddlVendortype").val();
+                        vendormodel.OwnerType = $("#ddlOwnershiptype").val();
+                        vendormodel.IndustryGroup = $("#ddlIndustrygroup").val();
                         vendormodel.PostaCode = $("#ddlallpostacodes30").val();
-                        vendormodel.CountryofOrigin = $("#ddlallcountries").val(); 
-                        vendormodel.CompanySize = $("#ddlCompanysize").val(); 
+                        vendormodel.CountryofOrigin = $("#ddlallcountries").val();
+                        vendormodel.CompanySize = $("#ddlCompanysize").val();
                         vendormodel.NominalCap = $("#ddlNominalCap").val();
                         vendormodel.DealerType = $("#txtDealertype").val();
 
@@ -399,104 +808,292 @@ var FormWizard = function () {
                         vendormodel.NatureofBz = $("#txtareaNatureofBz").val();
 
                         //for test, delete after the test passes
-                            $("#form_wizard_2").find(".button-interimsave").hide(),
-                                $("#form_wizard_2").find(".button-next").show(),
-                                $("#form_wizard_2").find(".button-next").removeAttr("disabled");
+                        //$("#form_wizard_2").find(".button-interimsave").hide(),
+                        //    $("#form_wizard_2").find(".button-next").show(),
+                        //    $("#form_wizard_2").find(".button-next").removeAttr("disabled");
 
-                            $("#divCollecteddataTest").css("display", "block"),
-                                $("#txtCollectedData").val('Collected Data : ' + JSON.stringify(vendormodel)),
-                                console.log(JSON.stringify(vendormodel)),
-                                console.log("Business Type for Test : " + $("#ddlBusinesstype option:selected").text());
+                        ////$("#divCollecteddataTest").css("display", "block"),
+                        ////    $("#txtCollectedData").val('Collected Data : ' + JSON.stringify(vendormodel)),
+                        ////    console.log(JSON.stringify(vendormodel)),
+                        ////    console.log("Business Type for Test : " + $("#ddlBusinesstype option:selected").text());
                         //for test, delete after the test passes
+                        console.log("dataSubmitted: " + JSON.stringify(vendormodel));
 
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "Are you sure you'd like to proceed with Supplier Registration?",
+                            type: "warning",
+                            showCancelButton: true,
+                            closeOnConfirm: true,
+                            confirmButtonText: "Yes, Register as a Supplier!",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonColor: "#008000",
+                            position: "center"
+                        }).then((result) => {
+                            if (result.value) {
+                                $.ajaxSetup({
+                                    global: false,
+                                    url: "/Home/RegisterSupplier",
+                                    type: "POST",
+                                    beforeSend: function() {
+                                        $(".modalspinner").show();
+                                    },
+                                    complete: function() {
+                                        $(".modalspinner").hide();
+                                    }
+                                });
+                                $.ajax({
+                                    data: '{vendormodel: ' + JSON.stringify(vendormodel) + '}',
+                                    dataType: "json",
+                                    contentType: "application/json"
+                                }).done(function(status) {
+                                        var splitstatus = status.split('*');
+                                        switch (splitstatus[0]) {
+                                        case "success":
+                                            Swal.fire
+                                            ({
+                                                title: "Details Submitted!",
+                                                text: splitstatus[1],
+                                                type: "success"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "green");
+                                                $('#regfeedback').addClass("alert alert-success");
+                                                $("#regfeedback").html(splitstatus[1]);
 
-                        //Swal.fire({
-                        //    title: "Are you sure?",
-                        //    text: "Are you sure you'd like to proceed with Supplier Registration?",
-                        //    type: "warning",
-                        //    showCancelButton: true,
-                        //    closeOnConfirm: true,
-                        //    confirmButtonText: "Yes, Register as a Supplier!",
-                        //    confirmButtonClass: "btn-success",
-                        //    confirmButtonColor: "#008000",
-                        //    position: "center"
-                        //}).then((result) => {
-                        //    if (result.value) {
-                        //        $.ajax({
-                        //            url: "/Home/RegisterSupplier",
-                        //            type: "POST",
-                        //            data: '{vendormodel: ' + JSON.stringify(vendormodel) + '}',
-                        //            // data: JSON.stringify(data),
-                        //            dataType: "json",
-                        //            contentType: "application/json"
-                        //        }).done(function (status) {
-                        //                var splitstatus = status.split('*');
-                        //                switch (splitstatus[0]) {
-                        //                case "success":
-                        //                    Swal.fire
-                        //                    ({
-                        //                        title: "Details Submitted!",
-                        //                        text: splitstatus[1],
-                        //                        type: "success"
-                        //                    }).then(() => {
-                        //                        $("#regfeedback").css("display", "block");
-                        //                        $("#regfeedback").css("color", "green");
-                        //                        $('#regfeedback').addClass("alert alert-success");
-                        //                        $("#regfeedback").html(splitstatus[1]);
+                                                //execute this after insert success
+                                                $("#form_wizard_2").find(".button-interimsave").hide(),
+                                                    $("#form_wizard_2").find(".button-next").show(),
+                                                    $("#form_wizard_2").find(".button-next").removeAttr("disabled");
 
-                        //                        //execute this after insert success
-                        //                        $("#form_wizard_2").find(".button-interimsave").hide(),
-                        //                        $("#form_wizard_2").find(".button-next").show(),
-                        //                        $("#form_wizard_2").find(".button-next").removeAttr("disabled");
-
-                        //                        $("#divCollecteddataTest").css("display", "block"),
-                        //                        $("#txtCollectedData").val('Collected Data : ' + JSON.stringify(vendormodel)),
-                        //                        console.log(JSON.stringify(vendormodel)),
-                        //                        console.log("Business Type for Test : " + $("#ddlBusinesstype option:selected").text());
-
-                        //                    });
-                        //                    break;
-                        //                default:
-                        //                    Swal.fire
-                        //                    ({
-                        //                        title: "Error!!!",
-                        //                        text: splitstatus[1],
-                        //                        type: "error"
-                        //                    }).then(() => {
-                        //                        $("#regfeedback").css("display", "block");
-                        //                        $("#regfeedback").css("color", "red");
-                        //                        $('#regfeedback').addClass('alert alert-danger');
-                        //                        $("#regfeedback").html(splitstatus[1]);
-                        //                    });
-                        //                    break;
-                        //                }
-                        //            }
-                        //        );
-                        //    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        //        Swal.fire(
-                        //            'Cancelled',
-                        //            'You cancelled your submission!',
-                        //            'error'
-                        //        );
-                        //    }
-                        //});
+                                            });
+                                            break;
+                                        default:
+                                            Swal.fire
+                                            ({
+                                                title: "Error!!!",
+                                                text: splitstatus[1],
+                                                type: "error"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "red");
+                                                $('#regfeedback').addClass('alert alert-danger');
+                                                $("#regfeedback").html(splitstatus[1]);
+                                            });
+                                            break;
+                                        }
+                                    }
+                                );
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                Swal.fire(
+                                    'Cancelled',
+                                    'You cancelled your submission!',
+                                    'error'
+                                );
+                            }
+                        });
 
                     }).hide(),
                     $("#form_wizard_2 .button-submit").click(function() {
-                        //alert("Finished! Hope you like it :)")
 
                         //Insert data 
+                        event.preventDefault();
+                        //reset to empty
+                        $("#regfeedback").html("");
 
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "Are you sure you'd like to proceed and finally submit your application?",
+                            type: "warning",
+                            showCancelButton: true,
+                            closeOnConfirm: true,
+                            confirmButtonText: "Yes, Submit my application!",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonColor: "#008000",
+                            position: "center"
+                        }).then((result) => {
+                            if (result.value) {
+                                $.ajaxSetup({
+                                    global: false,
+                                    url: "/Home/SubmitRegistration",
+                                    type: "POST",
+                                    beforeSend: function() {
+                                        $(".modalspinner").show();
+                                    },
+                                    complete: function() {
+                                        $(".modalspinner").hide();
+                                    }
+                                });
+                                $.ajax({
+                                    data: '',
+                                    dataType: "json",
+                                    contentType: "application/json"
+                                }).done(function(status) {
+                                        var splitstatus = status.split('*');
+                                        switch (splitstatus[0]) {
+                                        case "success":
+                                            Swal.fire
+                                            ({
+                                                title: "Registration Submitted!",
+                                                text: splitstatus[1],
+                                                type: "success"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "green");
+                                                $('#regfeedback').addClass("alert alert-success");
+                                                $("#regfeedback").html(splitstatus[1]);
+                                                //go back to Dashboard
+                                                window.location.href = "/Home/Index_EProc";
+                                            });
+                                            break;
+                                        default:
+                                            Swal.fire
+                                            ({
+                                                title: "Error!!!",
+                                                text: splitstatus[1],
+                                                type: "error"
+                                            }).then(() => {
+                                                $("#regfeedback").css("display", "block");
+                                                $("#regfeedback").css("color", "red");
+                                                $('#regfeedback').addClass('alert alert-danger');
+                                                $("#regfeedback").html(splitstatus[1]);
+                                            });
+                                            break;
+                                        }
+                                    }
+                                );
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                Swal.fire(
+                                    'Cancelled',
+                                    'You cancelled your submission!',
+                                    'error'
+                                );
+                            }
+                        });
 
-
-                    }).hide(),
-                $("#country_list", r).change(function () {
-                    r.validate().element($(this));
-                });
+                    }).hide();
             }
         }
     };
 }();
+var bs = function() {
+    var e = function() {
+        var tl = $("#tbl_balance_sheet"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        // targets: [0],
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                        // targets: [0]
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                //stateSave: true,
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Home/VendorBalanceSheet",
+            data: ""
+        }).done(function(json) {
+           // console.log(JSON.stringify({ data: json }));
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Audit_Year_Code_Reference,
+                    json[i].Current_Assets_LCY,
+                    json[i].Fixed_Assets_LCY, 
+                    json[i].Current_Liabilities_LCY,
+                    json[i].Long_term_Liabilities_LCY, 
+                    json[i].Owners_Equity_LCY, 
+                    '<a class="trash" href="">Delete</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function () {
+            e();
+        }
+    }
+
+}();
+var incs = function () {
+    var e = function () {
+        var tl = $("#tbl_income_statement"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        // targets: [0],
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                        // targets: [0]
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                //stateSave: true,
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Home/VendorIncomeStatement",
+            data: ""
+        }).done(function (json) {
+           // console.log(JSON.stringify({ data: json }));
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Audit_Year_Code_Reference,
+                    json[i].Total_Revenue_LCY,
+                    json[i].Total_COGS_LCY,
+                    json[i].Total_Operating_Expenses_LCY,
+                    json[i].Other_Non_operating_Re_Exp_LCY,
+                    json[i].Interest_Expense_LCY,
+                    '<a class="trash" href="">Delete</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function () {
+            e();
+        }
+    }
+
+}();
 jQuery(document).ready(function() {
-    FormWizard.init();
+    FormWizard.init(),bs.init(), incs.init();
 });

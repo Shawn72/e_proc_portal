@@ -76,415 +76,541 @@
                     </li>
                     <li id="li6">
                         <a href="#tab6" data-toggle="tab" class="step">
-                            <span class="number"> 6 </span><span class="desc"><i class="icon-check"></i> Prequalification Categories </span>
+                            <span class="number"> 6 </span><span class="desc"><i class="icon-check"></i> Litigation History </span>
                         </a>
                     </li>
                     <li id="li7">
                         <a href="#tab7" data-toggle="tab" class="step">
-                            <span class="number"> 7 </span><span class="desc"><i class="icon-check"></i> Litigation History </span>
+                            <span class="number"> 7 </span><span class="desc"><i class="icon-check"></i> Past Experience </span>
                         </a>
                     </li>
                     <li id="li8">
                         <a href="#tab8" data-toggle="tab" class="step">
-                            <span class="number"> 8 </span><span class="desc"><i class="icon-check"></i> Mandatory Documents </span>
+                            <span class="number"> 8 </span><span class="desc"><i class="icon-check"></i> Audited Financial Statements </span>
+                        </a>
+                    </li>
+                  
+                    <li id="li9">
+                        <a href="#tab9" data-toggle="tab" class="step">
+                            <span class="number"> 9 </span><span class="desc"><i class="icon-check"></i> Key Staff/Personel</span>
+                        </a>
+                    </li>
+                    <li id="li10">
+                        <a href="#tab10" data-toggle="tab" class="step">
+                            <span class="number"> 10</span><span class="desc"><i class="icon-check"></i> Mandatory Documents </span>
                         </a>
                     </li>
                 </ul>
-                <div id="bar" class="progress progress-striped" role="progressbar">
-                    <div class="progress-bar progress-bar-success"> </div>
+            <div id="bar" class="progress progress-striped" role="progressbar">
+                <div class="progress-bar progress-bar-success"> </div>
+            </div>
+                
+            <div class="modalspinner" style="display: none">
+                <div class="centerspinner">
+                    <img alt="" src="/assets/loaders/spinner.gif" />
                 </div>
-                <div class="tab-content">
+            </div>
+
+            <div class="tab-content">
                     <div class="alert alert-danger display-none">
                         <button class="close" data-dismiss="alert"></button> You have some form errors. Please check below.
                     </div>
                     <div class="alert alert-success display-none">
                         <button class="close" data-dismiss="alert"></button> Your form validation is successful!
                     </div>
-                    <div id="regfeedback" style="display: none" data-dismiss="alert"></div>
-                    <div class="tab-pane active" id="tab1">
-                        <h3 class="block">Provide your general details</h3>
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Business Type
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <select data-live-search="true" class="form-control input-circle select2" id="ddlBusinesstype" name="ddlbzTypename">
-                                    <option value="">--Choose Type--</option>
-                                    <option value="1">Unit Trust</option>
-                                    <option value="2">Broker</option>
-                                    <option value="3">Agent</option>
-                                </select>
-                                <span class="help-block"> Provide your Business type </span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Vendor Type
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <select data-live-search="true" class="form-control input-circle select2" id="ddlVendortype" name="ddlVendortype">
-                                    <option value="">--Choose Type--</option>
-                                    <option value="0">Local</option>
-                                    <option value="1">Foreign</option>
-                                </select>
-                                <span class="help-block"> Provide your Vendor type </span>
-                            </div>
-                        </div>
+                    <div id="regfeedback" class="close" style="display: none" data-dismiss="alert"></div>
+                <div class="tab-pane active" id="tab1">
+                    <ul class="nav nav-tabs">
+                        <li class="active" id="genTab">
+                            <a href="#tab_1_general" data-toggle="tab"> General Details </a>
+                        </li>
+                        <li id="specTab">
+                            <a href="#tab_1_special" data-toggle="tab"> Special Group Registration </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab_1_general">
+                            <h3 class="block">Provide your general details</h3>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Ownership Type
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <select data-live-search="true" class="form-control input-circle input-circle select2" id="ddlOwnershiptype" name="ddlOwnershiptype">
-                                    <option value="">--Choose Type--</option>
-                                    <option value="1">Sole Ownership</option>
-                                    <option value="2">Registered Company</option>
-                                </select>
-                                <span class="help-block"> Provide your Ownership type </span>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Vendor No
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control input-circle input-circle" name="txtDisVendorNo" id="txtDisVendorNo"  readonly="readonly"/>
+                                    <span class="help-block"> Your Vendor No </span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Certificate of Incorporation No
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control input-circle input-circle" name="txtCertofIncorp" id="txtCertofIncorp"/>
-                                <span class="help-block"> Provide your Cert of Incorporation No </span>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Business Name
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control input-circle input-circle" name="txtBznameRO" id="txtBznameRO" readonly="readonly" />
+                                    <span class="help-block"> Your Business Name </span>
+                                </div>
                             </div>
-                        </div>
-                        
-
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Incorporation Date:
-                                <span class="required"> * </span>
-                            </label>
                             
-                            <div class="col-md-6">
-                                <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                                    <input type="text" class="form-control input-circle-left" readonly  id="dtIncorp" name="dtIncorp" style="width: 550px">
-                                    <span class="input-group-btn input-circle-right">
-                                        <button class="btn default" type="button">
-                                            <i class="fa fa-calendar"></i>
-                                        </button>
-                                    </span>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    VAT Registration No
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control input-circle input-circle" name="txtVATNo" id="txtVATNo" readonly="readonly" />
+                                    <span class="help-block"> Your VAT Registration No </span>
                                 </div>
-                                <span class="help-block"> Select Incorporation Date </span>
                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Operations Start Date:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                                    <input type="text" class="form-control input-circle-left" readonly  id="dtOps" name="dtOps" style="width: 550px">
-                                    <span class="input-group-btn input-circle-right">
-                                        <button class="btn default" type="button">
-                                            <i class="fa fa-calendar"></i>
-                                        </button>
-                                    </span>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4"></label>
+                                <div class="col-md-6">
+                                    <p><strong style="font-style: italic">Start your data entry from below:</strong></p>
                                 </div>
-                                <span class="help-block"> Select Operations Start Date </span>
                             </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Business Type
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    @Html.Action("BusinessTypes", "Home")
+                                    <span class="help-block"> Provide your Business type </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Vendor Type
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <select data-live-search="true" class="form-control input-circle select2" id="ddlVendortype" name="ddlVendortype">
+                                        <option value="">--Choose Type--</option>
+                                        <option value="0">Local</option>
+                                        <option value="1">Foreign</option>
+                                    </select>
+                                    <span class="help-block"> Provide your Vendor type </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Ownership Type
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <select data-live-search="true" class="form-control input-circle input-circle select2" id="ddlOwnershiptype" name="ddlOwnershiptype">
+                                        <option value="">--Choose Type--</option>
+                                        <option value="1">Sole Ownership.Partnership</option>
+                                        <option value="2">Registered Company</option>
+                                    </select>
+                                    <span class="help-block"> Provide your Ownership type </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Certificate of Incorporation No
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control input-circle input-circle" name="txtCertofIncorp" id="txtCertofIncorp" />
+                                    <span class="help-block"> Provide your Cert of Incorporation No </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Incorporation Date:
+                                    <span class="required"> * </span>
+                                </label>
+
+                                <div class="col-md-6">
+                                    <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
+                                        <input type="text" class="form-control input-circle-left" readonly id="dtIncorp" name="dtIncorp" style="width: 550px">
+                                        <span class="input-group-btn input-circle-right">
+                                            <button class="btn default" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span class="help-block"> Select Incorporation Date </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Operations Start Date:
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
+                                        <input type="text" class="form-control input-circle-left" readonly id="dtOps" name="dtOps" style="width: 550px">
+                                        <span class="input-group-btn input-circle-right">
+                                            <button class="btn default" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span class="help-block"> Select Operations Start Date </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Language Code
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    @Html.Action("LanguageCode", "Home")
+                                    <span class="help-block"> Provide your Language </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Vision: &nbsp; <strong>(Max Characters: 250)</strong>
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <label id="lblCharleftTextarea1" style="color: red;"></label>
+                                    <textarea class="form-control input-circle" id="txtareaVision" name="txtareaVision" onkeyup="checkTextAreaVision(this, 250)" maxlength="250"></textarea>
+                                    <span class="help-block"> Your Vision </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Mision: &nbsp; <strong>(Max Characters: 250)</strong>
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <label id="lblCharleftTextarea2" style="color: red;"></label>
+                                    <textarea class="form-control input-circle" id="txtareaMision" name="txtareaMision" onkeyup="checkTextAreaMision(this, 250)" maxlength="250"></textarea>
+                                    <span class="help-block"> Your Mision </span>
+                                </div>
+                            </div>
+
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Language Code
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <select data-live-search="true" class="input-circle form-control select2" id="ddlLanguageCode" name="ddlLanguageCode">
-                                    <option value="">--Choose Language--</option>
-                                    <option value="ENG">ENGLISH</option>
-                                    <option value="ESP">ESPANOL</option>
-                                    <option value="GER">GERMAN</option>
-                                    <option value="FR">FRENCH</option>
-                                </select>
-                                <span class="help-block"> Provide your Language </span>
+                        <div class="tab-pane fade" id="tab_1_special">
+                            <p>NB: This section should only be completed by Special Group Suppliers (Youth, Women and Persons with Disability) 
+                            who have a valid AGPO (Access to Government Procurement Opportunities) Certificate. </p>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    AGPO Certificate No
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control input-circle" name="txtAgpoCertNo" id="txtAgpoCertNo"/>
+                                    <span class="help-block">Your AGPO Cert No  </span>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Industry Group
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <select data-live-search="true" class="input-circle form-control select2" id="ddlIndustrygroup" name="ddlIndustrygroup">
-                                    <option value="">--Select Industry Group--</option>
-                                    <option value="Software">ICT/ Software</option>
-                                    <option value="Supplies">Supplies</option>
-                                    <option value="Electronics">Electronics</option>
-                                </select>
-                                <span class="help-block"> Provide your Industry Group </span>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Registered Special Group
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    @Html.Action("SpecialCatGroups", "Home")
+                                    <span class="help-block">Special Group Registered to </span>
+                                </div>
                             </div>
-                        </div>
-                      
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Vision: &nbsp; <strong>(Max Characters: 250)</strong>
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <label id="lblCharleftTextarea1" style="color: red;"></label>
-                                <textarea class="form-control input-circle" id="txtareaVision" name="txtareaVision" onkeyup="checkTextAreaVision(this, 250)" maxlength="250"></textarea>
-                                <span class="help-block"> Your Vision </span>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Product/Services Category
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control input-circle" name="txtProdservCat" id="txtProdservCat" placeholder="e.g ICT services, Supplies"/>
+                                    <span class="help-block">Type your Services Category </span>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Mision: &nbsp; <strong>(Max Characters: 250)</strong>
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <label id="lblCharleftTextarea2" style="color: red;"></label>
-                                <textarea class="form-control input-circle" id="txtareaMision" name="txtareaMision" onkeyup="checkTextAreaMision(this,250)" maxlength="250"></textarea>
-                                <span class="help-block"> Your Mision </span>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Certificate Effective Date:
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
+                                        <input type="text" class="form-control input-circle-left" readonly id="dtagpoCEDt" name="dtagpoCEDt" style="width: 550px">
+                                        <span class="input-group-btn input-circle-right">
+                                            <button class="btn default" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span class="help-block"> Select Effective Certificate Date </span>
+                                </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4">
+                                    Certificate Expiry Date:
+                                    <span class="required"> * </span>
+                                </label>
+                                <div class="col-md-6">
+                                    <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
+                                        <input type="text" class="form-control input-circle-left" readonly id="dtagpoCEXt" name="dtagpoCEXt" style="width: 550px">
+                                        <span class="input-group-btn input-circle-right">
+                                            <button class="btn default" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span class="help-block"> Select Expiry Certificate Date </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p>
+                                    NB: Verification of the validity of your AGPO Certificate can be done by accessing the AGPO website,
+                                    by clicking on the following link: <a href="https://agpo.go.ke/" target="_blank">AGPO Website</a>
+                                </p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-offset-4 col-md-8">
+                                    <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-agpo">Save &nbsp;<i class="fas fa fa-save"></i></a>
+                                </div>
+                            </div>
+                            
+
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab2">
-                        <h3 class="block">Provide your Address details</h3>
-                        <div class="form-group">
-                            <label class="control-label col-md-4">P.O Box/Address
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control input-circle" name="txtPoBox" id="txtPoBox" placeholder="P.O Box Office"/>
-                                <span class="help-block"> Provide your PO Box address </span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Physical Location / Address 2
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control input-circle" name="txtLocation" id="txtLocation"/>
-                                <span class="help-block"> Provide your Physical Location Address </span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Postal Code:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                @Html.Action("PostalCodeList", "Home")
-                                <span class="help-block"> Provide choose your postal code </span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                City:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control input-circle" name="txtCity" id="txtCity" readonly="readonly" />
-                                <span class="help-block"> Your Postal City </span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Country:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                               @Html.Action("CountryList", "Home")
-                                <span class="help-block"> Provide choose your Country </span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Website:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="url" class="form-control input-circle" name="txtwebsiteurl" id="txtwebsiteurl" placeholder="http://myexamplesite.com/" />
-                                <span class="help-block"> Your Website Url </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Fixed Line Tel No:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control input-circle" name="txtTelphNo" id="txtTelphNo" />
-                                <span class="help-block"> Your Telephone Number</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Building /House No:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="number" class="form-control input-circle" name="txtBuildNo" id="txtBuildNo" />
-                                <span class="help-block"> Building / house Number </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Floor:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control input-circle" name="txtFloor" id="txtFloor" />
-                                <span class="help-block"> Building Floor </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Plot No:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control input-circle" name="txtPlotNo" id="txtPlotNo" />
-                                <span class="help-block"> Your Plot No </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Street / Road:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control input-circle" name="txtStreetroad" id="txtStreetroad" />
-                                <span class="help-block"> Location Street / Road </span>
-                            </div>
-                        </div>
-                        
-
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Fax No:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control input-circle" name="txtFaxNo" id="txtFaxNo" />
-                                <span class="help-block"> Fax Number </span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="tab-pane" id="tab3">
-                        <h3 class="block">Business profile details</h3>
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Company Size:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <select data-live-search="true" class="form-control input-circle select2" id="ddlCompanysize" name="ddlCompanysize">
-                                    <option value="">--Select Company size--</option>
-                                    <option value="10-15">10-15</option>
-                                    <option value="15-30">15-30</option>
-                                    <option value="30-above">30-above</option>
-                                </select>
-                                <span class="help-block"> Provide choose your company size </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Nominal Capital:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <select data-live-search="true" class="form-control input-circle select2" id="ddlNominalCap" name="ddlNominalCap">
-                                    <option value="">--Select Nominal Capital--</option>
-                                    <option value="100000">100,000</option>
-                                    <option value="200000">200,000</option>
-                                    <option value="300000">300,000</option>
-                                </select>
-                                <span class="help-block"> Provide your Nominal capital </span>
-                            </div>
-                        </div>
-                    
-
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Dealership Type:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <select data-live-search="true" class="form-control input-circle select2" id="txtDealertype" name="txtDealertype">
-                                    <option value="">--Select Dealer Type--</option>
-                                    <option value="1">Manufacturer</option>
-                                    <option value="2">Distributor</option>
-                                    <option value="3">Partner</option>
-                                    <option value="4">Reseller</option>
-                                    <option value="5">Other</option>
-                                </select>
-                                <span class="help-block"> Provide Dealership type</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Maximum Value of Business:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="number" class="form-control input-circle" name="txtMaxbzVal" id="txtMaxbzVal"/>
-                                <span class="help-block"> Provide Maximum Business Value</span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">
-                                Mobile No:
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control input-circle" name="txtCntPhoneno" id="txtCntPhoneno" />
-                                <span class="help-block"> Provide contact mobile number</span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Nature of Business: &nbsp; <strong>(Max Characters: 50)</strong>
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <label id="lblCharleftTextarea3" style="color: red;"></label>
-                                <textarea class="form-control input-circle" id="txtareaNatureofBz" name="txtareaNatureofBz" onkeyup="checkTextAreaNtrBz(this,50)" maxlength="50"></textarea>
-                                <span class="help-block"> Describe nature of your Business </span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group" style="display: none" id="divCollecteddataTest">
-                            <label class="control-label col-md-4">Collected Data: &nbsp;
-                                <span class="required"> * </span>
-                            </label>
-                            <div class="col-md-6">
-                                <textarea class="form-control" id="txtCollectedData" name="txtCollectedData" readonly="readonly"></textarea>
-                                <span class="help-block"> Collected Information so far </span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="tab-pane" id="tab4">
-                        <h3 class="block">Provide details of your bank accounts below</h3>
-                        <div class="row">
-                            <div class="col-md-12">
-                                @Html.Action("BankDetails", "Home")
-                            </div>
+                   
+                </div>
+                <div class="tab-pane" id="tab2">
+                    <h3 class="block">Provide your Address details</h3>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">P.O Box/Address
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control input-circle" name="txtPoBox" id="txtPoBox" placeholder="P.O Box Office"/>
+                            <span class="help-block"> Provide your PO Box address </span>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab5">
+                        
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Physical Location / Address 2
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control input-circle" name="txtLocation" id="txtLocation"/>
+                            <span class="help-block"> Provide your Physical Location Address </span>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Postal Code:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            @Html.Action("PostalCodeList", "Home")
+                            <span class="help-block"> Provide choose your postal code </span>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            City:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control input-circle" name="txtCity" id="txtCity" readonly="readonly" />
+                            <span class="help-block"> Your Postal City </span>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Country:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            @Html.Action("CountryList", "Home")
+                            <span class="help-block"> Provide choose your Country </span>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Website:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="url" class="form-control input-circle" name="txtwebsiteurl" id="txtwebsiteurl" placeholder="http://myexamplesite.com/" />
+                            <span class="help-block"> Your Website Url </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Fixed Line Tel No:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control input-circle" name="txtTelphNo" id="txtTelphNo" />
+                            <span class="help-block"> Your Telephone Number</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Building /House No:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control input-circle" name="txtBuildNo" id="txtBuildNo" />
+                            <span class="help-block"> Building / house Number </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Floor:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control input-circle" name="txtFloor" id="txtFloor" />
+                            <span class="help-block"> Building Floor </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Plot No:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control input-circle" name="txtPlotNo" id="txtPlotNo" />
+                            <span class="help-block"> Your Plot No </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Street / Road:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control input-circle" name="txtStreetroad" id="txtStreetroad" />
+                            <span class="help-block"> Location Street / Road </span>
+                        </div>
+                    </div>
+                        
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Fax No:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control input-circle" name="txtFaxNo" id="txtFaxNo" />
+                            <span class="help-block"> Fax Number </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="tab3">
+                    <h3 class="block">Business profile details</h3>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Company Size:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            @Html.Action("CompanySize", "Home")
+                            <span class="help-block"> Provide choose your company size </span>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Industry Group:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            @Html.Action("IndustryGroupes", "Home")
+                            <span class="help-block"> Select your Industry Group</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Nominal Capital:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control input-circle" name="ddlNominalCap" id="ddlNominalCap"/>
+                            <span class="help-block"> Provide your Nominal capital </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Dealership Type:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <select data-live-search="true" class="form-control input-circle select2" id="txtDealertype" name="txtDealertype">
+                                <option value="">--Select Dealer Type--</option>
+                                <option value="1">Manufacturer</option>
+                                <option value="2">Distributor</option>
+                                <option value="3">Partner</option>
+                                <option value="4">Reseller</option>
+                                <option value="5">Other</option>
+                            </select>
+                            <span class="help-block"> Provide Dealership type</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Maximum Value of Business:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control input-circle" name="txtMaxbzVal" id="txtMaxbzVal"/>
+                            <span class="help-block"> Provide Maximum Business Value</span>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label class="control-label col-md-4">
+                            Mobile No:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control input-circle" name="txtCntPhoneno" id="txtCntPhoneno" />
+                            <span class="help-block"> Provide contact mobile number</span>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Nature of Business: &nbsp; <strong>(Max Characters: 50)</strong>
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-6">
+                            <label id="lblCharleftTextarea3" style="color: red;"></label>
+                            <textarea class="form-control input-circle" id="txtareaNatureofBz" name="txtareaNatureofBz" onkeyup="checkTextAreaNtrBz(this,50)" maxlength="50"></textarea>
+                            <span class="help-block"> Describe nature of your Business </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab4">
+                    <h3 class="block">Provide details of your bank accounts below</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.Action("BankDetails", "Home")
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab5">
                         <h3 class="block">Provide complete list of directors/shareholders. Total ownership must be 100 % before submision</h3>
                         <div class="row">
                             <div class="col-md-12">
@@ -550,51 +676,8 @@
                             </div>
                         </div>
                     </div>
+                
                 <div class="tab-pane" id="tab6">
-                    <h3 class="block">Please select atleast one product category. Your selection should be in line with an Open Invitation for Prequalification </h3>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                            <div class="portlet light portlet-fit bordered">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="icon-settings font-red"></i>
-                                        <span class="caption-subject font-red sbold uppercase">Prequalification Categories</span>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="table-toolbar">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">
-                                                    Invitation for Prequalification (IFP) No:
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-6">
-                                                    @Html.Action("IfpRequestsList", "Home")
-                                                    <span class="help-block"> Choose IFP Number </span>
-                                                </div>
-                                            </div>
-                                                
-                                        </div>
-                                    </div>
-                                    <table class="table table-striped table-hover table-bordered" id="tbl_ifps">
-                                        <thead>
-                                        <tr>
-                                            <th> Code</th>
-                                            <th> Description</th>
-                                            <th> Actions</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- END EXAMPLE TABLE PORTLET-->
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="tab7">
                     <h3 class="block">Provide a summary of any litigation and arbitration history for your organization</h3>
                     <div class="row">
                         <div class="col-md-12">
@@ -659,8 +742,561 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane" id="tab7">
+                    <h3 class="block">Consultants and Contractors are required to provide some client references for their previous engagements/projects under this section. 
+                        Any supporting documents (Such as copies of Contracts and LPOs can be scanned and attached under the "Attach Registration Documents" section.</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings font-red"></i>
+                                        <span class="caption-subject font-red sbold uppercase">Past experience</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="table-toolbar">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="btn-group">
+                                                    <button id="btn_add_pastexp_new" class="btn green">
+                                                        Add New &nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="btn-group pull-right">
+                                                    <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
+                                                        Tools
+                                                        <i class="fa fa-angle-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li>
+                                                            <a href="javascript:;"> Print </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;"> Save as PDF </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;"> Export to Excel </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-hover table-bordered" id="tbl_pastexp">
+                                        <thead>
+                                        <tr>
+                                            <th> Client Name </th>
+                                            <th> Address </th>
+                                            <th> Assignment / Project </th>
+                                            <th> Project Scope </th>
+                                            <th> Project Start Date </th>
+                                            <th> Project End Date </th>
+                                            <th> Project Value </th>
+                                            <th> Edit </th>
+                                            <th> Delete </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+                    </div>
+                </div>
                     
                 <div class="tab-pane" id="tab8">
+                    <p>Kindly complete the Financial Statements summaries for each Audited Year</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings font-red"></i>
+                                        <span class="caption-subject font-red sbold uppercase">Audited Financial Statements</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#tab_1_balance_sheet" data-toggle="tab"> Balance Sheet Summary</a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab_1_income_statement" data-toggle="tab"> Income Statement Summary </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active in" id="tab_1_balance_sheet">
+                                            <h3 class="block">Provide your Financial details</h3>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Year Code
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <select class="form-control select2" id="ddlYear" name="ddlYear" data_live_search="true">
+                                                        <option value="">--Select Year---</option>
+                                                        <optgroup label="Year Code List">
+                                                            <option value="2017">2017</option>
+                                                            <option value="2018">2018</option>
+                                                            <option value="2019">2019</option>
+                                                            <option value="2020">2020</option>
+                                                        </optgroup>
+                                                    </select>
+                                                      <span class="help-block"> Select Year </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Total Current Assets
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="form-control input-circle input-circle" name="txtTotalcurrentassets" id="txtTotalcurrentassets" />
+                                                    <span class="help-block"> Your Total current Assets (KES) </span>
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                   Total Fixed Assets
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="form-control input-circle input-circle" name="txtTotalfixedassets" id="txtTotalfixedassets" />
+                                                    <span class="help-block"> Your Total Fixed Assets</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Total Current Liabilities
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="form-control input-circle input-circle" name="txtTotalcurrentliability" id="txtTotalcurrentliability"/>
+                                                    <span class="help-block"> Your Total current liabilities </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Total Long-Term Liabilities
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="form-control input-circle input-circle" name="txtTotalLongtermliability" id="txtTotalLongtermliability"/>
+                                                    <span class="help-block"> Your Total Long-Term liabilities </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Total Owner's Equity
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="form-control input-circle input-circle" name="txtTotalOwnerequity" id="txtTotalOwnerequity" />
+                                                    <span class="help-block"> Your Total Owner's Equity </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-offset-4 col-md-8">
+                                                    <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-balsheet">Save &nbsp;<i class="fas fa fa-save"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <table class="table table-striped table-hover table-bordered" id="tbl_balance_sheet">
+                                                    <thead>
+                                                    <tr>
+                                                        <th> # </th>
+                                                        <th> Year Code </th>
+                                                        <th> Total Current Assets</th>
+                                                        <th> Total Fixed Assets</th>
+                                                        <th> Total Current Liabilities </th>
+                                                        <th> Total Long-Term Liabilities </th>
+                                                        <th> Total Owner's Equity </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane fade" id="tab_1_income_statement">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Year Code
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <select class="form-control select2" id="ddlYearI" name="ddlYearI" data_live_search="true">
+                                                        <option value="">--Select Year---</option>
+                                                        <optgroup label="Year Code List">
+                                                            <option value="2017">2017</option>
+                                                            <option value="2018">2018</option>
+                                                            <option value="2019">2019</option>
+                                                            <option value="2020">2020</option>
+                                                        </optgroup>
+                                                    </select>
+                                                    <span class="help-block"> Select Year </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Total Revenue
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="form-control input-circle input-circle" name="txtTotalRevenue" id="txtTotalRevenue" />
+                                                    <span class="help-block"> Your Total Revenue (KES) </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Total Cost of Goods Sold
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="form-control input-circle input-circle" name="txtTotalCoGs" id="txtTotalCoGs" />
+                                                    <span class="help-block"> Your Total Cost of Goods Sold (KES) </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Total Operating Expenses
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="form-control input-circle input-circle" name="txtTotalOprXpens" id="txtTotalOprXpens" />
+                                                    <span class="help-block"> Your Operating Expenses (KES) </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Other Non-Operating Revenue/Expense
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="form-control input-circle input-circle" name="txtTotalOthernonOprexp" id="txtTotalOthernonOprexp" />
+                                                    <span class="help-block"> Your Other Non-Operating Revenue/Expense(KES) </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Interest Expense
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="form-control input-circle input-circle" name="txtInterestExpense" id="txtInterestExpense" />
+                                                    <span class="help-block"> Your Interest Expense (KES) </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-offset-4 col-md-8">
+                                                    <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-incomestates">Save &nbsp;<i class="fas fa fa-save"></i></a>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <table class="table table-striped table-hover table-bordered" id="tbl_income_statement">
+                                                    <thead>
+                                                    <tr>
+                                                        <th> # </th>
+                                                        <th> Year Code </th>
+                                                        <th> Total Revenue</th>
+                                                        <th> Total Cost of Goods Sold</th>
+                                                        <th> Total Operating Expenses </th>
+                                                        <th> Other Non-Operating Revenue/Expense </th>
+                                                        <th> Interest Expense </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab9">
+                    <p>Consultants and Contractors are required to provide a list of some of their key professional staff
+                     (These details can then be used during e-bid submission process on this Portal)</p>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings font-red"></i>
+                                        <span class="caption-subject font-red sbold uppercase">Details of Key Professional Staff</span>
+                                    </div>
+                                    <div class="btn-group pull-right">
+                                        <a href="javascript:;" class="btn green btn-outline btn-circle btn_add_new_staff"> Add Another Staff &nbsp;<i class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">
+                                            Staff Number
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control input-circle input-circle" name="txtStaffNo" id="txtStaffNo" />
+                                            <span class="help-block"> Enter Staff Number </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">
+                                            Staff Name
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control input-circle input-circle" name="txtStaffName" id="txtStaffName" />
+                                            <span class="help-block"> Enter Staff Name </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">
+                                            Profession
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control input-circle input-circle" name="txtProfession" id="txtProfession" />
+                                            <span class="help-block"> Enter Staff Profession </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">
+                                            Current Designation
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control input-circle input-circle" name="txtDesignation" id="txtDesignation" />
+                                            <span class="help-block"> Enter staff current designation </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">
+                                            Date of Birth
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
+                                                <input type="text" class="form-control input-circle-left" readonly id="dobStaff" name="dobStaff" style="width: 550px">
+                                                <span class="input-group-btn input-circle-right">
+                                                    <button class="btn default" type="button">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <span class="help-block"> Enter staff date of birth </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">
+                                            Joining Date
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
+                                                <input type="text" class="form-control input-circle-left" readonly id="dtJoining" name="dtJoining" style="width: 550px">
+                                                <span class="input-group-btn input-circle-right">
+                                                    <button class="btn default" type="button">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <span class="help-block"> Enter the date staff joined </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">
+                                            Years with the Firm
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="number" class="form-control input-circle input-circle" name="txtYrscount" id="txtYrscount"/>
+                                            <span class="help-block"> Enter Years worked with the firm</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">
+                                            Phone No
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control input-circle input-circle" name="txtStaffphonenumber" id="txtStaffphonenumber" />
+                                            <span class="help-block"> Enter staff phone number</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">
+                                            Nationality
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            @Html.Action("CountryListStaff", "Home")
+                                            <span class="help-block"> Select staff nationality</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">
+                                            Email
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="email" class="form-control input-circle input-circle" name="txtStaffEmail" id="txtStaffEmail" />
+                                            <span class="help-block"> Enter staff email</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-offset-4 col-md-8">
+                                            <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-savestaff"> Save &nbsp;<i class="fas fa fa-save"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <div id="pullupstaffXpr" style="display: none">
+                                        <div class="portlet-body">
+                                            <div class="table-toolbar">
+                                                <div class="row">
+                                                    <p>Add Staff Qualifications</p>
+                                                    <div class="col-md-6">
+                                                        <div class="btn-group">
+                                                            <button id="btn_add_staffqualif_new" class="btn green">
+                                                                Add New &nbsp;
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="btn-group pull-right">
+                                                            <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
+                                                                Tools
+                                                                <i class="fa fa-angle-down"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu pull-right">
+                                                                <li>
+                                                                    <a href="javascript:;"> Print </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:;"> Save as PDF </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:;"> Export to Excel </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-striped table-hover table-bordered" id="tbl_staffqualification">
+                                                <thead>
+                                                <tr>
+                                                    <th> Qualification Categories </th>
+                                                    <th> Qualification Description </th>
+                                                    <th> Institution </th>
+                                                    <th> Start Date </th>
+                                                    <th> Completion Date </th>
+                                                    <th> Outstanding Achievement </th>
+                                                    <th> Edit </th>
+                                                    <th> Delete </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                        
+                                        <div class="portlet-body">
+                                            <div class="table-toolbar">
+                                                <div class="row">
+                                                    <p>Add Staff Experience</p>
+                                                    <div class="col-md-6">
+                                                        <div class="btn-group">
+                                                            <button id="btn_add_staffxperience_new" class="btn green">
+                                                                Add New &nbsp;
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="btn-group pull-right">
+                                                            <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
+                                                                Tools
+                                                                <i class="fa fa-angle-down"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu pull-right">
+                                                                <li>
+                                                                    <a href="javascript:;"> Print </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:;"> Save as PDF </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:;"> Export to Excel </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-striped table-hover table-bordered" id="tbl_staffexp">
+                                                <thead>
+                                                <tr>
+                                                    <th> Experience Category </th>
+                                                    <th> Experience Summary </th>
+                                                    <th> Assignment /Project Description</th>
+                                                    <th> Years of Experience </th>
+                                                    <th> Start Date </th>
+                                                    <th> End Date </th>
+                                                    <th> Edit </th>
+                                                    <th> Delete </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+                    </div>
+                </div>
+             
+                <div class="tab-pane" id="tab10">
                         <h3 class="block">Upload mandatory Documents</h3>
                         <div class="row">
                             <div class="col-md-12">
@@ -719,7 +1355,7 @@
                                                             <span class="required"> * </span>
                                                         </label>
                                                         <div class="col-md-6">
-                                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
                                                                 <input type="text" class="form-control input-circle-left" readonly  id="dtOfIssue" name="dtOfIssue" style="width: 550px">
                                                                 <span class="input-group-btn input-circle-right">
                                                                     <button class="btn default" type="button">
@@ -737,7 +1373,7 @@
                                                             <span class="required"> * </span>
                                                         </label>
                                                         <div class="col-md-6">
-                                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
                                                                 <input type="text" class="form-control input-circle-left" readonly  id="dtOfexpiry" name="dtOfexpiry" style="width: 550px">
                                                                 <span class="input-group-btn input-circle-right">
                                                                     <button class="btn default" type="button">
@@ -751,7 +1387,7 @@
                                                     
                                                     <div id="pullUpfileselector" style="display: none">
                                                         <div class="form-group" >
-                                                            <label class="control-label col-md-4">KRA Pin</label>
+                                                            <label class="control-label col-md-4">Select Document</label>
                                                             <div class="col-md-6">
                                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                                                     <div class="input-group input-large">
@@ -784,10 +1420,9 @@
                                                
                                                         <div class="row">
                                                             <div class="col-md-offset-4 col-md-8">
-                                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-upload">Upload All &nbsp;<i class="fas fa fa-upload"></i></a>
+                                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-upload">Upload &nbsp;<i class="fas fa fa-upload"></i></a>
                                                             </div>
                                                         </div>
-                                                        
 
                                                     </div>
                                                     
@@ -795,112 +1430,22 @@
                                                 </div>
                                                 
                                                 <div class="tab-pane fade" id="tab_1_3">
-                                                    <p> Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
-                                                        craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar
-                                                        helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art
-                                                        party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park. </p>
+                                                    <table class="table table-striped table-hover table-bordered" id="tbl_mydocs">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>File Name</th>
+                                                            <th>File Size (KiB)</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
                                                 </div>
+                                                
+
                                             </div>
                                         </div>
-
-                                        @*<div class="row">
-                                            <div class="col-md-12">
-                                                <!-- file inputs here--> 
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">KRA Pin</label>
-                                                    <div class="col-md-6">
-                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                            <div class="input-group input-large">
-                                                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
-                                                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
-                                                                    <span class="fileinput-filename"> </span>
-                                                                </div>
-                                                                <span class="input-group-addon btn default btn-file">
-                                                                    <span class="fileinput-new"> Select file </span>
-                                                                    <span class="fileinput-exists"> Change </span>
-                                                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileKraUplds" name="inputFileKraUplds[]"> </span>
-                                                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">Confidential Business Questionnaire</label>
-                                                    <div class="col-md-6">
-                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                            <div class="input-group input-large">
-                                                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
-                                                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
-                                                                    <span class="fileinput-filename"> </span>
-                                                                </div>
-                                                                <span class="input-group-addon btn default btn-file">
-                                                                    <span class="fileinput-new"> Select file </span>
-                                                                    <span class="fileinput-exists"> Change </span>
-                                                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCBQUplds" name="inputFileCBQUplds[]"> </span>
-                                                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">Certificate of Registration</label>
-                                                    <div class="col-md-6">
-                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                            <div class="input-group input-large">
-                                                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
-                                                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
-                                                                    <span class="fileinput-filename"> </span>
-                                                                </div>
-                                                                <span class="input-group-addon btn default btn-file">
-                                                                    <span class="fileinput-new"> Select file </span>
-                                                                    <span class="fileinput-exists"> Change </span>
-                                                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileCertofRegUplds" name="inputFileCertofRegUplds[]"> </span>
-                                                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4">Tax Compliance Certificate</label>
-                                                    <div class="col-md-6">
-                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                            <div class="input-group input-large">
-                                                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
-                                                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
-                                                                    <span class="fileinput-filename"> </span>
-                                                                </div>
-                                                                <span class="input-group-addon btn default btn-file">
-                                                                    <span class="fileinput-new"> Select file </span>
-                                                                    <span class="fileinput-exists"> Change </span>
-                                                                    <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileTxComplyUplds" name="inputFileTxComplyUplds[]"> </span>
-                                                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                               
-                                                <!-- The global progress bar -->
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-4"></label>
-                                                    <div class="col-md-6">
-                                                        <!-- Display upload status -->
-                                                        <div id="uploadsMsg" style="display: none"></div>
-                                                    </div>
-                                                </div>
-                                               
-                                                <div class="row">
-                                                    <div class="col-md-offset-4 col-md-8">
-                                                        <a href="javascript:;" class="btn green btn-outline btn-circle button-upload">Upload All &nbsp;<i class="fas fa fa-upload"></i></a>
-                                                   </div>
-                                                </div>
-                                              
-                                            </div>
-                                        </div>*@
                                    
                                 </div>
                                 <!-- END EXAMPLE TABLE PORTLET-->

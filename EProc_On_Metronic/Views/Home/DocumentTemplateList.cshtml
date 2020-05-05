@@ -18,8 +18,7 @@ else
     <thead>
     <tr>
         <th>#</th>
-        <th>Procurement Document Type</th>
-        <th>Description (KiB)</th>
+        <th>Description</th>
         <th>Requirement Type</th>
     </tr>
     </thead>
@@ -29,11 +28,9 @@ else
         sno++;
         <tr>
             <td>@sno</td>
-            <td>@item.Code</td>
             <td>@item.Description</td>
-            <td>@item.Document_Category</td>
+            <td>@item.Requirement_Type</td>
         </tr>
-
     }
     </tbody>
 </table>

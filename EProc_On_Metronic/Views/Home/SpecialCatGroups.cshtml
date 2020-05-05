@@ -1,0 +1,15 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.SpecialGrpTModel>
+
+@{
+    Layout = null;
+}
+
+<select class="form-control select2" id="ddlRegSpgrp" name="ddlRegSpgrp" data_live_search="true">
+    <option value="">--Select Group---</option>
+    <optgroup label="Special Group List">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Code">@item.Description</option>
+        }
+    </optgroup>
+</select>

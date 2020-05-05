@@ -109,10 +109,16 @@
 </div>
 <!-- END PAGE BAR -->
 <!-- BEGIN PAGE TITLE-->
-<h1 class="page-title">
-    Admin Dashboard
-    <small>statistics, charts, recent events and reports</small>
-</h1>
+<h1 class="page-title">Dashboard<small>statistics, charts, recent events and reports</small></h1>
+
+<div class="alert alert-danger" id="generalfeedback" style="display: none">
+    <button class="close" data-dismiss="alert"></button> You have already submitted your registration, Wait for KeRRA Communication!.
+</div>
+<div class="modalspinner" style="display: none">
+    <div class="centerspinner">
+        <img alt="" src="/assets/loaders/spinner.gif" />
+    </div>
+</div>
 <!-- END PAGE TITLE-->
 <!-- END PAGE HEADER-->
 <!-- BEGIN DASHBOARD STATS 1-->
@@ -196,7 +202,7 @@
             </div>
             <div class="portlet-body">
                 <div id="site_statistics_loading">
-                    <img src="../assets/global/img/loading.gif" alt="loading" />
+                    <img src="/assets/global/img/loading.gif" alt="loading" />
                 </div>
                 <div id="site_statistics_content" class="display-none">
                     <div id="site_statistics" class="chart"> </div>
@@ -207,8 +213,6 @@
     </div>
     
 </div>
-
-
 
 </div>
 <!-- END CONTENT BODY -->

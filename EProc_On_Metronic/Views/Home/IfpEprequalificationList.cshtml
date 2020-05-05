@@ -1,0 +1,279 @@
+﻿@{
+    Layout = "~/Views/Shared/_Homepage_Layout.cshtml";
+}
+<!-- BEGIN CONTENT BODY -->
+<div class="page-content">
+    <!-- BEGIN PAGE HEADER-->
+ 
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/Home/IfpEprequalificationList">ePrequalification</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li><span>Request for Information</span></li>
+        </ul>
+        
+    </div>
+    <!-- END PAGE BAR -->
+
+    <!-- BEGIN PAGE TITLE-->
+ 
+    <div class="page-content">
+        <h3 class="page-title"><strong>Welcome to e-Prequalification</strong></h3>
+        <!-- END PAGE TITLE-->
+        <p>
+            Welcome to our e-Prequalification portal. You can now view all published Invitations for Prequalifications (IFPs) and submit your
+            response online.
+            NB: Before proceeding with e-Prequalification Response, please make sure that you are an already registered supplier (With
+            valid login credentials). If you are yet to register, please raise a Vendor registration request through this link
+        </p>
+        <!-- do table things here-->
+        <div class="row" id="ifplistdiv">
+            <div class="col-md-12">
+                <!-- Begin: life time stats -->
+                <div class="portlet light portlet-fit portlet-datatable bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-green"></i>
+                            <span class="caption-subject font-green sbold uppercase">IFPs</span>
+                        </div>
+                        <div class="actions">
+                            <div class="btn-group">
+                                <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+                                    <i class="fa fa-share"></i>
+                                    <span class="hidden-xs"> Trigger Tools </span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu pull-right" id="sample_3_tools">
+                                    <li>
+                                        <a href="javascript:;" data-action="0" class="tool-action">
+                                            <i class="icon-printer"></i> Print</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="1" class="tool-action">
+                                            <i class="far fa-copy"></i> Copy</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="2" class="tool-action">
+                                            <i class="far fa-file-pdf"></i> PDF</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" data-action="3" class="tool-action">
+                                            <i class="far fa-file-excel"></i> Excel</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-container">
+                            <div id="ifpfeedbacks" style="display: none;"></div>
+                            <table class="table table-striped table-bordered table-hover" id="tbl_open_ifps">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Notice No.</th>
+                                    <th>Description</th>
+                                    <th>Prequalification Period From</th>
+                                    <th>Prequalification Period To</th>
+                                    <th>Region Issuing Notice</th>
+                                    <th>Submision Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End: life time stats -->
+            </div>
+        </div>
+        <div class="row" id="ifpdetailsdiv" style="display: none">
+            <div class="tab-content">
+                <ul class="nav nav-tabs">
+                    <li class="active" >
+                        <a href="#tab_1_gen_details" data-toggle="tab"> General Details </a>
+                    </li>
+                    <li>
+                        <a href="#tab_2_proc_cat" data-toggle="tab"> Procurement Categories </a>
+                    </li>
+                    <li>
+                        <a href="#tab_3_req_docs" data-toggle="tab"> Required Documents </a>
+                    </li>
+                    <li>
+                        <a href="#tab_4_tendor_docs" data-toggle="tab"> Tender Documents </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="tab_1_gen_details">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="portlet light portlet-fit portlet-datatable bordered">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="icon-settings font-green"></i>
+                                            <span class="caption-subject font-green sbold uppercase">IFPs</span>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">IFP Notice No</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtIfpnoticeNo" id="txtIfpnoticeNo" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">External Document No</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtXtDocNo" id="txtXtDocNo" readonly/>
+                                                </div>
+                                            </div>
+                                        </div><br />
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Description: &nbsp;</label>
+                                                <div class="col-md-6">
+                                                    <textarea class="form-control" id="txtareaDescription" name="txtareaDescription" readonly></textarea>
+                                                </div>
+                                            </div>
+                                        </div><br />
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Invitation Summary: &nbsp;</label>
+                                                <div class="col-md-6">
+                                                    <textarea class="form-control" id="txtareaInvsummary" name="txtareaInvsummary" readonly></textarea>
+                                                </div>
+                                            </div>
+                                        </div><br />
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Prequalification Period Start Date</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtPreqstartdate" id="txtPreqstartdate" readonly/>
+                                                </div>
+                                            </div>
+                                        </div><br />
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Prequalification Period End Date</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtPreqenddate" id="txtPreqenddate" readonly/>
+                                                </div>
+                                            </div>
+                                        </div><br />
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Region Issuing Notice</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtRegionIssuing" id="txtRegionIssuing" readonly/>
+                                                </div>
+                                            </div>
+                                        </div><br />
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Date Published</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtPublishDate" id="txtPublishDate" readonly/>
+                                                </div>
+                                            </div>
+                                        </div><br/>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Submission Start Date</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtSubmissionStartDate" id="txtSubmissionStartDate" readonly />
+                                                </div>
+                                            </div>
+                                        </div><br/>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Submission End Date</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtSubmissionEndDate" id="txtSubmissionEndDate" readonly/>
+                                                </div>
+                                            </div>
+                                        </div><br/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="tab_2_proc_cat">
+                        <div class="row">
+                            <div class="portlet-body">
+                                <div class="table-container">
+                                    <table class="table table-striped table-bordered table-hover" id="tbl_ifp_category">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Procurement Caregory</th>
+                                            <th>Description</th>
+                                            <th>Procurement Type</th>
+                                            <th>Applicable Locations</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                
+                    <div class="tab-pane fade" id="tab_3_req_docs">
+                        <div class="row">
+                            <div class="portlet-body">
+                                <div class="table-container">
+                                    <table class="table table-striped table-bordered table-hover" id="tbl_ifp_docs">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Procurement Document Type</th>
+                                            <th>Description</th>
+                                            <th>Requirement Type</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+                    <div class="tab-pane fade" id="tab_4_tendor_docs">
+                    
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-offset-5 col-md-8">
+                        <a href="javascript:;" class="btn green btn-outline btn-circle button-go-back-home"><i class="fas fa fa-angle-left"></i> &nbsp;Back </a>
+                        <a href="javascript:;" class="btn green btn-outline btn-circle button-go-tologin" >Apply &nbsp;<i class="fas fa fa-edit"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modalspinner" style="display: none">
+            <div class="centerspinner">
+                <img alt="" src="/assets/loaders/spinner.gif"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- END CONTENT BODY -->

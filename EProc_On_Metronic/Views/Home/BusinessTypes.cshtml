@@ -1,0 +1,14 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.BusinessTypesModel>
+@{
+    Layout = null;
+    int n = 0;
+}
+<select class="form-control select2" id="ddlBusinesstype" name="ddlbzTypename"  data_live_search="true">
+    <option value="">--Select Type---</option>
+    <optgroup label="Business Types List">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Code">@item.Description</option>
+        }
+    </optgroup>
+</select>

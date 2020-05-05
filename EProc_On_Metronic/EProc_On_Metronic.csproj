@@ -203,23 +203,40 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AuditedFinancialsTModel.cs" />
+    <Compile Include="Models\BalanceSheetTModel.cs" />
     <Compile Include="Models\BankModel.cs" />
     <Compile Include="Models\BlogsModel.cs" />
+    <Compile Include="Models\BusinessSizeModel.cs" />
+    <Compile Include="Models\BusinessTypesModel.cs" />
     <Compile Include="Models\ContactsModel.cs" />
     <Compile Include="Models\DirectorModel.cs" />
     <Compile Include="Models\DocumentsTModel.cs" />
+    <Compile Include="Models\DropdownListforYears.cs" />
     <Compile Include="Models\DropdownListsModel.cs" />
     <Compile Include="Models\Enum.cs" />
+    <Compile Include="Models\GetVendorTModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IfPDocumentsTModel.cs" />
     <Compile Include="Models\IFPRequestsModel.cs" />
+    <Compile Include="Models\IncomeStatementTModel.cs" />
+    <Compile Include="Models\IndustryGroupModel.cs" />
+    <Compile Include="Models\LanguageModel.cs" />
     <Compile Include="Models\LitigationModel.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PastXprModel.cs" />
     <Compile Include="Models\PreQualificationModel.cs" />
     <Compile Include="Models\ProcurementModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
+    <Compile Include="Models\RfiPrequalifcTModel.cs" />
     <Compile Include="Models\RfQsModel.cs" />
     <Compile Include="Models\SignupModel.cs" />
+    <Compile Include="Models\SpecialGrpEntryModel.cs" />
+    <Compile Include="Models\SpecialGrpTModel.cs" />
+    <Compile Include="Models\StaffEntryTModel.cs" />
+    <Compile Include="Models\StaffQualificTModel.cs" />
+    <Compile Include="Models\StaffXPTModel.cs" />
     <Compile Include="Models\TenderModel.cs" />
     <Compile Include="Models\UploadedFile.cs" />
     <Compile Include="Models\VendorModel.cs" />
@@ -247,8 +264,11 @@
     <Content Include="assets\apps\scripts\todo-2.min.js" />
     <Content Include="assets\apps\scripts\todo.min.js" />
     <Content Include="assets\customassets\css\customstyles.css" />
+    <Content Include="assets\customassets\css\overlay.css" />
     <Content Include="assets\customassets\js\buttonClicks.js" />
     <Content Include="assets\customassets\js\custompluginsjs.js" />
+    <Content Include="assets\customassets\js\dataFetchHmpgInits.js" />
+    <Content Include="assets\customassets\js\dataFetchInits.js" />
     <Content Include="assets\customassets\js\inputvalidations.js" />
     <Content Include="assets\customassets\js\jsFunctions.js" />
     <Content Include="assets\fontawesome\css\all.css" />
@@ -2377,6 +2397,7 @@
     <Content Include="assets\layouts\layout\scripts\layout.min.js" />
     <Content Include="assets\loaders\load.gif" />
     <Content Include="assets\loaders\no-image.png" />
+    <Content Include="assets\loaders\spinner.gif" />
     <Content Include="assets\pages\css\about.min.css" />
     <Content Include="assets\pages\css\blog.min.css" />
     <Content Include="assets\pages\css\coming-soon.min.css" />
@@ -2778,6 +2799,10 @@
     <Content Include="assets\plugins\light-gallery\fonts\lgd641.ttf" />
     <Content Include="assets\plugins\light-gallery\fonts\lgd641.woff" />
     <Content Include="assets\global\plugins\backstretch\jquery.backstretch.js" />
+    <Content Include="assets\fontawesome\awesomewebfonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fontawesome\awesomewebfonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fontawesome\awesomewebfonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fontawesome\awesomewebfonts\fontawesome-webfont.woff2" />
     <None Include="Properties\PublishProfiles\eProconMetronic.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -2795,7 +2820,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Uploads\CNT_00985\Shawn%402018.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2830,10 +2854,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Uploads\CNT_00985\Shawn Mbuvi~NACOSTI_SIGNOFF.pdf" />
-    <Content Include="Uploads\CNT_00985\Shawn Mbuvi~Weekly Planner_July_30th.pdf" />
-    <Content Include="Uploads\CNT_00985\Shawn Mbuvi~Weekly Planner_June_17th.pdf" />
-    <Content Include="Uploads\CNT_00985\Shawn Mbuvi~Weekly Planner_Nov_25th.pdf" />
     <Content Include="Uploads\Colaborator Card\CONT001\CONT001_CERT OF REGISTRATION.pdf" />
     <Content Include="Uploads\Colaborator Card\CONT001\CONT001_CONFIDENTIAL BUSINESS QUESTIONNARE.pdf" />
     <Content Include="Uploads\Colaborator Card\CONT001\CONT001_KRAPIN.pdf" />
@@ -2862,7 +2882,7 @@
     <Content Include="Views\Home\AwardedTenders.cshtml" />
     <Content Include="Views\Home\ChooseAccounttoCreate.cshtml" />
     <Content Include="Views\Home\CountryList.cshtml" />
-    <Content Include="Views\Home\CountryListInd.cshtml" />
+    <Content Include="Views\Home\CountryListStaff.cshtml" />
     <Content Include="Views\Home\FiscalYears.cshtml" />
     <Content Include="Views\Home\Homepage.cshtml" />
     <Content Include="Views\Home\Index_EBid.cshtml" />
@@ -2893,10 +2913,15 @@
     <Content Include="Views\Shared\_Formwizard_Layout.cshtml" />
     <Content Include="Views\Home\Supplier_Registration_Form.cshtml" />
     <Content Include="Views\Home\BankDetails.cshtml" />
-    <Content Include="Views\Home\TestForm.cshtml" />
     <Content Include="Views\Home\IfpRequestsList.cshtml" />
     <Content Include="Views\Home\DocumentTemplateList.cshtml" />
     <Content Include="Views\Home\DocumentTemplateDroplist.cshtml" />
+    <Content Include="Views\Home\BusinessTypes.cshtml" />
+    <Content Include="Views\Home\IndustryGroupes.cshtml" />
+    <Content Include="Views\Home\CompanySize.cshtml" />
+    <Content Include="Views\Home\LanguageCode.cshtml" />
+    <Content Include="Views\Home\SpecialCatGroups.cshtml" />
+    <Content Include="Views\Home\IfpEprequalificationList.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -2905,9 +2930,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\CNT_00985\NCST_19\20DP_0001\" />
     <Folder Include="Uploads\Profiles\" />
-    <Folder Include="Uploads\VEND0922\" />
+    <Folder Include="Uploads\Vendor Card\VEND002\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

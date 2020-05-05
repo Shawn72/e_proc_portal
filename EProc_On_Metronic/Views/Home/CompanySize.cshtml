@@ -1,0 +1,14 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.BusinessSizeModel>
+
+@{
+    Layout = null;
+}
+<select class="form-control select2" id="ddlCompanysize" name="ddlCompanysize" data_live_search="true">
+    <option value="">--Select Size---</option>
+    <optgroup label="Business Size List">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Code">@item.Description</option>
+        }
+    </optgroup>
+</select>

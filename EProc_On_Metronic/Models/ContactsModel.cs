@@ -14,5 +14,6 @@
         public string Password1 { get; set; }
         public string Password2 { get; set; }
         public string Tax_Compliance { get; set; }
+        public string VAT_Registration_No { get; set; }
     }
 }

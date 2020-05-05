@@ -73,7 +73,7 @@ namespace EProc_On_Metronic.WebRef {
         
         private System.Threading.SendOrPostCallback FnAddPurchaseReqLineOperationCompleted;
         
-        private System.Threading.SendOrPostCallback FnRegisterVendorIndOperationCompleted;
+        private System.Threading.SendOrPostCallback FnReqforRegistrationOperationCompleted;
         
         private System.Threading.SendOrPostCallback FnBLOBRfQDocumentOperationCompleted;
         
@@ -88,6 +88,24 @@ namespace EProc_On_Metronic.WebRef {
         private System.Threading.SendOrPostCallback FnInsertDirectorOperationCompleted;
         
         private System.Threading.SendOrPostCallback FnInsertLitigationHOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnInsertSpecialGrpOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnInsertPastXepOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnInsertBalanceSheetOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnInsertIncomestatementOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnInsertFiledetailsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnInsertStaffEntryOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnInsertStaffQlfEntryOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnInsertStaffXPrEntryOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnCompleteSupplierRegOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -194,7 +212,7 @@ namespace EProc_On_Metronic.WebRef {
         public event FnAddPurchaseReqLineCompletedEventHandler FnAddPurchaseReqLineCompleted;
         
         /// <remarks/>
-        public event FnRegisterVendorIndCompletedEventHandler FnRegisterVendorIndCompleted;
+        public event FnReqforRegistrationCompletedEventHandler FnReqforRegistrationCompleted;
         
         /// <remarks/>
         public event FnBLOBRfQDocumentCompletedEventHandler FnBLOBRfQDocumentCompleted;
@@ -216,6 +234,33 @@ namespace EProc_On_Metronic.WebRef {
         
         /// <remarks/>
         public event FnInsertLitigationHCompletedEventHandler FnInsertLitigationHCompleted;
+        
+        /// <remarks/>
+        public event FnInsertSpecialGrpCompletedEventHandler FnInsertSpecialGrpCompleted;
+        
+        /// <remarks/>
+        public event FnInsertPastXepCompletedEventHandler FnInsertPastXepCompleted;
+        
+        /// <remarks/>
+        public event FnInsertBalanceSheetCompletedEventHandler FnInsertBalanceSheetCompleted;
+        
+        /// <remarks/>
+        public event FnInsertIncomestatementCompletedEventHandler FnInsertIncomestatementCompleted;
+        
+        /// <remarks/>
+        public event FnInsertFiledetailsCompletedEventHandler FnInsertFiledetailsCompleted;
+        
+        /// <remarks/>
+        public event FnInsertStaffEntryCompletedEventHandler FnInsertStaffEntryCompleted;
+        
+        /// <remarks/>
+        public event FnInsertStaffQlfEntryCompletedEventHandler FnInsertStaffQlfEntryCompleted;
+        
+        /// <remarks/>
+        public event FnInsertStaffXPrEntryCompletedEventHandler FnInsertStaffXPrEntryCompleted;
+        
+        /// <remarks/>
+        public event FnCompleteSupplierRegCompletedEventHandler FnCompleteSupplierRegCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendor", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnRegisterVendor_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -982,40 +1027,40 @@ namespace EProc_On_Metronic.WebRef {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendorInd", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnRegisterVendorInd_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnReqforRegistration", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnReqforRegistration_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
-        public string FnRegisterVendorInd(string registeredName, string phoneNumber, string emailAddress, string kraPin, string contactName) {
-            object[] results = this.Invoke("FnRegisterVendorInd", new object[] {
-                        registeredName,
+        public string FnReqforRegistration(string registeredBusinessName, string phoneNumber, string emailAddress, string taxRegkraPin, string contactName) {
+            object[] results = this.Invoke("FnReqforRegistration", new object[] {
+                        registeredBusinessName,
                         phoneNumber,
                         emailAddress,
-                        kraPin,
+                        taxRegkraPin,
                         contactName});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void FnRegisterVendorIndAsync(string registeredName, string phoneNumber, string emailAddress, string kraPin, string contactName) {
-            this.FnRegisterVendorIndAsync(registeredName, phoneNumber, emailAddress, kraPin, contactName, null);
+        public void FnReqforRegistrationAsync(string registeredBusinessName, string phoneNumber, string emailAddress, string taxRegkraPin, string contactName) {
+            this.FnReqforRegistrationAsync(registeredBusinessName, phoneNumber, emailAddress, taxRegkraPin, contactName, null);
         }
         
         /// <remarks/>
-        public void FnRegisterVendorIndAsync(string registeredName, string phoneNumber, string emailAddress, string kraPin, string contactName, object userState) {
-            if ((this.FnRegisterVendorIndOperationCompleted == null)) {
-                this.FnRegisterVendorIndOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnRegisterVendorIndOperationCompleted);
+        public void FnReqforRegistrationAsync(string registeredBusinessName, string phoneNumber, string emailAddress, string taxRegkraPin, string contactName, object userState) {
+            if ((this.FnReqforRegistrationOperationCompleted == null)) {
+                this.FnReqforRegistrationOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnReqforRegistrationOperationCompleted);
             }
-            this.InvokeAsync("FnRegisterVendorInd", new object[] {
-                        registeredName,
+            this.InvokeAsync("FnReqforRegistration", new object[] {
+                        registeredBusinessName,
                         phoneNumber,
                         emailAddress,
-                        kraPin,
-                        contactName}, this.FnRegisterVendorIndOperationCompleted, userState);
+                        taxRegkraPin,
+                        contactName}, this.FnReqforRegistrationOperationCompleted, userState);
         }
         
-        private void OnFnRegisterVendorIndOperationCompleted(object arg) {
-            if ((this.FnRegisterVendorIndCompleted != null)) {
+        private void OnFnReqforRegistrationOperationCompleted(object arg) {
+            if ((this.FnReqforRegistrationCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.FnRegisterVendorIndCompleted(this, new FnRegisterVendorIndCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.FnReqforRegistrationCompleted(this, new FnReqforRegistrationCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1082,7 +1127,7 @@ namespace EProc_On_Metronic.WebRef {
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSupplierRegistration", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnSupplierRegistration_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
         public string FnSupplierRegistration(
-                    int businessType, 
+                    string businessType, 
                     int vendorType, 
                     int ownershipType, 
                     string industryGroup, 
@@ -1146,7 +1191,7 @@ namespace EProc_On_Metronic.WebRef {
         
         /// <remarks/>
         public void FnSupplierRegistrationAsync(
-                    int businessType, 
+                    string businessType, 
                     int vendorType, 
                     int ownershipType, 
                     string industryGroup, 
@@ -1180,7 +1225,7 @@ namespace EProc_On_Metronic.WebRef {
         
         /// <remarks/>
         public void FnSupplierRegistrationAsync(
-                    int businessType, 
+                    string businessType, 
                     int vendorType, 
                     int ownershipType, 
                     string industryGroup, 
@@ -1411,6 +1456,384 @@ namespace EProc_On_Metronic.WebRef {
             if ((this.FnInsertLitigationHCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.FnInsertLitigationHCompleted(this, new FnInsertLitigationHCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertSpecialGrp", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnInsertSpecialGrp_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertSpecialGrp(string vendoNo, string specialGrpcatg, string certficateNo, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime certeffectiveDate, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime certXpiryDate, string prodservCategory) {
+            object[] results = this.Invoke("FnInsertSpecialGrp", new object[] {
+                        vendoNo,
+                        specialGrpcatg,
+                        certficateNo,
+                        certeffectiveDate,
+                        certXpiryDate,
+                        prodservCategory});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertSpecialGrpAsync(string vendoNo, string specialGrpcatg, string certficateNo, System.DateTime certeffectiveDate, System.DateTime certXpiryDate, string prodservCategory) {
+            this.FnInsertSpecialGrpAsync(vendoNo, specialGrpcatg, certficateNo, certeffectiveDate, certXpiryDate, prodservCategory, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertSpecialGrpAsync(string vendoNo, string specialGrpcatg, string certficateNo, System.DateTime certeffectiveDate, System.DateTime certXpiryDate, string prodservCategory, object userState) {
+            if ((this.FnInsertSpecialGrpOperationCompleted == null)) {
+                this.FnInsertSpecialGrpOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertSpecialGrpOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertSpecialGrp", new object[] {
+                        vendoNo,
+                        specialGrpcatg,
+                        certficateNo,
+                        certeffectiveDate,
+                        certXpiryDate,
+                        prodservCategory}, this.FnInsertSpecialGrpOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertSpecialGrpOperationCompleted(object arg) {
+            if ((this.FnInsertSpecialGrpCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertSpecialGrpCompleted(this, new FnInsertSpecialGrpCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertPastXep", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnInsertPastXep_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertPastXep(string vendorNo, string clientName, string address, string assignmentProject, string projectScope, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime projectStartDate, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime projectEndDate, decimal projectValue) {
+            object[] results = this.Invoke("FnInsertPastXep", new object[] {
+                        vendorNo,
+                        clientName,
+                        address,
+                        assignmentProject,
+                        projectScope,
+                        projectStartDate,
+                        projectEndDate,
+                        projectValue});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertPastXepAsync(string vendorNo, string clientName, string address, string assignmentProject, string projectScope, System.DateTime projectStartDate, System.DateTime projectEndDate, decimal projectValue) {
+            this.FnInsertPastXepAsync(vendorNo, clientName, address, assignmentProject, projectScope, projectStartDate, projectEndDate, projectValue, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertPastXepAsync(string vendorNo, string clientName, string address, string assignmentProject, string projectScope, System.DateTime projectStartDate, System.DateTime projectEndDate, decimal projectValue, object userState) {
+            if ((this.FnInsertPastXepOperationCompleted == null)) {
+                this.FnInsertPastXepOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertPastXepOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertPastXep", new object[] {
+                        vendorNo,
+                        clientName,
+                        address,
+                        assignmentProject,
+                        projectScope,
+                        projectStartDate,
+                        projectEndDate,
+                        projectValue}, this.FnInsertPastXepOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertPastXepOperationCompleted(object arg) {
+            if ((this.FnInsertPastXepCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertPastXepCompleted(this, new FnInsertPastXepCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertBalanceSheet", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnInsertBalanceSheet_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertBalanceSheet(string yearCode, decimal totalCurrentAssets, decimal totalFixedAssets, decimal totalCurrentLiability, decimal totalLongtermliabilty, decimal totalOwnersequity, string vendorNo) {
+            object[] results = this.Invoke("FnInsertBalanceSheet", new object[] {
+                        yearCode,
+                        totalCurrentAssets,
+                        totalFixedAssets,
+                        totalCurrentLiability,
+                        totalLongtermliabilty,
+                        totalOwnersequity,
+                        vendorNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertBalanceSheetAsync(string yearCode, decimal totalCurrentAssets, decimal totalFixedAssets, decimal totalCurrentLiability, decimal totalLongtermliabilty, decimal totalOwnersequity, string vendorNo) {
+            this.FnInsertBalanceSheetAsync(yearCode, totalCurrentAssets, totalFixedAssets, totalCurrentLiability, totalLongtermliabilty, totalOwnersequity, vendorNo, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertBalanceSheetAsync(string yearCode, decimal totalCurrentAssets, decimal totalFixedAssets, decimal totalCurrentLiability, decimal totalLongtermliabilty, decimal totalOwnersequity, string vendorNo, object userState) {
+            if ((this.FnInsertBalanceSheetOperationCompleted == null)) {
+                this.FnInsertBalanceSheetOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertBalanceSheetOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertBalanceSheet", new object[] {
+                        yearCode,
+                        totalCurrentAssets,
+                        totalFixedAssets,
+                        totalCurrentLiability,
+                        totalLongtermliabilty,
+                        totalOwnersequity,
+                        vendorNo}, this.FnInsertBalanceSheetOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertBalanceSheetOperationCompleted(object arg) {
+            if ((this.FnInsertBalanceSheetCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertBalanceSheetCompleted(this, new FnInsertBalanceSheetCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertIncomestatement", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnInsertIncomestatement_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertIncomestatement(string yearCode, decimal totalRevenue, decimal totaCostofsoldgoods, decimal totaOperatingexpenses, decimal othernoneOperevenue, decimal interestExpense, string vendorNo) {
+            object[] results = this.Invoke("FnInsertIncomestatement", new object[] {
+                        yearCode,
+                        totalRevenue,
+                        totaCostofsoldgoods,
+                        totaOperatingexpenses,
+                        othernoneOperevenue,
+                        interestExpense,
+                        vendorNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertIncomestatementAsync(string yearCode, decimal totalRevenue, decimal totaCostofsoldgoods, decimal totaOperatingexpenses, decimal othernoneOperevenue, decimal interestExpense, string vendorNo) {
+            this.FnInsertIncomestatementAsync(yearCode, totalRevenue, totaCostofsoldgoods, totaOperatingexpenses, othernoneOperevenue, interestExpense, vendorNo, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertIncomestatementAsync(string yearCode, decimal totalRevenue, decimal totaCostofsoldgoods, decimal totaOperatingexpenses, decimal othernoneOperevenue, decimal interestExpense, string vendorNo, object userState) {
+            if ((this.FnInsertIncomestatementOperationCompleted == null)) {
+                this.FnInsertIncomestatementOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertIncomestatementOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertIncomestatement", new object[] {
+                        yearCode,
+                        totalRevenue,
+                        totaCostofsoldgoods,
+                        totaOperatingexpenses,
+                        othernoneOperevenue,
+                        interestExpense,
+                        vendorNo}, this.FnInsertIncomestatementOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertIncomestatementOperationCompleted(object arg) {
+            if ((this.FnInsertIncomestatementCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertIncomestatementCompleted(this, new FnInsertIncomestatementCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertFiledetails", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnInsertFiledetails_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertFiledetails(string vendorNo, string procDoctype, string docdescription, string certNo, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime issuedDate, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime expiryDate, string fileName) {
+            object[] results = this.Invoke("FnInsertFiledetails", new object[] {
+                        vendorNo,
+                        procDoctype,
+                        docdescription,
+                        certNo,
+                        issuedDate,
+                        expiryDate,
+                        fileName});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertFiledetailsAsync(string vendorNo, string procDoctype, string docdescription, string certNo, System.DateTime issuedDate, System.DateTime expiryDate, string fileName) {
+            this.FnInsertFiledetailsAsync(vendorNo, procDoctype, docdescription, certNo, issuedDate, expiryDate, fileName, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertFiledetailsAsync(string vendorNo, string procDoctype, string docdescription, string certNo, System.DateTime issuedDate, System.DateTime expiryDate, string fileName, object userState) {
+            if ((this.FnInsertFiledetailsOperationCompleted == null)) {
+                this.FnInsertFiledetailsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertFiledetailsOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertFiledetails", new object[] {
+                        vendorNo,
+                        procDoctype,
+                        docdescription,
+                        certNo,
+                        issuedDate,
+                        expiryDate,
+                        fileName}, this.FnInsertFiledetailsOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertFiledetailsOperationCompleted(object arg) {
+            if ((this.FnInsertFiledetailsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertFiledetailsCompleted(this, new FnInsertFiledetailsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertStaffEntry", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnInsertStaffEntry_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertStaffEntry(string vendorNo, string staffName, string profession, string designation, string phoneNumber, string nationality, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime dateofBirth, string email, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime joiningDate, decimal yearsWithFirm, string staffNumber) {
+            object[] results = this.Invoke("FnInsertStaffEntry", new object[] {
+                        vendorNo,
+                        staffName,
+                        profession,
+                        designation,
+                        phoneNumber,
+                        nationality,
+                        dateofBirth,
+                        email,
+                        joiningDate,
+                        yearsWithFirm,
+                        staffNumber});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertStaffEntryAsync(string vendorNo, string staffName, string profession, string designation, string phoneNumber, string nationality, System.DateTime dateofBirth, string email, System.DateTime joiningDate, decimal yearsWithFirm, string staffNumber) {
+            this.FnInsertStaffEntryAsync(vendorNo, staffName, profession, designation, phoneNumber, nationality, dateofBirth, email, joiningDate, yearsWithFirm, staffNumber, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertStaffEntryAsync(string vendorNo, string staffName, string profession, string designation, string phoneNumber, string nationality, System.DateTime dateofBirth, string email, System.DateTime joiningDate, decimal yearsWithFirm, string staffNumber, object userState) {
+            if ((this.FnInsertStaffEntryOperationCompleted == null)) {
+                this.FnInsertStaffEntryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertStaffEntryOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertStaffEntry", new object[] {
+                        vendorNo,
+                        staffName,
+                        profession,
+                        designation,
+                        phoneNumber,
+                        nationality,
+                        dateofBirth,
+                        email,
+                        joiningDate,
+                        yearsWithFirm,
+                        staffNumber}, this.FnInsertStaffEntryOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertStaffEntryOperationCompleted(object arg) {
+            if ((this.FnInsertStaffEntryCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertStaffEntryCompleted(this, new FnInsertStaffEntryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertStaffQlfEntry", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnInsertStaffQlfEntry_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertStaffQlfEntry(string vendorNo, string staffNIDorNumber, int qualifCategory, string qualifcName, string institution, string startYear, string endYear, string outstandingAchievement) {
+            object[] results = this.Invoke("FnInsertStaffQlfEntry", new object[] {
+                        vendorNo,
+                        staffNIDorNumber,
+                        qualifCategory,
+                        qualifcName,
+                        institution,
+                        startYear,
+                        endYear,
+                        outstandingAchievement});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertStaffQlfEntryAsync(string vendorNo, string staffNIDorNumber, int qualifCategory, string qualifcName, string institution, string startYear, string endYear, string outstandingAchievement) {
+            this.FnInsertStaffQlfEntryAsync(vendorNo, staffNIDorNumber, qualifCategory, qualifcName, institution, startYear, endYear, outstandingAchievement, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertStaffQlfEntryAsync(string vendorNo, string staffNIDorNumber, int qualifCategory, string qualifcName, string institution, string startYear, string endYear, string outstandingAchievement, object userState) {
+            if ((this.FnInsertStaffQlfEntryOperationCompleted == null)) {
+                this.FnInsertStaffQlfEntryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertStaffQlfEntryOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertStaffQlfEntry", new object[] {
+                        vendorNo,
+                        staffNIDorNumber,
+                        qualifCategory,
+                        qualifcName,
+                        institution,
+                        startYear,
+                        endYear,
+                        outstandingAchievement}, this.FnInsertStaffQlfEntryOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertStaffQlfEntryOperationCompleted(object arg) {
+            if ((this.FnInsertStaffQlfEntryCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertStaffQlfEntryCompleted(this, new FnInsertStaffQlfEntryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertStaffXPrEntry", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnInsertStaffXPrEntry_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInsertStaffXPrEntry(string vendorNo, string staffNIDorNumber, int xPrCategory, string xPrSummarry, string assignmentDescription, string startYear, string endYear, decimal yrsofXpr) {
+            object[] results = this.Invoke("FnInsertStaffXPrEntry", new object[] {
+                        vendorNo,
+                        staffNIDorNumber,
+                        xPrCategory,
+                        xPrSummarry,
+                        assignmentDescription,
+                        startYear,
+                        endYear,
+                        yrsofXpr});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInsertStaffXPrEntryAsync(string vendorNo, string staffNIDorNumber, int xPrCategory, string xPrSummarry, string assignmentDescription, string startYear, string endYear, decimal yrsofXpr) {
+            this.FnInsertStaffXPrEntryAsync(vendorNo, staffNIDorNumber, xPrCategory, xPrSummarry, assignmentDescription, startYear, endYear, yrsofXpr, null);
+        }
+        
+        /// <remarks/>
+        public void FnInsertStaffXPrEntryAsync(string vendorNo, string staffNIDorNumber, int xPrCategory, string xPrSummarry, string assignmentDescription, string startYear, string endYear, decimal yrsofXpr, object userState) {
+            if ((this.FnInsertStaffXPrEntryOperationCompleted == null)) {
+                this.FnInsertStaffXPrEntryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInsertStaffXPrEntryOperationCompleted);
+            }
+            this.InvokeAsync("FnInsertStaffXPrEntry", new object[] {
+                        vendorNo,
+                        staffNIDorNumber,
+                        xPrCategory,
+                        xPrSummarry,
+                        assignmentDescription,
+                        startYear,
+                        endYear,
+                        yrsofXpr}, this.FnInsertStaffXPrEntryOperationCompleted, userState);
+        }
+        
+        private void OnFnInsertStaffXPrEntryOperationCompleted(object arg) {
+            if ((this.FnInsertStaffXPrEntryCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInsertStaffXPrEntryCompleted(this, new FnInsertStaffXPrEntryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnCompleteSupplierReg", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnCompleteSupplierReg_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnCompleteSupplierReg(string vendorNo) {
+            object[] results = this.Invoke("FnCompleteSupplierReg", new object[] {
+                        vendorNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnCompleteSupplierRegAsync(string vendorNo) {
+            this.FnCompleteSupplierRegAsync(vendorNo, null);
+        }
+        
+        /// <remarks/>
+        public void FnCompleteSupplierRegAsync(string vendorNo, object userState) {
+            if ((this.FnCompleteSupplierRegOperationCompleted == null)) {
+                this.FnCompleteSupplierRegOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnCompleteSupplierRegOperationCompleted);
+            }
+            this.InvokeAsync("FnCompleteSupplierReg", new object[] {
+                        vendorNo}, this.FnCompleteSupplierRegOperationCompleted, userState);
+        }
+        
+        private void OnFnCompleteSupplierRegOperationCompleted(object arg) {
+            if ((this.FnCompleteSupplierRegCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnCompleteSupplierRegCompleted(this, new FnCompleteSupplierRegCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -2007,17 +2430,17 @@ namespace EProc_On_Metronic.WebRef {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
-    public delegate void FnRegisterVendorIndCompletedEventHandler(object sender, FnRegisterVendorIndCompletedEventArgs e);
+    public delegate void FnReqforRegistrationCompletedEventHandler(object sender, FnReqforRegistrationCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class FnRegisterVendorIndCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class FnReqforRegistrationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal FnRegisterVendorIndCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal FnReqforRegistrationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2178,6 +2601,240 @@ namespace EProc_On_Metronic.WebRef {
         private object[] results;
         
         internal FnInsertLitigationHCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnInsertSpecialGrpCompletedEventHandler(object sender, FnInsertSpecialGrpCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertSpecialGrpCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertSpecialGrpCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnInsertPastXepCompletedEventHandler(object sender, FnInsertPastXepCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertPastXepCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertPastXepCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnInsertBalanceSheetCompletedEventHandler(object sender, FnInsertBalanceSheetCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertBalanceSheetCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertBalanceSheetCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnInsertIncomestatementCompletedEventHandler(object sender, FnInsertIncomestatementCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertIncomestatementCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertIncomestatementCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnInsertFiledetailsCompletedEventHandler(object sender, FnInsertFiledetailsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertFiledetailsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertFiledetailsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnInsertStaffEntryCompletedEventHandler(object sender, FnInsertStaffEntryCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertStaffEntryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertStaffEntryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnInsertStaffQlfEntryCompletedEventHandler(object sender, FnInsertStaffQlfEntryCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertStaffQlfEntryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertStaffQlfEntryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnInsertStaffXPrEntryCompletedEventHandler(object sender, FnInsertStaffXPrEntryCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInsertStaffXPrEntryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInsertStaffXPrEntryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnCompleteSupplierRegCompletedEventHandler(object sender, FnCompleteSupplierRegCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnCompleteSupplierRegCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnCompleteSupplierRegCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

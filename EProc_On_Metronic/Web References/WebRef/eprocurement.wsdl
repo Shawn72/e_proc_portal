@@ -360,18 +360,18 @@
           </sequence>
         </complexType>
       </element>
-      <element name="FnRegisterVendorInd">
+      <element name="FnReqforRegistration">
         <complexType>
           <sequence>
-            <element minOccurs="1" maxOccurs="1" name="registeredName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="registeredBusinessName" type="string" />
             <element minOccurs="1" maxOccurs="1" name="phoneNumber" type="string" />
             <element minOccurs="1" maxOccurs="1" name="emailAddress" type="string" />
-            <element minOccurs="1" maxOccurs="1" name="kraPin" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="taxRegkraPin" type="string" />
             <element minOccurs="1" maxOccurs="1" name="contactName" type="string" />
           </sequence>
         </complexType>
       </element>
-      <element name="FnRegisterVendorInd_Result">
+      <element name="FnReqforRegistration_Result">
         <complexType>
           <sequence>
             <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
@@ -407,7 +407,7 @@
       <element name="FnSupplierRegistration">
         <complexType>
           <sequence>
-            <element minOccurs="1" maxOccurs="1" name="businessType" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="businessType" type="string" />
             <element minOccurs="1" maxOccurs="1" name="vendorType" type="int" />
             <element minOccurs="1" maxOccurs="1" name="ownershipType" type="int" />
             <element minOccurs="1" maxOccurs="1" name="industryGroup" type="string" />
@@ -517,6 +517,186 @@
         </complexType>
       </element>
       <element name="FnInsertLitigationH_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertSpecialGrp">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendoNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="specialGrpcatg" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="certficateNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="certeffectiveDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="certXpiryDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="prodservCategory" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertSpecialGrp_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertPastXep">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="clientName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="address" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="assignmentProject" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="projectScope" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="projectStartDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="projectEndDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="projectValue" type="decimal" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertPastXep_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertBalanceSheet">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="yearCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="totalCurrentAssets" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="totalFixedAssets" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="totalCurrentLiability" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="totalLongtermliabilty" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="totalOwnersequity" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertBalanceSheet_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertIncomestatement">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="yearCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="totalRevenue" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="totaCostofsoldgoods" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="totaOperatingexpenses" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="othernoneOperevenue" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="interestExpense" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertIncomestatement_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertFiledetails">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="procDoctype" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="docdescription" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="certNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="issuedDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="expiryDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="fileName" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertFiledetails_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertStaffEntry">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="staffName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="profession" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="designation" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="phoneNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="nationality" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="dateofBirth" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="email" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="joiningDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="yearsWithFirm" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="staffNumber" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertStaffEntry_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertStaffQlfEntry">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="staffNIDorNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="qualifCategory" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="qualifcName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="institution" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="startYear" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="endYear" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="outstandingAchievement" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertStaffQlfEntry_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertStaffXPrEntry">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="staffNIDorNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="xPrCategory" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="xPrSummarry" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="assignmentDescription" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="startYear" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="endYear" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="yrsofXpr" type="decimal" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertStaffXPrEntry_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnCompleteSupplierReg">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnCompleteSupplierReg_Result">
         <complexType>
           <sequence>
             <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
@@ -657,11 +837,11 @@
   <message name="FnAddPurchaseReqLine_Result">
     <part name="parameters" element="tns:FnAddPurchaseReqLine_Result" />
   </message>
-  <message name="FnRegisterVendorInd">
-    <part name="parameters" element="tns:FnRegisterVendorInd" />
+  <message name="FnReqforRegistration">
+    <part name="parameters" element="tns:FnReqforRegistration" />
   </message>
-  <message name="FnRegisterVendorInd_Result">
-    <part name="parameters" element="tns:FnRegisterVendorInd_Result" />
+  <message name="FnReqforRegistration_Result">
+    <part name="parameters" element="tns:FnReqforRegistration_Result" />
   </message>
   <message name="FnBLOBRfQDocument">
     <part name="parameters" element="tns:FnBLOBRfQDocument" />
@@ -704,6 +884,60 @@
   </message>
   <message name="FnInsertLitigationH_Result">
     <part name="parameters" element="tns:FnInsertLitigationH_Result" />
+  </message>
+  <message name="FnInsertSpecialGrp">
+    <part name="parameters" element="tns:FnInsertSpecialGrp" />
+  </message>
+  <message name="FnInsertSpecialGrp_Result">
+    <part name="parameters" element="tns:FnInsertSpecialGrp_Result" />
+  </message>
+  <message name="FnInsertPastXep">
+    <part name="parameters" element="tns:FnInsertPastXep" />
+  </message>
+  <message name="FnInsertPastXep_Result">
+    <part name="parameters" element="tns:FnInsertPastXep_Result" />
+  </message>
+  <message name="FnInsertBalanceSheet">
+    <part name="parameters" element="tns:FnInsertBalanceSheet" />
+  </message>
+  <message name="FnInsertBalanceSheet_Result">
+    <part name="parameters" element="tns:FnInsertBalanceSheet_Result" />
+  </message>
+  <message name="FnInsertIncomestatement">
+    <part name="parameters" element="tns:FnInsertIncomestatement" />
+  </message>
+  <message name="FnInsertIncomestatement_Result">
+    <part name="parameters" element="tns:FnInsertIncomestatement_Result" />
+  </message>
+  <message name="FnInsertFiledetails">
+    <part name="parameters" element="tns:FnInsertFiledetails" />
+  </message>
+  <message name="FnInsertFiledetails_Result">
+    <part name="parameters" element="tns:FnInsertFiledetails_Result" />
+  </message>
+  <message name="FnInsertStaffEntry">
+    <part name="parameters" element="tns:FnInsertStaffEntry" />
+  </message>
+  <message name="FnInsertStaffEntry_Result">
+    <part name="parameters" element="tns:FnInsertStaffEntry_Result" />
+  </message>
+  <message name="FnInsertStaffQlfEntry">
+    <part name="parameters" element="tns:FnInsertStaffQlfEntry" />
+  </message>
+  <message name="FnInsertStaffQlfEntry_Result">
+    <part name="parameters" element="tns:FnInsertStaffQlfEntry_Result" />
+  </message>
+  <message name="FnInsertStaffXPrEntry">
+    <part name="parameters" element="tns:FnInsertStaffXPrEntry" />
+  </message>
+  <message name="FnInsertStaffXPrEntry_Result">
+    <part name="parameters" element="tns:FnInsertStaffXPrEntry_Result" />
+  </message>
+  <message name="FnCompleteSupplierReg">
+    <part name="parameters" element="tns:FnCompleteSupplierReg" />
+  </message>
+  <message name="FnCompleteSupplierReg_Result">
+    <part name="parameters" element="tns:FnCompleteSupplierReg_Result" />
   </message>
   <portType name="eprocurement_Port">
     <operation name="FnRegisterVendor">
@@ -794,9 +1028,9 @@
       <input name="FnAddPurchaseReqLine" message="tns:FnAddPurchaseReqLine" />
       <output name="FnAddPurchaseReqLine_Result" message="tns:FnAddPurchaseReqLine_Result" />
     </operation>
-    <operation name="FnRegisterVendorInd">
-      <input name="FnRegisterVendorInd" message="tns:FnRegisterVendorInd" />
-      <output name="FnRegisterVendorInd_Result" message="tns:FnRegisterVendorInd_Result" />
+    <operation name="FnReqforRegistration">
+      <input name="FnReqforRegistration" message="tns:FnReqforRegistration" />
+      <output name="FnReqforRegistration_Result" message="tns:FnReqforRegistration_Result" />
     </operation>
     <operation name="FnBLOBRfQDocument">
       <input name="FnBLOBRfQDocument" message="tns:FnBLOBRfQDocument" />
@@ -825,6 +1059,42 @@
     <operation name="FnInsertLitigationH">
       <input name="FnInsertLitigationH" message="tns:FnInsertLitigationH" />
       <output name="FnInsertLitigationH_Result" message="tns:FnInsertLitigationH_Result" />
+    </operation>
+    <operation name="FnInsertSpecialGrp">
+      <input name="FnInsertSpecialGrp" message="tns:FnInsertSpecialGrp" />
+      <output name="FnInsertSpecialGrp_Result" message="tns:FnInsertSpecialGrp_Result" />
+    </operation>
+    <operation name="FnInsertPastXep">
+      <input name="FnInsertPastXep" message="tns:FnInsertPastXep" />
+      <output name="FnInsertPastXep_Result" message="tns:FnInsertPastXep_Result" />
+    </operation>
+    <operation name="FnInsertBalanceSheet">
+      <input name="FnInsertBalanceSheet" message="tns:FnInsertBalanceSheet" />
+      <output name="FnInsertBalanceSheet_Result" message="tns:FnInsertBalanceSheet_Result" />
+    </operation>
+    <operation name="FnInsertIncomestatement">
+      <input name="FnInsertIncomestatement" message="tns:FnInsertIncomestatement" />
+      <output name="FnInsertIncomestatement_Result" message="tns:FnInsertIncomestatement_Result" />
+    </operation>
+    <operation name="FnInsertFiledetails">
+      <input name="FnInsertFiledetails" message="tns:FnInsertFiledetails" />
+      <output name="FnInsertFiledetails_Result" message="tns:FnInsertFiledetails_Result" />
+    </operation>
+    <operation name="FnInsertStaffEntry">
+      <input name="FnInsertStaffEntry" message="tns:FnInsertStaffEntry" />
+      <output name="FnInsertStaffEntry_Result" message="tns:FnInsertStaffEntry_Result" />
+    </operation>
+    <operation name="FnInsertStaffQlfEntry">
+      <input name="FnInsertStaffQlfEntry" message="tns:FnInsertStaffQlfEntry" />
+      <output name="FnInsertStaffQlfEntry_Result" message="tns:FnInsertStaffQlfEntry_Result" />
+    </operation>
+    <operation name="FnInsertStaffXPrEntry">
+      <input name="FnInsertStaffXPrEntry" message="tns:FnInsertStaffXPrEntry" />
+      <output name="FnInsertStaffXPrEntry_Result" message="tns:FnInsertStaffXPrEntry_Result" />
+    </operation>
+    <operation name="FnCompleteSupplierReg">
+      <input name="FnCompleteSupplierReg" message="tns:FnCompleteSupplierReg" />
+      <output name="FnCompleteSupplierReg_Result" message="tns:FnCompleteSupplierReg_Result" />
     </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
@@ -1027,12 +1297,12 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>
-    <operation name="FnRegisterVendorInd">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendorInd" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
-      <input name="FnRegisterVendorInd">
+    <operation name="FnReqforRegistration">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnReqforRegistration" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnReqforRegistration">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
-      <output name="FnRegisterVendorInd_Result">
+      <output name="FnReqforRegistration_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>
@@ -1096,6 +1366,87 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnInsertLitigationH_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertSpecialGrp">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertSpecialGrp" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertSpecialGrp">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertSpecialGrp_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertPastXep">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertPastXep" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertPastXep">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertPastXep_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertBalanceSheet">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertBalanceSheet" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertBalanceSheet">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertBalanceSheet_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertIncomestatement">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertIncomestatement" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertIncomestatement">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertIncomestatement_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertFiledetails">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertFiledetails" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertFiledetails">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertFiledetails_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertStaffEntry">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertStaffEntry" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertStaffEntry">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertStaffEntry_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertStaffQlfEntry">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertStaffQlfEntry" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertStaffQlfEntry">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertStaffQlfEntry_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertStaffXPrEntry">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertStaffXPrEntry" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertStaffXPrEntry">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertStaffXPrEntry_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnCompleteSupplierReg">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnCompleteSupplierReg" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnCompleteSupplierReg">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnCompleteSupplierReg_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

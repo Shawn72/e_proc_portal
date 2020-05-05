@@ -1,27 +1,5 @@
 ﻿'use-strict';
 $(document).ready(function () {
-
-    //Ajax Start- This is to show ajax loading
-    $(document).ajaxStart(function () {
-        $(".gifLoading").css("display", "block");
-
-        //$("#downloadfavicon").addClass("fas fa-spinner fa-spin");
-        //$("#downloadfavicon").removeClass("fas fa-cloud-download-alt");
-
-        //$("#downloadfavicondld").addClass("fas fa-spinner fa-spin");
-        //$("#downloadfavicondld").removeClass("fa fa-download");
-        
-
-    });
-
-    $(document).ajaxStop(function () {
-        $(".gifLoading").css("display", "none");
-    });
-
-    $(document).ajaxComplete(function () {
-        $(".gifLoading").css("display", "none");
-    });
-
     $('.pass_show').append('<span class="ptxt">Show</span>');
     $(document).on('click', '.pass_show .ptxt', function () {
 
@@ -52,11 +30,22 @@ $(document).ready(function () {
             "myPassword": $("#vendor_password").val()
         }
         var logontype = $("#txtlogintype").val();
-
-
-        $.ajax({
+        $.ajaxSetup({
+            global: false,
             url: "/Home/CheckLogin",
             type: "POST",
+            beforeSend: function () {
+                $(".modalspinner").show();
+                $(".gifLoading").css("display", "block");
+                document.getElementById("btnLogin").disabled = true;
+            },
+            complete: function () {
+                $(".modalspinner").hide();
+                $(".gifLoading").css("display", "none");
+                document.getElementById("btnLogin").disabled = false;
+            }
+        });
+        $.ajax({
             data: JSON.stringify(data),
             dataType: "json",
             contentType: "application/json"
@@ -127,7 +116,24 @@ $(document).ready(function () {
                 });
                 break;
 
-            case "Loginadmin":
+              case "accountdeactivated":
+                Swal.fire
+                ({
+                    title: "Error!!!",
+                    text: "Account Deactivated!",
+                    type: "error"
+                }).then(() => {
+                    $("#loginMsg").css("display", "block");
+                    $("#loginMsg").css("color", "red");
+                    $('#loginMsg').attr('class', 'alert alert-danger');
+                    $("#loginMsg").html("Your Account is Deactivated!");
+                    $("#vendor_password").focus();
+                    $("#vendor_password").css("border", "solid 1px red");
+                    document.getElementById("btnLogin").disabled = false;
+                });
+                break;
+
+            case "Loginuser":
                 //now login admin
                 document.getElementById("btnLogin").disabled = true;
                     switch (logontype) {
@@ -141,39 +147,7 @@ $(document).ready(function () {
                         window.location.href = '/Home/Index_Eproc';
                         break;
                 }
-                console.log(logontype);
-                break;
-
-            case "Logincustomer":
-                //now login customer
                 document.getElementById("btnLogin").disabled = true;
-                switch (logontype) {
-                    case "eprocurement":
-                        window.location.href = '/Home/Index_Eproc';
-                        break;
-                    case "ebid":
-                        window.location.href = '/Home/Index_EBid';
-                        break;
-                    default:
-                        window.location.href = '/Home/Index_Eproc';
-                        break;
-                }
-                console.log(logontype);
-                break;
-            case "Logincontact":
-                //now login contact
-                document.getElementById("btnLogin").disabled = true;
-                switch (logontype) {
-                case "eprocurement":
-                    window.location.href = '/Home/Index_Eproc';
-                    break;
-                case "ebid":
-                    window.location.href = '/Home/Index_EBid';
-                    break;
-                default:
-                    window.location.href = '/Home/Index_Eproc';
-                    break;
-                }
                 console.log(logontype);
                 break;
 
@@ -1349,13 +1323,24 @@ $(document).ready(function () {
         e.preventDefault();
         //reset to empty
         $("#uploadsMsg").html("");
+
         var selectedFtype = $('#ddldocumentdroplist').find(":selected").attr('value');
+        var selvaluedescription = $("#ddldocumentdroplist option:selected").text();
         var browsedDoc = document.getElementById('inputFileselector').files[0];
+        var certNumber = $("#txtCertNo").val();
+        var dateofissue = $("#dtOfIssue").val();
+        var xprydate = $("#dtOfexpiry").val();
 
         var formDt = new FormData();
         formDt.append("typauploadselect", selectedFtype);
         formDt.append("browsedfile", browsedDoc);
+        formDt.append("filedescription", selvaluedescription);
+        formDt.append("certificatenumber", certNumber);
+        formDt.append("dateofissue", dateofissue);
+        formDt.append("expirydate", xprydate);
 
+        //for test
+        console.log(JSON.stringify({ formdata: formDt }));
 
         Swal.fire({
             title: "Upload Document?",
@@ -1369,7 +1354,6 @@ $(document).ready(function () {
             position: "center"
         }).then((result) => {
             if (result.value) {
-
                 $.ajax({
                     xhr: function() {
                         var xhr = new window.XMLHttpRequest();
@@ -1415,6 +1399,8 @@ $(document).ready(function () {
                                 $("#uploadsMsg").css("display", "block");
                                 $("#uploadsMsg").css("color", "green");
                                 $("#uploadsMsg").html(uploadsfs[1]);
+                                po.init();
+
                             });
 
                             break;
@@ -1463,7 +1449,97 @@ $(document).ready(function () {
         });
     });
 
+    $(".button-go-back-home").click(function() {
+        $("#ifpdetailsdiv").css("display", "none");
+        $("#ifplistdiv").css("display", "block");
+        $("#tbl_ifp_category").dataTable().fnClearTable();
+        $("#tbl_ifp_docs").dataTable().fnClearTable();
+    });
 
+    $(".btnlink-reg").click(function() {
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/VendorDetails",
+            beforeSend: function() {
+                $(".modalspinner").show();
+            },
+            complete: function() {
+                $(".modalspinner").hide();
+            }
+        });
+        $.ajax({
+            data: ""
+        }).done(function(json) {
+            for (var i = 0; i < json.length; i++) {
+                var regstatus = json[i].Registrn_Submitted_onPortal;
+                 console.log("Reg Status: " + regstatus);
+                switch (regstatus) {
+                    case "True":
+                    $("#generalfeedback").css("display", "block");
+                    break;
+                case "False":
+                    $("#generalfeedback").css("display", "none");
+                    window.location.href = "/Home/Supplier_Registration_Form";
+                    break;
+                //default:
+                //    $("#generalfeedback").css("display", "none");
+                //    window.location.href = "/Home/Supplier_Registration_Form";
+                //    break;
+                }              
 
-
+            }
+        });
+    });
 });
+var po = function() {
+    var e = function() {
+        var tl = $("#tbl_mydocs"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        // targets: [0],
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                        // targets: [0]
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                //stateSave: true,
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Home/UploadedSpecifVendorDocs",
+            data: ""
+        }).done(function(json) {
+           //console.log(JSON.stringify({ data: json }));
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++, json[i].FileName, json[i].Size, '<a class="trash" href="">Delete</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function () {
+            e();
+        }
+    }
+}();

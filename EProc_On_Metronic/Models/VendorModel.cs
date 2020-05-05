@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace EProc_On_Metronic.Models
@@ -28,12 +27,12 @@ namespace EProc_On_Metronic.Models
         public string Supplier_Category { get; set; }
 
         //supplier registration data input
-        public int BusinessType { get; set; }
+        public string BusinessType { get; set; }
         public int VendorType { get; set; }
         public int OwnerType { get; set; }
         public string CertofIncorporation { get; set; }
-        public DateTime DateofIncorporation { get; set; }
-        public DateTime OpsDate { get; set; }
+        public string DateofIncorporation { get; set; }
+        public string OpsDate { get; set; }
         public string LanguageCode { get; set; }
         public string IndustryGroup { get; set; }
         public string Vision { get; set; }
@@ -56,6 +55,11 @@ namespace EProc_On_Metronic.Models
         public decimal MaxBizValue { get; set; }
         public string MobileNo { get; set; }
         public string NatureofBz { get; set; }
+        
+        public string VAT_Registration_No { get; set; }
+        public string Vendor_Type1 { get; set; }
+        public string Supplier_Type { get; set; }
+        public string Dealer_Type { get; set; }
 
 
     }

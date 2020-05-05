@@ -1,0 +1,15 @@
+﻿@model IEnumerable<EProc_On_Metronic.Models.LanguageModel>
+
+@{
+    Layout = null;
+}
+
+<select class="form-control select2" id="ddlLanguageCode" name="ddlLanguageCode" data_live_search="true">
+    <option value="">--Select Language---</option>
+    <optgroup label="Language Code List">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Code">@item.Name</option>
+        }
+    </optgroup>
+</select>

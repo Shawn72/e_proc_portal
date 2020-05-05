@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
@@ -15,6 +14,8 @@ using System.Web.Security;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using EProc_On_Metronic.Models;
+using Image = System.Drawing.Image;
+using Login = EProc_On_Metronic.Models.Login;
 
 namespace EProc_On_Metronic.Controllers
 {
@@ -25,10 +26,13 @@ namespace EProc_On_Metronic.Controllers
        // public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
 
         ///uncomment this while publishing on live server
-        //public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
+      // public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
 
         ///for use on localhost testing
         public static string Baseurl = "https://sngutu30:3031/";
+
+        public const string ApiUsername = "shawn72";
+        public const string ApiPassword = "cherry*30";
         public ActionResult Index_Eproc()
         {
             return View();
@@ -151,7 +155,7 @@ namespace EProc_On_Metronic.Controllers
             return View();
         }
 
-        public ActionResult TestForm()
+        public ActionResult IfpEprequalificationList()
         {
             return View();
         }
@@ -160,7 +164,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<ProcurementModel> appliedtenders = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetOpenTenders");
             appliedtenders = JsonConvert.DeserializeObject<List<ProcurementModel>>(json);
             var record = (from a in appliedtenders where a.Closed == false select a).ToList();
@@ -170,7 +174,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<ProcurementModel> appliedtenders = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetOpenTenders");
             appliedtenders = JsonConvert.DeserializeObject<List<ProcurementModel>>(json);
             Session["opentendercnter"] = appliedtenders.Count();
@@ -182,7 +186,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DropdownListsModel> allsupplierscat = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetSupplierCat");
             allsupplierscat = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
             var record = (from a in allsupplierscat where a.Category!="" && a.CategoryName!="" select a).ToList();
@@ -193,7 +197,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<ProcurementModel> allopentenders = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetOpenTenders");
             allopentenders = JsonConvert.DeserializeObject<List<ProcurementModel>>(json);
             var record = (from a in allopentenders select a).ToList();
@@ -205,7 +209,7 @@ namespace EProc_On_Metronic.Controllers
             List<ProcurementModel> allopenrfqs = null;
             var catgry = (string) Session["category"];
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetOpenRfQs");
             allopenrfqs = JsonConvert.DeserializeObject<List<ProcurementModel>>(json);
             //var record = (from a in allopenrfqs where a.Title != "" select a).DistinctBy(s => s.No).ToList();
@@ -217,7 +221,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<PreQualificationModel> appliedcategoriess = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetAllPreQualifications");
             appliedcategoriess = JsonConvert.DeserializeObject<List<PreQualificationModel>>(json);
             //select filter from returned Json
@@ -230,7 +234,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<TenderModel> appliedtenders = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetTenderApplication/" + (string)Session["vendorNo"]);
             appliedtenders = JsonConvert.DeserializeObject<List<TenderModel>>(json);
             var record = (from a in appliedtenders select a).ToList();
@@ -269,7 +273,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DropdownListsModel> allsupplierscat = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetSupplierCat");
             allsupplierscat = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
 
@@ -285,7 +289,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DropdownListsModel> allsupplierscat = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetSupplierCat");
             allsupplierscat = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
             var allsuppliers = (from a in allsupplierscat where a.Category != "" && a.CategoryName !="" select a).ToList();
@@ -296,7 +300,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DropdownListsModel> postacode = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetPostaCodes");
             postacode = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
 
@@ -312,7 +316,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DropdownListsModel> countries = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetCountry");
             countries = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
             List<SelectListItem> countryitems = countries.Select(nchi => new SelectListItem
@@ -327,7 +331,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DropdownListsModel> fiscalyear = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetFiscalYear");
             fiscalyear = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
           
@@ -350,7 +354,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DropdownListsModel> postacode = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetPostaCodes");
             postacode = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
 
@@ -362,7 +366,18 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DropdownListsModel> countries = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetCountry");
+            countries = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
+            var countryitems = (from a in countries select a).ToList();
+
+            return View(countryitems);
+        }
+        public ActionResult CountryListStaff()
+        {
+            List<DropdownListsModel> countries = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetCountry");
             countries = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
             var countryitems = (from a in countries select a).ToList();
@@ -374,7 +389,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<IFPRequestsModel> ifpRequests = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetIfPs");
             ifpRequests = JsonConvert.DeserializeObject<List<IFPRequestsModel>>(json);
             var ifpitems = (from a in ifpRequests select a).ToList();
@@ -387,7 +402,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DropdownListsModel> postacode = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetPostaCodes");
             postacode = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
 
@@ -404,19 +419,20 @@ namespace EProc_On_Metronic.Controllers
         {
             List<IFPRequestsModel> ifpRequests = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetIfPs");
             ifpRequests = JsonConvert.DeserializeObject<List<IFPRequestsModel>>(json);
             var ifpitems = (from a in ifpRequests where a.Code== ifpnumber select a).ToList();
             
             return Json(ifpitems, JsonRequestBehavior.AllowGet);
-        }       
+        } 
+              
 
         public JsonResult DynamicDDlCountryList()
         {
             List<DropdownListsModel> countries = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetCountry");
             countries = JsonConvert.DeserializeObject<List<DropdownListsModel>>(json);
             var countryitems = (from a in countries select a).ToList();
@@ -432,9 +448,18 @@ namespace EProc_On_Metronic.Controllers
                 var vendorNo = Session["vendorNo"].ToString();
                 var nvWebref = WsConfig.EProcWebRef;
 
+                DateTime myOpsdate, myIncopdate;
+
+               //do switches here for business type
+               // vendormodel.BusinessType
+
+                CultureInfo usCulture = new CultureInfo("en-US");
+                myOpsdate = DateTime.Parse(vendormodel.OpsDate, usCulture.DateTimeFormat);
+                myIncopdate = DateTime.Parse(vendormodel.DateofIncorporation, usCulture.DateTimeFormat);
+
                 var status = nvWebref.FnSupplierRegistration(vendormodel.BusinessType, vendormodel.VendorType, vendormodel.OwnerType, vendormodel.IndustryGroup,
-                    vendormodel.PostaCode, vendormodel.CountryofOrigin, vendormodel.CompanySize, vendormodel.NominalCap, vendormodel.DealerType, vendormodel.DateofIncorporation,
-                    vendormodel.OpsDate, vendormodel.LanguageCode, vendormodel.Vision, vendormodel.Mision, vendormodel.PoBox, vendormodel.PhysicalLocation,
+                    vendormodel.PostaCode, vendormodel.CountryofOrigin, vendormodel.CompanySize, vendormodel.NominalCap, vendormodel.DealerType, myIncopdate,
+                    myOpsdate, vendormodel.LanguageCode, vendormodel.Vision, vendormodel.Mision, vendormodel.PoBox, vendormodel.PhysicalLocation,
                     vendormodel.PostaCity, vendormodel.WebUrl, vendormodel.TelephoneNo, vendormodel.HouseNo, vendormodel.FloorNo, vendormodel.PlotNo,
                     vendormodel.StreetorRoad, vendormodel.Fax, vendormodel.MaxBizValue, vendormodel.MobileNo, vendormodel.NatureofBz, vendorNo, vendormodel.CertofIncorporation);
 
@@ -596,115 +621,11 @@ namespace EProc_On_Metronic.Controllers
             WsConfig.MailFunction(emailbody, myEmail, mSubject);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public JsonResult CheckLogin(string myUserId, string myPassword)
-        {
-            try
-            {
-                List<Login> loginmodel = null;
-                WebClient wc = new WebClient();
-                wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
-                string json = wc.DownloadString(Baseurl + "api/GetPortalUsers");
-                loginmodel = JsonConvert.DeserializeObject<List<Login>>(json);
-
-                List<ContactsModel> contacts = null;
-                //wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
-                string json2 = wc.DownloadString(Baseurl + "api/GetPortalContacts");
-                contacts = JsonConvert.DeserializeObject<List<ContactsModel>>(json2);
-
-                List<VendorModel> vendor = null;
-                //wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
-                string json3 = wc.DownloadString(Baseurl + "api/GetAllVendors");
-                vendor = JsonConvert.DeserializeObject<List<VendorModel>>(json3);
-
-                // var nvOdata = WsConfig.ODataObj();
-                if (string.IsNullOrWhiteSpace(myUserId))
-                    return Json("UsernameEmpty", JsonRequestBehavior.AllowGet);
-                if (string.IsNullOrWhiteSpace(myPassword))
-                    return Json("PasswordEmpty", JsonRequestBehavior.AllowGet);
-
-                var loginresult = (from a in loginmodel where a.IDNoorRegNo == myUserId select a).ToList();
-                var result = loginresult.FirstOrDefault();
-                if (result != null)
-                {
-                    Session["idnumber"] = result.IDNoorRegNo;
-                    Session["prequalified"] = result.ActivatedAsVendor;
-                    Session["email"] = result.Email;
-                    Session["password"] = result.Password;
-                    if (result.Password != EncryptP(myPassword))
-                        return Json("PasswordMismatched", JsonRequestBehavior.AllowGet);
-                   
-                    var contactDetails = (from a in contacts where a.E_mail == (string)Session["email"] select a).ToList().SingleOrDefault();
-                    if (contactDetails != null)
-                    {
-                        //set Sessions here
-                        Session["name"] = contactDetails.Name;
-                        Session["email"] = contactDetails.E_mail;
-                        Session["contactNo"] = contactDetails.No;
-                        Session["userNo"] = contactDetails.No;
-                    }
-                    else
-                    {
-                        return Json("Details does not exist on the system, create account first!",
-                            JsonRequestBehavior.AllowGet);
-                    }
-                    //check if the are in Vendor table
-                    var vendorcollection = (from a in vendor where a.Primary_Contact_No == (string)Session["contactNo"] select a).ToList();
-
-                    if (result.isAdmin == true && result.ActivatedAsVendor == true)
-                    {
-                        Session["isAdmin"] = "administrator";
-
-                        foreach (var vend in vendorcollection)
-                        {
-                            Session["name"] = contactDetails.Name;
-                            Session["vendorNo"] = vend.No;
-                            Session["userNo"] = vend.No;
-                            Session["category"] = vend.Supplier_Category;
-                        }
-                        Session.Remove("contact");
-                        Session.Remove("customer");
-                        return Json("Loginadmin", JsonRequestBehavior.AllowGet);
-                    }
-                    if (result.isAdmin == false && result.ActivatedAsVendor == true)
-                    {
-                        Session["isAdmin"] = "customer";
-                        foreach (var vend in vendorcollection)
-                        {
-                            Session["name"] = contactDetails.Name;
-                            Session["vendorNo"] = vend.No;
-                            Session["userNo"] = vend.No;
-                            Session["category"] = vend.Supplier_Category;
-                        }
-                        Session.Remove("contact");
-                        Session.Remove("administrator");
-                        CountApplicationsInfo((string)Session["vendorNo"]);
-                        return Json("Logincustomer", JsonRequestBehavior.AllowGet);
-                    }
-
-                    if (result.isAdmin == false && result.ActivatedAsVendor == false)
-                    {
-                        Session["isAdmin"] = "contact";
-                        Session.Remove("customer");
-                        Session.Remove("administrator");
-                        Session["vendorNo"] = null;
-                        return Json("Logincontact", JsonRequestBehavior.AllowGet);
-                    }
-                }
-                return Json("InvalidLogin", JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(ex.Message, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         public new ActionResult Profile()
         {
             List<ProfileModel> profilemodel = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetPortalContacts");
             profilemodel = JsonConvert.DeserializeObject<List<ProfileModel>>(json);
             //select filter from returned Json
@@ -1020,7 +941,7 @@ namespace EProc_On_Metronic.Controllers
             {
                 var nvWebref = WsConfig.EProcWebRef;
                 WebClient wc = new WebClient();
-                wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+                wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
 
                 List<ProcurementModel> allopenrfqs = null;
                 List<PreQualificationModel> appliedcategoriess = null;
@@ -1333,7 +1254,7 @@ namespace EProc_On_Metronic.Controllers
             var reqsnNo = Request.QueryString["reqno"];
             List<RfQsModel> allrfqs = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetPurchaseReqLines");
             allrfqs = JsonConvert.DeserializeObject<List<RfQsModel>>(json);
 
@@ -1399,7 +1320,7 @@ namespace EProc_On_Metronic.Controllers
             List<Login> loginmodel = null;
             List<TenderModel> ads = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetPortalUsers");
             loginmodel = JsonConvert.DeserializeObject<List<Login>>(json);
 
@@ -1415,7 +1336,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<TenderModel> ads = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetAdds");
             ads = JsonConvert.DeserializeObject<List<TenderModel>>(json);
             var record = (from a in ads select a).ToList();
@@ -1426,7 +1347,7 @@ namespace EProc_On_Metronic.Controllers
         {
             List<TenderModel> ads = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetAdds");
             ads = JsonConvert.DeserializeObject<List<TenderModel>>(json);
             var record = (from a in ads select a).ToList();
@@ -1437,10 +1358,10 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DocumentsTModel> docTModel = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetDocumentsTemplates");
             docTModel = JsonConvert.DeserializeObject<List<DocumentsTModel>>(json);
-            var madocs = (from a in docTModel where a.Blocked==false select a).ToList();
+            var madocs = (from a in docTModel where a.Procurement_Process== "Registration" select a).ToList();
 
             return View(madocs);
         }
@@ -1448,20 +1369,86 @@ namespace EProc_On_Metronic.Controllers
         {
             List<DocumentsTModel> docTModel = null;
             WebClient wc = new WebClient();
-            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("shawn72:cherry*30")));
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetDocumentsTemplates");
             docTModel = JsonConvert.DeserializeObject<List<DocumentsTModel>>(json);
-            var madocs = (from a in docTModel where a.Blocked == false select a).ToList();
+            var madocs = (from a in docTModel where a.Procurement_Process == "Registration" select a).ToList();
 
             return View(madocs);
         }
 
-        public JsonResult FnUploadmandatoryDoc(HttpPostedFileBase browsedfile, string typauploadselect)
+        public ActionResult SpecialCatGroups()
         {
-            var vendorNo = Convert.ToString(Session["vendorNo"]);
-            int errCounter = 0, filesCounter = 1, succCounter = 0;
+            List<SpecialGrpTModel> docTModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetSpecialGroupes");
+            docTModel = JsonConvert.DeserializeObject<List<SpecialGrpTModel>>(json);
+            var resp = (from a in docTModel where a.Vendor_Group == "Special" select a).ToList();
+
+            return View(resp);
+        }
+
+        public ActionResult BusinessTypes()
+        {
+            List<BusinessTypesModel> bzTModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetBusinessTypes");
+            bzTModel = JsonConvert.DeserializeObject<List<BusinessTypesModel>>(json);
+            var madocs = (from a in bzTModel where a.Blocked == false select a).ToList();
+            return View(madocs);
+        }
+
+        public ActionResult IndustryGroupes()
+        {
+            List<IndustryGroupModel> indTModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetIndustryGroups");
+            indTModel = JsonConvert.DeserializeObject<List<IndustryGroupModel>>(json);
+            var madocs = (from a in indTModel select a).ToList();
+            return View(madocs);
+        }
+
+        public ActionResult CompanySize()
+        {
+            List<BusinessSizeModel> bzSzModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetCompanySize");
+            bzSzModel = JsonConvert.DeserializeObject<List<BusinessSizeModel>>(json);
+            var madocs = (from a in bzSzModel select a).ToList();
+            return View(madocs);
+        }
+
+        public ActionResult LanguageCode()
+        {
+            List<LanguageModel> langModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetLanguageCode");
+            langModel = JsonConvert.DeserializeObject<List<LanguageModel>>(json);
+            var jsresult = (from a in langModel select a).ToList();
+            return View(jsresult);
+        }
+
+        public JsonResult FnUploadmandatoryDoc(HttpPostedFileBase browsedfile, string typauploadselect, 
+            string filedescription, string certificatenumber, string dateofissue, string expirydate)
+        {
             try
             {
+                var vendorNo = Convert.ToString(Session["vendorNo"]);
+                var nvWebref = WsConfig.EProcWebRef;
+                string storedFilename = "";
+                CultureInfo usCulture = new CultureInfo("en-US");
+                int errCounter = 0, filesCounter = 1, succCounter = 0, entryCounter = 0;
+                DateTime dtofIssue, expiryDate;
+                string uploads ;
+                dtofIssue = DateTime.Parse(dateofissue, usCulture.DateTimeFormat);
+                expiryDate = DateTime.Parse(expirydate, usCulture.DateTimeFormat);
+               
+          
                 if (browsedfile == null)
                 {
                     errCounter++;
@@ -1472,28 +1459,57 @@ namespace EProc_On_Metronic.Controllers
                     vendorNo = vendorNo.Replace(":", "[58]");
                     vendorNo = vendorNo.Replace("/", "[47]");
 
-                var rootFolder = Server.MapPath("~/Uploads/Mandatory Docs");
+                if (filedescription.Contains("/"))
+                    filedescription = filedescription.Replace("/", "_");
+
+                if (typauploadselect.Contains("/"))
+                    typauploadselect = typauploadselect.Replace("/", "_");
+
+                var rootFolder = Server.MapPath("~/Uploads/Vendor Card");
                 var subfolder = Path.Combine(rootFolder, vendorNo);
 
                 if (!Directory.Exists(subfolder))
                     Directory.CreateDirectory(subfolder);
-
-                succCounter = (filesCounter - errCounter) / filesCounter * 100;
-
+                    succCounter = (filesCounter - errCounter) / filesCounter * 100;
 
                 string fileName0 = Path.GetFileName(browsedfile.FileName);
                 string ext0 = _getFileextension(browsedfile);
                 string savedF0 = vendorNo + "_"+ typauploadselect + ext0;
-                
-                browsedfile.SaveAs(subfolder + "/" + savedF0);
 
-                string uploads = string.Format("{0}",
-                    "<div class='form-group'>" +
-                    "<h4><strong style='color: chocolate'>List of files you uploaded successfully!</strong></h4>" +
-                    fileName0 + "<br/>" +
-                    "<br/></div>");
-                return Json("success*" + uploads+"*"+ succCounter, JsonRequestBehavior.AllowGet);
+                // Recursively get file names for all files in a directory.
+                foreach (string file in Directory.EnumerateFiles(subfolder, "*.*", SearchOption.AllDirectories))
+                {
+                    storedFilename = Path.GetFileName(file);
+                }
+                if (savedF0 == storedFilename)
+                {
+                    entryCounter++;
+                    savedF0 = vendorNo + "_" + typauploadselect + "_"+ entryCounter + ext0;
+                }
 
+                string fsavestatus = nvWebref.FnInsertFiledetails(vendorNo, typauploadselect, filedescription,
+                    certificatenumber, dtofIssue, expiryDate, savedF0);
+                var splitanswer = fsavestatus.Split('*');
+                switch (splitanswer[0])
+                {
+                    case "success":
+                        browsedfile.SaveAs(subfolder + "/" + savedF0);
+                         uploads = string.Format("{0}",
+                            "<div class='form-group'>" +
+                            "<h4><strong style='color: chocolate'>List of files you uploaded successfully!</strong></h4></br>Upload Feedback: " +
+                            splitanswer[1] + "</br> Uploaded File Name: " +
+                            fileName0 + "<br/> Filename Saved: " +
+                            savedF0 +
+                            "</div>");
+                        return Json("success*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
+                    default:
+                         uploads = string.Format("{0}",
+                            "<div class='form-group alert alert-danger'>" +
+                            "<h4><strong style='color: chocolate'>Files upload error!</strong></h4></br>" + splitanswer[1] + "</br>" +
+                            fileName0 + "<br/>" +
+                            "<br/></div>");
+                        return Json("danger*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
@@ -1501,6 +1517,507 @@ namespace EProc_On_Metronic.Controllers
             }
         }
 
+        public JsonResult UploadedSpecifVendorDocs()
+        {
+            var vendorNo = Convert.ToString(Session["vendorNo"]);
+            var uploadedFiles = new List<UploadedFile>();
+            try
+            {
+                if (vendorNo.Contains(":"))
+                    vendorNo = vendorNo.Replace(":", "[58]");
+                    vendorNo = vendorNo.Replace("/", "[47]");
+
+                var rootFolder = Server.MapPath("~/Uploads/Vendor Card");
+                var subfolder = Path.Combine(rootFolder, vendorNo);
+
+                if (!Directory.Exists(subfolder))
+                    Directory.CreateDirectory(subfolder);
+
+                var files = Directory.GetFiles(subfolder);
+                foreach (var file in files)
+                {
+                    var fileInfo = new FileInfo(file);
+
+                    var uploadedFile = new UploadedFile { FileName = Path.GetFileName(file) };
+                    uploadedFile.Size = fileInfo.Length;
+
+                    uploadedFile.Path = (subfolder) + "/" + Path.GetFileName(file);
+                    uploadedFiles.Add(uploadedFile);
+                }
+                return Json(uploadedFiles, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+           
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult SupplierRegReq(SignupModel signupmodel)
+        {
+            try
+            {
+                var nvWebref = WsConfig.EProcWebRef;
+                var status = nvWebref.FnReqforRegistration(signupmodel.VendorName, signupmodel.Phonenumber, signupmodel.Email, signupmodel.KraPin, signupmodel.ContactName);
+
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
+        public JsonResult AddSpecialGroupEntry(SpecialGrpEntryModel agpomodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                DateTime myCerteffectivedate;
+                DateTime myExpdate;
+                CultureInfo usCulture = new CultureInfo("en-US");
+                myCerteffectivedate = DateTime.Parse(agpomodel.Effective_Date, usCulture.DateTimeFormat);
+                myExpdate = DateTime.Parse(agpomodel.End_Date, usCulture.DateTimeFormat);
+                
+
+                var nvWebref = WsConfig.EProcWebRef;
+                var status = nvWebref.FnInsertSpecialGrp(vendorNo, agpomodel.Vendor_Category, agpomodel.Certifcate_No, myCerteffectivedate, myExpdate, agpomodel.Products_Service_Category);
+
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
+        public JsonResult AddPastExPr(PastXprModel pastxpmodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+
+                DateTime prjstartdate;
+                DateTime prjenddate;
+                CultureInfo usCulture = new CultureInfo("en-US");
+                prjstartdate = DateTime.Parse(pastxpmodel.ProjectStartDate, usCulture.DateTimeFormat);
+                prjenddate = DateTime.Parse(pastxpmodel.ProjectEndDate, usCulture.DateTimeFormat);
+
+                var status = nvWebref.FnInsertPastXep(vendorNo, pastxpmodel.ClientName, pastxpmodel.Address, 
+                    pastxpmodel.ProjectName, pastxpmodel.ProjectScope, prjstartdate,
+                    prjenddate, pastxpmodel.ProjectValue);
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult AddBalanceSheetEntry(AuditedFinancialsTModel financemodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                var status = nvWebref.FnInsertBalanceSheet(financemodel.Year, financemodel.TotalCurrentAssets, 
+                    financemodel.TotalFixedAssets, financemodel.TotalCurrentLiabilty,
+                    financemodel.TotalLongTermLiability, financemodel.TotalOwnersEquity, vendorNo);
+
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult AddIncomestatementEntry(AuditedFinancialsTModel incomemodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                var status = nvWebref.FnInsertIncomestatement(incomemodel.YearI, incomemodel.TotalRevenue, incomemodel.TotalCogs, incomemodel.TotalOpsExpense,
+                    incomemodel.OtherNonOpsExpense, incomemodel.InterestExpense, vendorNo);
+
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult VendorBalanceSheet()
+        {
+            var vendorNo = Session["vendorNo"].ToString();
+            List<BalanceSheetTModel> modelItems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetBalanceSheet");
+            modelItems = JsonConvert.DeserializeObject<List<BalanceSheetTModel>>(json);
+            var jritems = (from a in modelItems where a.Vendor_No == vendorNo select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+  
+        public JsonResult  GetmeAllyears()
+        {
+            int currentYear = DateTime.Now.Year;
+            List<DropdownListforYears> ddlYears = new List<DropdownListforYears>();
+            for (int i = 2010; i <= currentYear; i++)
+            {
+                ddlYears.Add(new DropdownListforYears
+                {
+                    YearCode = i.ToString(),
+                    YearDescription = i.ToString()
+                });
+            }
+            return Json(ddlYears, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult VendorIncomeStatement()
+        {
+            var vendorNo = Session["vendorNo"].ToString();
+            List<IncomeStatementTModel> modelItems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetIncomeStatememt");
+            modelItems = JsonConvert.DeserializeObject<List<IncomeStatementTModel>>(json);
+            var jritems = (from a in modelItems where a.Vendor_No == vendorNo select a).ToList();
+
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult VendorDetails()
+        {
+            var vendorNo = Session["vendorNo"].ToString();
+            List<GetVendorTModel> modelItems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername+":"+ ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetAllVendors");
+            modelItems = JsonConvert.DeserializeObject<List<GetVendorTModel>>(json);
+            var jritems = (from a in modelItems where a.No == vendorNo select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult AddStaffEntry(StaffEntryTModel staffmodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                CultureInfo usCulture = new CultureInfo("en-US");
+                var stfDateofbirth = DateTime.Parse(staffmodel.StaffDateofBirth, usCulture.DateTimeFormat);
+                var stfJoiningDate = DateTime.Parse(staffmodel.StaffJoiningDate, usCulture.DateTimeFormat);
+
+                var status = nvWebref.FnInsertStaffEntry(vendorNo, staffmodel.StaffName, staffmodel.StaffProfession, staffmodel.StaffDesignation, staffmodel.StaffPhonenumber,
+                staffmodel.StaffNationality, stfDateofbirth, staffmodel.StaffEmail, stfJoiningDate, staffmodel.StaffYearswithfirm, staffmodel.StaffNumber);
+
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult AddStaffQualifEntry(StaffQualificTModel staffqlfcmodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                var qualiftype = staffqlfcmodel.QualificCategories;
+                int qualifCat = 0;
+                //do switches here
+                switch (qualiftype)
+                {
+                    case "PhD":
+                        qualifCat = 1;
+                        break;
+
+                    case "Masters":
+                        qualifCat = 2;
+                        break;
+
+                    case "Post-Graduate Diploma":
+                        qualifCat = 3;
+                        break;
+
+                    case "Undergraduate":
+                        qualifCat = 4;
+                        break;
+
+                    case "Diploma":
+                        qualifCat = 5;
+                        break;
+
+                    case "A-Level":
+                        qualifCat = 6;
+                        break;
+
+                    case "O-Level":
+                        qualifCat = 7;
+                        break;
+
+                    case "Professional Certification":
+                        qualifCat = 8;
+                        break;
+                }
+
+
+                var status = nvWebref.FnInsertStaffQlfEntry(vendorNo, staffqlfcmodel.StaffID, qualifCat, staffqlfcmodel.QualificDescription, staffqlfcmodel.QualificInstitution, staffqlfcmodel.QualificStartdate,
+                    staffqlfcmodel.QualificCompletiondate, staffqlfcmodel.QualificOutstAchievement);
+
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult AddStaffXpEntry(StaffXPTModel staffxpmodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                var xptype = staffxpmodel.XpCategory;
+                int xpCat = 0;
+                //do switches here
+                switch (xptype)
+                {
+                    case "General Experience":
+                        xpCat = 1;
+                        break;
+
+                    case "Specialized Experience":
+                        xpCat = 2;
+                        break;
+
+                    case "Training Experience":
+                        xpCat = 3;
+                        break;
+
+                    case "No. of Handled Projects":
+                        xpCat = 4;
+                        break;
+
+                    case "Other Experience":
+                        xpCat = 5;
+                        break;
+                }
+
+                var status = nvWebref.FnInsertStaffXPrEntry(vendorNo, staffxpmodel.XpStaffId, xpCat, staffxpmodel.XpSummary, staffxpmodel.XpPrjdescription, staffxpmodel.XpStartdate, staffxpmodel.XpEnddate, staffxpmodel.XpYearsofExperience);
+
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult SubmitRegistration()
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                var status = nvWebref.FnCompleteSupplierReg(vendorNo);
+
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetIfPsList()
+        {
+            List<IFPRequestsModel> ifpRequests = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetIfPs");
+            ifpRequests = JsonConvert.DeserializeObject<List<IFPRequestsModel>>(json);
+            var ifpitems = (from a in ifpRequests where a.Document_Type== "Invitation For Prequalification" select a).ToList();
+            return Json(ifpitems, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetIfpDetails(string ifpnumber)
+        {
+            List<IFPRequestsModel> ifpRequests = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetIfPs");
+            ifpRequests = JsonConvert.DeserializeObject<List<IFPRequestsModel>>(json);
+            var ifpitems = (from a in ifpRequests where a.Code == ifpnumber select a).ToList();
+            return Json(ifpitems, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPreqcategories(string ifpnumber)
+        {
+            List<RfiPrequalifcTModel> modelitems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetRfiPrequalification");
+            modelitems = JsonConvert.DeserializeObject<List<RfiPrequalifcTModel>>(json);
+            var jritems = (from a in modelitems where a.Document_No == ifpnumber select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetIfpDocuments(string ifpnumber)
+        {
+            List<IfPDocumentsTModel> modelitems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetRfiDocs");
+            modelitems = JsonConvert.DeserializeObject<List<IfPDocumentsTModel>>(json);
+            var jritems = (from a in modelitems where a.Document_No == ifpnumber select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult CheckLogin(string myUserId, string myPassword)
+        {
+            try
+            {
+                List<Login> loginmodel = null;
+                WebClient wc = new WebClient();
+                wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+                string json = wc.DownloadString(Baseurl + "api/GetPortalUsers");
+                loginmodel = JsonConvert.DeserializeObject<List<Login>>(json);
+
+                List<ContactsModel> contacts = null;
+                string json2 = wc.DownloadString(Baseurl + "api/GetPortalContacts");
+                contacts = JsonConvert.DeserializeObject<List<ContactsModel>>(json2);
+
+                List<VendorModel> vendor = null;
+                string json3 = wc.DownloadString(Baseurl + "api/GetAllVendors");
+                vendor = JsonConvert.DeserializeObject<List<VendorModel>>(json3);
+
+
+                if (string.IsNullOrWhiteSpace(myUserId))
+                    return Json("UsernameEmpty", JsonRequestBehavior.AllowGet);
+                if (string.IsNullOrWhiteSpace(myPassword))
+                    return Json("PasswordEmpty", JsonRequestBehavior.AllowGet);
+
+                var loginresult = (from a in loginmodel where a.User_Name == myUserId select a).ToList();
+                var result = loginresult.FirstOrDefault();
+                if (result != null)
+                {
+                    Session["prequalified"] = result.State;
+                    Session["email"] = result.Authentication_Email;
+                    Session["password"] = result.Password_Value;
+                    Session["name"] = result.Full_Name;
+                    Session["email"] = result.Authentication_Email;
+                    Session["contactNo"] = result.Record_ID;
+                    Session["userNo"] = result.Record_ID;
+                    Session["vendorNo"] = result.Record_ID;
+
+                    if (result.Password_Value != myPassword)
+                        return Json("PasswordMismatched", JsonRequestBehavior.AllowGet);
+                   
+                    //check if the are in Vendor table
+                    var vendorcollection = (from a in vendor where a.Primary_Contact_No == (string)Session["contactNo"] select a).ToList();
+
+                    if (result.State == "Enabled")
+                    {
+                        foreach (var vend in vendorcollection)
+                        {
+                            Session["vendorNo"] = vend.No;
+                            Session["userNo"] = vend.No;
+                            Session["category"] = vend.Supplier_Category;
+                        }
+                        return Json("Loginuser", JsonRequestBehavior.AllowGet);
+                    }
+                    if (result.State != "Enabled")
+                    {
+                        return Json("accountdeactivated", JsonRequestBehavior.AllowGet);
+
+                    }
+                }
+                return Json("InvalidLogin", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
 
     }
 }

@@ -23,8 +23,6 @@
     
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
-    @*<link href="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />*@
     <!-- END PAGE LEVEL PLUGINS -->
 
     <!-- BEGIN THEME GLOBAL STYLES -->
@@ -40,6 +38,7 @@
     
     <!-- BEGIN MY CUSTOMIZED LAYOUT STYLES -->
     <link href="/assets/customassets/css/customstyles.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/customassets/css/overlay.css" rel="stylesheet" type="text/css" />
     <!-- Sweet Alert Css -->
     <link href="/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 </head>
@@ -100,13 +99,16 @@
                                     <div class="col-md-4">
                                         <ul class="mega-menu-submenu">
                                             <li>
-                                                <h3>eServices</h3>
+                                                <h3>e-Services</h3>
                                             </li>
                                             <li>
-                                                <a href="#">E-Bidding</a>
+                                                <a href="/Home/IfpEprequalificationList">e-Prequalification</a>
                                             </li>
                                             <li>
-                                                <a href="#">E-Auction</a>
+                                                <a href="#">e-Bidding</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">e-Auction</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -301,6 +303,7 @@
 <script src="/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js" type="text/javascript"></script>
 
 <!-- END PAGE LEVEL PLUGINS -->
 
@@ -323,6 +326,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> 
 <!-- BEGIN CUSTOM SCRIPTS -->
 <script src="/assets/customassets/js/buttonClicks.js" type="text/javascript"></script>
+<script src="/assets/customassets/js/dataFetchHmpgInits.js" type="text/javascript"></script>
 <!-- END CUSTOM SCRIPTS -->
 
 <!-- End -->
