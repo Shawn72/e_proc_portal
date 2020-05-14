@@ -493,6 +493,7 @@
             <element minOccurs="1" maxOccurs="1" name="address" type="string" />
             <element minOccurs="1" maxOccurs="1" name="directorFullname" type="string" />
             <element minOccurs="1" maxOccurs="1" name="idNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="citizenType" type="int" />
           </sequence>
         </complexType>
       </element>
@@ -697,6 +698,85 @@
         </complexType>
       </element>
       <element name="FnCompleteSupplierReg_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnGetOwnerPercentage">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnGetOwnerPercentage_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertRFIresponseHeader">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="rfiDocumentNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertRFIresponseHeader_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnGetLastDocumentNo">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="rfiDocumentNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnGetLastDocumentNo_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertRFIResponseLines">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="documentNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="procurementCategory" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="rfiDocumentNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertRFIResponseLines_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSubmitResponseFinal">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="rfiDocumentNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="repFullname" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="repDesignation" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="rfiApplNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSubmitResponseFinal_Result">
         <complexType>
           <sequence>
             <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
@@ -939,6 +1019,36 @@
   <message name="FnCompleteSupplierReg_Result">
     <part name="parameters" element="tns:FnCompleteSupplierReg_Result" />
   </message>
+  <message name="FnGetOwnerPercentage">
+    <part name="parameters" element="tns:FnGetOwnerPercentage" />
+  </message>
+  <message name="FnGetOwnerPercentage_Result">
+    <part name="parameters" element="tns:FnGetOwnerPercentage_Result" />
+  </message>
+  <message name="FnInsertRFIresponseHeader">
+    <part name="parameters" element="tns:FnInsertRFIresponseHeader" />
+  </message>
+  <message name="FnInsertRFIresponseHeader_Result">
+    <part name="parameters" element="tns:FnInsertRFIresponseHeader_Result" />
+  </message>
+  <message name="FnGetLastDocumentNo">
+    <part name="parameters" element="tns:FnGetLastDocumentNo" />
+  </message>
+  <message name="FnGetLastDocumentNo_Result">
+    <part name="parameters" element="tns:FnGetLastDocumentNo_Result" />
+  </message>
+  <message name="FnInsertRFIResponseLines">
+    <part name="parameters" element="tns:FnInsertRFIResponseLines" />
+  </message>
+  <message name="FnInsertRFIResponseLines_Result">
+    <part name="parameters" element="tns:FnInsertRFIResponseLines_Result" />
+  </message>
+  <message name="FnSubmitResponseFinal">
+    <part name="parameters" element="tns:FnSubmitResponseFinal" />
+  </message>
+  <message name="FnSubmitResponseFinal_Result">
+    <part name="parameters" element="tns:FnSubmitResponseFinal_Result" />
+  </message>
   <portType name="eprocurement_Port">
     <operation name="FnRegisterVendor">
       <input name="FnRegisterVendor" message="tns:FnRegisterVendor" />
@@ -1095,6 +1205,26 @@
     <operation name="FnCompleteSupplierReg">
       <input name="FnCompleteSupplierReg" message="tns:FnCompleteSupplierReg" />
       <output name="FnCompleteSupplierReg_Result" message="tns:FnCompleteSupplierReg_Result" />
+    </operation>
+    <operation name="FnGetOwnerPercentage">
+      <input name="FnGetOwnerPercentage" message="tns:FnGetOwnerPercentage" />
+      <output name="FnGetOwnerPercentage_Result" message="tns:FnGetOwnerPercentage_Result" />
+    </operation>
+    <operation name="FnInsertRFIresponseHeader">
+      <input name="FnInsertRFIresponseHeader" message="tns:FnInsertRFIresponseHeader" />
+      <output name="FnInsertRFIresponseHeader_Result" message="tns:FnInsertRFIresponseHeader_Result" />
+    </operation>
+    <operation name="FnGetLastDocumentNo">
+      <input name="FnGetLastDocumentNo" message="tns:FnGetLastDocumentNo" />
+      <output name="FnGetLastDocumentNo_Result" message="tns:FnGetLastDocumentNo_Result" />
+    </operation>
+    <operation name="FnInsertRFIResponseLines">
+      <input name="FnInsertRFIResponseLines" message="tns:FnInsertRFIResponseLines" />
+      <output name="FnInsertRFIResponseLines_Result" message="tns:FnInsertRFIResponseLines_Result" />
+    </operation>
+    <operation name="FnSubmitResponseFinal">
+      <input name="FnSubmitResponseFinal" message="tns:FnSubmitResponseFinal" />
+      <output name="FnSubmitResponseFinal_Result" message="tns:FnSubmitResponseFinal_Result" />
     </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
@@ -1447,6 +1577,51 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnCompleteSupplierReg_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnGetOwnerPercentage">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnGetOwnerPercentage" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnGetOwnerPercentage">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnGetOwnerPercentage_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertRFIresponseHeader">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertRFIresponseHeader" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertRFIresponseHeader">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertRFIresponseHeader_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnGetLastDocumentNo">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnGetLastDocumentNo" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnGetLastDocumentNo">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnGetLastDocumentNo_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertRFIResponseLines">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertRFIResponseLines" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertRFIResponseLines">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertRFIResponseLines_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnSubmitResponseFinal">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSubmitResponseFinal" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnSubmitResponseFinal">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnSubmitResponseFinal_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

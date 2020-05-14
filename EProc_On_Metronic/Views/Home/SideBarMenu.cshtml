@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+<li class="heading">
+    <h3 class="uppercase">Supplier Registration</h3>
+</li>
+<li class="nav-item">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fas fa-folder-open"></i>
+        <span class="title">New Supplier Registration</span>
+        <span class="arrow"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item">
+            <a href="/Home/SupplierCategoriesList" class="nav-link">
+                <i class="fas fa-list-alt"></i>
+                <span class="title">Category List</span>
+                <span class="badge badge-danger">@Session["suppcatcount"]</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/Home/Supplier_Registration_Form" class="nav-link">
+                <i class="fas fa-list-alt"></i>
+                <span class="title">Supplier Registration</span>
+            </a>
+        </li>
+    </ul>
+</li>
+<li class="heading">
+    <h3 class="uppercase">e-Prequalification</h3>
+</li>
+<li class="nav-item  ">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fas fa-folder-open"></i>
+        <span class="title">Request for Information</span>
+        <span class="arrow"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item  ">
+            <a href="/Home/RfiResponseForm" class="nav-link ">
+                <i class="fas fa-list-alt"></i>
+                <span class="title">RFI Response Form</span>
+            </a>
+        </li>
+    </ul>
+</li>

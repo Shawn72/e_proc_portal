@@ -197,3 +197,30 @@ const inputLimit = ((element, maxLegth) => {
         element.value = element.value.substr(0, maxLegth);
     }
 });
+
+const IsNumericPercentage = ((e) => {
+    var specialKeys = new Array();
+    specialKeys.push(8); //Backspace
+    var keyCode = e.which ? e.which : e.keyCode;
+    if (!(keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1) {
+        e.preventDefault();
+        Swal.fire
+        ({
+            title: "Numbers only!",
+            text: "Percentage accepts numbers only!",
+            type: "error"
+        }).then(() => {
+            $(".percentval").css("color", "red");
+            $(".percentval").focus();
+            $(".percentval").css("border", "solid 1px red");
+            $("#tbldirectorfeedback").css("display", "block");
+            $("#tbldirectorfeedback").css("color", "red");
+            $('#tbldirectorfeedback').addClass('alert alert-danger');
+            $("#tbldirectorfeedback").html("Only numbers accepted for the percentage field!");
+        });
+    } else {
+        $(".percentval").css("color", "green");
+        $(".percentval").css("border", "solid 1px green");
+        $("#tbldirectorfeedback").css("display", "none");
+    }
+});

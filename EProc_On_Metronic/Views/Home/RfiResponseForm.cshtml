@@ -1,0 +1,377 @@
+﻿
+@{
+    ViewBag.Title = "RfiResponseForm";
+    Layout = "~/Views/Shared/_Formwizard_Layout.cshtml";
+}
+<!-- BEGIN CONTENT BODY -->
+<div class="page-content">
+<!-- BEGIN PAGE HEADER-->
+ 
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/Home/IfpEprequalificationList">ePrequalification</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li><span>Request for Information</span></li>
+    </ul>
+        
+</div>
+<!-- END PAGE BAR -->
+
+<!-- BEGIN PAGE TITLE-->
+<h3 class="page-title"><strong>e-Prequalification Response</strong></h3>
+<!-- END PAGE TITLE-->
+<p>
+    Select The Request for Information to Respond to.
+</p>
+<!-- do table things here-->
+<div class="row" id="rfilistdiv">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-settings font-green"></i>
+                    <span class="caption-subject font-green sbold uppercase">Requests For Information</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group">
+                        <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+                            <i class="fa fa-share"></i>
+                            <span class="hidden-xs"> Trigger Tools </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right" id="sample_3_tools">
+                            <li>
+                                <a href="javascript:;" data-action="0" class="tool-action">
+                                    <i class="icon-printer"></i> Print</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" data-action="1" class="tool-action">
+                                    <i class="far fa-copy"></i> Copy</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" data-action="2" class="tool-action">
+                                    <i class="far fa-file-pdf"></i> PDF</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" data-action="3" class="tool-action">
+                                    <i class="far fa-file-excel"></i> Excel</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-container">
+                    <div id="ifpfeedbacks" style="display: none;"></div>
+                    <table class="table table-striped table-bordered table-hover" id="tbl_open_rfis_list">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Notice No.</th>
+                            <th>Description</th>
+                            <th>Region Issuing Notice</th>
+                            <th>Submision Date</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+</div>
+    <div class="row" id="rfiwizardformdiv" style="display: none">
+        <div class="col-md-12">
+            <div class="portlet light bordered" id="form_wizard_rfi">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-layers font-red"></i>
+                        <span class="caption-subject font-red bold uppercase"> RFI Response Form -
+                            <span class="step-title"> Step 1 of 3 </span>
+                        </span>
+                    </div>
+                    <div class="actions">
+                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                            <i class="icon-cloud-upload"></i>
+                        </a>
+                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                            <i class="icon-wrench"></i>
+                        </a>
+                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <form class="form-horizontal" action="#" id="submit_rfiresponse_form" method="POST" enctype="multipart/form-data">
+                        <div class="form-wizard">
+                            <div class="form-body">
+                                <ul class="nav nav-pills nav-justified steps">
+                                    <li id="li0">
+                                        <a href="#tab1" data-toggle="tab" class="step">
+                                            <span class="number"> 1 </span><span class="desc"><i class="icon-check"></i> Prequalification Response (Section A) </span>
+                                        </a>
+                                    </li>
+                                    <li id="li1">
+                                        <a href="#tab2" data-toggle="tab" class="step">
+                                            <span class="number"> 2 </span><span class="desc"><i class="icon-check"></i> Prequalification Response (Section B) </span>
+                                        </a>
+                                    </li>
+                                    <li id="li2">
+                                        <a href="#tab3" data-toggle="tab" class="step active">
+                                            <span class="number"> 3 </span><span class="desc"><i class="icon-check"></i> Document Attachment </span>
+                                        </a>
+                                    </li>
+   
+                                </ul>
+                                <div id="bar" class="progress progress-striped" role="progressbar">
+                                    <div class="progress-bar progress-bar-success"> </div>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div class="alert alert-danger display-none">
+                                        <button class="close" data-dismiss="alert"></button> You have some form errors. Please check below.
+                                    </div>
+                                <div class="alert alert-success display-none">
+                                    <button class="close" data-dismiss="alert"></button> Your form validation is successful!
+                                </div>
+
+                                <div id="respfeedback_alert"> </div>
+
+                                    <div id="regfeedback" class="close" style="display: none" data-dismiss="alert"></div>
+                                    <div class="tab-pane active" id="tab1">
+                                        <p>
+                                            Please ensure you select the Prequalification Invitation Notice No. that you want to respond to. The
+                                            system shall automatically assign an Application tracking number for your prequalification response
+                                        </p>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Prequalification Application No</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtIfApplicationNo" id="txtIfApplicationNo" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Vendor No</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtVndNo" id="txtVndNo" readonly/>
+                                                </div>
+                                            </div>
+                                        </div><br/>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Vendor Name</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtVndName" id="txtVndName" readonly/>
+                                                </div>
+                                            </div>
+                                        </div><br/>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Prequalification Invitation Notice No</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtIfpNo" id="txtIfpNo" readonly/>
+                                                </div>
+                                            </div>
+                                        </div><br/>
+                                        
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Vendor Representative Name</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtVndRepName" id="txtVndRepName"  />
+                                                </div>
+                                            </div>
+                                        </div><br />
+                                        
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Vendor Representative Title</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" name="txtVendrepTitle" id="txtVendrepTitle" />
+                                                </div>
+                                            </div>
+                                        </div><br />
+                                        
+                                    </div>
+                                    
+                                    <div class="tab-pane active" id="tab2">
+                                        <p>
+                                            Please select the Procurement Categories that you would wish to be prequalified, then click on "Apply" or "Cancel" buttons
+                                        </p>
+                                        <div class="row">
+                                            <div class="portlet-body">
+                                                <div class="table-container">
+                                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                                    <div class="portlet light portlet-fit portlet-datatable bordered">
+                                                        <div class="portlet-title" id="goodsappalert">
+                                                            <div class="caption font-dark">
+                                                                <i class="icon-settings font-dark"></i>
+                                                                <span class="caption-subject bold uppercase"> Goods (Supply Of Items & Assets)</span>
+                                                            </div>
+                                                            <div class="actions" id="grpshowhide" style="display: none">
+                                                                <a href="javascript:;" class="btn btn-default btn-sm insertselected">
+                                                                    <i class="fa fa-save"></i> Apply </a>
+                                                                <a href="javascript:;" class="btn btn-default btn-sm cancelselected">
+                                                                    <i class="fa fa-window-close"></i> Cancel </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="rfi_goods_alert"></div><br/>
+                                                        <div class="portlet-body">
+                                                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tbl_rfi_goods">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th class="table-checkbox">
+                                                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                            <input type="checkbox" class="group-checkabled" data-set="#tbl_rfi_goodsd .checkboxes"/>
+                                                                            <span></span>
+                                                                        </label>
+                                                                    </th>
+                                                                    <th>Procurement Category</th>
+                                                                    <th>Description</th>
+                                                                    <th>Special Group Preservation</th>
+                                                                    <th>Applicable Locations</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END EXAMPLE TABLE PORTLET-->
+                                                </div>
+
+                                            </div>
+                                        </div><br/>
+                                        
+                                        <div class="row">
+                                            <div class="portlet-body">
+                                                <div class="table-container">
+                                                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                                <div class="portlet light portlet-fit portlet-datatable bordered">
+                                                    <div class="portlet-title" id="serviceappalert">
+                                                        <div class="caption font-dark">
+                                                            <i class="icon-settings font-dark"></i>
+                                                            <span class="caption-subject bold uppercase"> Services (Consulting/Non-Consulting Services)</span>
+                                                        </div>
+                                                        <div class="actions" id="grpshowhide-services" style="display: none">
+                                                            <a href="javascript:;" class="btn btn-default btn-sm insertselected-services">
+                                                                <i class="fa fa-save"></i> Apply </a>
+                                                            <a href="javascript:;" class="btn btn-default btn-sm cancelselected-services">
+                                                                <i class="fa fa-window-close"></i> Cancel </a>
+                                                        </div>
+                                                    </div>
+                                                    <div id="rfi_services_alert"></div><br/>
+                                                    <div class="portlet-body">
+                                                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tbl_rfi_services">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="table-checkbox">
+                                                                    <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                        <input type="checkbox" class="group-checkable-servicesd" data-set="#tbl_rfi_servicesd .checkbox-services" />
+                                                                        <span></span>
+                                                                    </label>
+                                                                </th>
+                                                                <th>Procurement Category</th>
+                                                                <th>Description</th>
+                                                                <th>Special Group Preservation</th>
+                                                                <th>Applicable Locations</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!-- END EXAMPLE TABLE PORTLET-->
+                                                </div>
+                                            </div>
+                                        </div><br/>
+                                        
+                                        <div class="row">
+                                            <div class="portlet-body">
+                                                <div class="table-container">
+                                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                                    <div class="portlet light portlet-fit portlet-datatable bordered">
+                                                        <div class="portlet-title" id="worksappalert">
+                                                            <div class="caption font-dark">
+                                                                <i class="icon-settings font-dark"></i>
+                                                                <span class="caption-subject bold uppercase"> Works (Projects)</span>
+                                                            </div>
+                                                            <div class="actions" id="grpshowhide-works" style="display: none">
+                                                                <a href="javascript:;" class="btn btn-default btn-sm insertselected-works">
+                                                                    <i class="fa fa-save"></i> Apply </a>
+                                                                <a href="javascript:;" class="btn btn-default btn-sm cancelselected-works">
+                                                                    <i class="fa fa-window-close"></i> Cancel </a>
+                                                            </div>
+                                                        </div>
+                                                        <div id="rfi_works_alert"></div><br/>
+                                                        <div class="portlet-body">
+                                                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tbl_rfi_works">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th class="table-checkbox">
+                                                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                            <input type="checkbox" class="group-checkable-worksd" data-set="#tbl_rfi_worksd .checkbox-works" />
+                                                                            @*<input type="checkbox" class="group-checkable-works" data-set="#tbl_rfi_works .checkbox-works"/>*@
+                                                                            <span></span>
+                                                                        </label>
+                                                                    </th>
+                                                                    <th>Procurement Category</th>
+                                                                    <th>Description</th>
+                                                                    <th>Special Group Preservation</th>
+                                                                    <th>Applicable Locations</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END EXAMPLE TABLE PORTLET-->
+                                                </div>
+                                            </div>
+                                        </div><br/>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-4 col-md-8">
+                                        <a href="javascript:;" class="btn green btn-outline btn-circle button-backto-ifplists"><i class="fas fa fa-angle-left"></i> &nbsp;Go Back </a>
+                                   
+                                          &nbsp;
+                                        <a href="javascript:;" class="btn green btn-outline btn-circle button-previous"><i class="fas fa fa-angle-left"></i> &nbsp;Back </a>
+                                        <a href="javascript:;" class="btn green btn-outline btn-circle button-next">Continue &nbsp;<i class="fas fa fa-angle-right"></i></a>
+                                        <a href="javascript:;" class="btn green btn-outline btn-circle button-submit">Submit Request &nbsp;<i class="fas fa fa-check"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="modalspinner" style="display: none">
+    <div class="centerspinner">
+        <img alt="" src="/assets/loaders/spinner.gif"/>
+    </div>
+</div>
+</div>
+<!-- END CONTENT BODY -->
+

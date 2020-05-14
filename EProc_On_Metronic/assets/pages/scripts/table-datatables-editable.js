@@ -191,28 +191,35 @@ var TableDatatablesDirector = function () {
                     }
                 }),
                 a[0].innerHTML = '<input type="text" class="form-control input-small" value="' + n[0] + '">',
-                a[1].innerHTML ='<select class="form-control select2" id="ddlallcountriesdy" name="ddlallcountriesdy" data_live_search = "true"><option value="">--Select Country--</option></select>',
+                a[1].innerHTML ='<select class="form-control select2" id="ddlallcountriesdy" name="ddlallcountriesdy" data_live_search = "true"><option value="">--select country--</option></select>',
                 a[2].innerHTML = '<input type="number" class="form-control input-small" value="' + n[2] + '">',
-                a[3].innerHTML = '<input type="number" class="form-control input-small" value="' + n[3] + '">',
-                a[4].innerHTML = '<input type="text" class="form-control input-small" value="' + n[4] + '">',
+                a[3].innerHTML = '<select class="form-control select2" id="ddlCitizenship" name="ddlCitizenship" data_live_search = "true">' +
+                                    '<option value="">--select citizenship--</option>' +
+                                    '<option value="Birth">Birth</option>' +
+                                    '<option value="Naturalization">Naturalization</option>' +
+                                    '<option value="Registration">Registration </option>' +
+                                '</select>',
+                a[4].innerHTML = '<input type="number" class="form-control input-small percentval" onkeyup="IsNumericPercentage(event);inputLimit(this, 3);" value="' + n[4] + '">',
                 a[5].innerHTML = '<input type="text" class="form-control input-small" value="' + n[5] + '">',
-                a[6].innerHTML = '<input type="email" class="form-control input-small" value="' + n[6] + '">',
-                a[7].innerHTML = '<a class="edit" href="">Save</a>',
-                a[8].innerHTML = '<a class="cancel" href="">Cancel</a>';
+                a[6].innerHTML = '<input type="text" class="form-control input-small" value="' + n[6] + '">',
+                a[7].innerHTML = '<input type="email" class="form-control input-small" value="' + n[7] + '">',
+                a[8].innerHTML = '<a class="edit" href="">Save</a>',
+                a[9].innerHTML = '<a class="cancel" href="">Cancel</a>';
         }
 
         function n(e, t) {
             var n = $("input", t);
-            e.fnUpdate(n[0].value, t, 0, !1),
-            e.fnUpdate($("#ddlallcountriesdy option:selected").text(), t, 1, !1),
-            e.fnUpdate(n[1].value, t, 2, !1),
-            e.fnUpdate(n[2].value, t, 3, !1),
-            e.fnUpdate(n[3].value, t, 4, !1),
-            e.fnUpdate(n[4].value, t, 5, !1),
-            e.fnUpdate(n[5].value, t, 6, !1),
-            e.fnUpdate('<a class="edit" href="">Edit</a>', t, 7, !1),
-            e.fnUpdate('<a class="delete" href="">Delete</a>', t, 8, !1),
-            e.fnDraw()
+                e.fnUpdate(n[0].value, t, 0, !1),
+                e.fnUpdate($("#ddlallcountriesdy option:selected").text(), t, 1, !1),
+                e.fnUpdate(n[1].value, t, 2, !1),
+                e.fnUpdate($("#ddlCitizenship option:selected").text(), t, 3, !1),
+                e.fnUpdate(n[2].value, t, 4, !1),
+                e.fnUpdate(n[3].value, t, 5, !1),
+                e.fnUpdate(n[4].value, t, 6, !1),
+                e.fnUpdate(n[5].value, t, 7, !1),
+                e.fnUpdate('<a class="edit" href="">Edit</a>', t, 8, !1),
+                e.fnUpdate('<a class="delete" href="">Delete</a>', t, 9, !1),
+                e.fnDraw();
         }
         var a = $("#tbl_directors"),
             l = a.dataTable({
@@ -237,13 +244,18 @@ var TableDatatablesDirector = function () {
             }),
             r = ($("#sample_editable_1_wrapper"), null),
             o = !1;
+
+        //$(".percentval").keypress(function () {
+        //    console.log("Handler for .keypress() called.");
+        //});
+
         $("#btn_add_director_new").click(function(e) {
                 if (e.preventDefault(), o && r) {
                     if (!confirm("Previous row not saved. Do you want to save it ?"))
                         return l.fnDeleteRow(r), r = null, void (o = !1);
                     n(l, r), $(r).find("td:first").html("Untitled"), r = null, o = !1
                 }
-                var a = l.fnAddData(["", "", "", "", "", "","", "",""]),
+                var a = l.fnAddData(["", "", "", "", "", "","", "","",""]),
                     i = l.fnGetNodes(a[0]);
                 t(l, i), r = i, o = !0;
             }),
@@ -271,25 +283,26 @@ var TableDatatablesDirector = function () {
                         (e(l, r), t(l, i), r = i);
                     } else if (r == i && "Save" == this.innerHTML) {
                         (n(l, r), r = null);
-
                         ////call ajax to insert data here
-                        //To prevent form submit after ajax call
 
+                        //To prevent form submit after ajax call
+                       
+                        $("#submit_supplier_form").validate();
                         //reset to empty
                         $("#regfeedback").html("");
                         var directormodel = {};
-                        //dropdownlists
                        
                         //input textfields
                         directormodel.Fullname = i.cells[0].innerHTML;
                         directormodel.Nationality = i.cells[1].innerHTML;
                         directormodel.IdNumber = i.cells[2].innerHTML;
-                        directormodel.OwnershipPercentage = i.cells[3].innerHTML;
-                        directormodel.Phonenumber = i.cells[4].innerHTML;
-                        directormodel.Address = i.cells[5].innerHTML;
-                        directormodel.Email = i.cells[6].innerHTML;
+                        directormodel.CitizenshipType = i.cells[3].innerHTML;
+                        directormodel.OwnershipPercentage = i.cells[4].innerHTML;
+                        directormodel.Phonenumber = i.cells[5].innerHTML;
+                        directormodel.Address = i.cells[6].innerHTML;
+                        directormodel.Email = i.cells[7].innerHTML;
 
-                       //  console.log('Director info submitted : ' + JSON.stringify(directormodel));
+                        //console.log('Director info submitted : ' + JSON.stringify(directormodel));
 
                         Swal.fire({
                             title: "Are you sure?",
@@ -319,10 +332,10 @@ var TableDatatablesDirector = function () {
                                                 text: splitstatus[1],
                                                 type: "success"
                                             }).then(() => {
-                                                $("#regfeedback").css("display", "block");
-                                                $("#regfeedback").css("color", "green");
-                                                $('#regfeedback').addClass("alert alert-success");
-                                                $("#regfeedback").html(splitstatus[1]);
+                                                $("#tbldirectorfeedback").css("display", "block");
+                                                $("#tbldirectorfeedback").css("color", "green");
+                                                $('#tbldirectorfeedback').addClass("alert-success");
+                                                $("#tbldirectorfeedback").html(splitstatus[1]);
 
                                             });
                                             break;
@@ -333,10 +346,10 @@ var TableDatatablesDirector = function () {
                                                 text: splitstatus[1],
                                                 type: "error"
                                             }).then(() => {
-                                                $("#regfeedback").css("display", "block");
-                                                $("#regfeedback").css("color", "red");
-                                                $('#regfeedback').addClass('alert alert-danger');
-                                                $("#regfeedback").html(splitstatus[1]);
+                                                $("#tbldirectorfeedback").css("display", "block");
+                                                $("#tbldirectorfeedback").css("color", "red");
+                                                $('#tbldirectorfeedback').addClass('alert-danger');
+                                                $("#tbldirectorfeedback").html(splitstatus[1]);
                                             });
                                             break;
                                         }
@@ -742,22 +755,24 @@ var TableDatatablesAll = function () {
         });
     };
     var ns = function() {
-        $("#form_wizard_2 .btn_add_new_staff").click(function () {
-        $('#txtStaffNo').val('');
-        $('#txtStaffName').val('');
-        $('#txtProfession').val('');
-        $('#txtDesignation').val('');
-        $('#dobStaff').val('');
-        $('#dtJoining').val('');
-        $('#txtYrscount').val('');
-        $('#txtStaffphonenumber').val('');
-        $('#txtStaffEmail').val('');
-        $('#ddlstaffcountries').text('--Select Country--');
-        $("#pullupstaffXpr").css("display", "none");
-        $("#tbl_staffqualification").dataTable().fnClearTable();
-        $("#tbl_staffexp").dataTable().fnClearTable();
+        $("#form_wizard_2 .btn_add_new_staff").click(function() {
+            $('#txtStaffNo').val('');
+            $('#txtStaffName').val('');
+            $('#txtProfession').val('');
+            $('#txtDesignation').val('');
+            $('#dobStaff').val('');
+            $('#dtJoining').val('');
+            $('#txtYrscount').val('');
+            $('#txtStaffphonenumber').val('');
+            $('#txtStaffEmail').val('');
+            $('#ddlstaffcountries').text('--Select Country--');
+            $("#pullupstaffXpr").css("display", "none");
+            $("#tbl_staffqualification").dataTable().fnClearTable();
+            $("#tbl_staffexp").dataTable().fnClearTable();
         });
-    }
+    };
+
+  
     return {
         init: function () {
             e(), po(), ns();

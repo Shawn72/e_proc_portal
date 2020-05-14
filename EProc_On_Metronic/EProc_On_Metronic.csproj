@@ -230,6 +230,8 @@
     <Compile Include="Models\ProcurementModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\RfiPrequalifcTModel.cs" />
+    <Compile Include="Models\RfiResponseTModel.cs" />
+    <Compile Include="Models\RfiTableSelectedTModel.cs" />
     <Compile Include="Models\RfQsModel.cs" />
     <Compile Include="Models\SignupModel.cs" />
     <Compile Include="Models\SpecialGrpEntryModel.cs" />
@@ -2566,6 +2568,7 @@
     <Content Include="assets\pages\scripts\portlet-ajax.min.js" />
     <Content Include="assets\pages\scripts\portlet-draggable.min.js" />
     <Content Include="assets\pages\scripts\profile.min.js" />
+    <Content Include="assets\pages\scripts\rfi-response-reg-wizard.js" />
     <Content Include="assets\pages\scripts\search.min.js" />
     <Content Include="assets\pages\scripts\supplier-reg-wizard.js" />
     <Content Include="assets\pages\scripts\table-bootstrap.min.js" />
@@ -2577,11 +2580,13 @@
     <Content Include="assets\pages\scripts\table-datatables-editable.js" />
     <Content Include="assets\pages\scripts\table-datatables-editable.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-fixedheader.min.js" />
+    <Content Include="assets\pages\scripts\table-datatables-managed.js" />
     <Content Include="assets\pages\scripts\table-datatables-managed.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-responsive.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-rowreorder.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-scroller.min.js" />
     <Content Include="assets\pages\scripts\timeline.min.js" />
+    <Content Include="assets\pages\scripts\ui-alerts-api.js" />
     <Content Include="assets\pages\scripts\ui-alerts-api.min.js" />
     <Content Include="assets\pages\scripts\ui-blockui.min.js" />
     <Content Include="assets\pages\scripts\ui-bootbox.min.js" />
@@ -2922,6 +2927,8 @@
     <Content Include="Views\Home\LanguageCode.cshtml" />
     <Content Include="Views\Home\SpecialCatGroups.cshtml" />
     <Content Include="Views\Home\IfpEprequalificationList.cshtml" />
+    <Content Include="Views\Home\RfiResponseForm.cshtml" />
+    <Content Include="Views\Home\SideBarMenu.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -2930,6 +2937,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\IFPs\Downloads\IFP000002\" />
     <Folder Include="Uploads\Profiles\" />
     <Folder Include="Uploads\Vendor Card\VEND002\" />
   </ItemGroup>

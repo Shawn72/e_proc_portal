@@ -9,5 +9,6 @@
         public string Address { get; set; }
         public string Email { get; set; }
         public string IdNumber { get; set; }
+        public string CitizenshipType { get; set; }
     }
 }

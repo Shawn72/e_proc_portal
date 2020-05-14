@@ -14,8 +14,8 @@ using System.Web.Security;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using EProc_On_Metronic.Models;
-using Image = System.Drawing.Image;
-using Login = EProc_On_Metronic.Models.Login;
+using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace EProc_On_Metronic.Controllers
 {
@@ -26,13 +26,13 @@ namespace EProc_On_Metronic.Controllers
        // public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
 
         ///uncomment this while publishing on live server
-      // public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
+        //public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
 
         ///for use on localhost testing
         public static string Baseurl = "https://sngutu30:3031/";
 
-        public const string ApiUsername = "shawn72";
-        public const string ApiPassword = "cherry*30";
+        public const string ApiUsername = @"shawn72";
+        public const string ApiPassword = @"cherry*30";
         public ActionResult Index_Eproc()
         {
             return View();
@@ -156,6 +156,16 @@ namespace EProc_On_Metronic.Controllers
         }
 
         public ActionResult IfpEprequalificationList()
+        {
+            return View();
+        }
+
+        public ActionResult RfiResponseForm()
+        {
+            return View();
+        }
+
+        public ActionResult SideBarMenu()
         {
             return View();
         }
@@ -513,17 +523,66 @@ namespace EProc_On_Metronic.Controllers
             {
                 var vendorNo = Session["vendorNo"].ToString();
                 var nvWebref = WsConfig.EProcWebRef;
+                var checkperclimit = directormodel.OwnershipPercentage;
+                var citizentype = directormodel.CitizenshipType;
+                int citizType = 0;
 
-                var status = nvWebref.FnInsertDirector(vendorNo, directormodel.Phonenumber, directormodel.OwnershipPercentage, 
-                    directormodel.Nationality, directormodel.Email, directormodel.Address, directormodel.Fullname, directormodel.IdNumber);
-                var res = status.Split('*');
-                switch (res[0])
+                if (string.IsNullOrWhiteSpace(directormodel.Fullname))
+                    return Json("danger*Please provide directors full name, Click Edit!", JsonRequestBehavior.AllowGet);
+
+                if (directormodel.Nationality == "--select country--")
+                    return Json("danger*Please select a country from dropdownlist, Click Edit!", JsonRequestBehavior.AllowGet);
+
+                if (string.IsNullOrWhiteSpace(directormodel.IdNumber))
+                    return Json("danger*Please provide ID number,Click Edit!", JsonRequestBehavior.AllowGet);
+
+                if (directormodel.CitizenshipType == "--select citizenship--")
+                    return Json("danger*Please select citizenship from dropdownlist, Click Edit!", JsonRequestBehavior.AllowGet);
+
+                if (string.IsNullOrWhiteSpace(directormodel.OwnershipPercentage.ToString()))
+                    return Json("danger*Percentage should not be left empty, Click Edit!", JsonRequestBehavior.AllowGet);
+
+                if (checkperclimit > 100)
+                    return Json("danger*Percentage cannot be more than 100 %, Click Edit!", JsonRequestBehavior.AllowGet);
+
+                if (string.IsNullOrWhiteSpace(directormodel.Email))
+                    return Json("danger*Please provide Email address, Click Edit!", JsonRequestBehavior.AllowGet);
+                
+                switch (citizentype)
+                {
+                    case "Birth":
+                        citizType = 1;
+                        break;
+                    case "Naturalization":
+                        citizType = 2;
+                        break;
+                    case "Registration":
+                        citizType = 3;
+                        break;
+                   default:
+                       citizType = 0;
+                        break;
+                }
+
+                var percentstatus = nvWebref.FnGetOwnerPercentage(vendorNo);
+                var pctgres = percentstatus.Split('*');
+                switch (pctgres[0])
                 {
                     case "success":
-                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+                        var status = nvWebref.FnInsertDirector(vendorNo, directormodel.Phonenumber, directormodel.OwnershipPercentage,
+                            directormodel.Nationality, directormodel.Email, directormodel.Address, directormodel.Fullname, directormodel.IdNumber, citizType);
+                        var res = status.Split('*');
+                        switch (res[0])
+                        {
+                            case "success":
+                                return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
 
+                            default:
+                                return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                        }
                     default:
-                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                        return Json("danger*" + pctgres[1], JsonRequestBehavior.AllowGet);
+
                 }
             }
             catch (Exception ex)
@@ -1553,7 +1612,45 @@ namespace EProc_On_Metronic.Controllers
             }
            
         }
+        public JsonResult UploadedKerraIfpDocs(string ifpnumber)
+        {
+            var uploadedFiles = new List<UploadedFile>();
+            try
+            {
+                Regex reg = new Regex("[*'\",_&#^@:/]");
+                ifpnumber = reg.Replace(ifpnumber, string.Empty);
+                Regex regrule1 = new Regex("[ ]");
+                ifpnumber = reg.Replace(ifpnumber, "_");
 
+                //if (ifpnumber.Contains(":"))
+                //    ifpnumber = ifpnumber.Replace(":", "[58]");
+                //    ifpnumber = ifpnumber.Replace("/", "[47]");
+
+                var rootFolder = Server.MapPath("~/Uploads/IFPs/Downloads");
+                var subfolder = Path.Combine(rootFolder, ifpnumber);
+
+                if (!Directory.Exists(subfolder))
+                    Directory.CreateDirectory(subfolder);
+
+                var files = Directory.GetFiles(subfolder);
+                foreach (var file in files)
+                {
+                    var fileInfo = new FileInfo(file);
+
+                    var uploadedFile = new UploadedFile { FileName = Path.GetFileName(file) };
+                    uploadedFile.Size = fileInfo.Length;
+
+                    uploadedFile.Path = (subfolder) + "/" + Path.GetFileName(file);
+                    uploadedFiles.Add(uploadedFile);
+                }
+                return Json(uploadedFiles, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+        }
         [HttpPost]
         [AllowAnonymous]
         public JsonResult SupplierRegReq(SignupModel signupmodel)
@@ -1939,6 +2036,39 @@ namespace EProc_On_Metronic.Controllers
             return Json(jritems, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetGoodnServicesCategory(string ifpnumber)
+        {
+            List<RfiPrequalifcTModel> modelitems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetRfiPrequalification");
+            modelitems = JsonConvert.DeserializeObject<List<RfiPrequalifcTModel>>(json);
+            var jritems = (from a in modelitems where a.Document_No == ifpnumber && a.Procurement_Type=="GOODS" select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetServicesCategory(string ifpnumber)
+        {
+            List<RfiPrequalifcTModel> modelitems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetRfiPrequalification");
+            modelitems = JsonConvert.DeserializeObject<List<RfiPrequalifcTModel>>(json);
+            var jritems = (from a in modelitems where a.Document_No == ifpnumber && a.Procurement_Type == "SERVICES" select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetWorksCategory(string ifpnumber)
+        {
+            List<RfiPrequalifcTModel> modelitems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetRfiPrequalification");
+            modelitems = JsonConvert.DeserializeObject<List<RfiPrequalifcTModel>>(json);
+            var jritems = (from a in modelitems where a.Document_No == ifpnumber && a.Procurement_Type == "WORKS" select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetIfpDocuments(string ifpnumber)
         {
             List<IfPDocumentsTModel> modelitems = null;
@@ -1948,6 +2078,86 @@ namespace EProc_On_Metronic.Controllers
             modelitems = JsonConvert.DeserializeObject<List<IfPDocumentsTModel>>(json);
             var jritems = (from a in modelitems where a.Document_No == ifpnumber select a).ToList();
             return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetRepDetails(string rfidocpnumber)
+        {
+            List<RfiResponseTModel> modelitems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetRfiResponses");
+            modelitems = JsonConvert.DeserializeObject<List<RfiResponseTModel>>(json);
+            var jritems = (from a in modelitems where a.Document_No == rfidocpnumber select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetRfiApplicationNo(string ifpnumber)
+        {
+            var vendorNo = Session["vendorNo"].ToString();
+            var nvWebref = WsConfig.EProcWebRef;
+            var status = nvWebref.FnInsertRFIresponseHeader(vendorNo, ifpnumber);
+            var res = status.Split('*');
+            return Json(res[1], JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SubmitRfiResponse(RfiResponseTModel rfimodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                var status = nvWebref.FnSubmitResponseFinal(vendorNo, rfimodel.RfiDocumentNo, rfimodel.RepFullName, rfimodel.RepDesignation, rfimodel.RfiDocApplicationNo);
+
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult InsertResponseLines(RfiResponseTModel postData)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                string results_0 = (dynamic)null;
+                string results_1 = (dynamic)null;
+                
+                List<string> procatlist = postData.ProcurementCategory.ToList();
+
+                //Loop and insert records.
+                foreach (var iteminlist in procatlist)
+                {
+                    var disectedCategory = iteminlist;
+                    var status = nvWebref.FnInsertRFIResponseLines(postData.DocumentNo, disectedCategory, postData.RfiDocumentNo, vendorNo);
+                    var res = status.Split('*');
+
+                    results_0 = res[0];
+                    results_1 = res[1];
+                }
+                switch (results_0)
+                {
+                    case "success":
+                        return Json("success*" + results_1, JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + results_1, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]

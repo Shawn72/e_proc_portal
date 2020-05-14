@@ -76,6 +76,7 @@
     <script src="/assets/customassets/js/dataFetchInits.js" async></script>
     <script src="/assets/customassets/js/buttonClicks.js" async></script>
     <script src="/assets/customassets/js/jsFunctions.js" async></script>
+    <script src="/assets/customassets/js/inputvalidations.js" async></script>
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
@@ -214,85 +215,26 @@
     </form>
     <!-- END RESPONSIVE QUICK SEARCH FORM -->
 </li>
-<li class="nav-item start active open">
-    <a href="javascript:;" class="nav-link nav-toggle">
-        <i class="icon-home"></i>
-        <span class="title">Dashboard</span>
-        <span class="selected"></span>
-        <span class="arrow open"></span>
-    </a>
-    <ul class="sub-menu">
-        <li class="nav-item start active open">
-            <a href="/Home/Index_EProc" class="nav-link ">
-                <i class="icon-bar-chart"></i>
-                <span class="title">Home</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-    </ul>
-</li>
-<li class="heading">
-    <h3 class="uppercase">Features</h3>
-</li>
-<li class="nav-item  ">
-    <a href="javascript:;" class="nav-link nav-toggle">
-        <i class="fas fa-paperclip"></i>
-        <span class="title">Documents</span>
-        <span class="arrow"></span>
-    </a>
-    <ul class="sub-menu">
-        <li class="nav-item">
-            <a href="/Home/UploadFiles" class="nav-link ">
-                <span class="title">Uploaded Documents</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="ui_colors.html" class="nav-link ">
-                <span class="title">KeRRA Documents</span>
-            </a>
-        </li>
-    </ul>
-</li>
-<li class="nav-item">
-    <a href="javascript:;" class="nav-link nav-toggle">
-        <i class="fas fa-folder-open"></i>
-        <span class="title">New Supplier Registration</span>
-        <span class="arrow"></span>
-    </a>
-    <ul class="sub-menu">
-        <li class="nav-item">
-            <a href="/Home/SupplierCategoriesList" class="nav-link">
-                <span class="title">Category List</span>
-                <span class="badge badge-danger">@Session["suppcatcount"]</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/Home/Supplier_Registration_Form" class="nav-link">
-                <span class="title">Supplier Registration</span>
-            </a>
-        </li>
-    </ul>
-</li>
-
-<li class="heading">
-    <h3 class="uppercase">Pages</h3>
-</li>
-    <li class="nav-item  ">
+    <li class="nav-item start active open">
         <a href="javascript:;" class="nav-link nav-toggle">
-            <i class="icon-basket"></i>
-            <span class="title">eCommerce</span>
-            <span class="arrow"></span>
+            <i class="icon-home"></i>
+            <span class="title">Dashboard</span>
+            <span class="selected"></span>
+            <span class="arrow open"></span>
         </a>
         <ul class="sub-menu">
-            <li class="nav-item  ">
-                <a href="ecommerce_index.html" class="nav-link ">
-                    <i class="icon-home"></i>
-                    <span class="title">Dashboard</span>
+            <li class="nav-item start active open">
+                <a href="/Home/Index_EProc" class="nav-link ">
+                    <i class="icon-bar-chart"></i>
+                    <span class="title">Home</span>
+                    <span class="selected"></span>
                 </a>
             </li>
         </ul>
     </li>
-
+    <!--  Start sidemenu Injection-->
+    @Html.Action("SideBarMenu", "Home")
+    <!--  End sidemenu Injection-->
 </ul>
 <!-- END SIDEBAR MENU -->
 </div>
@@ -399,6 +341,10 @@
 <script src="/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
 <script src="/assets/pages/scripts/table-datatables-editable.js" type="text/javascript"></script>
 <script src="/assets/pages/scripts/components-bootstrap-maxlength.js" type="text/javascript"></script>
+<script src="/assets/pages/scripts/ui-alerts-api.js" type="text/javascript"></script>
+<script src="/assets/pages/scripts/rfi-response-reg-wizard.js" type="text/javascript"></script>
+<script src="/assets/pages/scripts/table-datatables-managed.min.js" type="text/javascript"></script>
+
 
 
 <!-- END PAGE LEVEL SCRIPTS -->

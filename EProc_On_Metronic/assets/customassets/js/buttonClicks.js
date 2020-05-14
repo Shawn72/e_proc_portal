@@ -1341,7 +1341,6 @@ $(document).ready(function () {
 
         //for test
         console.log(JSON.stringify({ formdata: formDt }));
-
         Swal.fire({
             title: "Upload Document?",
             text: "Proceed to upload all the selected document once?",
@@ -1454,6 +1453,8 @@ $(document).ready(function () {
         $("#ifplistdiv").css("display", "block");
         $("#tbl_ifp_category").dataTable().fnClearTable();
         $("#tbl_ifp_docs").dataTable().fnClearTable();
+        $("#tbl_ifp_downloads").dataTable().fnClearTable();
+        
     });
 
     $(".btnlink-reg").click(function() {
@@ -1482,14 +1483,14 @@ $(document).ready(function () {
                     $("#generalfeedback").css("display", "none");
                     window.location.href = "/Home/Supplier_Registration_Form";
                     break;
-                //default:
-                //    $("#generalfeedback").css("display", "none");
-                //    window.location.href = "/Home/Supplier_Registration_Form";
-                //    break;
                 }              
 
             }
         });
+    });
+
+    $(".button-backto-ifplists").click(function () {
+        window.location.href = "/Home/RfiResponseForm";
     });
 });
 var po = function() {

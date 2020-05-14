@@ -63,7 +63,7 @@ var Ld = function () {
                 tl.preventDefault();
                 var i = $(this).parents("tr")[0];
 
-                //alert("Popped Test: " + i.cells[1].innerHTML);
+                //global loader spinner;
                 $.ajaxSetup({
                     global: false,
                     type: "POST",
@@ -76,6 +76,7 @@ var Ld = function () {
                     }
                 });
 
+                //async fetch 1: IFP details fetch
                 $.ajax({
                     data: "",
                     async: true
@@ -97,6 +98,7 @@ var Ld = function () {
                     }
                 });
 
+                //async fetch 2: Prequalification categories get
                 $.ajax({
                     type: "POST",
                     url: "/Home/GetPreqcategories?ifpnumber=" + i.cells[1].innerHTML,
@@ -129,6 +131,8 @@ var Ld = function () {
                         ]);
                     }
                 });
+
+                //async fetch 3: Fetch mandatory Docs list
                 $.ajax({
                     type: "POST",
                     url: "/Home/GetIfpDocuments?ifpnumber=" + i.cells[1].innerHTML,
@@ -157,18 +161,63 @@ var Ld = function () {
                         p3.fnAddData([
                             x++,
                             json3[i].Procurement_Document_Type_ID,
-                            json3[i].Description,
-                            json3[i].Requirement_Type
+                            json3[i].Description
                         ]);
                     }
                 });
 
+                //async fetch 4: Load Documents
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/UploadedKerraIfpDocs?ifpnumber=" + i.cells[1].innerHTML,
+                    data: "",
+                    cache: false,
+                    async: true
+                }).done(function(json4) {
+                    console.log(JSON.stringify({ ifpdata4: json4 }));
+                    var td4 = $("#tbl_ifp_downloads"),
+                        x = 1,
+                        p4 = td4.dataTable({
+                            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                            pageLength: 5,
+                            language: { lengthMenu: " _MENU_ records" },
+                            columnDefs: [
+                                { orderable: !0, defaultContent: "-", targets: "_all" },
+                                { searchable: !0, targets: "_all" }
+                            ],
+                            order: [[0, "asc"]],
+                            bDestroy: true,
+                            info: false,
+                            processing: true,
+                            retrieve: true
+                        });
+                    for (var i = 0; i < json4.length; i++) {
+                        p4.fnAddData([
+                            x++,
+                            json4[i].FileName,
+                            json4[i].Size,
+                            '<a class="download_file" href="">Download File</a>'
+                        ]);
+
+                    }
+                    td4.on("click",
+                    ".download_file",
+                    function (td4) {
+                        td4.preventDefault();
+                        var i = $(this).parents("tr")[0];
+                        alert("Download function is under development...hang on, Filename: " + i.cells[1].innerHTML);
+
+                        //file download code goes here.
+
+                    });
+                });
 
                 ////end ajax call here
             }
 
-            );
+          );
     };
+  
     return {
         init: function () {
             ifps();
