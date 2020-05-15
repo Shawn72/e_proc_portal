@@ -18,10 +18,6 @@ var Ld = function () {
         }).done(function (json) {
             console.log(JSON.stringify({ vendorTestdata: json}));
             for (var i = 0; i < json.length; i++) {
-                //for the wizard
-                $("#txtVndNo").val(json[i].No);
-                $("#txtVndName").val(json[i].Name);
-
                 $("#txtDisVendorNo").val(json[i].No),
                 $("#txtBznameRO").val(json[i].Name),
                 $("#txtVATNo").val(json[i].VAT_Registration_No),
@@ -129,6 +125,21 @@ var Ld = function () {
                     }
                 });
 
+                //async fetch vendor details
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/VendorDetails",
+                    data: "",
+                    cache: false,
+                    async: true
+                }).done(function (json) {
+                    for (var i = 0; i < json.length; i++) {
+                        //for the wizard
+                        $("#txtVndNo").val(json[i].No);
+                        $("#txtVndName").val(json[i].Name);
+                    }
+                });
+
                 //fetch RFI application No.
                 $.ajax({
                     type: "POST",
@@ -137,8 +148,20 @@ var Ld = function () {
                     cache: false,
                     async: true
                 }).done(function (jsonk) {
-                    console.log(JSON.stringify({ RfiApplicationNo: jsonk }));
                     $("#txtIfApplicationNo").val(jsonk);
+                    //async fetch 1: IFP details fetch
+                    $.ajax({
+                        data: "",
+                        async: true
+                    }).done(function (json) {
+                        $("#rfiwizardformdiv").css("display", "block");
+                        $("#rfilistdiv").css("display", "none");
+
+                        for (var i = 0; i < json.length; i++) {
+                            $("#txtIfpNo").val(json[i].Code);
+                            console.log("Test IfP No: " + json[i].Code);
+                        }
+                    });
                     //async fetch representative details
                     $.ajax({
                         type: "POST",
@@ -147,26 +170,11 @@ var Ld = function () {
                         cache: false,
                         async: true
                     }).done(function (json) {
-                        console.log("Test IfP No: " + JSON.stringify({ repdetails: json }));
                         for (var i = 0; i < json.length; i++) {
                             $("#txtVndRepName").val(json[i].Vendor_Representative_Name);
                             $("#txtVendrepTitle").val(json[i].Vendor_Repr_Designation);
                         }
                     });
-                });
-
-                //async fetch 1: IFP details fetch
-                $.ajax({
-                    data: "",
-                    async: true
-                }).done(function (json) {
-                    $("#rfiwizardformdiv").css("display", "block");
-                    $("#rfilistdiv").css("display", "none");
-
-                    for (var i = 0; i < json.length; i++) {
-                        $("#txtIfpNo").val(json[i].Code);
-                        console.log("Test IfP No: " + json[i].Code);
-                    }
                 });
 
                 //async fetch 2: Prequalification categories get goods(assets) type
@@ -268,28 +276,11 @@ var Ld = function () {
                             });
 
                         var selected_arr = [];
-                        var rfimodel = new Array();
                         $(".insertselected").on("click",
                             function(e) {
                                 e.preventDefault();
 
                                 // Read all checked checkboxes
-
-                               
-                                //$("input:checkbox[class=checkboxes]:checked").each(function () {
-                                //    $(this).parents("tr").each(function () {
-                                //        onerowitem.DocumentNo = $("#txtIfApplicationNo").val();
-                                //        onerowitem.ProcurementCategory = $(this)[0].cells[1].innerHTML;
-                                //        onerowitem.RfiDocumentNo = $("#txtIfpNo").val();
-                                //        selected_arr.push(onerowitem);
-                                //    });
-                                //});
-
-                                var onerowitem = {};
-                                onerowitem.DocumentNo = $("#txtIfApplicationNo").val();
-                                onerowitem.RfiDocumentNo = $("#txtIfpNo").val();
-                                rfimodel.push(onerowitem);
-
                                 $.each($("#tbl_rfi_goods tr.active"), function () {
                                     //procurement category
                                    selected_arr.push($(this).find('td').eq(1).text()); 
@@ -299,7 +290,6 @@ var Ld = function () {
                                     DocumentNo: $("#txtIfApplicationNo").val(),
                                     RfiDocumentNo: $('#txtIfpNo').val(),
                                     ProcurementCategory: selected_arr
-
                                 };
 
                                 Swal.fire({
@@ -314,8 +304,6 @@ var Ld = function () {
                                     position: "center",
                                     dangerMode: true
                                 }).then((result) => {
-                                    console.log(postData);
-                                    console.log(JSON.stringify({ rfimodel: rfimodel }));
                                     if (result.value) {
                                         //get value of result and switch it down here
                                         $.ajaxSetup({
@@ -331,9 +319,7 @@ var Ld = function () {
                                         });
 
                                         $.ajax({
-                                           // data:postData,
                                             data: '{postData: ' + JSON.stringify(postData) + '}',
-                                            //data: JSON.stringify({ 'docNo': docNo, 'ifpNo': ifpNo, selected_arr }),
                                             dataType: "json",
                                             cache: false,
                                             async: true,
@@ -366,7 +352,7 @@ var Ld = function () {
                                                             closeInSeconds: 5,
                                                             icon: "check"
                                                         });
-                                                        selected_arr = [], rfimodel=[];
+                                                        selected_arr = [], postData = {};
                                                     });
 
                                                     break;
@@ -396,7 +382,7 @@ var Ld = function () {
                                                             closeInSeconds: 5,
                                                             icon: "warning"
                                                         });
-                                                        selected_arr = [], rfimodel = [];
+                                                        selected_arr = [], postData = {};
                                                     });
                                                     break;
                                             }
@@ -450,7 +436,50 @@ var Ld = function () {
                                     }
 
                                 });
-                          });
+                            });
+
+                        var tld = $("#tbl_mydocs_rfi"),
+                        rt = tld.dataTable({
+                            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                            pageLength: 5,
+                            language: { lengthMenu: " _MENU_ records" },
+                            columnDefs: [
+                                {
+                                    orderable: !0,
+                                    // targets: [0],
+                                    defaultContent: "-",
+                                    targets: "_all"
+                                },
+                                {
+                                    searchable: !0,
+                                    targets: "_all"
+                                    // targets: [0]
+                                }
+                            ],
+                            order: [
+                                [0, "asc"]
+                            ],
+
+                            //stateSave: true,
+                            bDestroy: true,
+                            info: false,
+                            processing: true,
+                            retrieve: true
+                        });
+                    $.ajax({
+                        type: "POST",
+                        url: "/Home/UploadedSpecifVendorDocs_Rfi?rfiApplicationNum=" + $("#txtIfApplicationNo").val(),
+                        data: ""
+                    }).done(function(json) {
+                        //console.log(JSON.stringify({ data: json }));
+                        rt.fnClearTable();
+                        var o = 1;
+                        for (var i = 0; i < json.length; i++) {
+                            rt.fnAddData([
+                                o++, json[i].FileName, json[i].Size, '<a class="trash" href="">Delete</a>'
+                            ]);
+                        }
+                    });
                 });
 
                 //async fetch 3: Prequalification categories get services type
@@ -558,6 +587,12 @@ var Ld = function () {
                                     selected_arr_2.push($(this).val());
                                 });
 
+                                var postData = {
+                                    DocumentNo: $("#txtIfApplicationNo").val(),
+                                    RfiDocumentNo: $('#txtIfpNo').val(),
+                                    ProcurementCategory: selected_arr_2
+                                };
+
                                 Swal.fire({
                                     title: "Save selected categories?",
                                     text: "You are about to save " + selected_arr_2.length + " rows!",
@@ -572,32 +607,93 @@ var Ld = function () {
                                 }).then((result) => {
                                     if (result.value) {
                                         //get value of result and switch it down here
-                                        Swal.fire({
-                                            title: "Categories inserted successfully!",
-                                            text: "You have inserted " + selected_arr_2.length + " rows!",
-                                            icon: "success",
-                                            type: "success"
-                                        }).then(() => {
-                                            var uns = $(".checkbox-services").prop("checked", false);
-                                            uns.each(function () {
-                                                $(this).parents("tr").removeClass("active");
-                                            });
-                                            //show messages for successfull inserts
-                                            $("#serviceappalert").removeClass("alert alert-warning");
-                                            $("#grpshowhide-services").css("display", "none");
-                                            alert("Test row data collected: " + JSON.stringify({ selectedIDs: selected_arr_2 }));
-                                            selected_arr_2 = [];
+                                        $.ajaxSetup({
+                                            global: false,
+                                            url: "/Home/InsertResponseLines",
+                                            type: "POST",
+                                            beforeSend: function () {
+                                                $(".modalspinner").show();
+                                            },
+                                            complete: function () {
+                                                $(".modalspinner").hide();
+                                            }
                                         });
-                                    }
-                                    else if (result.dismiss === Swal.DismissReason.cancel) {
-                                        Swal.fire(
-                                            'Cancelled',
-                                            'You cancelled highlights!',
-                                            'error'
-                                        );
+
+                                        $.ajax({
+                                            data: '{postData: ' + JSON.stringify(postData) + '}',
+                                            dataType: "json",
+                                            cache: false,
+                                            async: true,
+                                            contentType: "application/json"
+                                        }).done(function (status) {
+                                            var splitstatus = status.split('*');
+                                            switch (splitstatus[0]) {
+                                            case "success":
+                                                Swal.fire({
+                                                    title: "Categories inserted successfully!",
+                                                    text: "You have inserted " + selected_arr_2.length + " rows!",
+                                                    icon: "success",
+                                                    type: "success"
+                                                }).then(() => {
+                                                    var uns = $(".checkbox-services").prop("checked", false);
+                                                    uns.each(function () {
+                                                        $(this).parents("tr").removeClass("active");
+                                                    });
+                                                    //show messages for successfull inserts
+                                                    $("#serviceappalert").removeClass("alert alert-warning");
+                                                    $("#grpshowhide-services").css("display", "none");
+                                                    App.alert({
+                                                        container: "#rfi_services_alert",
+                                                        place: "append",
+                                                        type: "success",
+                                                        message: splitstatus[1],
+                                                        close: true,
+                                                        reset: true,
+                                                        focus: true,
+                                                        closeInSeconds: 5,
+                                                        icon: "check"
+                                                    });
+                                                    selected_arr_2 = [], postData = {};
+                                                });
+
+                                                break;
+                                            default:
+                                                Swal.fire({
+                                                    title: "An Error Occured!",
+                                                    text: splitstatus[1],
+                                                    icon: "warning",
+                                                    type: "error"
+                                                }).then(() => {
+                                                    var uns = $(".checkbox-services").prop("checked", false);
+                                                    uns.each(function () {
+                                                        $(this).parents("tr").removeClass("active");
+                                                    });
+                                                    //show messages for erroneos inserts
+                                                    $("#serviceappalert").removeClass("alert alert-warning");
+                                                    $("#grpshowhide-services").css("display", "none");
+
+                                                    App.alert({
+                                                        container: "#rfi_services_alert",
+                                                        place: "append",
+                                                        type: "danger",
+                                                        message: splitstatus[1],
+                                                        close: true,
+                                                        reset: true,
+                                                        focus: true,
+                                                        closeInSeconds: 5,
+                                                        icon: "warning"
+                                                    });
+                                                    selected_arr_2 = [], postData = {};
+                                                });
+                                                break;
+                                            }
+                                        });
+
                                     }
                                 });
+
                             }),
+
                     $(".cancelselected-services").on("click",
                         function(e) {
                                 e.preventDefault();
@@ -721,7 +817,7 @@ var Ld = function () {
                   td4.on("change",
                             "tbody tr .checkbox-works",
                             function () {
-                                var t = jQuery(this).is(":checked"), selected_arr_30 = [];
+                                var t = jQuery(this).is(":checked"), selected_arr_3 = [];
                                 t ? ($(this).prop("checked", !0), $(this).parents("tr").addClass("active"),
                                         $("#grpshowhide-works").css("display", "block"), $("#worksappalert")
                                             .addClass("alert alert-warning"))
@@ -731,78 +827,19 @@ var Ld = function () {
 
                                 // Read all checked checkboxes
                                 $("input:checkbox[class=checkbox-works]:checked").each(function () {
-                                    selected_arr_30.push($(this).val());
+                                    selected_arr_3.push($(this).val());
                                 });
 
-                                if (selected_arr_30.length > 0) {
+                                if (selected_arr_3.length > 0) {
                                     $("#worksappalert").addClass("alert alert-warning");
                                     $("#grpshowhide-works").css("display", "block");
                                 } else {
                                     $("#worksappalert").removeClass("alert alert-warning");
                                     $("#grpshowhide-works").css("display", "none");
-                                    selected_arr_30 = [];
+                                    selected_arr_3 = [];
                                 }
                             });
-                    //var selected_arr_3 = [];
-                    //$("input[type='checkbox'].group-checkable-works").on("change",
-                    //    function (e) {
-                    //        e.preventDefault();
-                    //        if ($(".group-checkable-works").prop("checked") == true) {
-                    //            // Read all checked checkboxes
-                    //            $("input:checkbox[class=checkbox-works]:checked").each(function () {
-                    //                selected_arr_3.push($(this).val());
-                    //            });
-
-                    //            Swal.fire({
-                    //                title: "All rows visible selected successfully!",
-                    //                text: "You have selected " + selected_arr_3.length + " rows!", //You just unchecked all your selections!
-                    //                icon: "success",
-                    //                type: "success"
-                    //            }).then(() => {
-                    //                //show messages for successfull unselections
-                    //                $("#grpshowhide-works").css("display", "block"),
-                    //                    $("#worksappalert").addClass("alert alert-warning");
-                    //            });
-                    //        } else {
-                    //            Swal.fire({
-                    //                title: "Unselect all selections?",
-                    //                text: "You're about to uncheck " + selected_arr_3.length + " rows!",
-                    //                type: "warning",
-                    //                showCancelButton: true,
-                    //                closeOnConfirm: true,
-                    //                confirmButtonText: "It's OK, uncheck 'em!",
-                    //                confirmButtonClass: "btn-warning",
-                    //                confirmButtonColor: "#008000",
-                    //                position: "center",
-                    //                dangerMode: true
-                    //            }).then((result) => {
-                    //                if (result.value) {
-                    //                    //get value of result and switch it down here
-
-                    //                    Swal.fire({
-                    //                        title: "Categories unselected successfully!",
-                    //                        text: "You have just unselected " + selected_arr_3.length + " rows!",
-                    //                        icon: "success",
-                    //                        type: "success"
-                    //                    }).then(() => {
-                    //                        //show messages for successfull unselections
-                    //                        $("#grpshowhide-services").css("display", "none"),
-                    //                            $("#worksappalert").removeClass("alert alert-warning");
-                    //                        //set selected rows array to null
-                    //                        selected_arr_3 = [];
-                    //                    });
-
-                    //                    //ignore cancel
-                    //                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    //                    Swal.fire(
-                    //                        'Cancelled',
-                    //                        'You cancelled highlights!',
-                    //                        'error'
-                    //                    );
-                    //                }
-                    //            });
-                    //        }
-                    //    });
+                    
                     var selected_arr_3 = [];
                     $(".insertselected-works").on("click",
                             function (e) {
@@ -811,6 +848,12 @@ var Ld = function () {
                                 $("input:checkbox[class=checkbox-works]:checked").each(function () {
                                     selected_arr_3.push($(this).val());
                                 });
+
+                                var postData = {
+                                    DocumentNo: $("#txtIfApplicationNo").val(),
+                                    RfiDocumentNo: $('#txtIfpNo').val(),
+                                    ProcurementCategory: selected_arr_3
+                                };
 
                                 Swal.fire({
                                     title: "Save selected categories?",
@@ -826,32 +869,91 @@ var Ld = function () {
                                 }).then((result) => {
                                     if (result.value) {
                                         //get value of result and switch it down here
-                                        Swal.fire({
-                                            title: "Categories inserted successfully!",
-                                            text: "You have inserted " + selected_arr_3.length + " rows!",
-                                            icon: "success",
-                                            type: "success"
-                                        }).then(() => {
-                                            var uns = $(".checkbox-works").prop("checked", false);
-                                            uns.each(function () {
-                                                $(this).parents("tr").removeClass("active");
-                                            });
-                                            //show messages for successfull inserts
-                                            $("#worksappalert").removeClass("alert alert-warning");
-                                            $("#grpshowhide-works").css("display", "none");
-
-                                            alert("Test row data collected: " + JSON.stringify({ selectedIDs: selected_arr_3 }));
-                                            selected_arr_3 = [];
+                                        $.ajaxSetup({
+                                            global: false,
+                                            url: "/Home/InsertResponseLines",
+                                            type: "POST",
+                                            beforeSend: function () {
+                                                $(".modalspinner").show();
+                                            },
+                                            complete: function () {
+                                                $(".modalspinner").hide();
+                                            }
                                         });
-                                    }
-                                    else if (result.dismiss === Swal.DismissReason.cancel) {
-                                        Swal.fire(
-                                            'Cancelled',
-                                            'You cancelled highlights!',
-                                            'error'
-                                        );
+
+                                        $.ajax({
+                                            data: '{postData: ' + JSON.stringify(postData) + '}',
+                                            dataType: "json",
+                                            cache: false,
+                                            async: true,
+                                            contentType: "application/json"
+                                        }).done(function (status) {
+                                            var splitstatus = status.split('*');
+                                            switch (splitstatus[0]) {
+                                            case "success":
+                                                Swal.fire({
+                                                    title: "Categories inserted successfully!",
+                                                    text: "You have inserted " + selected_arr_3.length + " rows!",
+                                                    icon: "success",
+                                                    type: "success"
+                                                }).then(() => {
+                                                    var uns = $(".checkbox-works").prop("checked", false);
+                                                    uns.each(function () {
+                                                        $(this).parents("tr").removeClass("active");
+                                                    });
+                                                    //show messages for successfull inserts
+                                                    $("#worksappalert").removeClass("alert alert-warning");
+                                                    $("#grpshowhide-works").css("display", "none");
+                                                    App.alert({
+                                                        container: "#rfi_works_alert",
+                                                        place: "append",
+                                                        type: "success",
+                                                        message: splitstatus[1],
+                                                        close: true,
+                                                        reset: true,
+                                                        focus: true,
+                                                        closeInSeconds: 5,
+                                                        icon: "check"
+                                                    });
+                                                    selected_arr_3 = [], postData={};
+                                                });
+
+                                                break;
+                                            default:
+                                                Swal.fire({
+                                                    title: "An Error Occured!",
+                                                    text: splitstatus[1],
+                                                    icon: "warning",
+                                                    type: "error"
+                                                }).then(() => {
+                                                    var uns = $(".checkbox-works").prop("checked", false);
+                                                    uns.each(function () {
+                                                        $(this).parents("tr").removeClass("active");
+                                                    });
+                                                    //show messages for erroneos inserts
+                                                    $("#worksappalert").removeClass("alert alert-warning");
+                                                    $("#grpshowhide-works").css("display", "none");
+
+                                                    App.alert({
+                                                        container: "#rfi_works_alert",
+                                                        place: "append",
+                                                        type: "danger",
+                                                        message: splitstatus[1],
+                                                        close: true,
+                                                        reset: true,
+                                                        focus: true,
+                                                        closeInSeconds: 5,
+                                                        icon: "warning"
+                                                    });
+                                                    selected_arr_3 = [], postData = {};
+                                                });
+                                                break;
+                                            }
+                                        });
+
                                     }
                                 });
+                               
                             }),
                         $(".cancelselected-works").on("click",
                             function (e) {
@@ -899,68 +1001,13 @@ var Ld = function () {
 
                                 });
                             });
-                });
+                   });
 
                 ////end ajax call here
             }
 
         );
     };
-    //var g = function() {
-    //    var e = $("#tbl_rfi_services");
-    //    e.dataTable({
-    //        language: {
-    //            aria: {
-    //                sortAscending: ": activate to sort column ascending",
-    //                sortDescending: ": activate to sort column descending"
-    //            },
-    //            emptyTable: "No data available in table",
-    //            info: "Showing _START_ to _END_ of _TOTAL_ records",
-    //            infoEmpty: "No records found",
-    //            infoFiltered: "(filtered1 from _MAX_ total records)",
-    //            lengthMenu: "Show _MENU_",
-    //            search: "Search:",
-    //            zeroRecords: "No matching records found",
-    //            paginate: {
-    //                previous: "Prev",
-    //                next: "Next",
-    //                last: "Last",
-    //                first: "First"
-    //            }
-    //        },
-    //        bStateSave: !0,
-    //        lengthMenu: [
-    //            [6, 15, 20, -1],
-    //            [6, 15, 20, "All"]
-    //        ],
-    //        pageLength: 6,
-    //        columnDefs: [
-    //            {
-    //                orderable: !1,
-    //                targets: [0]
-    //            }, {
-    //                searchable: !1,
-    //                targets: [0]
-    //            }
-    //        ],
-    //        order: [
-    //            [1, "asc"]
-    //        ]
-    //    });
-    //    jQuery("#sample_3_wrapper");
-    //    e.find(".group-checkable").change(function() {
-    //        var e = jQuery(this).attr("data-set"),
-    //            t = jQuery(this).is(":checked");
-    //        jQuery(e).each(function() {
-    //            t? ($(this).prop("checked", !0), $(this).parents("tr").addClass("active"))
-    //                : ($(this).prop("checked", !1), $(this).parents("tr").removeClass("active"));
-    //        });
-    //    }), e.on("change",
-    //        "tbody tr .checkboxes",
-    //        function() {
-    //            $(this).parents("tr").toggleClass("active");
-    //        });
-    //};
     return {
         init: function() {
             e(), rfiresponse();

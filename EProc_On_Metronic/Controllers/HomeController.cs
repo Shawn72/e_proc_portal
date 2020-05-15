@@ -26,10 +26,10 @@ namespace EProc_On_Metronic.Controllers
        // public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
 
         ///uncomment this while publishing on live server
-        //public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
+        public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
 
         ///for use on localhost testing
-        public static string Baseurl = "https://sngutu30:3031/";
+        // public static string Baseurl = "https://sngutu30:3031/";
 
         public const string ApiUsername = @"shawn72";
         public const string ApiPassword = @"cherry*30";
@@ -1424,6 +1424,18 @@ namespace EProc_On_Metronic.Controllers
 
             return View(madocs);
         }
+
+        public ActionResult DocumentTemplateList_Rfi()
+        {
+            List<DocumentsTModel> docTModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetDocumentsTemplates_Rfi");
+            docTModel = JsonConvert.DeserializeObject<List<DocumentsTModel>>(json);
+            var madocs = (from a in docTModel where a.Document_Type == "Invitation For Prequalification" select a).ToList();
+
+            return View(madocs);
+        }
         public ActionResult DocumentTemplateDroplist()
         {
             List<DocumentsTModel> docTModel = null;
@@ -1432,6 +1444,17 @@ namespace EProc_On_Metronic.Controllers
             string json = wc.DownloadString(Baseurl + "api/GetDocumentsTemplates");
             docTModel = JsonConvert.DeserializeObject<List<DocumentsTModel>>(json);
             var madocs = (from a in docTModel where a.Procurement_Process == "Registration" select a).ToList();
+
+            return View(madocs);
+        }
+        public ActionResult DocumentTemplateDroplist_Rfi()
+        {
+            List<DocumentsTModel> docTModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetDocumentsTemplates_Rfi");
+            docTModel = JsonConvert.DeserializeObject<List<DocumentsTModel>>(json);
+            var madocs = (from a in docTModel where a.Document_Type == "Invitation For Prequalification" select a).ToList();
 
             return View(madocs);
         }
@@ -1576,6 +1599,100 @@ namespace EProc_On_Metronic.Controllers
             }
         }
 
+        public JsonResult FnUploadmandatoryDoc_Rfi(HttpPostedFileBase browsedfile, string typauploadselect,
+            string filedescription, string certificatenumber, string dateofissue, string expirydate, string rfiApplicationNum)
+        {
+            try
+            {
+                var vendorNo = Convert.ToString(Session["vendorNo"]);
+                var nvWebref = WsConfig.EProcWebRef;
+                string storedFilename = "";
+                CultureInfo usCulture = new CultureInfo("en-US");
+                int errCounter = 0, filesCounter = 1, succCounter = 0, entryCounter = 0;
+                DateTime dtofIssue, expiryDate;
+                string uploads;
+
+                if(string.IsNullOrWhiteSpace(dateofissue))
+                    return Json("danger*issuedatenull", JsonRequestBehavior.AllowGet);
+
+                if (string.IsNullOrWhiteSpace(expirydate))
+                    return Json("danger*exprynull", JsonRequestBehavior.AllowGet);
+
+                dtofIssue = DateTime.Parse(dateofissue, usCulture.DateTimeFormat);
+                expiryDate = DateTime.Parse(expirydate, usCulture.DateTimeFormat);
+
+
+                if (browsedfile == null)
+                {
+                    errCounter++;
+                    return Json("danger*browsedfilenull", JsonRequestBehavior.AllowGet);
+                }
+
+                if (vendorNo.Contains(":"))
+                    vendorNo = vendorNo.Replace(":", "[58]");
+                    vendorNo = vendorNo.Replace("/", "[47]");
+
+                if (filedescription.Contains("/"))
+                    filedescription = filedescription.Replace("/", "_");
+
+                if (typauploadselect.Contains("/"))
+                    typauploadselect = typauploadselect.Replace("/", "_");
+
+                if (rfiApplicationNum.Contains("/"))
+                    rfiApplicationNum = rfiApplicationNum.Replace("/", "_");
+
+                var rootFolder = Server.MapPath("~/Uploads/Vendor Card");
+                var subfolder = Path.Combine(rootFolder, vendorNo+"/"+ rfiApplicationNum);
+
+                if (!Directory.Exists(subfolder))
+                    Directory.CreateDirectory(subfolder);
+                succCounter = (filesCounter - errCounter) / filesCounter * 100;
+
+                string fileName0 = Path.GetFileName(browsedfile.FileName);
+                string ext0 = _getFileextension(browsedfile);
+                string savedF0 = vendorNo + "_" + typauploadselect + ext0;
+
+                // Recursively get file names for all files in a directory.
+                foreach (string file in Directory.EnumerateFiles(subfolder, "*.*", SearchOption.AllDirectories))
+                {
+                    storedFilename = Path.GetFileName(file);
+                }
+                if (savedF0 == storedFilename)
+                {
+                    entryCounter++;
+                    savedF0 = vendorNo + "_" + typauploadselect + "_" + entryCounter + ext0;
+                }
+
+                string fsavestatus = nvWebref.FnInsertFiledetails_Rfi(vendorNo, typauploadselect, filedescription,
+                    certificatenumber, dtofIssue, expiryDate, savedF0, rfiApplicationNum);
+                var splitanswer = fsavestatus.Split('*');
+                switch (splitanswer[0])
+                {
+                    case "success":
+                        browsedfile.SaveAs(subfolder + "/" + savedF0);
+                        uploads = string.Format("{0}",
+                            "<div class='form-group'>" +
+                            "<h4><strong style='color: chocolate'>List of files you uploaded successfully!</strong></h4></br>Upload Feedback: " +
+                            splitanswer[1] + "</br> Uploaded File Name: " +
+                            fileName0 + "<br/> Filename Saved: " +
+                            savedF0 +
+                            "</div>");
+                        return Json("success*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
+                    default:
+                        uploads = string.Format("{0}",
+                            "<div class='form-group alert alert-danger'>" +
+                            "<h4><strong style='color: chocolate'>Files upload error!</strong></h4></br>" + splitanswer[1] + "</br>" +
+                            fileName0 + "<br/>" +
+                            "<br/></div>");
+                        return Json("danger*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult UploadedSpecifVendorDocs()
         {
             var vendorNo = Convert.ToString(Session["vendorNo"]);
@@ -1612,14 +1729,52 @@ namespace EProc_On_Metronic.Controllers
             }
            
         }
+
+        public JsonResult UploadedSpecifVendorDocs_Rfi(string rfiApplicationNum)
+        {
+            var vendorNo = Convert.ToString(Session["vendorNo"]);
+            var uploadedFiles = new List<UploadedFile>();
+            try
+            {
+                if (vendorNo.Contains(":"))
+                    vendorNo = vendorNo.Replace(":", "[58]");
+                vendorNo = vendorNo.Replace("/", "[47]");
+
+                var rootFolder = Server.MapPath("~/Uploads/Vendor Card");
+                var subfolder = Path.Combine(rootFolder, vendorNo + "/" + rfiApplicationNum);
+
+                if (!Directory.Exists(subfolder))
+                    Directory.CreateDirectory(subfolder);
+
+                var files = Directory.GetFiles(subfolder);
+                foreach (var file in files)
+                {
+                    var fileInfo = new FileInfo(file);
+
+                    var uploadedFile = new UploadedFile { FileName = Path.GetFileName(file) };
+                    uploadedFile.Size = fileInfo.Length;
+
+                    uploadedFile.Path = (subfolder) + "/" + Path.GetFileName(file);
+                    uploadedFiles.Add(uploadedFile);
+                }
+                return Json(uploadedFiles, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+        }
         public JsonResult UploadedKerraIfpDocs(string ifpnumber)
         {
             var uploadedFiles = new List<UploadedFile>();
             try
             {
                 Regex reg = new Regex("[*'\",_&#^@:/]");
+              //Regex regrule1 = new Regex("[ ]");
+
                 ifpnumber = reg.Replace(ifpnumber, string.Empty);
-                Regex regrule1 = new Regex("[ ]");
                 ifpnumber = reg.Replace(ifpnumber, "_");
 
                 //if (ifpnumber.Contains(":"))
@@ -2157,6 +2312,20 @@ namespace EProc_On_Metronic.Controllers
             catch (Exception ex)
             {
                 return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult RfiSubmisionStatus(string applicationNo)
+        {
+            try
+            {
+                var nvWebref = WsConfig.EProcWebRef;
+                var status = nvWebref.FnSubmisionResponseStatus(applicationNo);
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
 

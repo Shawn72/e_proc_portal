@@ -6,7 +6,7 @@ $(document).ready(function () {
         $(this).text($(this).text() == "Show" ? "Hide" : "Show");
 
         $(this).prev().attr('type', function (index, attr) { return attr == 'password' ? 'text' : 'password'; });
-
+       
     });
 
     $("#btnCreateIndAccount").on("click", function (e) {
@@ -1448,6 +1448,221 @@ $(document).ready(function () {
         });
     });
 
+    $('.button-upload-rfi').click(function (e) {
+        //To prevent form submit after ajax call
+        e.preventDefault();
+        //reset to empty
+        $("#docs_feedback_alert").html("");
+
+        var selectedFtype = $('#ddldocumentdroplist_rfi').find(":selected").attr('value');
+        var selvaluedescription = $("#ddldocumentdroplist_rfi option:selected").text();
+        var browsedDoc = document.getElementById('inputFileselector_rfi').files[0];
+        var certNumber = $("#txtCertNo_rfi").val();
+        var dateofissue = $("#dtOfIssue_rfi").val();
+        var xprydate = $("#dtOfexpiry_rfi").val();
+        var rfiApplNum = $("#txtIfApplicationNo").val();
+
+        var formDt = new FormData();
+        formDt.append("typauploadselect", selectedFtype);
+        formDt.append("browsedfile", browsedDoc);
+        formDt.append("filedescription", selvaluedescription);
+        formDt.append("certificatenumber", certNumber);
+        formDt.append("dateofissue", dateofissue);
+        formDt.append("expirydate", xprydate);
+        formDt.append("rfiApplicationNum", rfiApplNum);
+
+        //for test
+        Swal.fire({
+            title: "Upload Document?",
+            text: "Proceed to upload the selected document once?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: true,
+            confirmButtonText: "Yes, Upload!",
+            confirmButtonClass: "btn-success",
+            confirmButtonColor: "#008000",
+            position: "center"
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    xhr: function () {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener("progress", function (evt) {
+                            if (evt.lengthComputable) {
+                                var percentComplete = ((evt.loaded / evt.total) * 100);
+                                $(".progress-bar").width(percentComplete + '%');
+                                $(".progress-bar").html(percentComplete + '%');
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    type: 'POST',
+                    url: '/Home/FnUploadmandatoryDoc_Rfi',
+                    data: formDt,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $(".progress-bar").width('0%');
+                        $('#uploadsMsg').html('<img src="/assets/loaders/load.gif"/>');
+                    },
+                    error: function () {
+                        $("#uploadsMsg").css("color", "red");
+                        $('#uploadsMsg').addClass('alert alert-danger');
+                        $("#uploadsMsg").html("File upload failed, choose another file and try again!");
+
+                        App.alert({
+                            container: "#docs_feedback_alert",
+                            place: "append",
+                            type: "danger",
+                            message: "File upload failed, choose another file and try again!!",
+                            close: true,
+                            reset: true,
+                            focus: true,
+                            closeInSeconds: 5,
+                            icon: "warning"
+                        });
+                    },
+                    success: function (status) {
+                        var uploadsfs = status.split('*');
+                        status = uploadsfs[0];
+                        switch (status) {
+                        case "success":
+                            Swal.fire
+                            ({
+                                title: "Files Uploaded!",
+                                text: "File Uploaded Successfully!",
+                                type: "success"
+                            }).then(() => {
+                                App.alert({
+                                    container: "#docs_feedback_alert",
+                                    place: "append",
+                                    type: "success",
+                                    message: "Selected File Uploaded Successfully!",
+                                    close: true,
+                                    reset: true,
+                                    focus: true,
+                                    closeInSeconds: 5,
+                                    icon: "check"
+                                });
+
+                                $("#uploadsMsg").css("display", "block");
+                                $("#uploadsMsg").css("color", "green");
+                                $("#uploadsMsg").html(uploadsfs[1]);
+
+                                //call documents uploded for Rfi
+                                po.init();
+                            });
+                            break;
+
+                            
+
+                        case "issuedatenull":
+                            Swal.fire
+                            ({
+                                title: "Date of Issue Null!",
+                                text: "Date of Issue input cannot be empty!",
+                                type: "error"
+                            }).then(() => {
+                                App.alert({
+                                    container: "#docs_feedback_alert",
+                                    place: "append",
+                                    type: "danger",
+                                    message: "Date of Issue cannot be empty!",
+                                    close: true,
+                                    reset: true,
+                                    focus: true,
+                                    closeInSeconds: 5,
+                                    icon: "warning"
+                                });
+
+                                $("#dtOfIssue_rfi").focus();
+                                $("#dtOfIssue_rfi").css("border", "solid 1px red");
+                            });
+                            break;
+
+                         case "exprynull":
+                            Swal.fire
+                            ({
+                                title: "Expiry Date Null!",
+                                text: "Expiry Date  input cannot be empty!",
+                                type: "error"
+                            }).then(() => {
+                                App.alert({
+                                    container: "#docs_feedback_alert",
+                                    place: "append",
+                                    type: "danger",
+                                    message: "Expiry Date cannot be empty!",
+                                    close: true,
+                                    reset: true,
+                                    focus: true,
+                                    closeInSeconds: 5,
+                                    icon: "warning"
+                                });
+
+                                $("#dtOfexpiry_rfi").focus();
+                                $("#dtOfexpiry_rfi").css("border", "solid 1px red");
+                            });
+                            break;
+
+                        case "browsedfilenull":
+                            Swal.fire
+                            ({
+                                title: "File Selection Null!",
+                                text: "File input cannot be empty!",
+                                type: "error"
+                            }).then(() => {
+                                App.alert({
+                                    container: "#docs_feedback_alert",
+                                    place: "append",
+                                    type: "danger",
+                                    message: "File input cannot be empty!",
+                                    close: true,
+                                    reset: true,
+                                    focus: true,
+                                    closeInSeconds: 5,
+                                    icon: "warning"
+                                });
+
+                                $("#inputFileselector_rfi").focus();
+                                $("#inputFileselector_rfi").css("border", "solid 1px red");
+                            });
+                            break;
+
+                        default:
+                            Swal.fire
+                            ({
+                                title: "Error!!!",
+                                text: uploadsfs[1],
+                                type: "error"
+                            }).then(() => {
+                                App.alert({
+                                    container: "#docs_feedback_alert",
+                                    place: "append",
+                                    type: "danger",
+                                    message: uploadsfs[1],
+                                    close: true,
+                                    reset: true,
+                                    focus: true,
+                                    closeInSeconds: 5,
+                                    icon: "warning"
+                                });
+
+                            });
+                            break;
+                        }
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelled',
+                    'You cancelled your submission!',
+                    'error'
+                );
+            }
+        });
+    });
+
     $(".button-go-back-home").click(function() {
         $("#ifpdetailsdiv").css("display", "none");
         $("#ifplistdiv").css("display", "block");
@@ -1477,10 +1692,19 @@ $(document).ready(function () {
                  console.log("Reg Status: " + regstatus);
                 switch (regstatus) {
                     case "True":
-                    $("#generalfeedback").css("display", "block");
+                        App.alert({
+                            container: "#generalfeedback",
+                            place: "append",
+                            type: "danger",
+                            message: "You have already submitted your registration, Wait for KeRRA Communication!",
+                            close: true,
+                            reset: true,
+                            focus: true,
+                            closeInSeconds: 10,
+                            icon: "warning"
+                        });
                     break;
                 case "False":
-                    $("#generalfeedback").css("display", "none");
                     window.location.href = "/Home/Supplier_Registration_Form";
                     break;
                 }              
@@ -1488,7 +1712,7 @@ $(document).ready(function () {
             }
         });
     });
-
+    
     $(".button-backto-ifplists").click(function () {
         window.location.href = "/Home/RfiResponseForm";
     });
@@ -1528,7 +1752,51 @@ var po = function() {
             url: "/Home/UploadedSpecifVendorDocs",
             data: ""
         }).done(function(json) {
-           //console.log(JSON.stringify({ data: json }));
+            //console.log(JSON.stringify({ data: json }));
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++, json[i].FileName, json[i].Size, '<a class="trash" href="">Delete</a>'
+                ]);
+            }
+        });
+    };
+    var rfid = function() {
+        var tl = $("#tbl_mydocs_rfi"),
+        l = tl.dataTable({
+            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+            pageLength: 5,
+            language: { lengthMenu: " _MENU_ records" },
+            columnDefs: [
+                {
+                    orderable: !0,
+                    // targets: [0],
+                    defaultContent: "-",
+                    targets: "_all"
+                },
+                {
+                    searchable: !0,
+                    targets: "_all"
+                    // targets: [0]
+                }
+            ],
+            order: [
+                [0, "asc"]
+            ],
+
+            //stateSave: true,
+            bDestroy: true,
+            info: false,
+            processing: true,
+            retrieve: true
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Home/UploadedSpecifVendorDocs_Rfi?rfiApplicationNum=" + $("#txtIfApplicationNo").val(),
+            data: ""
+        }).done(function(json) {
+            //console.log(JSON.stringify({ data: json }));
             l.fnClearTable();
             var o = 1;
             for (var i = 0; i < json.length; i++) {
@@ -1540,7 +1808,7 @@ var po = function() {
     }
     return {
         init: function () {
-            e();
+            e(),rfid();
         }
     }
 }();

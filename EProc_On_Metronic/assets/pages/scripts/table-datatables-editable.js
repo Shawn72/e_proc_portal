@@ -771,8 +771,6 @@ var TableDatatablesAll = function () {
             $("#tbl_staffexp").dataTable().fnClearTable();
         });
     };
-
-  
     return {
         init: function () {
             e(), po(), ns();

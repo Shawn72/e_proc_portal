@@ -783,6 +783,41 @@
           </sequence>
         </complexType>
       </element>
+      <element name="FnInsertFiledetails_Rfi">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="procDoctype" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="docdescription" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="certNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="issuedDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="expiryDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="fileName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="documentNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInsertFiledetails_Rfi_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSubmisionResponseStatus">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="rfiDocumentNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSubmisionResponseStatus_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
   <message name="FnRegisterVendor">
@@ -1049,6 +1084,18 @@
   <message name="FnSubmitResponseFinal_Result">
     <part name="parameters" element="tns:FnSubmitResponseFinal_Result" />
   </message>
+  <message name="FnInsertFiledetails_Rfi">
+    <part name="parameters" element="tns:FnInsertFiledetails_Rfi" />
+  </message>
+  <message name="FnInsertFiledetails_Rfi_Result">
+    <part name="parameters" element="tns:FnInsertFiledetails_Rfi_Result" />
+  </message>
+  <message name="FnSubmisionResponseStatus">
+    <part name="parameters" element="tns:FnSubmisionResponseStatus" />
+  </message>
+  <message name="FnSubmisionResponseStatus_Result">
+    <part name="parameters" element="tns:FnSubmisionResponseStatus_Result" />
+  </message>
   <portType name="eprocurement_Port">
     <operation name="FnRegisterVendor">
       <input name="FnRegisterVendor" message="tns:FnRegisterVendor" />
@@ -1225,6 +1272,14 @@
     <operation name="FnSubmitResponseFinal">
       <input name="FnSubmitResponseFinal" message="tns:FnSubmitResponseFinal" />
       <output name="FnSubmitResponseFinal_Result" message="tns:FnSubmitResponseFinal_Result" />
+    </operation>
+    <operation name="FnInsertFiledetails_Rfi">
+      <input name="FnInsertFiledetails_Rfi" message="tns:FnInsertFiledetails_Rfi" />
+      <output name="FnInsertFiledetails_Rfi_Result" message="tns:FnInsertFiledetails_Rfi_Result" />
+    </operation>
+    <operation name="FnSubmisionResponseStatus">
+      <input name="FnSubmisionResponseStatus" message="tns:FnSubmisionResponseStatus" />
+      <output name="FnSubmisionResponseStatus_Result" message="tns:FnSubmisionResponseStatus_Result" />
     </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
@@ -1622,6 +1677,24 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnSubmitResponseFinal_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInsertFiledetails_Rfi">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInsertFiledetails_Rfi" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInsertFiledetails_Rfi">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInsertFiledetails_Rfi_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnSubmisionResponseStatus">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSubmisionResponseStatus" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnSubmisionResponseStatus">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnSubmisionResponseStatus_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>
