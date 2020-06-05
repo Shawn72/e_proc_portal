@@ -1701,7 +1701,7 @@
   </binding>
   <service name="eprocurement">
     <port name="eprocurement_Port" binding="tns:eprocurement_Binding">
-      <address location="http://197.155.64.54:2023/Dev/WS/KeRRA/Codeunit/eprocurement" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <address location="http://192.168.1.87:2023/Dev/WS/KeRRA/Codeunit/eprocurement" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
     </port>
   </service>
 </definitions>

@@ -1689,7 +1689,7 @@ $(document).ready(function () {
         }).done(function(json) {
             for (var i = 0; i < json.length; i++) {
                 var regstatus = json[i].Registrn_Submitted_onPortal;
-                 console.log("Reg Status: " + regstatus);
+                // console.log("Reg Status: " + regstatus);
                 switch (regstatus) {
                     case "True":
                         App.alert({
@@ -1716,6 +1716,60 @@ $(document).ready(function () {
     $(".button-backto-ifplists").click(function () {
         window.location.href = "/Home/RfiResponseForm";
     });
+    
+    //START: search by region
+    $("#region_sel_btn").click(function () {
+        $("#region_sel_div").css("display", "none");
+        $("#region_sel_div_2").css("display", "block");
+    });
+
+    $("#regions_centers").change(function () {
+        rg.init();
+        $("#region_sel_div").css("display", "block");
+        $("#region_sel_div_2").css("display", "none");
+    });
+    //END: search by region
+    
+    //START: search by procurement method
+    $("#procmethd_sel_btn").click(function () {
+        $("#proc_methd_div").css("display", "none");
+        $("#proc_methd_div_2").css("display", "block");
+    });
+
+    $("#procurement_methods").change(function () {
+        to.init();
+        $("#proc_methd_div").css("display", "block");
+        $("#proc_methd_div_2").css("display", "none");
+    });
+    //END: search by procurement method
+
+    //START: search by procurement group
+    $("#prod_group_sel_btn").click(function () {
+        $("#prod_group_div").css("display", "none");
+        $("#prod_group_div_2").css("display", "block");
+    });
+
+    $("#prod_group").change(function () {
+        go.init();
+        $("#prod_group_div").css("display", "block");
+        $("#prod_group_div_2").css("display", "none");
+    });
+    //END: search by procurement group
+
+    //START: search by works category
+    $("#works_cat_sel_btn").click(function () {
+        $("#works_cat_div").css("display", "none");
+        $("#works_cat_div_2").css("display", "block");
+    });
+
+    $("#works_cat_ddl").change(function () {
+        wrks.init();
+        $("#works_cat_div").css("display", "block");
+        $("#works_cat_div_2").css("display", "none");
+    });
+    //END: search by works category
+    
+
 });
 var po = function() {
     var e = function() {
@@ -1764,33 +1818,33 @@ var po = function() {
     };
     var rfid = function() {
         var tl = $("#tbl_mydocs_rfi"),
-        l = tl.dataTable({
-            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
-            pageLength: 5,
-            language: { lengthMenu: " _MENU_ records" },
-            columnDefs: [
-                {
-                    orderable: !0,
-                    // targets: [0],
-                    defaultContent: "-",
-                    targets: "_all"
-                },
-                {
-                    searchable: !0,
-                    targets: "_all"
-                    // targets: [0]
-                }
-            ],
-            order: [
-                [0, "asc"]
-            ],
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        // targets: [0],
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                        // targets: [0]
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
 
-            //stateSave: true,
-            bDestroy: true,
-            info: false,
-            processing: true,
-            retrieve: true
-        });
+                //stateSave: true,
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
         $.ajax({
             type: "POST",
             url: "/Home/UploadedSpecifVendorDocs_Rfi?rfiApplicationNum=" + $("#txtIfApplicationNo").val(),
@@ -1805,10 +1859,252 @@ var po = function() {
                 ]);
             }
         });
+    };
+   
+   
+    return {
+        init: function () {
+            e(),rfid(), d(), p();
+        }
+    }
+}();
+
+var go = function () {
+    var y = function () {
+        var tl = $("#tbl_open_tenders_n"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        // targets: [0],
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                        // targets: [0]
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                //stateSave: true,
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/SearchByProcurementGroup?procurementgroup=" + $("#prod_group").children("option:selected").val(),
+            data: ""
+        }).done(function (json) {
+            //console.log(JSON.stringify({ data: json }));
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Code,
+                    json[i].External_Document_No,
+                    json[i].Tender_Name,
+                    json[i].Procurement_Type,
+                    json[i].Submission_End_Date,
+                    json[i].Project_ID,
+                    '<a class="go_respond" href="">Respond</a>'
+                ]);
+            }
+        });
     }
     return {
         init: function () {
-            e(),rfid();
+           y();
+        }
+    }
+}();
+
+var to = function () {
+    var p = function () {
+        var tl = $("#tbl_open_tenders_n"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        // targets: [0],
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                        // targets: [0]
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                //stateSave: true,
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/SearchByProcMethod?procurementmethod=" +
+                $("#procurement_methods").children("option:selected").text(),
+            data: ""
+        }).done(function (json) {
+            //console.log(JSON.stringify({ data: json }));
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Code,
+                    json[i].External_Document_No,
+                    json[i].Tender_Name,
+                    json[i].Procurement_Type,
+                    json[i].Submission_End_Date,
+                    json[i].Project_ID,
+                    '<a class="go_respond" href="">Respond</a>'
+                ]);
+            }
+        });
+    };
+    return {
+        init: function () {
+            p();
+        }
+    }
+}();
+
+var rg = function () {
+    var d = function () {
+        var tl = $("#tbl_open_tenders_n"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        // targets: [0],
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                        // targets: [0]
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                //stateSave: true,
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/SearchByRegion?responsibilitycenter=" + $("#regions_centers").children("option:selected").text(),
+            data: ""
+        }).done(function (json) {
+           // console.log($("#regions_centers").children("option:selected").text());
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Code,
+                    json[i].External_Document_No,
+                    json[i].Tender_Name,
+                    json[i].Procurement_Type,
+                    json[i].Submission_End_Date,
+                    json[i].Project_ID,
+                    '<a class="go_respond" href="">Respond</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function () {
+            d();
+        }
+    }
+}();
+
+var wrks = function () {
+    var d = function () {
+        var tl = $("#tbl_open_tenders_n"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        // targets: [0],
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                        // targets: [0]
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                //stateSave: true,
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/SearchByWorksCat?workscategory=" + $("#works_cat_ddl").children("option:selected").val(),
+            data: ""
+        }).done(function (json) {
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Code,
+                    json[i].External_Document_No,
+                    json[i].Tender_Name,
+                    json[i].Procurement_Type,
+                    json[i].Submission_End_Date,
+                    json[i].Project_ID,
+                    '<a class="go_respond" href="">Respond</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function () {
+            d();
         }
     }
 }();

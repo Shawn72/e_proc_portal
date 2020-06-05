@@ -26,7 +26,7 @@ namespace EProc_On_Metronic.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://197.155.64.54:2023/Dev/WS/KeRRA/Codeunit/eprocurement")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://192.168.1.87:2023/Dev/WS/KeRRA/Codeunit/eprocurement")]
         public string EProc_On_Metronic_WebRef_eprocurement {
             get {
                 return ((string)(this["EProc_On_Metronic_WebRef_eprocurement"]));

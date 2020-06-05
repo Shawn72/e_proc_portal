@@ -22,9 +22,9 @@ namespace EProc_On_Metronic.Models
         public string Successful_Bidder { get; set; }
         public bool Closed { get; set; }
 
-
-
-
-
+        //START: procurement types Model
+        public string Code { get; set; }
+        public string Description { get; set; }
+        //END: procurement types Model
     }
 }

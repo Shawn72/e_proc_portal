@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EProc_On_Metronic.Models.ProcurementModel>
+﻿@model IEnumerable<EProc_On_Metronic.Models.TenderModel>
 @{
     ViewBag.Title = "Homepage";
     Layout = "~/Views/Shared/_Homepage_Layout.cshtml";
@@ -102,16 +102,16 @@
                             @sno
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.No)
+                            @Html.DisplayFor(modelItem => item.External_Document_No)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Title)
+                            @Html.DisplayFor(modelItem => item.Tender_Summary)
                         </td>
                         <td>
-                            @Convert.ToDateTime(item.Return_Date).ToShortDateString()
+                            @Convert.ToDateTime(item.Submission_Start_Date).ToShortDateString()
                         </td>
                         <td class="text-right">
-                            <button type="submit" class="btn green btn-outline btn-circle btnDownloadTender" tenderNo='@item.No'><i class="fas fa-cloud-download-alt downloadtenderfavicon"></i> Download </button>
+                            <button type="submit" class="btn green btn-outline btn-circle btnDownloadTender" tenderNo='@item.External_Document_No'><i class="fas fa-cloud-download-alt downloadtenderfavicon"></i> Download </button>
                             <span class="btn blue btn-outline btn-circle">
                                 <a href="/Home/Login_EBid" style="background: none; border: 0"><i class="far fa-edit m-r-5"></i> Go to Apply</a>
                             </span>

@@ -23,13 +23,13 @@ namespace EProc_On_Metronic.Controllers
     public class HomeController : Controller
     {
         ///for use on localhost testing
-       // public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
+        //public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
 
         ///uncomment this while publishing on live server
-        public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
+       // public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
 
-        ///for use on localhost testing
-        // public static string Baseurl = "https://sngutu30:3031/";
+        ///for use on localhost testings
+        public static string Baseurl = "https://sngutu30:3031/";
 
         public const string ApiUsername = @"shawn72";
         public const string ApiPassword = @"cherry*30";
@@ -170,6 +170,11 @@ namespace EProc_On_Metronic.Controllers
             return View();
         }
 
+        public ActionResult TendersList()
+        {
+            return View();
+        }
+
         public ActionResult TendersOpentoPublic()
         {
             List<ProcurementModel> appliedtenders = null;
@@ -182,15 +187,16 @@ namespace EProc_On_Metronic.Controllers
         }
         public ActionResult Homepage()
         {
-            List<ProcurementModel> appliedtenders = null;
+            List<TenderModel> model = null;
             WebClient wc = new WebClient();
             wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
-            string json = wc.DownloadString(Baseurl + "api/GetOpenTenders");
-            appliedtenders = JsonConvert.DeserializeObject<List<ProcurementModel>>(json);
-            Session["opentendercnter"] = appliedtenders.Count();
-            var record = (from a in appliedtenders where a.Closed == false select a).ToList();
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            model = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            Session["opentendercnter"] = model.Count();
+            var record = (from a in model where a.Document_Status == "Published" && a.Tender_Name != "" select a).ToList();
             HomepageCounter();
-            return View(record);}
+            return View(record);
+        }
 
         public ActionResult SupplierCatList()
         {
@@ -2327,6 +2333,93 @@ namespace EProc_On_Metronic.Controllers
             {
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
+        }
+
+
+        public JsonResult GetOpentenderList()
+        {
+            List<TenderModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var items = (from a in req where a.Document_Status == "Published" && a.Tender_Name!= "" select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetRepCenters()
+        {
+            List<GeneralModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetResponsibiltyCenter");
+            req = JsonConvert.DeserializeObject<List<GeneralModel>>(json);
+            var items = (from a in req select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetProcTypes()
+        {
+            List<ProcurementModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetProcurementTypes");
+            req = JsonConvert.DeserializeObject<List<ProcurementModel>>(json);
+            var items = (from a in req select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult FnGetWorksnCategory()
+        {
+            List<WorksCategoryModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetWorksCategory");
+            req = JsonConvert.DeserializeObject<List<WorksCategoryModel>>(json);
+            var items = (from a in req select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchByRegion(string responsibilitycenter)
+        {
+            List<TenderModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var items = (from a in req where a.Responsibility_Center == responsibilitycenter select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchByProcMethod(string procurementmethod)
+        {
+            List<TenderModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var items = (from a in req where a.Procurement_Method == procurementmethod select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchByProcurementGroup(string procurementgroup)
+        {
+            List<TenderModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var items = (from a in req where a.Procurement_Type == procurementgroup select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchByWorksCat(string workscategory)
+        {
+            List<TenderModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var items = (from a in req where a.Works_Category == workscategory select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

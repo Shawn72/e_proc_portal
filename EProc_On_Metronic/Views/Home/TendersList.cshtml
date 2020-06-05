@@ -1,0 +1,145 @@
+﻿@{
+    Layout = "~/Views/Shared/_Formwizard_Layout.cshtml";
+}
+<!-- BEGIN PAGE TITLE-->
+ <div class="page-content">
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="/Home/TendersList">e-Bidding</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li><span>Active Tender Invitations</span></li>
+            </ul>
+        
+        </div>
+        <!-- END PAGE BAR -->
+
+        <h3 class="page-title"><strong>Welcome to e-Bidding System</strong>
+        </h3>
+        <!-- END PAGE TITLE-->
+
+        <p>
+            Home e-Registration e-Prequalification e-Bidding Self Service Help desk
+            The e-Bidding Portal enables the tenderers to view all Active Invitation For Supply (IFS) Notices, download the
+            related tender documents and allow for online submission of their bid responses
+        </p>
+
+        <!-- do table things here-->
+        <div class="row" id="tenderslistdiv">
+            <div class="col-md-12">
+                <!-- Begin: life time stats -->
+                <div class="portlet light portlet-fit portlet-datatable bordered">
+                    <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-settings font-green"></i>
+                                <span class="caption-subject font-green sbold uppercase">Open Tender Notices</span>
+                        </div> 
+
+                        <div class="actions">
+                            
+                            <table class="table table-striped table-bordered table-hover">
+                                <tr>
+                                    <td>
+                                        <div class="btn-group" id="proc_methd_div" style="display: block">
+                                            <a class="btn green btn-outline btn-circle" id="procmethd_sel_btn" href="javascript:;">
+                                                <span class="hidden-xs"> By Procurement Method </span>
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </div>
+                                        <div id="proc_methd_div_2" style="display: none; width: 175px;">
+                                            <select id="procurement_methods" class="form-control select2">
+                                                <option value="Open Tender">Open Tender</option>
+                                                <option value="RFQ">RFQ</option>
+                                                <option value="RFP">RFP</option>
+                                                <option value="Two-Stage Tender">Two-Stage Tender</option>
+                                                <option value="Design Competition Tender">Design Competition Tender</option>
+                                                <option value="Restricted Tender">Restricted Tender</option>
+                                                <option value="Direct Procurement">Direct Procurement</option>
+                                                <option value="Low Value Procurement">Low Value Procurement</option>
+                                                <option value="Force Account">Force Account</option>
+                                                <option value="Framework Agreement">Framework Agreement</option>
+                                                <option value="Reverse Auction">Reverse Auction</option>
+                                                <option value="Public Private Partnership">Public Private Partnership</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" id="region_sel_div" style="display: block">
+                                            <a class="btn green btn-outline btn-circle" id="region_sel_btn" href="javascript:;">
+                                                <span class="hidden-xs"> Search by Region </span>
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </div>
+                                        <div id="region_sel_div_2" style="display: none; width: 175px;">
+                                            <select id="regions_centers" class="form-control select2">
+                                                <option value="">----</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" id="prod_group_div" style="display: block">
+                                            <a class="btn green btn-outline btn-circle" id="prod_group_sel_btn" href="javascript:;">
+                                                <span class="hidden-xs"> By Product Group </span>
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </div>
+                                        <div id="prod_group_div_2" style="display: none; width: 175px;">
+                                            <select id="prod_group" class="form-control select2">
+                                                <option value="">----</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" id="works_cat_div" style="display: block">
+                                            <a class="btn green btn-outline btn-circle" id="works_cat_sel_btn" href="javascript:;">
+                                                <span class="hidden-xs"> By Works Category </span>
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                        </div>
+                                        <div id="works_cat_div_2" style="display: none; width: 175px;">
+                                            <select id="works_cat_ddl" class="form-control select2">
+                                                <option value="">----</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                       
+                        
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-container">
+                            <div id="ifpfeedbacks" style="display: none;"></div>
+                            <table class="table table-striped table-bordered table-hover" id="tbl_open_tenders_n">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Notice No.</th>
+                                    <th>Tender No.</th>
+                                    <th>Tender Name</th>
+                                    <th>Product Group</th>
+                                    <th>Submision End Date</th>
+                                    <th>Project ID</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End: life time stats -->
+            </div>
+        </div>
+
+        <div class="modalspinner" style="display: none">
+            <div class="centerspinner">
+                <img alt="" src="/assets/loaders/spinner.gif"/>
+            </div>
+        </div>
+    </div>
+<!-- END CONTENT BODY -->

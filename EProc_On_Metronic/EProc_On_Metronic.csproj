@@ -215,6 +215,7 @@
     <Compile Include="Models\DropdownListforYears.cs" />
     <Compile Include="Models\DropdownListsModel.cs" />
     <Compile Include="Models\Enum.cs" />
+    <Compile Include="Models\GeneralModel.cs" />
     <Compile Include="Models\GetVendorTModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IfPDocumentsTModel.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Models\TenderModel.cs" />
     <Compile Include="Models\UploadedFile.cs" />
     <Compile Include="Models\VendorModel.cs" />
+    <Compile Include="Models\WorksCategoryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2931,6 +2933,7 @@
     <Content Include="Views\Home\SideBarMenu.cshtml" />
     <Content Include="Views\Home\DocumentTemplateList_Rfi.cshtml" />
     <Content Include="Views\Home\DocumentTemplateDroplist_Rfi.cshtml" />
+    <Content Include="Views\Home\TendersList.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -2958,10 +2961,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://197.155.64.54:2023/Dev/WS/KeRRA/Codeunit/eprocurement">
+    <WebReferenceUrl Include="http://192.168.1.87:2023/Dev/WS/KeRRA/Codeunit/eprocurement">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\WebRef\</RelPath>
-      <UpdateFromURL>http://197.155.64.54:2023/Dev/WS/KeRRA/Codeunit/eprocurement</UpdateFromURL>
+      <UpdateFromURL>http://192.168.1.87:2023/Dev/WS/KeRRA/Codeunit/eprocurement</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

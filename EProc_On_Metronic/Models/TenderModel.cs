@@ -16,5 +16,33 @@
         //Tender Notices n' Ads
         public string Advert_Description { get; set; }
         public string Date_Created { get; set; }
+
+        //START:Advanced Tenders Model
+        public string Code { get; set; }
+        public string Description { get; set; }
+        public string Procurement_Method { get; set; }
+        public string External_Document_No { get; set; }
+        public string Procurement_Type { get; set; }
+        public string Procurement_Category_ID { get; set; }
+        public string Project_ID { get; set; }
+        public string Constituency_ID { get; set; }
+        public string Tender_Name { get; set; }
+        public string Tender_Summary { get; set; }
+        public string Status { get; set; }
+        public string City { get; set; }
+        public string Country_Region_Code { get; set; }
+        public string Submission_Start_Date { get; set; }
+        public string Submission_End_Date { get; set; }
+        public string Bid_Document_Template { get; set; }
+        public string Financial_Year_Code { get; set; }
+        public string Bid_Opening_Date { get; set; }
+        public string Bid_Opening_Venue { get; set; }
+        public string Document_Status { get; set; }
+        public string Location_Code { get; set; }
+        public string Responsibility_Center { get; set; }
+        public string Works_Category { get; set; }
+
+        //END: Advanced Tenders Model
+
     }
 }

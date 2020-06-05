@@ -985,7 +985,7 @@ var Ld = function () {
                                         }).then(() => {
                                             //remove all active classes
                                             $("#worksappalert").removeClass("alert alert-warning"),
-                                                $("#grpshowhide-works").css("display", "none");
+                                            $("#grpshowhide-works").css("display", "none");
                                             $(".checkbox-works").prop("checked", false);
                                             $(".group-checkable-works").prop("checked", false);
                                             selected_arr_3 = [];
@@ -1008,9 +1008,169 @@ var Ld = function () {
 
         );
     };
+
+    var optends = function () {
+        var tl = $("#tbl_open_tenders_n"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/GetOpentenderList",
+            beforeSend: function () {
+                $(".modalspinner").show();
+            },
+            complete: function () {
+                $(".modalspinner").hide();
+            }
+        });
+        $.ajax({
+            data: ""
+        }).done(function (json) {
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Code,
+                    json[i].External_Document_No,
+                    json[i].Tender_Name,
+                    json[i].Procurement_Type,
+                    json[i].Submission_End_Date,
+                    json[i].Project_ID,
+                    '<a class="go_respond" href="">Respond</a>'
+                ]);
+            }
+        });
+        tl.on("click",
+            ".go_respond",
+            function (tl) {
+                tl.preventDefault();
+                var i = $(this).parents("tr")[0];
+
+                //global loader spinner;
+                $.ajaxSetup({
+                    global: false,
+                    type: "POST",
+                    url: "/Home/GetIfpDetails?ifpnumber=" + i.cells[1].innerHTML,
+                    beforeSend: function () {
+                        $(".modalspinner").show();
+                    },
+                    complete: function () {
+                        $(".modalspinner").hide();
+                    }
+                });
+
+                ////end ajax call here
+            }
+
+        );
+    };
+
+    var rc = function () {
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/GetRepCenters",
+            beforeSend: function () {
+                $(".modalspinner").show();
+            },
+            complete: function () {
+                $(".modalspinner").hide();
+            }
+        });
+        $.ajax({
+            data: ""
+        }).done(function (json) {
+            //populate dropdownlist here
+            $.each(json,
+                function(key, entry) {
+                    var drlis = $('<option></option>').attr('value', entry.Code).text(entry.Name);
+                    $(drlis).appendTo('#regions_centers');
+                });
+
+        });
+        
+    };
+
+    var pg = function () {
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/GetProcTypes",
+            beforeSend: function () {
+                $(".modalspinner").show();
+            },
+            complete: function () {
+                $(".modalspinner").hide();
+            }
+        });
+        $.ajax({
+            data: ""
+        }).done(function (json) {
+            //populate dropdownlist here
+            $.each(json,
+                function (key, entry) {
+                    var drlis = $('<option></option>').attr('value', entry.Code).text(entry.Description);
+                    $(drlis).appendTo('#prod_group');
+                });
+
+        });
+
+    };
+
+    var wks = function () {
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/FnGetWorksnCategory",
+            beforeSend: function () {
+                $(".modalspinner").show();
+            },
+            complete: function () {
+                $(".modalspinner").hide();
+            }
+        });
+        $.ajax({
+            data: ""
+        }).done(function (json) {
+            //populate dropdownlist here
+            $.each(json,
+                function (key, entry) {
+                    var drlis = $('<option></option>').attr('value', entry.Code).text(entry.Description);
+                    $(drlis).appendTo('#works_cat_ddl');
+                });
+
+        });
+
+    };
+
     return {
         init: function() {
-            e(), rfiresponse();
+            e(), rfiresponse(), optends(), rc(), pg(),wks();
         }
     }
 }();
