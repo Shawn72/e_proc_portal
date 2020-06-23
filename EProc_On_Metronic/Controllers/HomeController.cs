@@ -26,7 +26,7 @@ namespace EProc_On_Metronic.Controllers
         //public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
 
         ///uncomment this while publishing on live server
-       // public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
+        //public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
 
         ///for use on localhost testings
         public static string Baseurl = "https://sngutu30:3031/";
@@ -92,6 +92,21 @@ namespace EProc_On_Metronic.Controllers
         {
             return View();
         }
+
+        public ActionResult PurchaseItemsInject()
+        {
+            return View();
+        }
+        public ActionResult TenderRequirementsInject()
+        {
+            return View();
+        }
+
+        public ActionResult TenderEvalCriteriaInject()
+        {
+            return View();
+        }
+
 
         public ActionResult Login_Eproc()
         {
@@ -171,6 +186,21 @@ namespace EProc_On_Metronic.Controllers
         }
 
         public ActionResult TendersList()
+        {
+            return View();
+        }
+
+        public ActionResult SpecialGrpTenders()
+        {
+            return View();
+        }
+
+        public ActionResult TenderByRegion()
+        {
+            return View();
+        }
+
+        public ActionResult TenderOverviewInject()
         {
             return View();
         }
@@ -2421,6 +2451,87 @@ namespace EProc_On_Metronic.Controllers
             var items = (from a in req where a.Works_Category == workscategory select a).ToList();
             return Json(items, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult SearchByXpryDate(string xpirydte)
+        {
+            var dateplushyphen = xpirydte.Replace("/", "-");
+            var matchjsondate = dateplushyphen + "T00:00:00";
+            List<TenderModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var items = (from a in req where a.Submission_End_Date == matchjsondate select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetOpentenderSpecialGrpList()
+        {
+            List<TenderModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var items = (from a in req where a.Document_Status == "Published" && a.Mandatory_Special_Group_Reserv==true && a.Tender_Name != "" select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult TendersGoodsRegions()
+        {
+            List<TenderModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var items = (from a in req where a.Procurement_Type == "GOODS" select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult GetSingleItTender(string ittpnumber)
+        {
+            List<TenderModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var items = (from a in req where a.Code == ittpnumber select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult FnGetTenderAddendums(string invitationNo)
+        {
+            List<TenderAddendums> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetAddendums");
+            req = JsonConvert.DeserializeObject<List<TenderAddendums>>(json);
+            var items = (from a in req where a.Invitation_Notice_No == invitationNo select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPurchaseItemsforSingleTender(string ittpnumber)
+        {
+            List<PurchaseCodeLinesModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetPurchaseCodeLines");
+            req = JsonConvert.DeserializeObject<List<PurchaseCodeLinesModel>>(json);
+            var items = (from a in req where a.Standard_Purchase_Code == ittpnumber select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetBidTenderRequirments(string ittpnumber)
+        {
+            List<BidSecurityModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetIfsRequirements");
+            req = JsonConvert.DeserializeObject<List<BidSecurityModel>>(json);
+            var items = (from a in req where a.IFS_Code == ittpnumber select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
         [AllowAnonymous]

@@ -206,6 +206,7 @@
     <Compile Include="Models\AuditedFinancialsTModel.cs" />
     <Compile Include="Models\BalanceSheetTModel.cs" />
     <Compile Include="Models\BankModel.cs" />
+    <Compile Include="Models\BidSecurityModel.cs" />
     <Compile Include="Models\BlogsModel.cs" />
     <Compile Include="Models\BusinessSizeModel.cs" />
     <Compile Include="Models\BusinessTypesModel.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Models\StaffEntryTModel.cs" />
     <Compile Include="Models\StaffQualificTModel.cs" />
     <Compile Include="Models\StaffXPTModel.cs" />
+    <Compile Include="Models\TenderAddendums.cs" />
     <Compile Include="Models\TenderModel.cs" />
     <Compile Include="Models\UploadedFile.cs" />
     <Compile Include="Models\VendorModel.cs" />
@@ -250,6 +252,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="PurchaseCodeLinesModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Web References\WebRef\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -269,6 +272,7 @@
     <Content Include="assets\apps\scripts\todo.min.js" />
     <Content Include="assets\customassets\css\customstyles.css" />
     <Content Include="assets\customassets\css\overlay.css" />
+    <Content Include="assets\customassets\css\table_scroll.css" />
     <Content Include="assets\customassets\js\buttonClicks.js" />
     <Content Include="assets\customassets\js\custompluginsjs.js" />
     <Content Include="assets\customassets\js\dataFetchHmpgInits.js" />
@@ -2934,6 +2938,12 @@
     <Content Include="Views\Home\DocumentTemplateList_Rfi.cshtml" />
     <Content Include="Views\Home\DocumentTemplateDroplist_Rfi.cshtml" />
     <Content Include="Views\Home\TendersList.cshtml" />
+    <Content Include="Views\Home\SpecialGrpTenders.cshtml" />
+    <Content Include="Views\Home\TenderByRegion.cshtml" />
+    <Content Include="Views\Home\TenderOverviewInject.cshtml" />
+    <Content Include="Views\Home\PurchaseItemsInject.cshtml" />
+    <Content Include="Views\Home\TenderRequirementsInject.cshtml" />
+    <Content Include="Views\Home\TenderEvalCriteriaInject.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

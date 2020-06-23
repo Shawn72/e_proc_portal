@@ -18,7 +18,7 @@ $(document).ready(function () {
         e.preventDefault();
         window.location.href = '/Home/SignupCorporate';
     });
-
+  
     $('#btnLogin').click(function (e) {
         //To prevent form submit after ajax call
         e.preventDefault();
@@ -1768,7 +1768,34 @@ $(document).ready(function () {
         $("#works_cat_div_2").css("display", "none");
     });
     //END: search by works category
-    
+
+    //START: search by expiry date
+    $("#tender_xp_sel_btn").click(function () {
+        $("#tender_xp_div").css("display", "none");
+        $("#tender_xp_div_2").css("display", "block");
+    });
+
+    $("#tender_xp_dte").change(function () {
+        xpdt.init();
+        $("#tender_xp_div").css("display", "block");
+        $("#tender_xp_div_2").css("display", "none");
+    });
+    //END: search by expiry date
+
+    //START: Tender Side Menu links
+    //$(".btnlink_active_tnds").click(function () {
+    //    window.location.href = "/Home/TendersList/";
+    //    $("#tenderslistdiv").css("display", "block");
+    //    $("#special_grp_tenderslistdiv").css("display", "none");
+    //    //the rest here
+    //});
+
+    //$(".btnlink_spg").click(function () {
+    //    window.location.href = "/Home/TendersList/";
+    //    $("#tenderslistdiv").css("display", "none");
+    //    $("#special_grp_tenderslistdiv").css("display", "block");
+    //});
+    //END: Tender Side Menu links
 
 });
 var po = function() {
@@ -1860,8 +1887,6 @@ var po = function() {
             }
         });
     };
-   
-   
     return {
         init: function () {
             e(),rfid(), d(), p();
@@ -1915,7 +1940,7 @@ var go = function () {
                     json[i].External_Document_No,
                     json[i].Tender_Name,
                     json[i].Procurement_Type,
-                    json[i].Submission_End_Date,
+                    new Date(json[i].Submission_End_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
                     json[i].Project_ID,
                     '<a class="go_respond" href="">Respond</a>'
                 ]);
@@ -1976,7 +2001,7 @@ var to = function () {
                     json[i].External_Document_No,
                     json[i].Tender_Name,
                     json[i].Procurement_Type,
-                    json[i].Submission_End_Date,
+                    new Date(json[i].Submission_End_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
                     json[i].Project_ID,
                     '<a class="go_respond" href="">Respond</a>'
                 ]);
@@ -2036,7 +2061,7 @@ var rg = function () {
                     json[i].External_Document_No,
                     json[i].Tender_Name,
                     json[i].Procurement_Type,
-                    json[i].Submission_End_Date,
+                    new Date(json[i].Submission_End_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
                     json[i].Project_ID,
                     '<a class="go_respond" href="">Respond</a>'
                 ]);
@@ -2095,7 +2120,67 @@ var wrks = function () {
                     json[i].External_Document_No,
                     json[i].Tender_Name,
                     json[i].Procurement_Type,
-                    json[i].Submission_End_Date,
+                    new Date(json[i].Submission_End_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                    json[i].Project_ID,
+                    '<a class="go_respond" href="">Respond</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function () {
+            d();
+        }
+    }
+}();
+
+var xpdt = function () {
+    var d = function () {
+        var tl = $("#tbl_open_tenders_n"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        // targets: [0],
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                        // targets: [0]
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                //stateSave: true,
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/SearchByXpryDate?xpirydte=" + $("#tender_xp_dte").val(),
+            data: ""
+        }).done(function (json) {
+            console.log("test dates: "+json);
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Code,
+                    json[i].External_Document_No,
+                    json[i].Tender_Name,
+                    json[i].Procurement_Type,
+                    new Date(json[i].Submission_End_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
                     json[i].Project_ID,
                     '<a class="go_respond" href="">Respond</a>'
                 ]);

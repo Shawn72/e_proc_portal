@@ -1,0 +1,19 @@
+﻿.scroll {
+    height:400px;overflow:auto;
+}
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    border: 1px solid yellowgreen;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: yellowgreen;
+    border-radius: 10px;
+}
+    ::-webkit-scrollbar-thumb:hover { background: #88ba1c;
+
+}
+
