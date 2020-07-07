@@ -1281,7 +1281,7 @@ var Ld = function () {
                     cache: false,
                     async: true
                 }).done(function (json6) {
-                    console.log(JSON.stringify({ allreqit: json6 }));
+                    //console.log(JSON.stringify({ allreqit: json6 }));
                     var td6 = $("#tbl_bid_sec_reqs"),
                         p6 = td6.dataTable({
                             lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
@@ -1328,6 +1328,226 @@ var Ld = function () {
                           ]);
                     }
                 });
+
+                //async fetch 7: bid tender docs
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/GetTenderRequiredDocs?ittpnumber=" + linkval,
+                    data: "",
+                    cache: false,
+                    async: true
+                }).done(function (json7) {
+                    //console.log(JSON.stringify({ allreqit: json7 }));
+                    var td7 = $("#tbl_bid_req_docs"),
+                        p7 = td7.dataTable({
+                            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                            pageLength: 5,
+                            language: {
+                                aria: {
+                                    sortAscending: ": activate to sort column ascending",
+                                    sortDescending: ": activate to sort column descending"
+                                },
+                                emptyTable: "No data available in table",
+                                info: "Showing _START_ to _END_ of _TOTAL_ records",
+                                infoEmpty: "No records found",
+                                infoFiltered: "(filtered1 from _MAX_ total records)",
+                                lengthMenu: "Show _MENU_",
+                                search: "Search:",
+                                zeroRecords: "No matching records found",
+                                paginate: {
+                                    previous: "Prev",
+                                    next: "Next",
+                                    last: "Last",
+                                    first: "First"
+                                }
+                            },
+                            bStateSave: !0,
+                            columnDefs: [
+                                { orderable: !0, defaultContent: "-", targets: "_all" },
+                                { searchable: !0, targets: "_all" }
+                            ],
+                            order: [[0, "asc"]],
+                            bDestroy: true,
+                            info: false,
+                            processing: true,
+                            retrieve: true
+                        });
+
+                    for (var i = 0; i < json7.length; i++) {
+                        p7.fnAddData([
+                            json7[i].Procurement_Document_Type_ID,
+                            json7[i].Description,
+                            json7[i].Track_Certificate_Expiry,
+                            json7[i].Requirement_Type
+
+                           ]);
+                    }
+                });
+
+                //async fetch 8: bid scope
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/GetTenderRequiredDocs?ittpnumber=" + linkval,
+                    data: "",
+                    cache: false,
+                    async: true
+                }).done(function (json8) {
+                    //console.log(JSON.stringify({ allreqit: json7 }));
+                    var td8 = $("#tbl_bid_scope"),
+                        p8 = td8.dataTable({
+                            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                            pageLength: 5,
+                            language: {
+                                aria: {
+                                    sortAscending: ": activate to sort column ascending",
+                                    sortDescending: ": activate to sort column descending"
+                                },
+                                emptyTable: "No data available in table",
+                                info: "Showing _START_ to _END_ of _TOTAL_ records",
+                                infoEmpty: "No records found",
+                                infoFiltered: "(filtered1 from _MAX_ total records)",
+                                lengthMenu: "Show _MENU_",
+                                search: "Search:",
+                                zeroRecords: "No matching records found",
+                                paginate: {
+                                    previous: "Prev",
+                                    next: "Next",
+                                    last: "Last",
+                                    first: "First"
+                                }
+                            },
+                            bStateSave: !0,
+                            columnDefs: [
+                                { orderable: !0, defaultContent: "-", targets: "_all" },
+                                { searchable: !0, targets: "_all" }
+                            ],
+                            order: [[0, "asc"]],
+                            bDestroy: true,
+                            info: false,
+                            processing: true,
+                            retrieve: true
+                        });
+
+                    for (var i = 0; i < json8.length; i++) {
+                        p8.fnAddData([
+                            json8[i].Procurement_Document_Type_ID,
+                            json8[i].Description,
+                            json8[i].Track_Certificate_Expiry,
+                            json8[i].Requirement_Type
+
+                        ]);
+                    }
+                });
+
+                //async fetch 9: bid reserved tender
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/GetTenderRerved?ittpnumber=" + linkval,
+                    data: "",
+                    cache: false,
+                    async: true
+                }).done(function (json9) {
+                    console.log(JSON.stringify({ reserved: json9 }));
+                    var td9 = $("#tbl_bid_preserv_scheme"),
+                        p9 = td9.dataTable({
+                            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                            pageLength: 5,
+                            language: {
+                                aria: {
+                                    sortAscending: ": activate to sort column ascending",
+                                    sortDescending: ": activate to sort column descending"
+                                },
+                                emptyTable: "No data available in table",
+                                info: "Showing _START_ to _END_ of _TOTAL_ records",
+                                infoEmpty: "No records found",
+                                infoFiltered: "(filtered1 from _MAX_ total records)",
+                                lengthMenu: "Show _MENU_",
+                                search: "Search:",
+                                zeroRecords: "No matching records found",
+                                paginate: {
+                                    previous: "Prev",
+                                    next: "Next",
+                                    last: "Last",
+                                    first: "First"
+                                }
+                            },
+                            bStateSave: !0,
+                            columnDefs: [
+                                { orderable: !0, defaultContent: "-", targets: "_all" },
+                                { searchable: !0, targets: "_all" }
+                            ],
+                            order: [[0, "asc"]],
+                            bDestroy: true,
+                            info: false,
+                            processing: true,
+                            retrieve: true
+                        });
+
+                    for (var i = 0; i < json9.length; i++) {
+                        p9.fnAddData([
+                            json9[i].Restricted_Vendor_Category_ID,
+                            json9[i].Description
+
+                        ]);
+                    }
+                });
+
+
+                //async fetch 10: eval crit
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/GetEvalCriteria?ittpnumber=" + linkval,
+                    data: "",
+                    cache: false,
+                    async: true
+                }).done(function (json10) {
+                    var td10 = $("#tbl_eval_criteria"),
+                        p10 = td10.dataTable({
+                            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                            pageLength: 5,
+                            language: {
+                                aria: {
+                                    sortAscending: ": activate to sort column ascending",
+                                    sortDescending: ": activate to sort column descending"
+                                },
+                                emptyTable: "No data available in table",
+                                info: "Showing _START_ to _END_ of _TOTAL_ records",
+                                infoEmpty: "No records found",
+                                infoFiltered: "(filtered1 from _MAX_ total records)",
+                                lengthMenu: "Show _MENU_",
+                                search: "Search:",
+                                zeroRecords: "No matching records found",
+                                paginate: {
+                                    previous: "Prev",
+                                    next: "Next",
+                                    last: "Last",
+                                    first: "First"
+                                }
+                            },
+                            bStateSave: !0,
+                            columnDefs: [
+                                { orderable: !0, defaultContent: "-", targets: "_all" },
+                                { searchable: !0, targets: "_all" }
+                            ],
+                            order: [[0, "asc"]],
+                            bDestroy: true,
+                            info: false,
+                            processing: true,
+                            retrieve: true
+                        });
+
+                    for (var i = 0; i < json10.length; i++) {
+                        p10.fnAddData([
+                            '<a class="go_check_evalcrit" href="javascript:;">' + json10[i].Code + '</a>',
+                            json10[i].Description,
+                            json10[i].Total_Preliminary_Checks_Score,
+                            json10[i].Total_Technical_Evaluation,
+                            json10[i].Total_Financial_Evaluation,
+                            json10[i].Total_Assigned_Score_Weight
+                        ]);
+                    }
+                });
+
                 ////end ajax call here
             }
 

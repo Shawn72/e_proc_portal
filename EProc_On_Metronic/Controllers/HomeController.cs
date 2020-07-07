@@ -205,6 +205,11 @@ namespace EProc_On_Metronic.Controllers
             return View();
         }
 
+        public ActionResult ProjectWorksInject()
+        {
+            return View();
+        }
+
         public ActionResult TendersOpentoPublic()
         {
             List<ProcurementModel> appliedtenders = null;
@@ -2532,6 +2537,38 @@ namespace EProc_On_Metronic.Controllers
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetTenderRequiredDocs(string ittpnumber)
+        {
+            List<IfsDocumentTModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetIfsDocs");
+            req = JsonConvert.DeserializeObject<List<IfsDocumentTModel>>(json);
+            var items = (from a in req where a.Document_No == ittpnumber select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTenderRerved(string ittpnumber)
+        {
+            List<BidderReservedtModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetTenderReservCategory");
+            req = JsonConvert.DeserializeObject<List<BidderReservedtModel>>(json);
+            var items = (from a in req where a.Document_No == ittpnumber select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetEvalCriteria(string ittpnumber)
+        {
+            List<TenderEvalCriteriaModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetBidScoringTemplate");
+            req = JsonConvert.DeserializeObject<List<TenderEvalCriteriaModel>>(json);
+            var items = (from a in req select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         [AllowAnonymous]

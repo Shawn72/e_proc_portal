@@ -206,6 +206,9 @@
     <Compile Include="Models\AuditedFinancialsTModel.cs" />
     <Compile Include="Models\BalanceSheetTModel.cs" />
     <Compile Include="Models\BankModel.cs" />
+    <Compile Include="Models\BidderReservedtModel.cs" />
+    <Compile Include="Models\BidPreservschemeTModel.cs" />
+    <Compile Include="Models\BidScopeTModel.cs" />
     <Compile Include="Models\BidSecurityModel.cs" />
     <Compile Include="Models\BlogsModel.cs" />
     <Compile Include="Models\BusinessSizeModel.cs" />
@@ -221,6 +224,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IfPDocumentsTModel.cs" />
     <Compile Include="Models\IFPRequestsModel.cs" />
+    <Compile Include="Models\IfsDocumentTModel.cs" />
     <Compile Include="Models\IncomeStatementTModel.cs" />
     <Compile Include="Models\IndustryGroupModel.cs" />
     <Compile Include="Models\LanguageModel.cs" />
@@ -242,6 +246,7 @@
     <Compile Include="Models\StaffQualificTModel.cs" />
     <Compile Include="Models\StaffXPTModel.cs" />
     <Compile Include="Models\TenderAddendums.cs" />
+    <Compile Include="Models\TenderEvalCriteriaModel.cs" />
     <Compile Include="Models\TenderModel.cs" />
     <Compile Include="Models\UploadedFile.cs" />
     <Compile Include="Models\VendorModel.cs" />
@@ -2831,7 +2836,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -2944,6 +2951,7 @@
     <Content Include="Views\Home\PurchaseItemsInject.cshtml" />
     <Content Include="Views\Home\TenderRequirementsInject.cshtml" />
     <Content Include="Views\Home\TenderEvalCriteriaInject.cshtml" />
+    <Content Include="Views\Home\ProjectWorksInject.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
