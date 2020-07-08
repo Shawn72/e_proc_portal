@@ -1060,7 +1060,7 @@ var Ld = function () {
                     json[i].Tender_Name,
                     json[i].Procurement_Type,
                     new Date(json[i].Submission_End_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
-                    json[i].Project_ID
+                    json[i].Bid_Scoring_Template
                 ]);
             }
         });
@@ -1074,7 +1074,7 @@ var Ld = function () {
 
                 var i = $(this).parents("tr")[0];
                 var linkval = i.cells[1].innerText;
-               
+                var bidscortemp = i.cells[6].innerText;
                 //global loader spinner;
                 $.ajaxSetup({
                     global: false,
@@ -1496,7 +1496,7 @@ var Ld = function () {
                 //async fetch 10: eval crit
                 $.ajax({
                     type: "POST",
-                    url: "/Home/GetEvalCriteria?ittpnumber=" + linkval,
+                    url: "/Home/GetEvalCriteria?bidscoretemplate=" + bidscortemp,
                     data: "",
                     cache: false,
                     async: true
@@ -1546,6 +1546,209 @@ var Ld = function () {
                             json10[i].Total_Assigned_Score_Weight
                         ]);
                     }
+
+                    td10.on("click",
+                        ".go_check_evalcrit",
+                        function(td10) {
+                            td10.preventDefault();
+                            var i = $(this).parents("tr")[0];
+
+                            //switch divs
+                            $("#eval_crit_display").css("display", "none");
+                            $("#eval_crit_details_display").css("display", "block");
+
+                           //alert("clicked :" + i.cells[0].innerText);
+
+                            //global loader spinner;
+                            $.ajaxSetup({
+                                global: false,
+                                type: "POST",
+                                url: "/Home/CalculateBidEvalCriteriaScores?templatenumber=" + i.cells[0].innerText,
+                                beforeSend: function() {
+                                    $(".modalspinner").show();
+                                },
+                                complete: function() {
+                                    $(".modalspinner").hide();
+                                }
+                            });
+
+                            $.ajax({
+                                data: "",
+                                async:true
+                            }).done(function(json) {
+                                var splitjson = json.split("*");
+
+                                $("#txtPreliminaryEval").val(splitjson[0]),
+                                $("#txtTechnicalEval").val(splitjson[1]),
+                                $("#txtFinancialEval").val(splitjson[2]);
+
+                            });
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/Home/GetBidEvalCriteriaScores?templatenumber=" + i.cells[0].innerText,
+                                data: "",
+                                cache: false,
+                                async: true
+                            }).done(function (json) {
+                                var tds = $("#tbl_creit_details_v"),
+                                    ps = tds.dataTable({
+                                        lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                                        pageLength: 5,
+                                        language: {
+                                            aria: {
+                                                sortAscending: ": activate to sort column ascending",
+                                                sortDescending: ": activate to sort column descending"
+                                            },
+                                            emptyTable: "No data available in table",
+                                            info: "Showing _START_ to _END_ of _TOTAL_ records",
+                                            infoEmpty: "No records found",
+                                            infoFiltered: "(filtered1 from _MAX_ total records)",
+                                            lengthMenu: "Show _MENU_",
+                                            search: "Search:",
+                                            zeroRecords: "No matching records found",
+                                            paginate: {
+                                                previous: "Prev",
+                                                next: "Next",
+                                                last: "Last",
+                                                first: "First"
+                                            }
+                                        },
+                                        bStateSave: !0,
+                                        columnDefs: [
+                                            { orderable: !0, defaultContent: "-", targets: "_all" },
+                                            { searchable: !0, targets: "_all" }
+                                        ],
+                                        order: [[0, "asc"]],
+                                        bDestroy: true,
+                                        info: false,
+                                        processing: true,
+                                        retrieve: true
+                                    });
+
+                                for (var i = 0; i < json.length; i++) {
+                                    ps.fnAddData([
+                                        json[i].Criteria_Group_ID,
+                                        json[i].Description,
+                                        json[i].Total_Weight
+                                    ]);
+                                }
+
+                            });
+
+
+                        });
+
+
+                    ////end ajax call here
+                
+                });
+
+                //async fetch 11: personel specs
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/GetPersonelSpecs?ittpnumber=" + linkval,
+                    data: "",
+                    cache: false,
+                    async: true
+                }).done(function (json) {
+                    var tds = $("#tbl_bid_personel_descr"),
+                        ps = tds.dataTable({
+                            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                            pageLength: 5,
+                            language: {
+                                aria: {
+                                    sortAscending: ": activate to sort column ascending",
+                                    sortDescending: ": activate to sort column descending"
+                                },
+                                emptyTable: "No data available in table",
+                                info: "Showing _START_ to _END_ of _TOTAL_ records",
+                                infoEmpty: "No records found",
+                                infoFiltered: "(filtered1 from _MAX_ total records)",
+                                lengthMenu: "Show _MENU_",
+                                search: "Search:",
+                                zeroRecords: "No matching records found",
+                                paginate: {
+                                    previous: "Prev",
+                                    next: "Next",
+                                    last: "Last",
+                                    first: "First"
+                                }
+                            },
+                            bStateSave: !0,
+                            columnDefs: [
+                                { orderable: !0, defaultContent: "-", targets: "_all" },
+                                { searchable: !0, targets: "_all" }
+                            ],
+                            order: [[0, "asc"]],
+                            bDestroy: true,
+                            info: false,
+                            processing: true,
+                            retrieve: true
+                        });
+
+                    for (var i = 0; i < json.length; i++) {
+                        ps.fnAddData([
+                            json[i].Staff_Role_Code,
+                            json[i].Title_Designation_Description,
+                            json[i].Staff_Category,
+                            json[i].Min_No_of_Recomm_Staff,
+                            json[i].Requirement_Type
+                        ]);
+                    }
+                });
+
+                //async fetch 12: equipment specs
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/GetTendeEqSpecs?ittpnumber=" + linkval,
+                    data: "",
+                    cache: false,
+                    async: true
+                }).done(function (json) {
+                    var tds = $("#tbl_equip_specs"),
+                        ps = tds.dataTable({
+                            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                            pageLength: 5,
+                            language: {
+                                aria: {
+                                    sortAscending: ": activate to sort column ascending",
+                                    sortDescending: ": activate to sort column descending"
+                                },
+                                emptyTable: "No data available in table",
+                                info: "Showing _START_ to _END_ of _TOTAL_ records",
+                                infoEmpty: "No records found",
+                                infoFiltered: "(filtered1 from _MAX_ total records)",
+                                lengthMenu: "Show _MENU_",
+                                search: "Search:",
+                                zeroRecords: "No matching records found",
+                                paginate: {
+                                    previous: "Prev",
+                                    next: "Next",
+                                    last: "Last",
+                                    first: "First"
+                                }
+                            },
+                            bStateSave: !0,
+                            columnDefs: [
+                                { orderable: !0, defaultContent: "-", targets: "_all" },
+                                { searchable: !0, targets: "_all" }
+                            ],
+                            order: [[0, "asc"]],
+                            bDestroy: true,
+                            info: false,
+                            processing: true,
+                            retrieve: true
+                        });
+
+                    for (var i = 0; i < json.length; i++) {
+                        ps.fnAddData([
+                            json[i].Equipment_Type_Code,
+                            json[i].Description,
+                            json[i].Category,
+                            json[i].Minimum_Required_Qty
+                        ]);
+                    }
                 });
 
                 ////end ajax call here
@@ -1553,6 +1756,65 @@ var Ld = function () {
 
         );
     };
+
+    var debaredList = function() {
+        var tl = $("#tbl_debarment_list"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/GetDebarmentList",
+            beforeSend: function() {
+                $(".modalspinner").show();
+            },
+            complete: function() {
+                $(".modalspinner").hide();
+            }
+        });
+        $.ajax({
+            data: ""
+        }).done(function(json) {
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Firm_Name,
+                    json[i].Reason_Code,
+                    json[i].Description,
+                    new Date(json[i].Ineligibility_Start_Date).toLocaleDateString('en-US',
+                        { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                    new Date(json[i].Ineligibility_End_Date).toLocaleDateString('en-US',
+                        { day: '2-digit', month: '2-digit', year: 'numeric' })
+                ]);
+            }
+        });
+    }
+    
 
     var optendsSpg = function () {
         var tl = $("#special_grp_tbl_open_tenders_n"),
@@ -1713,6 +1975,128 @@ var Ld = function () {
 
     };
 
+    var addendumList = function () {
+
+        var td4 = $("#tbl_addendum_list"),
+            p4 = td4.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: {
+                    aria: {
+                        sortAscending: ": activate to sort column ascending",
+                        sortDescending: ": activate to sort column descending"
+                    },
+                    emptyTable: "No data available in table",
+                    info: "Showing _START_ to _END_ of _TOTAL_ records",
+                    infoEmpty: "No records found",
+                    infoFiltered: "(filtered1 from _MAX_ total records)",
+                    lengthMenu: "Show _MENU_",
+                    search: "Search:",
+                    zeroRecords: "No matching records found",
+                    paginate: {
+                        previous: "Prev",
+                        next: "Next",
+                        last: "Last",
+                        first: "First"
+                    }
+                },
+                bStateSave: !0,
+                columnDefs: [
+                    { orderable: !0, defaultContent: "-", targets: "_all" },
+                    { searchable: !0, targets: "_all" }
+                ],
+                order: [[0, "asc"]],
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/FnAllTenderAddendums",
+            beforeSend: function () {
+                $(".modalspinner").show();
+            },
+            complete: function () {
+                $(".modalspinner").hide();
+            }
+        });
+
+        //async fetch 3: addendums list for menu
+        $.ajax({
+            data: "",
+            cache: false,
+            async: true
+        }).done(function (json3) {
+            for (var i = 0; i < json3.length; i++) {
+                p4.fnAddData([
+                    '<a class="go_check_addendum" href="javascript:;">' + json3[i].Addendum_Notice_No + '</a>',
+                    new Date(json3[i].Document_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                    '<a class="go_check_addendum" href="javascript:;">' + json3[i].Invitation_Notice_No + '</a>',
+                    json3[i].Description,
+                    json3[i].Tender_Description,
+                    json3[i].Responsibility_Center
+                
+                ]);
+            }
+
+
+            td4.on("click",
+                ".go_check_addendum",
+                function(td4) {
+                    td4.preventDefault();
+                    var i = $(this).parents("tr")[0];
+
+                    //switch divs
+                    $("#addedum_show_list").css("display", "none");
+                    $("#addendum_details").css("display", "block");
+
+                    //alert("clicked :" + i.cells[0].innerText);
+
+                    //global loader spinner;
+                    $.ajaxSetup({
+                        global: false,
+                        type: "POST",
+                        url: "/Home/FnSingleTenderAddendums?addendumnumber=" + i.cells[0].innerText,
+                        beforeSend: function() {
+                            $(".modalspinner").show();
+                        },
+                        complete: function() {
+                            $(".modalspinner").hide();
+                        }
+                    });
+
+                    $.ajax({
+                        data: "",
+                        async: true
+                    }).done(function (json) {
+                        for (var i = 0; i < json.length; i++) {
+                            p4.fnAddData([
+                                $("#txtAddendNoticeNo").val(json[i].Addendum_Notice_No),
+                                $("#txtDocumentDte").val(new Date(json[i].Document_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })),
+                                $("#txtTenderDescription").val(json[i].Tender_Description),
+                                $("#txtInvNoticeNo").val(json[i].Invitation_Notice_No),
+                                $("#txtResponsibilityCenter").val(json[i].Responsibility_Center),
+                                $("#txtAddendumInstruct").val(json[i].Addendum_Instructions),
+                                $("#txtDescription").val(json[i].Description),
+                                $("#txtSubstartDate").val(new Date(json[i].New_Submission_Start_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })),
+                                $("#txtBidOpentime").val(json[i].New_Submission_Start_Time),
+                                $("#txtSubendTime").val(json[i].New_Submission_End_Time),
+                                $("#txtPrebidMettingTime").val(json[i].New_Bid_Opening_Time),
+                                $("#txtPrebidMettingDte").val(new Date(json[i].New_Prebid_Meeting_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })),
+                                $("#txtBidopeningDte").val(new Date(json[i].New_Bid_Opening_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })),
+                               
+                            ]);
+                        }
+
+                    });
+                });
+        });
+
+   }
+
     var rgT = function () {
         var tl = $("#region_goods_tenders_n"),
             l = tl.dataTable({
@@ -1798,10 +2182,34 @@ var Ld = function () {
 
     return {
         init: function() {
-            e(), rfiresponse(), optends(), rc(), pg(),wks(), optendsSpg(), rgT();
+            e(), rfiresponse(), optends(), rc(), pg(), wks(), optendsSpg(), rgT(), debaredList(), addendumList();
         }
     }
 }();
+
+$('.btn_back_2_tenderlist').click(function() {
+    window.location = "/Home/TendersList";
+});
+
+$('.btn_back_2_evalcrit').click(function () {
+    //switch divs
+    $("#eval_crit_display").css("display", "block");
+    $("#eval_crit_details_display").css("display", "none");
+});
+
+$('.btn_back_2_addendumlist').click(function () {
+    //switch divs
+    window.location = "/Home/ActiveAddendumNotices";
+    $("#addendum_details").css("display", "none");
+});
+
+
+$('.btn_go_apply').click(function () {
+    // window.location = "/Home/TendersList";
+    alert('hang on, do not click me, am under developmemt.....come back later!');
+});
+
+
 jQuery(document).ready(function() {
     Ld.init();
 });

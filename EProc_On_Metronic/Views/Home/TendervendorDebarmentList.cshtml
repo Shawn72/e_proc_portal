@@ -1,0 +1,99 @@
+﻿@{
+    Layout = "~/Views/Shared/_Formwizard_Layout.cshtml";
+}
+<!-- BEGIN PAGE TITLE-->
+<div class="page-content" style="min-height: 900px!important">
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/Home/TendervendorDebarmentList">e-Bidding</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li><span>Debarment List</span></li>
+    </ul>
+        
+</div>
+<!-- END PAGE BAR -->
+
+<h3 class="page-title"><strong>Vendor Debarment as per PPADA</strong>
+</h3>
+<!-- END PAGE TITLE-->
+
+<p>
+    Public Procurement & Disposal Act Revised Edition 2016 on Debarment
+    Section 41 of the Public Procurement and Asset Disposal Act (PPADA) Revised Edition 2016 provides guidelines
+    and grounds for vendor debarment in Kenya.
+    (1) The PPRA Review Board shall debar a person from participating in procurement or asset disposal
+    proceedings on the ground that the person—
+    (a) has committed an offence under this Act;
+    (b) has committed an offence relating to procurement under any other Act or Law of Kenya or any other
+    jurisdiction;
+    (c) has breached a contract for a procurement by a public entity including poor performance;
+    (d) has, in procurement or asset disposal proceedings, given false information about his or her qualifications;
+    (e) has refused to enter into a written contract as required under section 135 of this Act;
+    (f) has breached a code of ethics issued by the Authority pursuant to section 181 of this Act or the code of ethics
+    of the relevant profession regulated by an Act of Parliament;
+    (g) has defaulted on his or her tax obligations;
+    (h) is guilty of corrupt or fraudulent practices; or
+    (i) is guilty of a serious violation of fair employment laws and practices.
+    (2) Without limiting the generality of subsection (1) the Board may debar a person from participating in any
+    procurement process if that person—
+    (a) has breached the requirements of the tender securing declaration form in the tender documents; or
+    (b) has not performed according to professionally regulated procedures.
+    (3) The Authority, may also debar a person from participating in procurement or asset disposal proceedings—
+    (a) on the recommendation of a law enforcement organ with an investigative mandate;
+    (b) on grounds prescribed by the Authority in Regulations.
+    (4) A debarment under this section shall be for a specified period of time of not less than three years.
+    A copy of the Public Procurement and Asset Disposal Act can be downloaded from thePublic Procurment
+    Regulatory Authority website
+</p>
+
+<!-- START: Active Tender Invitations-->
+
+    <div class="caption">
+        <i class="icon-settings font-green"></i>
+        <span class="caption-subject font-green sbold uppercase">Ineligible Firms and Individuals</span>
+    </div>
+    <p>
+        Kenya Rural Roads Authority (The Procuring Entity) shall not procure from, contract with, or engage a tenderer
+        who is debarred from participating in public procurement proceedings pursuant to the Public Procurement and
+        Disposal Act (PPADA) and its Regulations.
+        The debarment list below is based on information provided by the Public Procurement Regulatory Authority
+        (PPRA) and other cross-debarment development partners such as the World Bank.
+    </p>
+
+    <table class="table table-striped table-bordered table-hover table-responsive" id="tbl_debarment_list">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Debarment Reason Code</th>
+                <th>Description </th>
+                <th>Inelligibility Start Date</th>
+                <th>Inelligibility End Date</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="form-actions">
+        <div class="row">
+            <div class="col-md-offset-5 col-md-8">
+                <a href="javascript:;" class="btn green btn-outline btn-circle btn_back_2_tenderlist"><i class="fas fa fa-angle-left"></i> &nbsp;Back </a>
+               
+            </div>
+        </div>
+    </div>
+
+
+<!---START: Tender Details per ITT No-->
+
+<!-- END: Active Tender Invitations-->
+
+<div class="modalspinner" style="display: none">
+    <div class="centerspinner">
+        <img alt="" src="/assets/loaders/spinner.gif"/>
+    </div>
+</div>
+</div>
+<!-- END CONTENT BODY -->

@@ -70,6 +70,7 @@
         public string Primary_Tender_Submission { get; set; }
         public bool Performance_Security_Required { get; set; }
         public bool Bid_Tender_Security_Required { get; set; }
+        public string Bid_Scoring_Template { get; set; }
 
         //seperator
         public string Bid_Security { get; set; }

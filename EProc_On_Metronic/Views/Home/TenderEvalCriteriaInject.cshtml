@@ -14,38 +14,110 @@
     3. Unless stated otherwise, the default bid selection method applicable to this Tender shall be the Quality and Cost Based
     Selection method (QCBS).</p>
 
-<table class="table table-striped table-bordered table-hover table-responsive" id="tbl_eval_criteria">
-    <thead>
-    <tr>
-        <th>Template ID</th>
-        <th>Description</th>
-        <th>Total Preliminary (Mandatory) Checkscore</th>
-        <th>Total Technical Evaluation Score %</th>
-        <th>Total Financial Evaluation Score %</th>
-        <th>Total Weighted Score</th>
-    </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+<div id="eval_crit_display">
+
+    <table class="table table-striped table-bordered table-hover table-responsive" id="tbl_eval_criteria">
+        <thead>
+        <tr>
+            <th>Template ID</th>
+            <th>Description</th>
+            <th>Total Preliminary (Mandatory) Checkscore</th>
+            <th>Total Technical Evaluation Score %</th>
+            <th>Total Financial Evaluation Score %</th>
+            <th>Total Weighted Score</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+</div>
+
+<div id="eval_crit_details_display" style="display: none">
+    
+    <table class="table table-striped table-bordered table-hover table-responsive">
+
+        <tr>
+            <td colspan="4">
+                <div class="caption">
+                    <i class="icon-settings font-green"></i>
+                    <span class="caption-subject font-green sbold uppercase">Summarized Evaluation Criteria</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label"><strong>Preliminary Evaluation</strong></label>
+            </td>
+            <td>
+                <input type="text" class="form-control" id="txtPreliminaryEval" readonly />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label class="control-label"><strong>Technical Evaluation</strong></label>
+            </td>
+            <td>
+                <input type="text" class="form-control" id="txtTechnicalEval" readonly />
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <label class="control-label"><strong>Financial Evaluation</strong></label>
+            </td>
+            <td>
+                <input type="text" class="form-control"  id="txtFinancialEval" readonly />
+            </td>
+        </tr>
+    </table>
+    
+    
+    <div class="caption">
+        <i class="icon-settings font-green"></i>
+        <span class="caption-subject font-green sbold uppercase">Criteria Group Details</span>
+    </div>
+    <p>More Details</p>
+
+    <table class="table table-striped table-bordered table-hover table-responsive" id="tbl_creit_details_v">
+        <thead>
+        <tr>
+            <th>Criteria Group ID</th>
+            <th>Description</th>
+            <th>Weighted Score %</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    
+    <div class="form-actions">
+        <div class="row">
+            <div class="col-md-offset-5 col-md-8">
+                <a href="javascript:;" class="btn green btn-outline btn-circle btn_back_2_evalcrit"><i class="fas fa fa-angle-left"></i><<<< &nbsp;Backwards </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 @*<div class="caption">
-    <i class="icon-settings font-green"></i>
-    <span class="caption-subject font-green sbold uppercase">Equipment Specification</span>
-</div>
-<p>This section provides the details of the equipment that a contractor is required to provide for the Project Works. Please
-    take note of the minimum quantity for each equipment type. The contractor is required to provide documents that support
-    the ownership or lease of each equipment, as part of their bid response</p>
+            <i class="icon-settings font-green"></i>
+            <span class="caption-subject font-green sbold uppercase">Equipment Specification</span>
+        </div>
+        <p>This section provides the details of the equipment that a contractor is required to provide for the Project Works. Please
+            take note of the minimum quantity for each equipment type. The contractor is required to provide documents that support
+            the ownership or lease of each equipment, as part of their bid response</p>
 
-<table class="table table-striped table-bordered table-hover table-responsive" id="tbl_equip_specs">
-    <thead>
-    <tr>
-        <th>Equipment Type Code</th>
-        <th>Description</th>
-        <th>Requirement Type</th>
-        <th>Minimum Required Quanity</th>
-    </tr>
-    </thead>
-    <tbody></tbody>
-</table>*@
+        <table class="table table-striped table-bordered table-hover table-responsive" id="tbl_equip_specs">
+            <thead>
+            <tr>
+                <th>Equipment Type Code</th>
+                <th>Description</th>
+                <th>Requirement Type</th>
+                <th>Minimum Required Quanity</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>*@
 

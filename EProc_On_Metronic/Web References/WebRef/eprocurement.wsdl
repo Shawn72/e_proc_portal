@@ -818,6 +818,21 @@
           </sequence>
         </complexType>
       </element>
+      <element name="FnGetEvalCritScores">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="templateID" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="evaluationType" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnGetEvalCritScores_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="decimal" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
   <message name="FnRegisterVendor">
@@ -1096,6 +1111,12 @@
   <message name="FnSubmisionResponseStatus_Result">
     <part name="parameters" element="tns:FnSubmisionResponseStatus_Result" />
   </message>
+  <message name="FnGetEvalCritScores">
+    <part name="parameters" element="tns:FnGetEvalCritScores" />
+  </message>
+  <message name="FnGetEvalCritScores_Result">
+    <part name="parameters" element="tns:FnGetEvalCritScores_Result" />
+  </message>
   <portType name="eprocurement_Port">
     <operation name="FnRegisterVendor">
       <input name="FnRegisterVendor" message="tns:FnRegisterVendor" />
@@ -1280,6 +1301,10 @@
     <operation name="FnSubmisionResponseStatus">
       <input name="FnSubmisionResponseStatus" message="tns:FnSubmisionResponseStatus" />
       <output name="FnSubmisionResponseStatus_Result" message="tns:FnSubmisionResponseStatus_Result" />
+    </operation>
+    <operation name="FnGetEvalCritScores">
+      <input name="FnGetEvalCritScores" message="tns:FnGetEvalCritScores" />
+      <output name="FnGetEvalCritScores_Result" message="tns:FnGetEvalCritScores_Result" />
     </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
@@ -1695,6 +1720,15 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnSubmisionResponseStatus_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnGetEvalCritScores">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnGetEvalCritScores" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnGetEvalCritScores">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnGetEvalCritScores_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

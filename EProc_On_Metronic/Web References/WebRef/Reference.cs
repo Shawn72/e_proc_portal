@@ -121,6 +121,8 @@ namespace EProc_On_Metronic.WebRef {
         
         private System.Threading.SendOrPostCallback FnSubmisionResponseStatusOperationCompleted;
         
+        private System.Threading.SendOrPostCallback FnGetEvalCritScoresOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -296,6 +298,9 @@ namespace EProc_On_Metronic.WebRef {
         
         /// <remarks/>
         public event FnSubmisionResponseStatusCompletedEventHandler FnSubmisionResponseStatusCompleted;
+        
+        /// <remarks/>
+        public event FnGetEvalCritScoresCompletedEventHandler FnGetEvalCritScoresCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendor", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnRegisterVendor_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -2117,6 +2122,38 @@ namespace EProc_On_Metronic.WebRef {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnGetEvalCritScores", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnGetEvalCritScores_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public decimal FnGetEvalCritScores(string templateID, int evaluationType) {
+            object[] results = this.Invoke("FnGetEvalCritScores", new object[] {
+                        templateID,
+                        evaluationType});
+            return ((decimal)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnGetEvalCritScoresAsync(string templateID, int evaluationType) {
+            this.FnGetEvalCritScoresAsync(templateID, evaluationType, null);
+        }
+        
+        /// <remarks/>
+        public void FnGetEvalCritScoresAsync(string templateID, int evaluationType, object userState) {
+            if ((this.FnGetEvalCritScoresOperationCompleted == null)) {
+                this.FnGetEvalCritScoresOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnGetEvalCritScoresOperationCompleted);
+            }
+            this.InvokeAsync("FnGetEvalCritScores", new object[] {
+                        templateID,
+                        evaluationType}, this.FnGetEvalCritScoresOperationCompleted, userState);
+        }
+        
+        private void OnFnGetEvalCritScoresOperationCompleted(object arg) {
+            if ((this.FnGetEvalCritScoresCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnGetEvalCritScoresCompleted(this, new FnGetEvalCritScoresCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -3305,6 +3342,32 @@ namespace EProc_On_Metronic.WebRef {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnGetEvalCritScoresCompletedEventHandler(object sender, FnGetEvalCritScoresCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnGetEvalCritScoresCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnGetEvalCritScoresCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public decimal Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((decimal)(this.results[0]));
             }
         }
     }

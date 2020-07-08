@@ -246,8 +246,12 @@
     <Compile Include="Models\StaffQualificTModel.cs" />
     <Compile Include="Models\StaffXPTModel.cs" />
     <Compile Include="Models\TenderAddendums.cs" />
+    <Compile Include="Models\TenderBidScrCritGrpTModel.cs" />
+    <Compile Include="Models\TenderEquipSpecTModel.cs" />
     <Compile Include="Models\TenderEvalCriteriaModel.cs" />
+    <Compile Include="Models\TenderKeyStaffModel.cs" />
     <Compile Include="Models\TenderModel.cs" />
+    <Compile Include="Models\TenderVDerbarmentTModel.cs" />
     <Compile Include="Models\UploadedFile.cs" />
     <Compile Include="Models\VendorModel.cs" />
     <Compile Include="Models\WorksCategoryModel.cs" />
@@ -2952,6 +2956,9 @@
     <Content Include="Views\Home\TenderRequirementsInject.cshtml" />
     <Content Include="Views\Home\TenderEvalCriteriaInject.cshtml" />
     <Content Include="Views\Home\ProjectWorksInject.cshtml" />
+    <Content Include="Views\Home\TendervendorDebarmentList.cshtml" />
+    <Content Include="Views\Home\ActiveAddendumNotices.cshtml" />
+    <Content Include="Views\Home\AddendumDetailsInject.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

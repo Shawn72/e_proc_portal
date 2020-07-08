@@ -210,6 +210,21 @@ namespace EProc_On_Metronic.Controllers
             return View();
         }
 
+        public ActionResult TendervendorDebarmentList()
+        {
+            return View();
+        }
+
+        public ActionResult ActiveAddendumNotices()
+        {
+            return View();
+        }
+
+        public ActionResult AddendumDetailsInject()
+        {
+            return View();
+        }
+
         public ActionResult TendersOpentoPublic()
         {
             List<ProcurementModel> appliedtenders = null;
@@ -2504,6 +2519,28 @@ namespace EProc_On_Metronic.Controllers
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult FnAllTenderAddendums()
+        {
+            List<TenderAddendums> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetAddendums");
+            req = JsonConvert.DeserializeObject<List<TenderAddendums>>(json);
+            var items = (from a in req select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult FnSingleTenderAddendums(string addendumnumber)
+        {
+            List<TenderAddendums> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetAddendums");
+            req = JsonConvert.DeserializeObject<List<TenderAddendums>>(json);
+            var items = (from a in req select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult FnGetTenderAddendums(string invitationNo)
         {
             List<TenderAddendums> req = null;
@@ -2559,13 +2596,78 @@ namespace EProc_On_Metronic.Controllers
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetEvalCriteria(string ittpnumber)
+        public JsonResult GetEvalCriteria(string bidscoretemplate)
         {
             List<TenderEvalCriteriaModel> req = null;
             WebClient wc = new WebClient();
             wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetBidScoringTemplate");
             req = JsonConvert.DeserializeObject<List<TenderEvalCriteriaModel>>(json);
+            var items = (from a in req where a.Code == bidscoretemplate select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPersonelSpecs(string ittpnumber)
+        {
+            List<TenderKeyStaffModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetTenderKeystaff");
+            req = JsonConvert.DeserializeObject<List<TenderKeyStaffModel>>(json);
+            var items = (from a in req where a.IFS_Code == ittpnumber select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTendeEqSpecs(string ittpnumber)
+        {
+            List<TenderEquipSpecTModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetTenderEquipSpecs");
+            req = JsonConvert.DeserializeObject<List<TenderEquipSpecTModel>>(json);
+            var items = (from a in req where a.Document_No == ittpnumber select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetBidEvalCritGroup(string templatenumber)
+        {
+            List<TenderBidScrCritGrpTModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetTenderifsBidscoreGrp");
+            req = JsonConvert.DeserializeObject<List<TenderBidScrCritGrpTModel>>(json);
+            var items = (from a in req where a.Template_ID == templatenumber select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CalculateBidEvalCriteriaScores(string templatenumber)
+        {
+            var nvWebref = WsConfig.EProcWebRef;
+            var preliminaryeval = nvWebref.FnGetEvalCritScores(templatenumber, 0);
+            var techeval = nvWebref.FnGetEvalCritScores(templatenumber, 1);
+            var financialeval = nvWebref.FnGetEvalCritScores(templatenumber, 2);
+            return Json(preliminaryeval +"*"+ techeval + "*" + financialeval, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetBidEvalCriteriaScores(string templatenumber)
+        {
+            List<TenderBidScrCritGrpTModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetTenderifsBidscoreGrp");
+            req = JsonConvert.DeserializeObject<List<TenderBidScrCritGrpTModel>>(json);
+            var items = (from a in req where a.Template_ID == templatenumber select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult GetDebarmentList()
+        {
+            List<TenderVDerbarmentTModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetTenderVDebarment");
+            req = JsonConvert.DeserializeObject<List<TenderVDerbarmentTModel>>(json);
             var items = (from a in req select a).ToList();
             return Json(items, JsonRequestBehavior.AllowGet);
         }
