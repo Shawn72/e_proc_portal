@@ -107,6 +107,10 @@ namespace EProc_On_Metronic.Controllers
             return View();
         }
 
+        public ActionResult TenderbyRegionOverviewInject()
+        {
+            return View();
+        }
 
         public ActionResult Login_Eproc()
         {
@@ -187,16 +191,19 @@ namespace EProc_On_Metronic.Controllers
 
         public ActionResult TendersList()
         {
+            Session["tenderclass"] = "notspecial";
             return View();
         }
 
         public ActionResult SpecialGrpTenders()
         {
+            Session["tenderclass"] = "special";
             return View();
         }
 
         public ActionResult TenderByRegion()
         {
+            Session["tenderclass"] = "tenderbyregion";
             return View();
         }
 
@@ -221,6 +228,16 @@ namespace EProc_On_Metronic.Controllers
         }
 
         public ActionResult AddendumDetailsInject()
+        {
+            return View();
+        }
+
+        public ActionResult TenderSpGrpOverviewInject()
+        {
+            return View();
+        }
+
+        public ActionResult ContractAwards()
         {
             return View();
         }
@@ -2311,6 +2328,7 @@ namespace EProc_On_Metronic.Controllers
             return Json(res[1], JsonRequestBehavior.AllowGet);
         }
 
+
         public JsonResult SubmitRfiResponse(RfiResponseTModel rfimodel)
         {
             try
@@ -2507,7 +2525,6 @@ namespace EProc_On_Metronic.Controllers
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult GetSingleItTender(string ittpnumber)
         {
             List<TenderModel> req = null;
@@ -2660,7 +2677,6 @@ namespace EProc_On_Metronic.Controllers
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult GetDebarmentList()
         {
             List<TenderVDerbarmentTModel> req = null;
@@ -2670,6 +2686,17 @@ namespace EProc_On_Metronic.Controllers
             req = JsonConvert.DeserializeObject<List<TenderVDerbarmentTModel>>(json);
             var items = (from a in req select a).ToList();
             return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetRegionWorksCategory()
+        {
+            List<TenderModel> modelitems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            modelitems = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var jritems = (from a in modelitems where a.Procurement_Type == "WORKS" select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

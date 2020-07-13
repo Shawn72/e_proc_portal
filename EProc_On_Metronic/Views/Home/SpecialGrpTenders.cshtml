@@ -24,8 +24,9 @@
     related tender documents and allow for online submission of their bid responses
 </p>
      
+<input type="hidden" value="@Session["tenderclass"]" class="loaded_tender_type" />
 <!-- START: Special Tender Group-->
-    <div class="row" id="special_grp_tenderslistdiv" >
+ <div class="row" id="special_grp_tenderslistdiv" >
         <div class="col-md-12">
             <!-- Begin: life time stats -->
             <div class="portlet light portlet-fit portlet-datatable bordered">
@@ -138,8 +139,7 @@
                                 <th>Tender Name</th>
                                 <th>Product Group</th>
                                 <th>Submision End Date</th>
-                                <th>Project ID</th>
-                                <th>Actions</th>
+                                <th>Bid scoring Template ID</th>
                             </tr>
                             </thead>
                             <tbody></tbody>
@@ -152,7 +152,7 @@
     </div>
 
 <!---START: Tender Details per ITT No-->
-<div id="tender_details_div"style="display: none">
+<div id="tender_details_div" style="display: none">
     <div class="portlet-body">
         <ul class="nav nav-tabs">
             <li class="active">
@@ -161,18 +161,18 @@
             <li>
                 <a href="#tab_1_2" data-toggle="tab"> Purchase Items/Services </a>
             </li>
-                                                
+
             <li>
                 <a href="#tab_1_3" data-toggle="tab"> Tender Requirements </a>
             </li>
-                        
+
             <li>
                 <a href="#tab_1_4" data-toggle="tab">Project Works </a>
             </li>
             <li>
                 <a href="#tab_1_5" data-toggle="tab">Evaluation Criteria </a>
             </li>
-                                                
+
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade active in" id="tab_1_1">
@@ -195,20 +195,21 @@
                     <div class="portlet light portlet-fit portlet-datatable bordered">
                         <div class="portlet-body">
                             <strong>Purchase Lines</strong>
-                            <p> The bidder shall be required to provide pricing information for the Goods and Services listed below. Please note the following:
+                            <p>
+                                The bidder shall be required to provide pricing information for the Goods and Services listed below. Please note the following:
                                 1. The bidder must quote for the full quantity on each line.
-                                2. The Price Quote Model is used to determine how the pricing for each line shall be done. 
+                                2. The Price Quote Model is used to determine how the pricing for each line shall be done.
                                 a) Bidder Pricing-This means that the bidder is allowed to set their best price for each line. There is no 	restriction on the amount that the bidder can quote in this case.
-                                b) Flat Amount from Buyer-This option is used when the Procuring Entity (The Buyer) has defined a 	specific standard amount that all bidders shall adopt for a specific purchase line. In this case, the bidder 
+                                b) Flat Amount from Buyer-This option is used when the Procuring Entity (The Buyer) has defined a 	specific standard amount that all bidders shall adopt for a specific purchase line. In this case, the bidder
                                 cannot quote more than the set standard amount/limit.
                             </p>
                             <!-- populate controls -->
-                                
+
                             @Html.Action("PurchaseItemsInject", "Home")
 
                         </div>
                     </div>
-                </div> 
+                </div>
 
             </div>
 
@@ -226,7 +227,7 @@
                 </div>
 
             </div>
-                 
+
             <div class="tab-pane fade" id="tab_1_5">
                 <div class="scroll">
                     @Html.Action("TenderEvalCriteriaInject", "Home")
@@ -237,11 +238,20 @@
 
         </div>
     </div>
+         
+    <div class="form-actions">
+        <div class="row">
+            <div class="col-md-offset-5 col-md-8">
+                <a href="javascript:;" class="btn green btn-outline btn-circle btn_back_2_tenderlist"><i class="fas fa fa-angle-left"></i> &nbsp;Back </a>
+                <a href="javascript:;" class="btn green btn-outline btn-circle btn_go_apply" >Apply &nbsp;<i class="fas fa fa-edit"></i></a>
+            </div>
+        </div>
+    </div>
 
 </div>
 <!---START: Tender Details per ITT No-->
-<!-- END: Special Tender Group-->
 
+<!-- END: Special Tender Group-->
 <div class="modalspinner" style="display: none">
     <div class="centerspinner">
         <img alt="" src="/assets/loaders/spinner.gif"/>

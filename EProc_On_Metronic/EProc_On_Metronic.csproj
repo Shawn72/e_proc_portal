@@ -2959,6 +2959,9 @@
     <Content Include="Views\Home\TendervendorDebarmentList.cshtml" />
     <Content Include="Views\Home\ActiveAddendumNotices.cshtml" />
     <Content Include="Views\Home\AddendumDetailsInject.cshtml" />
+    <Content Include="Views\Home\TenderSpGrpOverviewInject.cshtml" />
+    <Content Include="Views\Home\ContractAwards.cshtml" />
+    <Content Include="Views\Home\TenderbyRegionOverviewInject.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

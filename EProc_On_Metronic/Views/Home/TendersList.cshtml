@@ -25,8 +25,8 @@
             The e-Bidding Portal enables the tenderers to view all Active Invitation For Supply (IFS) Notices, download the
             related tender documents and allow for online submission of their bid responses
         </p>
-
-        <!-- START: Active Tender Invitations-->
+    <input type="hidden" value="@Session["tenderclass"]" class="loaded_tender_type" />
+     <!-- START: Active Tender Invitations-->
      <div class="row" id="tenderslistdiv">
          <div class="col-md-12">
              <!-- Begin: life time stats -->
@@ -80,7 +80,7 @@
                                  <td>
                                      <div class="btn-group" id="prod_group_div" style="display: block">
                                          <a class="btn green btn-outline btn-circle" id="prod_group_sel_btn" href="javascript:;">
-                                             <span class="hidden-xs"> By Product Group </span>
+                                             <span class="hidden-xs"> Product Group </span>
                                              <i class="fas fa-search"></i>
                                          </a>
                                      </div>
@@ -257,9 +257,10 @@
      <!-- END: Active Tender Invitations-->
 
      <div class="modalspinner" style="display: none">
-            <div class="centerspinner">
-                <img alt="" src="/assets/loaders/spinner.gif"/>
-            </div>
-        </div>
-    </div>
+         <div class="centerspinner">
+             <img alt="" src="/assets/loaders/spinner.gif"/>
+         </div>
+     </div>
+
+</div>
 <!-- END CONTENT BODY -->
