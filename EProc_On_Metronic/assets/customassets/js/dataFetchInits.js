@@ -3077,6 +3077,14 @@ var loadRfiFiles = function() {
 
                         }
                     });
+
+                    $.ajax({
+                        data: ""
+                    }).done(function(json) {
+                        if (json == "delete_success") {
+                            alert("File deleted success!");
+                        }
+                    });
                 });
         });
     }
