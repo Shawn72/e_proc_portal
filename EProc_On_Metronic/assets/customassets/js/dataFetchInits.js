@@ -467,20 +467,45 @@ var Ld = function () {
                             processing: true,
                             retrieve: true
                         });
-                    $.ajax({
-                        type: "POST",
-                        url: "/Home/UploadedSpecifVendorDocs_Rfi?rfiApplicationNum=" + $("#txtIfApplicationNo").val(),
-                        data: ""
-                    }).done(function(json) {
-                        //console.log(JSON.stringify({ data: json }));
-                        rt.fnClearTable();
-                        var o = 1;
-                        for (var i = 0; i < json.length; i++) {
-                            rt.fnAddData([
-                                o++, json[i].FileName, json[i].Size, '<a class="trash" href="">Delete</a>'
-                            ]);
-                        }
-                    });
+
+                        //$.ajax({
+                        //    type: "POST",
+                        //    url: "/Home/UploadedSpecifVendorDocs_Rfi?rfiApplicationNum=" + $("#txtIfApplicationNo").val(),
+                        //    data: ""
+                        //}).done(function(json) {
+                        //    //console.log(JSON.stringify({ data: json }));
+                        //    rt.fnClearTable();
+                        //    var o = 1;
+                        //    for (var i = 0; i < json.length; i++) {
+                        //        rt.fnAddData([
+                        //            o++, json[i].FileName, json[i].Size, '<a class="trash" href="">Delete</a>'
+                        //        ]);
+                        //    }
+                        //});
+
+                        //async fetch sharepoint docs 
+                        $.ajax({
+                            type: "POST",
+                            url: "/Home/PullRfIDocumentsfromSharePoint?rfiNumber=" + $("#txtIfApplicationNo").val(),
+                            data: "",
+                            cache: false,
+                            async: true,
+                            dataType: "json"
+                        }).done(function (json) {
+                            //console.log(JSON.stringify(json))
+                                rt.fnClearTable();
+                                var o = 1;
+                                for (var i = 0; i < json.length; i++) {
+                                    rt.fnAddData([
+                                        o++,
+                                        json[i].FileName,
+                                        '<a class="delete_sfile" href="javascript:;" attr_delt_filelink ="" >Delete File</a>'
+
+                                    ]);
+                                }
+                        });
+
+
                 });
 
                 //async fetch 3: Prequalification categories get services type
@@ -1820,7 +1845,6 @@ var Ld = function () {
                         });
 
                     console.log(JSON.stringify(json))
-                    for (var i = 0; i < json.length; i++) {
 
                         l.fnClearTable();
                         var o = 1;
@@ -1832,8 +1856,6 @@ var Ld = function () {
 
                             ]);
                         }
-
-                    }
                 });
 
                 ////end ajax call here

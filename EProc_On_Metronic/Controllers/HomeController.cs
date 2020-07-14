@@ -23,15 +23,24 @@ namespace EProc_On_Metronic.Controllers
 {
     [AllowAnonymous]
     public class HomeController : Controller
-    {     
+    {
+
         ///uncomment this while publishing on live server
-        public static string Baseurl = ConfigurationManager.AppSettings["API_SERVER_URL"];
+
+        //public static string Baseurl = ConfigurationManager.AppSettings["API_SERVER_URL"];
+
+        ///uncomment this while publishing on live server
 
         ///for use on localhost testings
-        // public static string Baseurl =   ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
 
+        public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
+        
+        ///for use on localhost testings
+     
+        /// API Authentications
         public static string ApiUsername = ConfigurationManager.AppSettings["API_USERNAME"];
         public static string ApiPassword = ConfigurationManager.AppSettings["API_PWD"];
+        /// API Authentications
 
         public ActionResult Index_Eproc()
         {
@@ -1818,50 +1827,36 @@ namespace EProc_On_Metronic.Controllers
                 if (bbConnected)
                 {
                     Uri uri = new Uri(sURL);
-                    string sSPSiteRelativeURL = uri.AbsolutePath;
+                    string sSpSiteRelativeUrl = uri.AbsolutePath;
                     string uploadfilename = rfiNumber + "_" + browsedFile.FileName;                    
                     Stream uploadfileContent = browsedFile.InputStream;
                     // sDocName = UploadFile(FileLocalPath.FileContent, FileLocalPath.FileName, sSPSiteRelativeURL, txtLibraryName.Text);
 
-                    sDocName = UploadFile(uploadfileContent, uploadfilename, sSPSiteRelativeURL, sharepointLibrary, rfiNumber, vendorNumber);
+                    sDocName = UploadFile(uploadfileContent, uploadfilename, sSpSiteRelativeUrl, sharepointLibrary, rfiNumber, vendorNumber);
 
-                    ///SharePoint Link to be added to Navison Card
+                    //SharePoint Link to be added to Navison Card
                     string sharepointlink = sURL + sharepointLibrary + "/" + rfiNumber + "/" + vendorNumber + "/" + uploadfilename;
 
 
                     if (!string.IsNullOrWhiteSpace(sDocName))
                     {
-                        string RfiIdentity = rfiNumber;
-                        //String status = Config.ObjNav.AddImprestSharepointLinks(imprestIdentity, uploadfilename, sharepointlink);
-                        //PopulateDocumentsfromSPTable();
-                        // documentsfeedback.InnerHtml = "<div class='alert alert-success'>The document was successfully uploaded. <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-
-                        fileuploadSuccess = true;
-                    }
-
-                    else
-                    {
-                        //  documentsfeedback.InnerHtml = "<div class='alert alert-danger'>The document could not be uploaded. Please try again <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
-                        fileuploadSuccess = false;
+                       fileuploadSuccess = true;
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // throw;
             }
-            }
-                return fileuploadSuccess;    
+           }
+          return fileuploadSuccess;    
 
         }
 
         protected bool _UploadSupplierDocumentToSharepoint(string vendorNumber, HttpPostedFileBase browsedFile)
-
         {
-
             bool fileuploadSuccess = false;
-            string sURL = ConfigurationManager.AppSettings["S_URL"];
-            string sDocName = string.Empty;
+            string sUrl = ConfigurationManager.AppSettings["S_URL"];
             string tfilename = browsedFile.FileName;
             string defaultlibraryname = "ERP%20Documents/";
             string customlibraryname = "KeRRA/Vendor Card";
@@ -1869,135 +1864,200 @@ namespace EProc_On_Metronic.Controllers
             vendorNumber = vendorNumber.Replace('/', '_');
             vendorNumber = vendorNumber.Replace(':', '_');
 
-            if (!string.IsNullOrWhiteSpace(sURL) && !string.IsNullOrWhiteSpace(sharepointLibrary) && !string.IsNullOrWhiteSpace(tfilename))
+            if (!string.IsNullOrWhiteSpace(sUrl) && !string.IsNullOrWhiteSpace(sharepointLibrary) && !string.IsNullOrWhiteSpace(tfilename))
             {
                 string username = ConfigurationManager.AppSettings["S_USERNAME"];
                 string password = ConfigurationManager.AppSettings["S_PWD"];
                 string domainname = ConfigurationManager.AppSettings["S_DOMAIN"];
-                bool bbConnected = WsConfig.Connect(sURL, username, password, domainname);
+                bool bbConnected = WsConfig.Connect(sUrl, username, password, domainname);
 
                 try
                 {
                     if (bbConnected)
                     {
-                        Uri uri = new Uri(sURL);
-                        string sSPSiteRelativeURL = uri.AbsolutePath;
-                        string uploadfilename = vendorNumber + "_" + browsedFile;
+                        Uri uri = new Uri(sUrl);
+                        string sSpSiteRelativeUrl = uri.AbsolutePath;
+                        string uploadfilename = vendorNumber + "_" + browsedFile.FileName;
                         Stream uploadfileContent = browsedFile.InputStream;
-                        sDocName = UploadSupplierFile(uploadfileContent, uploadfilename, sSPSiteRelativeURL, sharepointLibrary, vendorNumber);
+                        var sDocName = UploadSupplierRegFile(uploadfileContent, uploadfilename, sSpSiteRelativeUrl, sharepointLibrary, vendorNumber);
 
-                        ///SharePoint Link to be added to Navison Card
-                        string sharepointlink = sURL + sharepointLibrary + "/" + vendorNumber + "/" + uploadfilename;
+                        //SharePoint Link to be added to Navison Card
+                        string sharepointlink = sUrl + sharepointLibrary + "/" + vendorNumber + "/" + uploadfilename;
 
 
                         if (!string.IsNullOrWhiteSpace(sDocName))
                         {
-                            string VendorIdentity = vendorNumber;
                             fileuploadSuccess = true;
-                        }
-
-                        else
-                        {
-                            fileuploadSuccess = false;
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // throw;
                 }
             }
             return fileuploadSuccess;
-
         }
-        public string UploadSupplierFile(Stream fs, string sFileName, string sSPSiteRelativeURL, string sLibraryName, string VendorNumber)
+
+        public JsonResult PullRfIDocumentsfromSharePoint( string rfiNumber )
         {
-            string sURL = ConfigurationManager.AppSettings["S_URL"];
+            using (ClientContext ctx = new ClientContext(ConfigurationManager.AppSettings["S_URL"]))
+            {
+                var vendorNo = Convert.ToString(Session["vendorNo"]);
+                string password = ConfigurationManager.AppSettings["S_PWD"];
+                string account = ConfigurationManager.AppSettings["S_USERNAME"];
+                string domainname = ConfigurationManager.AppSettings["S_DOMAIN"];
+                var secret = new SecureString();
+
+                List<SharePointTModel> alldocuments = new List<SharePointTModel>();
+
+                foreach (char c in password)
+                {
+                    secret.AppendChar(c);
+                }
+                
+                ctx.Credentials = new NetworkCredential(account, secret, domainname);
+                ctx.Load(ctx.Web);
+                ctx.ExecuteQuery();
+                List list = ctx.Web.Lists.GetByTitle("ERP Documents");
+
+                //Get Unique rfiNumber
+                string uniquerfiNumber = rfiNumber;
+                uniquerfiNumber = uniquerfiNumber.Replace('/', '_');
+                uniquerfiNumber = uniquerfiNumber.Replace(':', '_');
+
+                ctx.Load(list);
+                ctx.Load(list.RootFolder);
+                ctx.Load(list.RootFolder.Folders);
+                ctx.Load(list.RootFolder.Files);
+                ctx.ExecuteQuery();
+
+                FolderCollection allFolders = list.RootFolder.Folders;
+                foreach (Folder folder in allFolders)
+                {
+                    if (folder.Name == "KeRRA")
+                    {
+                        ctx.Load(folder.Folders);
+                        ctx.ExecuteQuery();
+                        var uniquerfiNumberFolders = folder.Folders;
+
+                        foreach (Folder folders in uniquerfiNumberFolders)
+                        {
+                            if (folders.Name == "RFI Response Card")
+                            {
+                                ctx.Load(folders.Folders);
+                                ctx.ExecuteQuery();
+                                var uniqueittpnumberSubFolders = folders.Folders;
+
+                                foreach (Folder rfinumber in uniqueittpnumberSubFolders)
+                                {
+                                    if (rfinumber.Name == uniquerfiNumber)
+                                    {
+                                        ctx.Load(rfinumber.Files);
+                                        ctx.ExecuteQuery();
+                                        var uniqueittpnumberSubFolders2 = rfinumber.Folders;
+                                        foreach (Folder rfinumber2 in uniqueittpnumberSubFolders2)
+                                        {
+                                            if (rfinumber2.Name == vendorNo)
+                                            {
+                                                ctx.Load(rfinumber.Files);
+                                                ctx.ExecuteQuery();
+
+                                                FileCollection rfinumberFiles = rfinumber2.Files;
+                                                foreach (Microsoft.SharePoint.Client.File file in rfinumberFiles)
+                                                {
+                                                    ctx.ExecuteQuery();
+                                                    alldocuments.Add(new SharePointTModel {FileName = file.Name});
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+                return Json(alldocuments, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public string UploadSupplierRegFile(Stream fs, string sFileName, string sSpSiteRelativeUrl, string sLibraryName, string vendorNumber)
+        {
+            string sUrl = ConfigurationManager.AppSettings["S_URL"];
             string sDocName = string.Empty;
-            VendorNumber = VendorNumber.Replace('/', '_');
-            VendorNumber = VendorNumber.Replace(':', '_');
+            vendorNumber = vendorNumber.Replace('/', '_');
+            vendorNumber = vendorNumber.Replace(':', '_');
 
             string parent_folderName = "KeRRA/Vendor Card";
-            string sub_folderName = VendorNumber;
+            string subFolderName = vendorNumber;
             //+ "/"+ VendorNumber;
-            string filelocation = sLibraryName + "/" + sub_folderName;
+            string filelocation = sLibraryName + "/" + subFolderName;
             try
             {
                 // if a folder doesn't exists, create it
                 var listTitle = "ERP Documents";
-                if (!FolderExists(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + sub_folderName))
-                    CreateFolder(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + sub_folderName);
+                if (!FolderExists(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + subFolderName))
+                    CreateFolder(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + subFolderName);
 
                 if (WsConfig.SPWeb != null)
                 {
-
-                    var sFileUrl = String.Format("{0}/{1}/{2}", sSPSiteRelativeURL, filelocation, sFileName);
-
+                    var sFileUrl = string.Format("{0}/{1}/{2}", sSpSiteRelativeUrl, filelocation, sFileName);
                     Microsoft.SharePoint.Client.File.SaveBinaryDirect(WsConfig.SPClientContext, sFileUrl, fs, true);
                     WsConfig.SPClientContext.ExecuteQuery();
                     sDocName = sFileName;
-
-
-
                 }
 
 
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 sDocName = string.Empty;
-
             }
-
             return sDocName;
-
         }
-        public string UploadFile(Stream fs, string sFileName, string sSPSiteRelativeURL, string sLibraryName, string rfidocnumber, string VendorNumber)
+        public string UploadFile(Stream fs, string sFileName, string sSPSiteRelativeURL, string sLibraryName, string rfidocnumber, string vendorNumber)
         {
-            string sURL = ConfigurationManager.AppSettings["S_URL"];
             string sDocName = string.Empty;
-            string trfidocnumber = rfidocnumber;
             rfidocnumber = rfidocnumber.Replace('/', '_');
             rfidocnumber = rfidocnumber.Replace(':', '_');
 
             string parent_folderName = "KeRRA/RFI Response Card";
-            string sub_folderName = rfidocnumber;
+            string subFolderName = rfidocnumber;
+            string level2SubFolderName = vendorNumber;
+
+            string level2parent_folderName = parent_folderName + "/" + subFolderName;
+
+            
+
                 //+ "/"+ VendorNumber;
-            string filelocation = sLibraryName + "/" + sub_folderName;
+            string filelocation = sLibraryName + "/" + subFolderName;
             try
             {
                 // if a folder doesn't exists, create it
                 var listTitle = "ERP Documents";
-                if (!FolderExists(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + sub_folderName))
-                    CreateFolder(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + sub_folderName);
+                if (!FolderExists(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + subFolderName))
+                    CreateFolder(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + subFolderName);
+
+               // _Level2FolderExists
 
                 if (WsConfig.SPWeb != null)
                 {
-
-                    var sFileUrl = String.Format("{0}/{1}/{2}", sSPSiteRelativeURL, filelocation, sFileName);
-
+                    var sFileUrl = string.Format("{0}/{1}/{2}", sSPSiteRelativeURL, filelocation, sFileName);
                     Microsoft.SharePoint.Client.File.SaveBinaryDirect(WsConfig.SPClientContext, sFileUrl, fs, true);
                     WsConfig.SPClientContext.ExecuteQuery();
                     sDocName = sFileName;
-
-
-
                 }
-
-
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 sDocName = string.Empty;
-
             }
-
             return sDocName;
-
         }
         public static bool FolderExists(Web web, string listTitle, string folderUrl)
         {
@@ -2009,6 +2069,17 @@ namespace EProc_On_Metronic.Controllers
             var folderRelativeUrl = string.Format("{0}/{1}", list.RootFolder.ServerRelativeUrl, folderUrl);
             return Enumerable.Any(folders, folderItem => (string)folderItem["FileRef"] == folderRelativeUrl);
         }
+        public static bool _Level2FolderExists(Web web, string listTitle, string level2FolderUrl)
+        {
+            var list = web.Lists.GetByTitle(listTitle);
+            var folders = list.GetItems(CamlQuery.CreateAllFoldersQuery());
+            web.Context.Load(list.RootFolder);
+            web.Context.Load(folders);
+            web.Context.ExecuteQuery();
+            var folderRelativeUrl = string.Format("{0}/{1}", list.RootFolder.ServerRelativeUrl, level2FolderUrl);
+            return Enumerable.Any(folders, folderItem => (string)folderItem["FileRef"] == folderRelativeUrl);
+        }
+
         private static void CreateFolder(Web web, string listTitle, string folderName)
         {
             var list = web.Lists.GetByTitle(listTitle);
@@ -2092,8 +2163,8 @@ namespace EProc_On_Metronic.Controllers
             {
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
-
         }
+        
         public JsonResult UploadedKerraIfpDocs(string ifpnumber)
         {
             var uploadedFiles = new List<UploadedFile>();
@@ -2954,7 +3025,7 @@ namespace EProc_On_Metronic.Controllers
             return Json(jritems, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult PopulateDocumentsfromSPTable(string ittpnumber)
+        public JsonResult PopulateDocumentsfromSpTable(string ittpnumber)
         {
             using (ClientContext ctx = new ClientContext(ConfigurationManager.AppSettings["S_URL"]))
             {
@@ -2977,9 +3048,9 @@ namespace EProc_On_Metronic.Controllers
                 ctx.ExecuteQuery();
                 List list = ctx.Web.Lists.GetByTitle("ERP Documents");
                 //Get Unique IttNumber
-                string Uniqueittpnumber = ittpnumber;
-                Uniqueittpnumber = Uniqueittpnumber.Replace('/', '_');
-                Uniqueittpnumber = Uniqueittpnumber.Replace(':', '_');   
+                string uniqueittpnumber = ittpnumber;
+                uniqueittpnumber = uniqueittpnumber.Replace('/', '_');
+                uniqueittpnumber = uniqueittpnumber.Replace(':', '_');   
                              
                 ctx.Load(list);
                 ctx.Load(list.RootFolder);
@@ -2988,9 +3059,7 @@ namespace EProc_On_Metronic.Controllers
                 ctx.ExecuteQuery();
 
                 FolderCollection allFolders = list.RootFolder.Folders;
-                FolderCollection UniqueittpnumberFolders = null;
-                FolderCollection UniqueittpnumberSubFolders = null;
-             //   List<string> imprestfolders = new List<string>();
+                //   List<string> imprestfolders = new List<string>();
                 List<string> allFiles = new List<string>();
                 foreach (Folder folder in allFolders)
                 {
@@ -2998,19 +3067,19 @@ namespace EProc_On_Metronic.Controllers
                     {
                         ctx.Load(folder.Folders);
                         ctx.ExecuteQuery();
-                        UniqueittpnumberFolders = folder.Folders;
+                        var uniqueittpnumberFolders = folder.Folders;
 
-                        foreach (Folder folders in UniqueittpnumberFolders)
+                        foreach (Folder folders in uniqueittpnumberFolders)
                         {
                             if (folders.Name == "Invitation To Tender")
                             {
                                 ctx.Load(folders.Folders);
                                 ctx.ExecuteQuery();
-                                UniqueittpnumberSubFolders = folders.Folders;
+                                var uniqueittpnumberSubFolders = folders.Folders;
 
-                                foreach (Folder ittnumber in UniqueittpnumberSubFolders)
+                                foreach (Folder ittnumber in uniqueittpnumberSubFolders)
                                 {
-                                    if (ittnumber.Name == Uniqueittpnumber)
+                                    if (ittnumber.Name == uniqueittpnumber)
                                     {
                                         ctx.Load(ittnumber.Files);
                                         ctx.ExecuteQuery();
@@ -3033,7 +3102,7 @@ namespace EProc_On_Metronic.Controllers
                 return Json(alldocuments, JsonRequestBehavior.AllowGet);
             }
         }
-
+        
         [HttpPost]
         [AllowAnonymous]
         public JsonResult CheckLogin(string myUserId, string myPassword)
