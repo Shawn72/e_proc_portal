@@ -1949,31 +1949,22 @@ namespace EProc_On_Metronic.Controllers
                                 ctx.ExecuteQuery();
                                 var uniqueittpnumberSubFolders = folders.Folders;
 
-                                foreach (Folder rfinumber in uniqueittpnumberSubFolders)
-                                {
-                                    if (rfinumber.Name == uniquerfiNumber)
-                                    {
-                                        ctx.Load(rfinumber.Files);
-                                        ctx.ExecuteQuery();
-                                        var uniqueittpnumberSubFolders2 = rfinumber.Folders;
-                                        foreach (Folder rfinumber2 in uniqueittpnumberSubFolders2)
+                                        foreach (Folder rfinumber in uniqueittpnumberSubFolders)
                                         {
-                                            if (rfinumber2.Name == vendorNo)
+                                            if (rfinumber.Name == uniquerfiNumber)
                                             {
                                                 ctx.Load(rfinumber.Files);
                                                 ctx.ExecuteQuery();
 
-                                                FileCollection rfinumberFiles = rfinumber2.Files;
+                                                FileCollection rfinumberFiles = rfinumber.Files;
                                                 foreach (Microsoft.SharePoint.Client.File file in rfinumberFiles)
                                                 {
                                                     ctx.ExecuteQuery();
                                                     alldocuments.Add(new SharePointTModel {FileName = file.Name});
 
                                                 }
-                                            }
-                                        }
-                                    }
-                                }
+                                         }
+                                  }
 
                             }
                         }
@@ -2009,9 +2000,7 @@ namespace EProc_On_Metronic.Controllers
                     WsConfig.SPClientContext.ExecuteQuery();
                     sDocName = sFileName;
                 }
-
-
-            }
+             }
 
             catch (Exception)
             {
@@ -2019,41 +2008,43 @@ namespace EProc_On_Metronic.Controllers
             }
             return sDocName;
         }
-        public string UploadFile(Stream fs, string sFileName, string sSPSiteRelativeURL, string sLibraryName, string rfidocnumber, string vendorNumber)
+        public string UploadFile(Stream fs, string sFileName, string sSpSiteRelativeUrl, string sLibraryName, string rfidocnumber, string vendorNumber)
         {
             string sDocName = string.Empty;
             rfidocnumber = rfidocnumber.Replace('/', '_');
             rfidocnumber = rfidocnumber.Replace(':', '_');
 
             string parent_folderName = "KeRRA/RFI Response Card";
+           // string parent_folderName2 = "KeRRA/RFI Response Card/"+ rfidocnumber;
+
             string subFolderName = rfidocnumber;
-            string level2SubFolderName = vendorNumber;
+           // string subFolderName2 = vendorNumber;
+           
 
-            string level2parent_folderName = parent_folderName + "/" + subFolderName;
-
-            
-
-                //+ "/"+ VendorNumber;
             string filelocation = sLibraryName + "/" + subFolderName;
             try
             {
+               
+                
                 // if a folder doesn't exists, create it
                 var listTitle = "ERP Documents";
                 if (!FolderExists(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + subFolderName))
                     CreateFolder(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + subFolderName);
 
-               // _Level2FolderExists
-
+                //Creating a folder inside a subfolder
+                // if (!FolderExists(WsConfig.SPClientContext.Web, listTitle, parent_folderName2 + "/" + subFolderName2))
+                // CreateFolder(WsConfig.SPClientContext.Web, listTitle, parent_folderName2 + "/" + subFolderName2);
+             
                 if (WsConfig.SPWeb != null)
                 {
-                    var sFileUrl = string.Format("{0}/{1}/{2}", sSPSiteRelativeURL, filelocation, sFileName);
+                    var sFileUrl = string.Format("{0}/{1}/{2}", sSpSiteRelativeUrl, filelocation, sFileName);
                     Microsoft.SharePoint.Client.File.SaveBinaryDirect(WsConfig.SPClientContext, sFileUrl, fs, true);
                     WsConfig.SPClientContext.ExecuteQuery();
                     sDocName = sFileName;
                 }
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
                 sDocName = string.Empty;
             }
@@ -2069,16 +2060,6 @@ namespace EProc_On_Metronic.Controllers
             var folderRelativeUrl = string.Format("{0}/{1}", list.RootFolder.ServerRelativeUrl, folderUrl);
             return Enumerable.Any(folders, folderItem => (string)folderItem["FileRef"] == folderRelativeUrl);
         }
-        public static bool _Level2FolderExists(Web web, string listTitle, string level2FolderUrl)
-        {
-            var list = web.Lists.GetByTitle(listTitle);
-            var folders = list.GetItems(CamlQuery.CreateAllFoldersQuery());
-            web.Context.Load(list.RootFolder);
-            web.Context.Load(folders);
-            web.Context.ExecuteQuery();
-            var folderRelativeUrl = string.Format("{0}/{1}", list.RootFolder.ServerRelativeUrl, level2FolderUrl);
-            return Enumerable.Any(folders, folderItem => (string)folderItem["FileRef"] == folderRelativeUrl);
-        }
 
         private static void CreateFolder(Web web, string listTitle, string folderName)
         {
@@ -2091,6 +2072,45 @@ namespace EProc_On_Metronic.Controllers
             var folderItem = list.AddItem(folderCreateInfo);
             folderItem.Update();
             web.Context.ExecuteQuery();
+        }
+
+
+        public JsonResult DeleteRfDocfromSharepoint(string filename, string ifpNumber)
+        {
+            var sharepointUrl = ConfigurationManager.AppSettings["S_URL"];
+            using (ClientContext ctx = new ClientContext(sharepointUrl))
+            {
+
+                string password = ConfigurationManager.AppSettings["S_PWD"];
+                string account = ConfigurationManager.AppSettings["S_USERNAME"];
+                string domainname = ConfigurationManager.AppSettings["S_DOMAIN"];
+                var secret = new SecureString();
+
+                foreach (char c in password)
+                {
+                    secret.AppendChar(c);
+                }
+                try
+                {
+                    ctx.Credentials = new NetworkCredential(account, secret, domainname);
+                    ctx.Load(ctx.Web);
+                    ctx.ExecuteQuery();
+
+                    string filePath = "/ERP%20Documents/KeRRA/RFI Response Card/" + ifpNumber +"/"+ filename;
+                    var file = ctx.Web.GetFileByServerRelativeUrl(filePath);
+                    ctx.Load(file, f => f.Exists);
+                    file.DeleteObject();
+                    ctx.ExecuteQuery();
+                    if (!file.Exists)
+                        throw new System.IO.FileNotFoundException();
+                }
+                catch (Exception ex)
+                {
+                    // ignored
+                }
+            }
+            return Json("delete_success", JsonRequestBehavior.AllowGet);
+
         }
         public JsonResult UploadedSpecifVendorDocs()
         {
