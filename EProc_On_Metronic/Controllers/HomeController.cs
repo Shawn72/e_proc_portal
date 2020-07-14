@@ -16,23 +16,23 @@ using Newtonsoft.Json;
 using EProc_On_Metronic.Models;
 using System.Drawing;
 using System.Text.RegularExpressions;
-
+using System.Configuration;
+using Microsoft.SharePoint.Client;
+using System.Security;
 namespace EProc_On_Metronic.Controllers
 {
     [AllowAnonymous]
     public class HomeController : Controller
-    {
-        ///for use on localhost testing
-        //public static string Baseurl = "http://197.155.64.54:5050/datafetchapi/";
-
+    {     
         ///uncomment this while publishing on live server
-        //public static string Baseurl = "http://192.168.1.87:5050/datafetchapi/";
+        public static string Baseurl = ConfigurationManager.AppSettings["API_SERVER_URL"];
 
         ///for use on localhost testings
-        public static string Baseurl = "https://sngutu30:3031/";
+        // public static string Baseurl =   ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
 
-        public const string ApiUsername = @"shawn72";
-        public const string ApiPassword = @"cherry*30";
+        public static string ApiUsername = ConfigurationManager.AppSettings["API_USERNAME"];
+        public static string ApiPassword = ConfigurationManager.AppSettings["API_PWD"];
+
         public ActionResult Index_Eproc()
         {
             return View();
@@ -1641,14 +1641,16 @@ namespace EProc_On_Metronic.Controllers
                     entryCounter++;
                     savedF0 = vendorNo + "_" + typauploadselect + "_"+ entryCounter + ext0;
                 }
-
-                string fsavestatus = nvWebref.FnInsertFiledetails(vendorNo, typauploadselect, filedescription,
-                    certificatenumber, dtofIssue, expiryDate, savedF0);
-                var splitanswer = fsavestatus.Split('*');
-                switch (splitanswer[0])
+                bool up2Sharepoint = _UploadSupplierDocumentToSharepoint(vendorNo, browsedfile);
+                if (up2Sharepoint == true)
                 {
+                 string fsavestatus = nvWebref.FnInsertFiledetails(vendorNo, typauploadselect, filedescription,
+                    certificatenumber, dtofIssue, expiryDate, savedF0);
+                   var splitanswer = fsavestatus.Split('*');
+                  switch (splitanswer[0])
+                   {
                     case "success":
-                        browsedfile.SaveAs(subfolder + "/" + savedF0);
+                       // browsedfile.SaveAs(subfolder + "/" + savedF0);
                          uploads = string.Format("{0}",
                             "<div class='form-group'>" +
                             "<h4><strong style='color: chocolate'>List of files you uploaded successfully!</strong></h4></br>Upload Feedback: " +
@@ -1664,6 +1666,17 @@ namespace EProc_On_Metronic.Controllers
                             fileName0 + "<br/>" +
                             "<br/></div>");
                         return Json("danger*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
+                     
+                    }
+                }
+                else
+                {
+                    uploads = string.Format("{0}",
+                    "<div class='form-group alert alert-danger'>" +
+                    "<h4><strong style='color: chocolate'>Files upload error!</strong></h4></br>Upload to sharepoint error!</br>" +
+                    fileName0 + "<br/>" +
+                    "<br/></div>");
+                    return Json("danger*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -1736,29 +1749,42 @@ namespace EProc_On_Metronic.Controllers
                     savedF0 = vendorNo + "_" + typauploadselect + "_" + entryCounter + ext0;
                 }
 
-                string fsavestatus = nvWebref.FnInsertFiledetails_Rfi(vendorNo, typauploadselect, filedescription,
+                bool up2Sharepoint = _UploadRfiDocumentToSharepoint(rfiApplicationNum, browsedfile, vendorNo);
+                if(up2Sharepoint == true)
+                {                  
+                    string fsavestatus = nvWebref.FnInsertFiledetails_Rfi(vendorNo, typauploadselect, filedescription,
                     certificatenumber, dtofIssue, expiryDate, savedF0, rfiApplicationNum);
-                var splitanswer = fsavestatus.Split('*');
-                switch (splitanswer[0])
-                {
-                    case "success":
-                        browsedfile.SaveAs(subfolder + "/" + savedF0);
-                        uploads = string.Format("{0}",
-                            "<div class='form-group'>" +
-                            "<h4><strong style='color: chocolate'>List of files you uploaded successfully!</strong></h4></br>Upload Feedback: " +
-                            splitanswer[1] + "</br> Uploaded File Name: " +
-                            fileName0 + "<br/> Filename Saved: " +
-                            savedF0 +
-                            "</div>");
-                        return Json("success*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
-                    default:
-                        uploads = string.Format("{0}",
-                            "<div class='form-group alert alert-danger'>" +
-                            "<h4><strong style='color: chocolate'>Files upload error!</strong></h4></br>" + splitanswer[1] + "</br>" +
-                            fileName0 + "<br/>" +
-                            "<br/></div>");
-                        return Json("danger*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
+                    var splitanswer = fsavestatus.Split('*');
+                    switch (splitanswer[0])
+                    {
+                        case "success":
+                            // browsedfile.SaveAs(subfolder + "/" + savedF0);
+                            uploads = string.Format("{0}",
+                                "<div class='form-group'>" +
+                                "<h4><strong style='color: chocolate'>List of files you uploaded successfully!</strong></h4></br>Upload Feedback: " +
+                                splitanswer[1] + "</br> Uploaded File Name: " +
+                                fileName0 + "<br/> Filename Saved: " +
+                                savedF0 +
+                                "</div>");
+                            return Json("success*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
+                        default:
+                            uploads = string.Format("{0}",
+                                "<div class='form-group alert alert-danger'>" +
+                                "<h4><strong style='color: chocolate'>Files upload error!</strong></h4></br>" + splitanswer[1] + "</br>" +
+                                fileName0 + "<br/>" +
+                                "<br/></div>");
+                            return Json("danger*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);                               
+                    }                      
                 }
+                else
+                {
+                    uploads = string.Format("{0}",
+                               "<div class='form-group alert alert-danger'>" +
+                               "<h4><strong style='color: chocolate'>Files upload error!</strong></h4></br>Upload to sharepoint error!</br>" +
+                               fileName0 + "<br/>" +
+                               "<br/></div>");
+                    return Json("danger*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
+                }              
             }
             catch (Exception ex)
             {
@@ -1766,6 +1792,235 @@ namespace EProc_On_Metronic.Controllers
             }
         }
 
+        protected bool _UploadRfiDocumentToSharepoint(string rfiNumber, HttpPostedFileBase browsedFile, string vendorNumber )
+
+        {
+           
+            bool fileuploadSuccess = false;
+            string sURL = ConfigurationManager.AppSettings["S_URL"];
+            string sDocName = string.Empty;
+            string tfilename = browsedFile.FileName;
+            string defaultlibraryname = "ERP%20Documents/";
+            string customlibraryname = "KeRRA/RFI Response Card";
+            string sharepointLibrary = defaultlibraryname + customlibraryname;
+            rfiNumber = rfiNumber.Replace('/', '_');
+            rfiNumber = rfiNumber.Replace(':', '_');
+             
+            if (!string.IsNullOrWhiteSpace(sURL) && !string.IsNullOrWhiteSpace(sharepointLibrary) && !string.IsNullOrWhiteSpace(tfilename))
+            {                    
+                string username = ConfigurationManager.AppSettings["S_USERNAME"];
+                string password = ConfigurationManager.AppSettings["S_PWD"];
+                string domainname = ConfigurationManager.AppSettings["S_DOMAIN"];
+                bool bbConnected = WsConfig.Connect(sURL, username, password, domainname);
+
+                try
+                {
+                if (bbConnected)
+                {
+                    Uri uri = new Uri(sURL);
+                    string sSPSiteRelativeURL = uri.AbsolutePath;
+                    string uploadfilename = rfiNumber + "_" + browsedFile.FileName;                    
+                    Stream uploadfileContent = browsedFile.InputStream;
+                    // sDocName = UploadFile(FileLocalPath.FileContent, FileLocalPath.FileName, sSPSiteRelativeURL, txtLibraryName.Text);
+
+                    sDocName = UploadFile(uploadfileContent, uploadfilename, sSPSiteRelativeURL, sharepointLibrary, rfiNumber, vendorNumber);
+
+                    ///SharePoint Link to be added to Navison Card
+                    string sharepointlink = sURL + sharepointLibrary + "/" + rfiNumber + "/" + vendorNumber + "/" + uploadfilename;
+
+
+                    if (!string.IsNullOrWhiteSpace(sDocName))
+                    {
+                        string RfiIdentity = rfiNumber;
+                        //String status = Config.ObjNav.AddImprestSharepointLinks(imprestIdentity, uploadfilename, sharepointlink);
+                        //PopulateDocumentsfromSPTable();
+                        // documentsfeedback.InnerHtml = "<div class='alert alert-success'>The document was successfully uploaded. <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+
+                        fileuploadSuccess = true;
+                    }
+
+                    else
+                    {
+                        //  documentsfeedback.InnerHtml = "<div class='alert alert-danger'>The document could not be uploaded. Please try again <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>";
+                        fileuploadSuccess = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // throw;
+            }
+            }
+                return fileuploadSuccess;    
+
+        }
+
+        protected bool _UploadSupplierDocumentToSharepoint(string vendorNumber, HttpPostedFileBase browsedFile)
+
+        {
+
+            bool fileuploadSuccess = false;
+            string sURL = ConfigurationManager.AppSettings["S_URL"];
+            string sDocName = string.Empty;
+            string tfilename = browsedFile.FileName;
+            string defaultlibraryname = "ERP%20Documents/";
+            string customlibraryname = "KeRRA/Vendor Card";
+            string sharepointLibrary = defaultlibraryname + customlibraryname;
+            vendorNumber = vendorNumber.Replace('/', '_');
+            vendorNumber = vendorNumber.Replace(':', '_');
+
+            if (!string.IsNullOrWhiteSpace(sURL) && !string.IsNullOrWhiteSpace(sharepointLibrary) && !string.IsNullOrWhiteSpace(tfilename))
+            {
+                string username = ConfigurationManager.AppSettings["S_USERNAME"];
+                string password = ConfigurationManager.AppSettings["S_PWD"];
+                string domainname = ConfigurationManager.AppSettings["S_DOMAIN"];
+                bool bbConnected = WsConfig.Connect(sURL, username, password, domainname);
+
+                try
+                {
+                    if (bbConnected)
+                    {
+                        Uri uri = new Uri(sURL);
+                        string sSPSiteRelativeURL = uri.AbsolutePath;
+                        string uploadfilename = vendorNumber + "_" + browsedFile;
+                        Stream uploadfileContent = browsedFile.InputStream;
+                        sDocName = UploadSupplierFile(uploadfileContent, uploadfilename, sSPSiteRelativeURL, sharepointLibrary, vendorNumber);
+
+                        ///SharePoint Link to be added to Navison Card
+                        string sharepointlink = sURL + sharepointLibrary + "/" + vendorNumber + "/" + uploadfilename;
+
+
+                        if (!string.IsNullOrWhiteSpace(sDocName))
+                        {
+                            string VendorIdentity = vendorNumber;
+                            fileuploadSuccess = true;
+                        }
+
+                        else
+                        {
+                            fileuploadSuccess = false;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // throw;
+                }
+            }
+            return fileuploadSuccess;
+
+        }
+        public string UploadSupplierFile(Stream fs, string sFileName, string sSPSiteRelativeURL, string sLibraryName, string VendorNumber)
+        {
+            string sURL = ConfigurationManager.AppSettings["S_URL"];
+            string sDocName = string.Empty;
+            VendorNumber = VendorNumber.Replace('/', '_');
+            VendorNumber = VendorNumber.Replace(':', '_');
+
+            string parent_folderName = "KeRRA/Vendor Card";
+            string sub_folderName = VendorNumber;
+            //+ "/"+ VendorNumber;
+            string filelocation = sLibraryName + "/" + sub_folderName;
+            try
+            {
+                // if a folder doesn't exists, create it
+                var listTitle = "ERP Documents";
+                if (!FolderExists(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + sub_folderName))
+                    CreateFolder(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + sub_folderName);
+
+                if (WsConfig.SPWeb != null)
+                {
+
+                    var sFileUrl = String.Format("{0}/{1}/{2}", sSPSiteRelativeURL, filelocation, sFileName);
+
+                    Microsoft.SharePoint.Client.File.SaveBinaryDirect(WsConfig.SPClientContext, sFileUrl, fs, true);
+                    WsConfig.SPClientContext.ExecuteQuery();
+                    sDocName = sFileName;
+
+
+
+                }
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                sDocName = string.Empty;
+
+            }
+
+            return sDocName;
+
+        }
+        public string UploadFile(Stream fs, string sFileName, string sSPSiteRelativeURL, string sLibraryName, string rfidocnumber, string VendorNumber)
+        {
+            string sURL = ConfigurationManager.AppSettings["S_URL"];
+            string sDocName = string.Empty;
+            string trfidocnumber = rfidocnumber;
+            rfidocnumber = rfidocnumber.Replace('/', '_');
+            rfidocnumber = rfidocnumber.Replace(':', '_');
+
+            string parent_folderName = "KeRRA/RFI Response Card";
+            string sub_folderName = rfidocnumber;
+                //+ "/"+ VendorNumber;
+            string filelocation = sLibraryName + "/" + sub_folderName;
+            try
+            {
+                // if a folder doesn't exists, create it
+                var listTitle = "ERP Documents";
+                if (!FolderExists(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + sub_folderName))
+                    CreateFolder(WsConfig.SPClientContext.Web, listTitle, parent_folderName + "/" + sub_folderName);
+
+                if (WsConfig.SPWeb != null)
+                {
+
+                    var sFileUrl = String.Format("{0}/{1}/{2}", sSPSiteRelativeURL, filelocation, sFileName);
+
+                    Microsoft.SharePoint.Client.File.SaveBinaryDirect(WsConfig.SPClientContext, sFileUrl, fs, true);
+                    WsConfig.SPClientContext.ExecuteQuery();
+                    sDocName = sFileName;
+
+
+
+                }
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                sDocName = string.Empty;
+
+            }
+
+            return sDocName;
+
+        }
+        public static bool FolderExists(Web web, string listTitle, string folderUrl)
+        {
+            var list = web.Lists.GetByTitle(listTitle);
+            var folders = list.GetItems(CamlQuery.CreateAllFoldersQuery());
+            web.Context.Load(list.RootFolder);
+            web.Context.Load(folders);
+            web.Context.ExecuteQuery();
+            var folderRelativeUrl = string.Format("{0}/{1}", list.RootFolder.ServerRelativeUrl, folderUrl);
+            return Enumerable.Any(folders, folderItem => (string)folderItem["FileRef"] == folderRelativeUrl);
+        }
+        private static void CreateFolder(Web web, string listTitle, string folderName)
+        {
+            var list = web.Lists.GetByTitle(listTitle);
+            var folderCreateInfo = new ListItemCreationInformation
+            {
+                UnderlyingObjectType = FileSystemObjectType.Folder,
+                LeafName = folderName
+            };
+            var folderItem = list.AddItem(folderCreateInfo);
+            folderItem.Update();
+            web.Context.ExecuteQuery();
+        }
         public JsonResult UploadedSpecifVendorDocs()
         {
             var vendorNo = Convert.ToString(Session["vendorNo"]);
@@ -2697,6 +2952,86 @@ namespace EProc_On_Metronic.Controllers
             modelitems = JsonConvert.DeserializeObject<List<TenderModel>>(json);
             var jritems = (from a in modelitems where a.Procurement_Type == "WORKS" select a).ToList();
             return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult PopulateDocumentsfromSPTable(string ittpnumber)
+        {
+            using (ClientContext ctx = new ClientContext(ConfigurationManager.AppSettings["S_URL"]))
+            {
+                string password = ConfigurationManager.AppSettings["S_PWD"];
+                string account = ConfigurationManager.AppSettings["S_USERNAME"];
+                string domainname = ConfigurationManager.AppSettings["S_DOMAIN"];
+                var secret = new SecureString();
+
+                var arraydocs = new List<string>();
+                List<SharePointTModel> alldocuments = new List<SharePointTModel>();
+                List<SharePointTModel> lstmd = null;
+
+                foreach (char c in password)
+                {
+                    secret.AppendChar(c);
+                }
+                // ctx.Credentials = new SharePointOnlineCredentials(account, secret);
+                ctx.Credentials = new NetworkCredential(account, secret, domainname);
+                ctx.Load(ctx.Web);
+                ctx.ExecuteQuery();
+                List list = ctx.Web.Lists.GetByTitle("ERP Documents");
+                //Get Unique IttNumber
+                string Uniqueittpnumber = ittpnumber;
+                Uniqueittpnumber = Uniqueittpnumber.Replace('/', '_');
+                Uniqueittpnumber = Uniqueittpnumber.Replace(':', '_');   
+                             
+                ctx.Load(list);
+                ctx.Load(list.RootFolder);
+                ctx.Load(list.RootFolder.Folders);
+                ctx.Load(list.RootFolder.Files);
+                ctx.ExecuteQuery();
+
+                FolderCollection allFolders = list.RootFolder.Folders;
+                FolderCollection UniqueittpnumberFolders = null;
+                FolderCollection UniqueittpnumberSubFolders = null;
+             //   List<string> imprestfolders = new List<string>();
+                List<string> allFiles = new List<string>();
+                foreach (Folder folder in allFolders)
+                {
+                    if (folder.Name == "KeRRA")
+                    {
+                        ctx.Load(folder.Folders);
+                        ctx.ExecuteQuery();
+                        UniqueittpnumberFolders = folder.Folders;
+
+                        foreach (Folder folders in UniqueittpnumberFolders)
+                        {
+                            if (folders.Name == "Invitation To Tender")
+                            {
+                                ctx.Load(folders.Folders);
+                                ctx.ExecuteQuery();
+                                UniqueittpnumberSubFolders = folders.Folders;
+
+                                foreach (Folder ittnumber in UniqueittpnumberSubFolders)
+                                {
+                                    if (ittnumber.Name == Uniqueittpnumber)
+                                    {
+                                        ctx.Load(ittnumber.Files);
+                                        ctx.ExecuteQuery();
+
+                                        FileCollection ittnumberFiles = ittnumber.Files;
+                                        foreach (Microsoft.SharePoint.Client.File file in ittnumberFiles)
+                                        {
+                                            ctx.ExecuteQuery();
+                                            alldocuments.Add(new SharePointTModel { FileName = file.Name });
+
+                                        }
+                                    }
+                                }
+
+                            }
+                        } 
+
+                    }
+                }
+                return Json(alldocuments, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]

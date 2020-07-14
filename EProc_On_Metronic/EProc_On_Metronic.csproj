@@ -77,6 +77,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.SharePoint.Client, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\KerraPortal\HRPortal\bin\Microsoft.SharePoint.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\KeRRASharepointIntergration\KeRRASharepointIntergration\bin\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -239,6 +247,7 @@
     <Compile Include="Models\RfiResponseTModel.cs" />
     <Compile Include="Models\RfiTableSelectedTModel.cs" />
     <Compile Include="Models\RfQsModel.cs" />
+    <Compile Include="Models\SharePointTModel.cs" />
     <Compile Include="Models\SignupModel.cs" />
     <Compile Include="Models\SpecialGrpEntryModel.cs" />
     <Compile Include="Models\SpecialGrpTModel.cs" />

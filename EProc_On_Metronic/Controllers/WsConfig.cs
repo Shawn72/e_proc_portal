@@ -3,11 +3,19 @@ using System.Configuration;
 using System.Net;
 using System.Net.Mail;
 using EProc_On_Metronic.WebRef;
+using Microsoft.SharePoint.Client;
 
 namespace EProc_On_Metronic.Controllers
 {
+  
+
     public class WsConfig
     {
+        public static ClientContext SPClientContext { get; set; }
+
+        public static Web SPWeb { get; set; }
+
+        public static string SPErrorMsg { get; set; }
         public static eprocurement EProcWebRef
         {
             get
@@ -60,6 +68,57 @@ namespace EProc_On_Metronic.Controllers
                 ex2.Data.Clear();
             }
             return x;
+        }
+
+        public static bool Connect(string SPURL, string SPUserName, string SPPassWord, string SPDomainName)
+        {
+
+            bool bConnected = false;
+
+            try
+            {
+                ////Sharepoint Onpremise
+                SPClientContext = new ClientContext(SPURL);
+
+                SPClientContext.Credentials = new NetworkCredential(SPUserName, SPPassWord, SPDomainName);
+
+                SPClientContext.RequestTimeout = 1000000;
+
+                SPWeb = SPClientContext.Web;
+
+                SPClientContext.Load(SPWeb);
+
+                SPClientContext.ExecuteQuery();
+
+                bConnected = true;
+
+
+                //Sharepoint Online
+                //SPClientContext = new ClientContext(SPURL);
+                //SPClientContext.RequestTimeout = 1000000;
+                //var passWord = new SecureString();
+                //foreach (char c in SPPassWord.ToCharArray()) passWord.AppendChar(c);
+                //SPClientContext.Credentials = new SharePointOnlineCredentials(SPUserName, passWord);
+                //SPWeb = SPClientContext.Web;
+                //SPClientContext.Load(SPWeb);
+                //SPClientContext.ExecuteQuery();
+
+
+                bConnected = true;
+
+            }
+
+            catch (Exception ex)
+            {
+
+                bConnected = false;
+
+                SPErrorMsg = ex.Message;
+
+            }
+
+            return bConnected;
+
         }
     }
 }

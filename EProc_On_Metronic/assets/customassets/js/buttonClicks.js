@@ -1333,7 +1333,7 @@ $(document).ready(function () {
 
         var formDt = new FormData();
         formDt.append("typauploadselect", selectedFtype);
-        formDt.append("browsedfile", browsedDoc);
+        formDt.append("inputFileselector", browsedDoc);
         formDt.append("filedescription", selvaluedescription);
         formDt.append("certificatenumber", certNumber);
         formDt.append("dateofissue", dateofissue);

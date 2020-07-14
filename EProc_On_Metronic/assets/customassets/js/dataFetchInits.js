@@ -175,6 +175,7 @@ var Ld = function () {
                             $("#txtVendrepTitle").val(json[i].Vendor_Repr_Designation);
                         }
                     });
+
                 });
 
                 //async fetch 2: Prequalification categories get goods(assets) type
@@ -1783,6 +1784,58 @@ var Ld = function () {
                     }
                 });
 
+                //async fetch sharepoint docs 
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/PopulateDocumentsfromSPTable?ittpnumber=" + linkval,
+                    data: "",
+                    cache: false,
+                    async: true,
+                    dataType: "json"
+                }).done(function (json) {
+                    var tl = $("#tbl_tender_documents"),
+                        l = tl.dataTable({
+                            lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                            pageLength: 5,
+                            language: { lengthMenu: " _MENU_ records" },
+                            columnDefs: [
+                                {
+                                    orderable: !0,
+                                    defaultContent: "-",
+                                    targets: "_all"
+                                },
+                                {
+                                    searchable: !0,
+                                    targets: "_all"
+                                }
+                            ],
+                            order: [
+                                [0, "asc"]
+                            ],
+
+                            bDestroy: true,
+                            info: false,
+                            processing: true,
+                            retrieve: true
+                        });
+
+                    console.log(JSON.stringify(json))
+                    for (var i = 0; i < json.length; i++) {
+
+                        l.fnClearTable();
+                        var o = 1;
+                        for (var i = 0; i < json.length; i++) {
+                            l.fnAddData([
+                                  o++,
+                                  json[i].FileName,
+                                '<a class="download_sfile" href="javascript:;" attr_filelink ="" >Download File</a>'
+
+                            ]);
+                        }
+
+                    }
+                });
+
                 ////end ajax call here
             }
 
@@ -2048,7 +2101,7 @@ var Ld = function () {
                         ]);
                     }
                 });
-
+                               
                 //async fetch 3: purchase items
                 $.ajax({
                     type: "POST",
@@ -2584,7 +2637,8 @@ var Ld = function () {
                             json[i].Minimum_Required_Qty
                         ]);
                     }
-                });
+                });             
+
 
                 ////end ajax call here
             }
