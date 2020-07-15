@@ -1630,53 +1630,9 @@ var po = function() {
             }
         });
     };
-    var rfid = function() {
-        var tl = $("#tbl_mydocs_rfi"),
-            l = tl.dataTable({
-                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
-                pageLength: 5,
-                language: { lengthMenu: " _MENU_ records" },
-                columnDefs: [
-                    {
-                        orderable: !0,
-                        // targets: [0],
-                        defaultContent: "-",
-                        targets: "_all"
-                    },
-                    {
-                        searchable: !0,
-                        targets: "_all"
-                        // targets: [0]
-                    }
-                ],
-                order: [
-                    [0, "asc"]
-                ],
-
-                //stateSave: true,
-                bDestroy: true,
-                info: false,
-                processing: true,
-                retrieve: true
-            });
-        $.ajax({
-            type: "POST",
-            url: "/Home/UploadedSpecifVendorDocs_Rfi?rfiApplicationNum=" + $("#txtIfApplicationNo").val(),
-            data: ""
-        }).done(function(json) {
-            //console.log(JSON.stringify({ data: json }));
-            l.fnClearTable();
-            var o = 1;
-            for (var i = 0; i < json.length; i++) {
-                l.fnAddData([
-                    o++, json[i].FileName, json[i].Size, '<a class="trash" href="">Delete</a>'
-                ]);
-            }
-        });
-    };
     return {
         init: function () {
-            e(),rfid(), d(), p();
+            e(), d(), p();
         }
     }
 }();

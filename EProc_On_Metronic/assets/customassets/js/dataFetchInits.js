@@ -154,11 +154,9 @@ var Ld = function () {
                         data: "",
                         async: true
                     }).done(function (json) {
-
-                        loadRfiFiles.init();
-
                         $("#rfiwizardformdiv").css("display", "block");
                         $("#rfilistdiv").css("display", "none");
+                        loadRfiFiles.init();
 
                         for (var i = 0; i < json.length; i++) {
                             $("#txtIfpNo").val(json[i].Code);
