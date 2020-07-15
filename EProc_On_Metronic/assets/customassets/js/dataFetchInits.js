@@ -154,12 +154,14 @@ var Ld = function () {
                         data: "",
                         async: true
                     }).done(function (json) {
+
+                        loadRfiFiles.init();
+
                         $("#rfiwizardformdiv").css("display", "block");
                         $("#rfilistdiv").css("display", "none");
 
                         for (var i = 0; i < json.length; i++) {
                             $("#txtIfpNo").val(json[i].Code);
-                            console.log("Test IfP No: " + json[i].Code);
                         }
                     });
                     //async fetch representative details
@@ -3350,5 +3352,5 @@ $('.btn_go_apply').click(function () {
 
 
 jQuery(document).ready(function() {
-    Ld.init(), loadRfiFiles.init();
+    Ld.init();
 });
