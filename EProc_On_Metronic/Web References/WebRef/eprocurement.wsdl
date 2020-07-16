@@ -833,6 +833,38 @@
           </sequence>
         </complexType>
       </element>
+      <element name="FnrfiResponsetLinks">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="rfnumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="filename" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="sharepointlink" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnrfiResponsetLinks_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSupplierRegistrationLinks">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="filename" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="sharepointlink" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSupplierRegistrationLinks_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
   <message name="FnRegisterVendor">
@@ -1117,6 +1149,18 @@
   <message name="FnGetEvalCritScores_Result">
     <part name="parameters" element="tns:FnGetEvalCritScores_Result" />
   </message>
+  <message name="FnrfiResponsetLinks">
+    <part name="parameters" element="tns:FnrfiResponsetLinks" />
+  </message>
+  <message name="FnrfiResponsetLinks_Result">
+    <part name="parameters" element="tns:FnrfiResponsetLinks_Result" />
+  </message>
+  <message name="FnSupplierRegistrationLinks">
+    <part name="parameters" element="tns:FnSupplierRegistrationLinks" />
+  </message>
+  <message name="FnSupplierRegistrationLinks_Result">
+    <part name="parameters" element="tns:FnSupplierRegistrationLinks_Result" />
+  </message>
   <portType name="eprocurement_Port">
     <operation name="FnRegisterVendor">
       <input name="FnRegisterVendor" message="tns:FnRegisterVendor" />
@@ -1305,6 +1349,14 @@
     <operation name="FnGetEvalCritScores">
       <input name="FnGetEvalCritScores" message="tns:FnGetEvalCritScores" />
       <output name="FnGetEvalCritScores_Result" message="tns:FnGetEvalCritScores_Result" />
+    </operation>
+    <operation name="FnrfiResponsetLinks">
+      <input name="FnrfiResponsetLinks" message="tns:FnrfiResponsetLinks" />
+      <output name="FnrfiResponsetLinks_Result" message="tns:FnrfiResponsetLinks_Result" />
+    </operation>
+    <operation name="FnSupplierRegistrationLinks">
+      <input name="FnSupplierRegistrationLinks" message="tns:FnSupplierRegistrationLinks" />
+      <output name="FnSupplierRegistrationLinks_Result" message="tns:FnSupplierRegistrationLinks_Result" />
     </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
@@ -1729,6 +1781,24 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnGetEvalCritScores_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnrfiResponsetLinks">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnrfiResponsetLinks" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnrfiResponsetLinks">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnrfiResponsetLinks_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnSupplierRegistrationLinks">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSupplierRegistrationLinks" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnSupplierRegistrationLinks">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnSupplierRegistrationLinks_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

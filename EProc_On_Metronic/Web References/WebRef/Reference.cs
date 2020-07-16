@@ -23,7 +23,7 @@ namespace EProc_On_Metronic.WebRef {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="eprocurement_Binding", Namespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement")]
@@ -122,6 +122,10 @@ namespace EProc_On_Metronic.WebRef {
         private System.Threading.SendOrPostCallback FnSubmisionResponseStatusOperationCompleted;
         
         private System.Threading.SendOrPostCallback FnGetEvalCritScoresOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnrfiResponsetLinksOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnSupplierRegistrationLinksOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -301,6 +305,12 @@ namespace EProc_On_Metronic.WebRef {
         
         /// <remarks/>
         public event FnGetEvalCritScoresCompletedEventHandler FnGetEvalCritScoresCompleted;
+        
+        /// <remarks/>
+        public event FnrfiResponsetLinksCompletedEventHandler FnrfiResponsetLinksCompleted;
+        
+        /// <remarks/>
+        public event FnSupplierRegistrationLinksCompletedEventHandler FnSupplierRegistrationLinksCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendor", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnRegisterVendor_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -2154,6 +2164,74 @@ namespace EProc_On_Metronic.WebRef {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnrfiResponsetLinks", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnrfiResponsetLinks_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnrfiResponsetLinks(string rfnumber, string filename, string sharepointlink) {
+            object[] results = this.Invoke("FnrfiResponsetLinks", new object[] {
+                        rfnumber,
+                        filename,
+                        sharepointlink});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnrfiResponsetLinksAsync(string rfnumber, string filename, string sharepointlink) {
+            this.FnrfiResponsetLinksAsync(rfnumber, filename, sharepointlink, null);
+        }
+        
+        /// <remarks/>
+        public void FnrfiResponsetLinksAsync(string rfnumber, string filename, string sharepointlink, object userState) {
+            if ((this.FnrfiResponsetLinksOperationCompleted == null)) {
+                this.FnrfiResponsetLinksOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnrfiResponsetLinksOperationCompleted);
+            }
+            this.InvokeAsync("FnrfiResponsetLinks", new object[] {
+                        rfnumber,
+                        filename,
+                        sharepointlink}, this.FnrfiResponsetLinksOperationCompleted, userState);
+        }
+        
+        private void OnFnrfiResponsetLinksOperationCompleted(object arg) {
+            if ((this.FnrfiResponsetLinksCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnrfiResponsetLinksCompleted(this, new FnrfiResponsetLinksCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSupplierRegistrationLinks", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnSupplierRegistrationLinks_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnSupplierRegistrationLinks(string vendorNumber, string filename, string sharepointlink) {
+            object[] results = this.Invoke("FnSupplierRegistrationLinks", new object[] {
+                        vendorNumber,
+                        filename,
+                        sharepointlink});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnSupplierRegistrationLinksAsync(string vendorNumber, string filename, string sharepointlink) {
+            this.FnSupplierRegistrationLinksAsync(vendorNumber, filename, sharepointlink, null);
+        }
+        
+        /// <remarks/>
+        public void FnSupplierRegistrationLinksAsync(string vendorNumber, string filename, string sharepointlink, object userState) {
+            if ((this.FnSupplierRegistrationLinksOperationCompleted == null)) {
+                this.FnSupplierRegistrationLinksOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnSupplierRegistrationLinksOperationCompleted);
+            }
+            this.InvokeAsync("FnSupplierRegistrationLinks", new object[] {
+                        vendorNumber,
+                        filename,
+                        sharepointlink}, this.FnSupplierRegistrationLinksOperationCompleted, userState);
+        }
+        
+        private void OnFnSupplierRegistrationLinksOperationCompleted(object arg) {
+            if ((this.FnSupplierRegistrationLinksCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnSupplierRegistrationLinksCompleted(this, new FnSupplierRegistrationLinksCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -2173,11 +2251,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnRegisterVendorCompletedEventHandler(object sender, FnRegisterVendorCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnRegisterVendorCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2199,11 +2277,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void ResetPassCompletedEventHandler(object sender, ResetPassCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ResetPassCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2225,11 +2303,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnApplyPreQualificationCompletedEventHandler(object sender, FnApplyPreQualificationCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnApplyPreQualificationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2251,11 +2329,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void GetCurrentYearCompletedEventHandler(object sender, GetCurrentYearCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetCurrentYearCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2277,11 +2355,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnApplyRFQCompletedEventHandler(object sender, FnApplyRFQCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnApplyRFQCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2303,11 +2381,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void ApplyRFQOLDCompletedEventHandler(object sender, ApplyRFQOLDCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ApplyRFQOLDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2329,11 +2407,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void SendEmailCompletedEventHandler(object sender, SendEmailCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class SendEmailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2355,11 +2433,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void ActivateAccountCompletedEventHandler(object sender, ActivateAccountCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ActivateAccountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2381,11 +2459,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnAddDirectorsCompletedEventHandler(object sender, FnAddDirectorsCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnAddDirectorsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2407,11 +2485,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnApplyforTenderCompletedEventHandler(object sender, FnApplyforTenderCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnApplyforTenderCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2433,11 +2511,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnCountOpenTendersCompletedEventHandler(object sender, FnCountOpenTendersCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnCountOpenTendersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2459,11 +2537,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnCountAppliedTendersCompletedEventHandler(object sender, FnCountAppliedTendersCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnCountAppliedTendersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2485,11 +2563,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnCountTendersAwardedCompletedEventHandler(object sender, FnCountTendersAwardedCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnCountTendersAwardedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2511,11 +2589,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnApplyforOpenTenderCompletedEventHandler(object sender, FnApplyforOpenTenderCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnApplyforOpenTenderCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2537,11 +2615,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertBlogCompletedEventHandler(object sender, FnInsertBlogCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertBlogCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2563,11 +2641,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertBlogReplyCompletedEventHandler(object sender, FnInsertBlogReplyCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertBlogReplyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2589,11 +2667,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnChangePasswordCompletedEventHandler(object sender, FnChangePasswordCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnChangePasswordCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2615,11 +2693,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnEditProfileCompletedEventHandler(object sender, FnEditProfileCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnEditProfileCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2641,11 +2719,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnResetPasswordCompletedEventHandler(object sender, FnResetPasswordCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnResetPasswordCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2667,11 +2745,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnGenerateVendorstatementCompletedEventHandler(object sender, FnGenerateVendorstatementCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnGenerateVendorstatementCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2693,11 +2771,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnGenerateRfQDocumentCompletedEventHandler(object sender, FnGenerateRfQDocumentCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnGenerateRfQDocumentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2719,11 +2797,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnAddPurchaseReqLineCompletedEventHandler(object sender, FnAddPurchaseReqLineCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnAddPurchaseReqLineCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2745,11 +2823,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnReqforRegistrationCompletedEventHandler(object sender, FnReqforRegistrationCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnReqforRegistrationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2771,11 +2849,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnBLOBRfQDocumentCompletedEventHandler(object sender, FnBLOBRfQDocumentCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnBLOBRfQDocumentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2797,15 +2875,15 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnDownloadRfQPTDocCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnSupplierRegistrationCompletedEventHandler(object sender, FnSupplierRegistrationCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnSupplierRegistrationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2827,11 +2905,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertBankCompletedEventHandler(object sender, FnInsertBankCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertBankCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2853,11 +2931,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnDeleteBankCompletedEventHandler(object sender, FnDeleteBankCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnDeleteBankCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2879,11 +2957,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertDirectorCompletedEventHandler(object sender, FnInsertDirectorCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertDirectorCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2905,11 +2983,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertLitigationHCompletedEventHandler(object sender, FnInsertLitigationHCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertLitigationHCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2931,11 +3009,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertSpecialGrpCompletedEventHandler(object sender, FnInsertSpecialGrpCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertSpecialGrpCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2957,11 +3035,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertPastXepCompletedEventHandler(object sender, FnInsertPastXepCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertPastXepCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2983,11 +3061,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertBalanceSheetCompletedEventHandler(object sender, FnInsertBalanceSheetCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertBalanceSheetCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3009,11 +3087,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertIncomestatementCompletedEventHandler(object sender, FnInsertIncomestatementCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertIncomestatementCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3035,11 +3113,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertFiledetailsCompletedEventHandler(object sender, FnInsertFiledetailsCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertFiledetailsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3061,11 +3139,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertStaffEntryCompletedEventHandler(object sender, FnInsertStaffEntryCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertStaffEntryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3087,11 +3165,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertStaffQlfEntryCompletedEventHandler(object sender, FnInsertStaffQlfEntryCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertStaffQlfEntryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3113,11 +3191,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertStaffXPrEntryCompletedEventHandler(object sender, FnInsertStaffXPrEntryCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertStaffXPrEntryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3139,11 +3217,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnCompleteSupplierRegCompletedEventHandler(object sender, FnCompleteSupplierRegCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnCompleteSupplierRegCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3165,11 +3243,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnGetOwnerPercentageCompletedEventHandler(object sender, FnGetOwnerPercentageCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnGetOwnerPercentageCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3191,11 +3269,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertRFIresponseHeaderCompletedEventHandler(object sender, FnInsertRFIresponseHeaderCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertRFIresponseHeaderCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3217,11 +3295,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnGetLastDocumentNoCompletedEventHandler(object sender, FnGetLastDocumentNoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnGetLastDocumentNoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3243,11 +3321,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertRFIResponseLinesCompletedEventHandler(object sender, FnInsertRFIResponseLinesCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertRFIResponseLinesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3269,11 +3347,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnSubmitResponseFinalCompletedEventHandler(object sender, FnSubmitResponseFinalCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnSubmitResponseFinalCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3295,11 +3373,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnInsertFiledetails_RfiCompletedEventHandler(object sender, FnInsertFiledetails_RfiCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnInsertFiledetails_RfiCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3321,11 +3399,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnSubmisionResponseStatusCompletedEventHandler(object sender, FnSubmisionResponseStatusCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnSubmisionResponseStatusCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3347,11 +3425,11 @@ namespace EProc_On_Metronic.WebRef {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     public delegate void FnGetEvalCritScoresCompletedEventHandler(object sender, FnGetEvalCritScoresCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FnGetEvalCritScoresCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3368,6 +3446,58 @@ namespace EProc_On_Metronic.WebRef {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((decimal)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
+    public delegate void FnrfiResponsetLinksCompletedEventHandler(object sender, FnrfiResponsetLinksCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnrfiResponsetLinksCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnrfiResponsetLinksCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
+    public delegate void FnSupplierRegistrationLinksCompletedEventHandler(object sender, FnSupplierRegistrationLinksCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnSupplierRegistrationLinksCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnSupplierRegistrationLinksCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
             }
         }
     }

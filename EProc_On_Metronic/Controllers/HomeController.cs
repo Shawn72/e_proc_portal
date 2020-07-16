@@ -27,13 +27,13 @@ namespace EProc_On_Metronic.Controllers
 
         ///uncomment this while publishing on live server
 
-        //public static string Baseurl = ConfigurationManager.AppSettings["API_SERVER_URL"];
+        public static string Baseurl = ConfigurationManager.AppSettings["API_SERVER_URL"];
 
         ///uncomment this while publishing on live server
 
         ///for use on localhost testings
 
-        public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
+        //public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
         
         ///for use on localhost testings
      
@@ -177,7 +177,10 @@ namespace EProc_On_Metronic.Controllers
         {
             return View();
         }
-
+        public ActionResult TenderResponseForm()
+        {
+            return View();
+        }
         public ActionResult BankDetails()
         {
             return View();
@@ -1669,7 +1672,7 @@ namespace EProc_On_Metronic.Controllers
                             savedF0 +
                             "</div>");
                         return Json("success*" + uploads + "*" + succCounter, JsonRequestBehavior.AllowGet);
-                    default:
+                     default:
                          uploads = string.Format("{0}",
                             "<div class='form-group alert alert-danger'>" +
                             "<h4><strong style='color: chocolate'>Files upload error!</strong></h4></br>" + splitanswer[1] + "</br>" +
@@ -1836,12 +1839,15 @@ namespace EProc_On_Metronic.Controllers
                     sDocName = UploadFile(uploadfileContent, uploadfilename, sSpSiteRelativeUrl, sharepointLibrary, rfiNumber, vendorNumber);
 
                     //SharePoint Link to be added to Navison Card
-                    string sharepointlink = sURL + sharepointLibrary + "/" + rfiNumber + "/" + vendorNumber + "/" + uploadfilename;
+                    string sharepointlink = sURL + sharepointLibrary + "/" + rfiNumber  + "/" + uploadfilename;
 
-
+                        
                     if (!string.IsNullOrWhiteSpace(sDocName))
-                    {
-                       fileuploadSuccess = true;
+                        {
+                            var nvWebref = WsConfig.EProcWebRef;
+                            string rfiNumberIdentity = rfiNumber;
+                            string fsavestatus = nvWebref.FnrfiResponsetLinks(rfiNumberIdentity, uploadfilename, sharepointlink);
+                            fileuploadSuccess = true;
                     }
                 }
             }
@@ -1884,10 +1890,12 @@ namespace EProc_On_Metronic.Controllers
 
                         //SharePoint Link to be added to Navison Card
                         string sharepointlink = sUrl + sharepointLibrary + "/" + vendorNumber + "/" + uploadfilename;
-
-
+                        
                         if (!string.IsNullOrWhiteSpace(sDocName))
                         {
+                            var nvWebref = WsConfig.EProcWebRef;
+                            string vendorNumberIdentity = vendorNumber;
+                            string fsavestatus = nvWebref.FnSupplierRegistrationLinks(vendorNumberIdentity, uploadfilename, sharepointlink);
                             fileuploadSuccess = true;
                         }
                     }
