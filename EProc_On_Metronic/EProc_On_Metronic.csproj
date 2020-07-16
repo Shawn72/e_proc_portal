@@ -2974,6 +2974,7 @@
     <Content Include="Views\Home\ContractAwards.cshtml" />
     <Content Include="Views\Home\TenderbyRegionOverviewInject.cshtml" />
     <Content Include="Views\Home\TenderResponseForm.cshtml" />
+    <Content Include="Views\Shared\_TenderResponse_wizard.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

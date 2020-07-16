@@ -1945,6 +1945,12 @@ var Ld = function () {
                     console.log(JSON.stringify({ iTendTest: json }));
                     for (var i = 0; i < json.length; i++) {
                         //populate tab 2
+
+                        //hidden field
+                        $("#ittNumberfromclick").val(json[i].Code);
+
+                        alert("test IddNu " + $("#ittNumberfromclick").val())
+
                         $("#txtTenderNoticeNo").val(json[i].Code);
                         $("#txtProcmethod").val(json[i].Procurement_Method);
                         $("#txtInvtNoticetype").val(json[i].Invitation_Notice_Type);
@@ -3539,6 +3545,10 @@ $('.btn_go_apply').click(function () {
             data: "",
             async: true
         }).done(function (json) {
+
+            var test = $("#ittNumberfromclick").val();
+            alert(test);
+
             //switch divs
             $("#tender_responses").css("display", "block");
             $("#tender_displays").css("display", "none");
@@ -3568,18 +3578,17 @@ $('.btn_go_apply').click(function () {
             }
         });
 
-    
-        ////async fetch 2: tender details
-        //$.ajax({
-        //    type: "POST",
-        //    url: "/Home/GetGoodnServicesCategory?ifpnumber=" + i.cells[1].innerHTML,
-        //    data: "",
-        //    cache: false,
-        //    async: true
-        //}).done(function(json) {
+        //async fetch 2: tender details
+        $.ajax({
+            type: "POST",
+            url: "/Home/FnPullSingeTenderDetailsrsp?ittcode=" + i.cells[1].innerHTML,
+            data: "",
+            cache: false,
+            async: true
+        }).done(function(json) {
         
 
-        //});
+        });
   
 
     // window.location = "/Home/TenderResponseForm";
