@@ -3570,13 +3570,13 @@ $('.btn_go_apply').click(function () {
 
     
         ////async fetch 2: tender details
-        //$.ajax({
-        //    type: "POST",
-        //    url: "/Home/GetGoodnServicesCategory?ifpnumber=" + i.cells[1].innerHTML,
-        //    data: "",
-        //    cache: false,
-        //    async: true
-        //}).done(function(json) {
+        $.ajax({
+            type: "POST",
+            url: "/Home/GetGoodnServicesCategory?ifpnumber=" + i.cells[1].innerHTML,
+            data: "",
+            cache: false,
+            async: true
+        }).done(function(json) {
         
 
         //});
