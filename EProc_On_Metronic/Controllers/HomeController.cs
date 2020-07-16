@@ -3287,6 +3287,18 @@ namespace EProc_On_Metronic.Controllers
             var jritems = (from a in modelitems where a.No == Session["vendorNo"].ToString() select a).ToList();
             return Json(jritems, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult FnPullSingeTenderDetailsrsp(string ittcode)
+        {
+            List<TenderModel> req = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
+            var items = (from a in req where a.Code == ittcode select a).ToList();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public JsonResult CheckLogin(string myUserId, string myPassword)
