@@ -154,9 +154,9 @@ var Ld = function () {
                         data: "",
                         async: true
                     }).done(function (json) {
-
                         $("#rfiwizardformdiv").css("display", "block");
                         $("#rfilistdiv").css("display", "none");
+                        loadRfiFiles.init();
 
                         for (var i = 0; i < json.length; i++) {
                             $("#txtIfpNo").val(json[i].Code);
@@ -3344,11 +3344,11 @@ $('.btn_back_2_addendumlist').click(function () {
 
 
 $('.btn_go_apply').click(function () {
-    window.location = "/Home/TenderResponseForm";
-   // alert('hang on, do not click me, am under developmemt.....come back later!');
+    // window.location = "/Home/TendersList";
+    alert('hang on, do not click me, am under developmemt.....come back later!');
 });
 
 
 jQuery(document).ready(function() {
-    Ld.init(), loadRfiFiles.init();
+    Ld.init();
 });
