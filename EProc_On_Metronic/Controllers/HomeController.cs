@@ -27,7 +27,7 @@ namespace EProc_On_Metronic.Controllers
 
         ///uncomment this while publishing on live server
 
-        public static string Baseurl = ConfigurationManager.AppSettings["API_SERVER_URL"];
+        public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
 
         ///uncomment this while publishing on live server
 
@@ -115,7 +115,10 @@ namespace EProc_On_Metronic.Controllers
         {
             return View();
         }
-
+        public ActionResult TenderDocuments()
+        {
+            return View();
+        }
         public ActionResult TenderbyRegionOverviewInject()
         {
             return View();
@@ -3298,7 +3301,26 @@ namespace EProc_On_Metronic.Controllers
             var items = (from a in req where a.Code == ittcode select a).ToList();
             return Json(items, JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult GetVendorPreferenceDetails()
+        {
+            List<VendorPreferenceModel> vendorpreference = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetVenderPreferences");
+            vendorpreference = JsonConvert.DeserializeObject<List<VendorPreferenceModel>>(json);
+            var vpreference = (from a in vendorpreference where a.Vendor_No == Session["vendorNo"].ToString() select a).ToList();
+            return Json(vpreference, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDirectorOwnership()
+        {
+            List<ContactsModel> ownership = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetPortalContacts");
+            ownership = JsonConvert.DeserializeObject<List<ContactsModel>>(json);
+            var vownership = (from a in ownership where a.No == Session["contactNo"].ToString() select a).ToList();
+            return Json(vownership, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         [AllowAnonymous]
         public JsonResult CheckLogin(string myUserId, string myPassword)

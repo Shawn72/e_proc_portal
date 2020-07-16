@@ -263,6 +263,7 @@
     <Compile Include="Models\TenderVDerbarmentTModel.cs" />
     <Compile Include="Models\UploadedFile.cs" />
     <Compile Include="Models\VendorModel.cs" />
+    <Compile Include="Models\VendorPreferenceModel.cs" />
     <Compile Include="Models\VendorTenderTModel.cs" />
     <Compile Include="Models\WorksCategoryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2975,6 +2976,7 @@
     <Content Include="Views\Home\TenderbyRegionOverviewInject.cshtml" />
     <Content Include="Views\Home\TenderResponseForm.cshtml" />
     <Content Include="Views\Shared\_TenderResponse_wizard.cshtml" />
+    <Content Include="Views\Home\TenderDocuments.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
