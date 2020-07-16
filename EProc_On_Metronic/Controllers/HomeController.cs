@@ -27,13 +27,13 @@ namespace EProc_On_Metronic.Controllers
 
         ///uncomment this while publishing on live server
 
-        public static string Baseurl = ConfigurationManager.AppSettings["API_SERVER_URL"];
+        //public static string Baseurl = ConfigurationManager.AppSettings["API_SERVER_URL"];
 
         ///uncomment this while publishing on live server
 
         ///for use on localhost testings
 
-        //public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
+        public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
         
         ///for use on localhost testings
      
@@ -204,6 +204,7 @@ namespace EProc_On_Metronic.Controllers
         public ActionResult TendersList()
         {
             Session["tenderclass"] = "notspecial";
+            Session["holdIttNumber"] = "";
             return View();
         }
 
@@ -3288,14 +3289,14 @@ namespace EProc_On_Metronic.Controllers
             return Json(jritems, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult FnPullSingeTenderDetailsrsp(string ittcode)
+        public JsonResult FnPullSingeTenderDetailsrsp(string ittpnumber)
         {
             List<TenderModel> req = null;
             WebClient wc = new WebClient();
             wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
-            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
+            string json = wc.DownloadString(Baseurl + "api/GetPurchaseCodeHeaders");
             req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
-            var items = (from a in req where a.Code == ittcode select a).ToList();
+            var items = (from a in req where a.Code == ittpnumber select a).ToList();
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 

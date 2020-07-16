@@ -1089,6 +1089,7 @@ var Ld = function () {
                     async: true
                 }).done(function (json) {
                     for (var i = 0; i < json.length; i++) {
+                        $(".btn_go_apply").attr("attr_ittnumber", json[i].Code);
                         //populate tab 2
                         $("#txtTenderNoticeNo").val(json[i].Code);
                         $("#txtProcmethod").val(json[i].Procurement_Method);
@@ -1945,12 +1946,6 @@ var Ld = function () {
                     console.log(JSON.stringify({ iTendTest: json }));
                     for (var i = 0; i < json.length; i++) {
                         //populate tab 2
-
-                        //hidden field
-                        $("#ittNumberfromclick").val(json[i].Code);
-
-                        alert("test IddNu " + $("#ittNumberfromclick").val())
-
                         $("#txtTenderNoticeNo").val(json[i].Code);
                         $("#txtProcmethod").val(json[i].Procurement_Method);
                         $("#txtInvtNoticetype").val(json[i].Invitation_Notice_Type);
@@ -2004,10 +1999,7 @@ var Ld = function () {
                         $("#txtAdvAmountLmt").val((json[i].Advance_Amount_Limit).toFixed(2));
                         $("#txtInsurcoverRequired").val(json[i].Insurance_Cover_Required);
                         $("#txtBiddderArbappointer").val(json[i].Appointer_of_Bid_Arbitrator);
-
-                      
                     }
-
                 });
 
                 //async fetch 3: addendums on click respond
@@ -3526,32 +3518,35 @@ $('.btn_back_2_addendumlist').click(function () {
 
 $('.btn_go_apply').click(function () {
 
-    //global loader spinner;
-    $.ajaxSetup({
-        global: false,
-        type: "POST",
-        url: "/Home/FetchTenderVendorDetails",
-        beforeSend: function () {
-            $(".modalspinner").show();
-        },
-        complete: function () {
-            $(".modalspinner").hide();
+        //global loader spinner;
+        //$.ajaxSetup({
+        //    global: false,
+        //    beforeSend: function () {
+        //        $(".modalspinner").show();
+        //    },
+        //    complete: function () {
+        //        $(".modalspinner").hide();
 
-        }
-    });
+        //    }
+        //});
+
+   var ittNumber = $(".btn_go_apply").attr("attr_ittnumber");
 
         //load vendor details first
-        $.ajax({
+    $.ajax({
+            type: "POST",
+            url: "/Home/FetchTenderVendorDetails",
             data: "",
+            cache: false,
             async: true
-        }).done(function (json) {
-
-            var test = $("#ittNumberfromclick").val();
-            alert(test);
-
+    }).done(function (json) {
+        $(".modalspinner").show();
             //switch divs
             $("#tender_responses").css("display", "block");
             $("#tender_displays").css("display", "none");
+            var ittNumber = $(".btn_go_apply").attr("attr_ittnumber");
+         
+            $("#txtInvTenderNo").val(ittNumber);
 
             for (var i = 0; i < json.length; i++) {
                 //populate tab 2
@@ -3576,19 +3571,79 @@ $('.btn_go_apply').click(function () {
                 //        { day: '2-digit', month: '2-digit', year: 'numeric' }));
                 
             }
+          $(".modalspinner").hide();
         });
-
+    
         //async fetch 2: tender details
         $.ajax({
             type: "POST",
-            url: "/Home/FnPullSingeTenderDetailsrsp?ittcode=" + i.cells[1].innerHTML,
+            url: "/Home/FnPullSingeTenderDetailsrsp?ittpnumber=" + ittNumber,
             data: "",
             cache: false,
             async: true
-        }).done(function(json) {
-        
+        }).done(function (json) {
+            console.log(json)
+            alert("ittNo: "+ittNumber)
+            for (var i = 0; i < json.length; i++) {
+                //populate tab 2
+                $("#txtBidChargeCode").val(json[i].Bid_Charge_Code);
+                $("#txtBidenvelopeType").val(json[i].Bid_Envelop_Type);
+                $("#txtInvtNoticetype").val(json[i].Invitation_Notice_Type);
+                $("#txtRespCenter").val(json[i].Responsibility_Center);
+                $("#txtDocDate").val(new Date(json[i].Document_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                $("#txtTenderDescription").val(json[i].Tender_Summary);
+
+
+                //$("#txtExternalDocNo").val(json[i].External_Document_No);
+                //$("#txtSealedBids").val(json[i].Enforce_Mandatory_Pre_bid_Visi);
+                //$("#txtValidityDur").val(json[i].Tender_Validity_Duration);
+                //$("#txtValidityExpry").val(new Date(json[i].Tender_Validity_Expiry_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                //$("#txtLocationCode").val(json[i].Location_Code);
+                //$("#txtProductGroup").val(json[i].Requisition_Product_Group);
+                //$("#txtSpecialGrp").val(json[i].Mandatory_Special_Group_Reserv);
+                //$("#txtLotNo").val(json[i].Lot_No);
+                //$("#txtDocStatus").val(json[i].Document_Status);
+                //$("#txtTargetBidder").val(json[i].Target_Bidder_Group);
+                //$("#txtBidSubMethd").val(json[i].Bid_Submission_Method);
+                //$("#txtBidSelctnMethd").val(json[i].Bid_Selection_Method);
+                //$("#txtLanguageCode").val(json[i].Language_Code);
+                //$("#txtSubmisionEndDate").val(new Date(json[i].Submission_End_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                //$("#txtAddress2").val(json[i].Address_2);
+                //$("#txtSubEndTime").val(json[i].Submission_Start_Time);
+                //$("#txtPostaCode").val(json[i].Post_Code);
+                //$("#txtPrebidMeetDte").val(new Date(json[i].Mandatory_Pre_bid_Visit_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                //$("#txtCity").val(json[i].City);
+                //$("#txtPrebidMtAddress").val(json[i].Prebid_Meeting_Address);
+                //$("#txtCountry").val(json[i].Country_Region_Code);
+                //$("#txtBidOpendate").val(new Date(json[i].Bid_Opening_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                //$("#txtPhoneNo").attr("href", "tel:" + json[i].Phone_No);
+                //$("#txtPhoneNo").text(json[i].Phone_No);
+                //$("#txtBidOpenTime").val(json[i].Bid_Opening_Time);
+                //$("#hrefEmail").attr("href", "mailto:" + json[i].E_Mail);
+                //$("#hrefEmail").text(json[i].E_Mail);
+                //$("#txtBidOpenVenue").val(json[i].Bid_Opening_Venue);
+                //$("#txtTenderBoxLoc").val(json[i].Tender_Box_Location_Code);
+                //$("#txtProcEntityName").val(json[i].Procuring_Entity_Name_Contact);
+                //$("#txtPriTendSubAddress").val(json[i].Primary_Tender_Submission);
+
+                //////Tab 3 populate Tender requirements
+                //$("#txtBidsecReq").val(json[i].Bid_Tender_Security_Required);
+                //$("#txtPerfSecReqs").val(json[i].Performance_Security_Required);
+                //$("#txtBidSecPercent").val(json[i].Bid_Security);
+                //$("#txtPerfSecpercent").val(json[i].Performance_Security);
+                //$("#txtBidSecAmnt").val((json[i].Bid_Security_Amount_LCY).toFixed(2));
+                //$("#txtAdvpaySecRequired").val(json[i].Advance_Payment_Security_Req);
+                //$("#txtBidSec_validity").val(json[i].Bid_Security_Validity_Duration);
+                //$("#txtAdvPaysecurity").val((json[i].Advance_Payment_Security).toFixed(2));
+                //$("#txtBidsecXpDate").val(new Date(json[i].Bid_Security_Expiry_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                //$("#txtAdvAmountLmt").val((json[i].Advance_Amount_Limit).toFixed(2));
+                //$("#txtInsurcoverRequired").val(json[i].Insurance_Cover_Required);
+                //$("#txtBiddderArbappointer").val(json[i].Appointer_of_Bid_Arbitrator);
+            }
 
         });
+
+       
   
 
     // window.location = "/Home/TenderResponseForm";

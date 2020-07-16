@@ -3,19 +3,6 @@
     Layout = null;
 } 
 
-<!-- BEGIN PAGE BAR -->
-<div class="page-bar">
-<ul class="page-breadcrumb">
-    <li>
-        <a href="/Home/Index_Eproc">Home</a>
-        <i class="fas fa-circle"></i>
-    </li>
-    <li>
-        <span>Tender Response Form</span>
-    </li>
-</ul>
-</div>
-<!-- END PAGE BAR -->
 <!-- END PAGE HEADER-->
 <div class="row">
 <div class="col-md-12">
@@ -40,7 +27,7 @@
             </a>
         </div>
     </div>
-    <input type="text" id = "ittNumberfromclick" />
+   
         <div class="portlet-body form">
             <form class="form-horizontal" action="#" id="submit_tenderreg_form" method="POST" enctype="multipart/form-data">
                 <div class="form-wizard">
@@ -131,7 +118,7 @@
                                                     <label class="control-label"><strong>Bid Representative  Designation</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
+                                                    <input type="text" class="form-control"  id="txtRepdesignation" readonly />
                                                 </td>
 
                                             </tr>
@@ -140,14 +127,14 @@
                                                     <label class="control-label"><strong> Documents Date:</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" readonly />
+                                                    <input type="text" class="form-control" id="txtDocDate" readonly />
                                                 </td>
 
                                                 <td>
                                                     <label class="control-label"><strong> Bidder Representative Address:</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
+                                                    <input type="text" class="form-control" id="txtBidderRepaddr" readonly />
                                                 </td>
 
                                             </tr>
@@ -164,7 +151,7 @@
                                                     <label class="control-label"><strong>Bidder Witness Name:</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
+                                                    <input type="text" class="form-control" id="txtBidderWitnessNo" readonly />
                                                 </td>
 
                                             </tr>
@@ -174,7 +161,7 @@
                                                     <label class="control-label"><strong>Invitation Notice No:</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" readonly />
+                                                    <input type="text" class="form-control" id="txtInvTenderNo" readonly />
                                                 </td>
 
                                                 <td>
@@ -229,7 +216,7 @@
                                                     <label class="control-label"><strong>Bid Charge Code:</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
+                                                    <input type="text" class="form-control"  id="txtBidChargeCode" readonly />
                                                 </td>
 
                                             </tr>
@@ -309,7 +296,7 @@
                                                     <label class="control-label"><strong>Purchase Code:</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
+                                                    <input type="text" class="form-control" id="txtPurchaseCode" readonly />
                                                 </td>
 
                                             </tr>
@@ -331,10 +318,10 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <label class="control-label"><strong>Invitation  Notice Type:</strong></label>
+                                                    <label class="control-label"><strong>Invitation Notice Type:</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" readonly />
+                                                    <input type="text" class="form-control" id="txtInvtNoticetype" readonly />
                                                 </td>
 
                                                 <td>
@@ -350,7 +337,7 @@
                                                     <label class="control-label"><strong> Bid Envelop Type:</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" readonly />
+                                                    <input type="text" class="form-control" id="txtBidenvelopeType" readonly />
                                                 </td>
 
                                                 <td>
@@ -366,7 +353,7 @@
                                                     <label class="control-label"><strong>Tender Description:</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" readonly />
+                                                    <input type="text" class="form-control" name="txtTenderDescription" id="txtTenderDescription" readonly />
                                                 </td>
 
                                                 <td>
@@ -382,7 +369,7 @@
                                                     <label class="control-label"><strong>Responsibility Center:</strong></label>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" readonly />
+                                                    <input type="text" class="form-control"  id="txtRespCenter" readonly />
                                                 </td>
 
                                                 <td>
