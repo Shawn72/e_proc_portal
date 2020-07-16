@@ -27,6 +27,8 @@
         </p>
     <input type="hidden" value="@Session["tenderclass"]" class="loaded_tender_type" />
      <!-- START: Active Tender Invitations-->
+ 
+ <div id="tender_displays">
      <div class="row" id="tenderslistdiv">
          <div class="col-md-12">
              <!-- Begin: life time stats -->
@@ -35,7 +37,7 @@
                      <div class="caption">
                          <i class="icon-settings font-green"></i>
                          <span class="caption-subject font-green sbold uppercase">Open Tender Notices</span>
-                     </div> 
+                     </div>
 
                      <div class="actions table-responsive">
                          <table class="table table-striped table-bordered table-hover">
@@ -111,8 +113,8 @@
                                          </a>
                                      </div>
                                      <div id="tender_xp_div_2" style="display: none;">
-                                          
-                                         <div class="input-group input-medium date date-picker" data-date="2012-12-02"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+
+                                         <div class="input-group input-medium date date-picker" data-date="2012-12-02" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
                                              <span class="input-group-btn input-circle-right">
                                                  <button class="btn default" type="button">
                                                      <i class="fa fa-calendar"></i>
@@ -134,15 +136,15 @@
                          <div id="ifpfeedbacks" style="display: none;"></div>
                          <table class="table table-striped table-bordered table-hover" id="tbl_open_tenders_n">
                              <thead>
-                             <tr>
-                                 <th>#</th>
-                                 <th>Notice No.</th>
-                                 <th>Tender No.</th>
-                                 <th>Tender Name</th>
-                                 <th>Product Group</th>
-                                 <th>Submision End Date</th>
-                                 <th>Bid scoring Template ID</th>
-                             </tr>
+                                 <tr>
+                                     <th>#</th>
+                                     <th>Notice No.</th>
+                                     <th>Tender No.</th>
+                                     <th>Tender Name</th>
+                                     <th>Product Group</th>
+                                     <th>Submision End Date</th>
+                                     <th>Bid scoring Template ID</th>
+                                 </tr>
                              </thead>
                              <tbody></tbody>
                          </table>
@@ -153,7 +155,7 @@
              <!-- End: life time stats -->
          </div>
      </div>
-     
+
      <!---START: Tender Details per ITT No-->
      <div id="tender_details_div" style="display: none">
          <div class="portlet-body">
@@ -241,22 +243,26 @@
 
              </div>
          </div>
-         
+
          <div class="form-actions">
              <div class="row">
                  <div class="col-md-offset-5 col-md-8">
                      <a href="javascript:;" class="btn green btn-outline btn-circle btn_back_2_tenderlist"><i class="fas fa fa-angle-left"></i> &nbsp;Back </a>
-                     <a href="javascript:;" class="btn green btn-outline btn-circle btn_go_apply" >Apply &nbsp;<i class="fas fa fa-edit"></i></a>
+                     <a href="javascript:;" class="btn green btn-outline btn-circle btn_go_apply">Apply &nbsp;<i class="fas fa fa-edit"></i></a>
                  </div>
              </div>
          </div>
 
      </div>
      <!---START: Tender Details per ITT No-->
-
      <!-- END: Active Tender Invitations-->
+ </div>
 
-     <div class="modalspinner" style="display: none">
+ <div id="tender_responses" style="display: none">
+     @Html.Action("TenderResponseForm", "Home")
+ </div>
+
+ <div class="modalspinner" style="display: none">
          <div class="centerspinner">
              <img alt="" src="/assets/loaders/spinner.gif"/>
          </div>

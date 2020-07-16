@@ -3519,8 +3519,71 @@ $('.btn_back_2_addendumlist').click(function () {
 
 
 $('.btn_go_apply').click(function () {
-    // window.location = "/Home/TendersList";
-    alert('hang on, do not click me, am under developmemt.....come back later!');
+
+    //global loader spinner;
+    $.ajaxSetup({
+        global: false,
+        type: "POST",
+        url: "/Home/FetchTenderVendorDetails",
+        beforeSend: function () {
+            $(".modalspinner").show();
+        },
+        complete: function () {
+            $(".modalspinner").hide();
+
+        }
+    });
+
+        //load vendor details first
+        $.ajax({
+            data: "",
+            async: true
+        }).done(function (json) {
+            //switch divs
+            $("#tender_responses").css("display", "block");
+            $("#tender_displays").css("display", "none");
+
+            for (var i = 0; i < json.length; i++) {
+                //populate tab 2
+                $("#txtVendorNo").val(json[i].No);
+                $("#txtVendorName").val(json[i].Name);
+                $("#txtTaxPinNo").val(json[i].VAT_Registration_No);
+                $("#txtAddress").val(json[i].Address);
+                $("#txtAddress2").val(json[i].Address_2);
+                $("#txtPostCode").val(json[i].Post_Code);
+                $("#txtCity").val(json[i].City);
+                $("#txtCountryCode").val(json[i].Country_Region_Code);
+                $("#txtLangCode").val(json[i].Language_Code);
+                $("#txtCurrencyCode").val(json[i].Currency_Code);
+                $("#txtLocCode").val(json[i].Location_Code);
+
+                //$("#txtAddress2").val(json[i].Address_2);
+                //$("#txtPostCode").val(json[i].Post_Code);
+                //$("#txtCity").val(json[i].City);
+
+                //$("#txtDocDate")
+                //    .val(new Date(json[i].Document_Date).toLocaleDateString('en-US',
+                //        { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                
+            }
+        });
+
+    
+        ////async fetch 2: tender details
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/Home/GetGoodnServicesCategory?ifpnumber=" + i.cells[1].innerHTML,
+        //    data: "",
+        //    cache: false,
+        //    async: true
+        //}).done(function(json) {
+        
+
+        //});
+  
+
+    // window.location = "/Home/TenderResponseForm";
+    // alert('hang on, do not click me, am under developmemt.....come back later!');
 });
 
 

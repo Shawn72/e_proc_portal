@@ -263,6 +263,7 @@
     <Compile Include="Models\TenderVDerbarmentTModel.cs" />
     <Compile Include="Models\UploadedFile.cs" />
     <Compile Include="Models\VendorModel.cs" />
+    <Compile Include="Models\VendorTenderTModel.cs" />
     <Compile Include="Models\WorksCategoryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -2609,6 +2610,7 @@
     <Content Include="assets\pages\scripts\table-datatables-responsive.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-rowreorder.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-scroller.min.js" />
+    <Content Include="assets\pages\scripts\tender-response-wizard.js" />
     <Content Include="assets\pages\scripts\timeline.min.js" />
     <Content Include="assets\pages\scripts\ui-alerts-api.js" />
     <Content Include="assets\pages\scripts\ui-alerts-api.min.js" />

@@ -3275,7 +3275,18 @@ namespace EProc_On_Metronic.Controllers
                 return Json(alldocuments, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
+
+        public JsonResult FetchTenderVendorDetails()
+        {
+            List<VendorTenderTModel> modelitems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetAllVendors");
+            modelitems = JsonConvert.DeserializeObject<List<VendorTenderTModel>>(json);
+            var jritems = (from a in modelitems where a.No == Session["vendorNo"].ToString() select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         [AllowAnonymous]
         public JsonResult CheckLogin(string myUserId, string myPassword)
