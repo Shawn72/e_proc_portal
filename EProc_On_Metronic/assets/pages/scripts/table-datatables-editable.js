@@ -710,50 +710,7 @@ var TableDatatablesAll = function () {
                 ]
             });
     };
-    var po = function() {
-        var tl = $("#tbl_mydocs"),
-            l = tl.dataTable({
-                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
-                pageLength: 5,
-                language: { lengthMenu: " _MENU_ records" },
-                columnDefs: [
-                    {
-                        orderable: !0,
-                        // targets: [0],
-                        defaultContent: "-",
-                        targets: "_all"
-                    },
-                    {
-                        searchable: !0,
-                        targets: "_all"
-                        // targets: [0]
-                    }
-                ],
-                order: [
-                    [0, "asc"]
-                ],
 
-                //stateSave: true,
-                bDestroy: true,
-                info: false,
-                processing: true,
-                retrieve: true
-            });
-        $.ajax({
-            type: "POST",
-            url: "/Home/UploadedSpecifVendorDocs",
-            data: ""
-        }).done(function(json) {
-           // console.log(JSON.stringify({ data: json }));
-            l.fnClearTable();
-            var o = 1;
-            for (var i = 0; i < json.length; i++) {
-                l.fnAddData([
-                    o++, json[i].FileName, json[i].Size, '<a class="trash" href="">Delete</a>'
-                ]);
-            }
-        });
-    };
     var ns = function() {
         $("#form_wizard_2 .btn_add_new_staff").click(function() {
             $('#txtStaffNo').val('');
@@ -773,7 +730,7 @@ var TableDatatablesAll = function () {
     };
     return {
         init: function () {
-            e(), po(), ns();
+            e(), ns();
         }
     }
 }();

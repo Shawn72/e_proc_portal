@@ -1355,6 +1355,7 @@ namespace EProc_On_Metronic.Controllers
 
         public ActionResult TenderDocDownloader(string tendorNo)
         {
+            //IMPORTANT D
             var fileVirtualPath = (dynamic)null;
             if (tendorNo.Contains(":"))
                 tendorNo = tendorNo.Replace(":", "[58]");
@@ -1975,9 +1976,84 @@ namespace EProc_On_Metronic.Controllers
             }
         }
 
+        public JsonResult PullSupplierRegDocumentsfromSharePoint()
+        {
+            using (ClientContext ctx = new ClientContext(ConfigurationManager.AppSettings["S_URL"]))
+            {
+                var vendorNo = Convert.ToString(Session["vendorNo"]);
+                string password = ConfigurationManager.AppSettings["S_PWD"];
+                string account = ConfigurationManager.AppSettings["S_USERNAME"];
+                string domainname = ConfigurationManager.AppSettings["S_DOMAIN"];
+                var secret = new SecureString();
+
+                List<SharePointTModel> alldocuments = new List<SharePointTModel>();
+
+                foreach (char c in password)
+                {
+                    secret.AppendChar(c);
+                }
+
+                ctx.Credentials = new NetworkCredential(account, secret, domainname);
+                ctx.Load(ctx.Web);
+                ctx.ExecuteQuery();
+                List list = ctx.Web.Lists.GetByTitle("ERP Documents");
+
+                //Get Unique rfiNumber
+                string uniquevendorNumber = vendorNo;
+                uniquevendorNumber = uniquevendorNumber.Replace('/', '_');
+                uniquevendorNumber = uniquevendorNumber.Replace(':', '_');
+
+                ctx.Load(list);
+                ctx.Load(list.RootFolder);
+                ctx.Load(list.RootFolder.Folders);
+                ctx.Load(list.RootFolder.Files);
+                ctx.ExecuteQuery();
+
+                FolderCollection allFolders = list.RootFolder.Folders;
+                foreach (Folder folder in allFolders)
+                {
+                    if (folder.Name == "KeRRA")
+                    {
+                        ctx.Load(folder.Folders);
+                        ctx.ExecuteQuery();
+                        var uniquerfiNumberFolders = folder.Folders;
+
+                        foreach (Folder folders in uniquerfiNumberFolders)
+                        {
+                            if (folders.Name == "Vendor Card")
+                            {
+                                ctx.Load(folders.Folders);
+                                ctx.ExecuteQuery();
+                                var uniquevendorNumberSubFolders = folders.Folders;
+
+                                foreach (Folder vendornumber in uniquevendorNumberSubFolders)
+                                {
+                                    if (vendornumber.Name == uniquevendorNumber)
+                                    {
+                                        ctx.Load(vendornumber.Files);
+                                        ctx.ExecuteQuery();
+
+                                        FileCollection vendornumberFiles = vendornumber.Files;
+                                        foreach (Microsoft.SharePoint.Client.File file in vendornumberFiles)
+                                        {
+                                            ctx.ExecuteQuery();
+                                            alldocuments.Add(new SharePointTModel { FileName = file.Name });
+
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+                return Json(alldocuments, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public string UploadSupplierRegFile(Stream fs, string sFileName, string sSpSiteRelativeUrl, string sLibraryName, string vendorNumber)
         {
-            string sUrl = ConfigurationManager.AppSettings["S_URL"];
             string sDocName = string.Empty;
             vendorNumber = vendorNumber.Replace('/', '_');
             vendorNumber = vendorNumber.Replace(':', '_');
@@ -2085,39 +2161,108 @@ namespace EProc_On_Metronic.Controllers
                 string account = ConfigurationManager.AppSettings["S_USERNAME"];
                 string domainname = ConfigurationManager.AppSettings["S_DOMAIN"];
                 var secret = new SecureString();
+                var parentFolderName = @"/ERP%20Documents/KeRRA/RFI Response Card/";
+
+                foreach (char c in password)
+                { secret.AppendChar(c); }
+                try
+                {
+                    ctx.Credentials = new NetworkCredential(account, secret, domainname);
+                    ctx.Load(ctx.Web);
+                    ctx.ExecuteQuery();
+                    
+                    Uri uri = new Uri(sharepointUrl);
+                    string sSpSiteRelativeUrl = uri.AbsolutePath;
+
+                    string filePath = sSpSiteRelativeUrl + parentFolderName + ifpNumber +"/"+ filename;
+
+                    var file = ctx.Web.GetFileByServerRelativeUrl(filePath);
+                    ctx.Load(file, f => f.Exists);
+                    file.DeleteObject();
+                    ctx.ExecuteQuery();
+
+                    if (!file.Exists)
+                        throw new FileNotFoundException();
+                    return Json("delete_success*File deleted successfully from Sharepoint, Upload it again!", JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    // ignored
+                    return Json("delete_error*"+ex.Message, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        public ActionResult DownloadRfDocfromSharepoint(string filename, string ifpNumber)
+        {
+            var sharepointUrl = ConfigurationManager.AppSettings["S_URL"];
+            using (ClientContext ctx = new ClientContext(sharepointUrl))
+            {
+
+                string password = ConfigurationManager.AppSettings["S_PWD"];
+                string account = ConfigurationManager.AppSettings["S_USERNAME"];
+                string domainname = ConfigurationManager.AppSettings["S_DOMAIN"];
+                var secret = new SecureString();
+                var parentFolderName = @"/ERP%20Documents/KeRRA/RFI Response Card/";
 
                 foreach (char c in password)
                 {
                     secret.AppendChar(c);
                 }
+
                 try
                 {
                     ctx.Credentials = new NetworkCredential(account, secret, domainname);
                     ctx.Load(ctx.Web);
                     ctx.ExecuteQuery();
 
-                    string filePath = "/ERP%20Documents/KeRRA/RFI Response Card/" + ifpNumber +"/"+ filename;
-                    var file = ctx.Web.GetFileByServerRelativeUrl(filePath);
-                    ctx.Load(file, f => f.Exists);
-                    file.DeleteObject();
+                    Uri uri = new Uri(sharepointUrl);
+                    string sSpSiteRelativeUrl = uri.AbsolutePath;
+
+                    string filePath = sSpSiteRelativeUrl + parentFolderName + ifpNumber;
+
+                    List list = ctx.Web.Lists.GetByTitle("ERP Documents");
+                    FileCollection files = list.RootFolder.Folders.GetByUrl(filePath).Files;
+                    ctx.Load(files);
                     ctx.ExecuteQuery();
-                    if (!file.Exists)
-                        throw new System.IO.FileNotFoundException();
+                    foreach (Microsoft.SharePoint.Client.File file in files)
+                    {
+                        FileInformation fileinfo = Microsoft.SharePoint.Client.File.OpenBinaryDirect(ctx, file.ServerRelativeUrl);
+                        ctx.ExecuteQuery();
+                        using (FileStream filestream = new FileStream(@"C:\ServiceTest\SharePointDocs" + "\\" + file.Name, FileMode.Create))
+                        {
+                            fileinfo.Stream.CopyTo(filestream);
+                        }
+
+                    }
+
                 }
                 catch (Exception ex)
                 {
-                    // ignored
+                // ignored
                 }
             }
-            return Json("delete_success", JsonRequestBehavior.AllowGet);
-
+            return Json("download_danger", JsonRequestBehavior.AllowGet);
         }
+
+        private static void DownloadFile(string webUrl, ICredentials credentials, string fileRelativeUrl)
+        {
+            using (var client = new WebClient())
+            {
+                client.Credentials = credentials;
+                client.Headers.Add("X-FORMS_BASED_AUTH_ACCEPTED", "f");
+                client.DownloadFile(webUrl, fileRelativeUrl);
+            }
+        }
+
         public JsonResult UploadedSpecifVendorDocs()
         {
             var vendorNo = Convert.ToString(Session["vendorNo"]);
             var uploadedFiles = new List<UploadedFile>();
             try
             {
+              //  uploaded vendor docs
+
                 if (vendorNo.Contains(":"))
                     vendorNo = vendorNo.Replace(":", "[58]");
                     vendorNo = vendorNo.Replace("/", "[47]");

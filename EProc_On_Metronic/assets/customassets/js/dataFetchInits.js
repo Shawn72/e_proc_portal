@@ -3050,7 +3050,8 @@ var loadRfiFiles = function() {
                 rt.fnAddData([
                     o++,
                     json[i].FileName,
-                    '<a class="delete_sfile" href="javascript:;" attr_delt_filelink ="" >Delete File</a>'
+                    '<a class="delete_sfile" href="javascript:;" attr_delt_filelink ="" >Delete File</a>',
+                    '<a class="downnload_sfile" href="javascript:;" attr_download_filelink ="" >Download File</a>'
                 ]);
             }
 
@@ -3059,6 +3060,8 @@ var loadRfiFiles = function() {
                 function(rt) {
                     var i = $(this).parents("tr")[0];
                     var filename = i.cells[1].innerText;
+
+                   // alert($("#ifpnum_id").val());
 
                     rt.preventDefault();
                     //global loader spinner;
@@ -3081,8 +3084,128 @@ var loadRfiFiles = function() {
                     $.ajax({
                         data: ""
                     }).done(function(json) {
-                        if (json == "delete_success") {
-                            alert("File deleted success!");
+                        var deleteRes = json.split('*');
+                        var respstatus = deleteRes[0];
+                        switch (respstatus) {
+                            case "delete_success":
+                                Swal.fire
+                                ({
+                                    title: "File Deleted!",
+                                    text: deleteRes[1],
+                                    type: "success"
+                                }).then(() => {
+                                        App.alert({
+                                            container: "#docs_feedback_alert",
+                                            place: "append",
+                                            type: "success",
+                                            message: deleteRes[1],
+                                            close: true,
+                                            reset: true,
+                                            focus: true,
+                                            closeInSeconds: 5,
+                                            icon: "check"
+                                        });
+                                    }
+                                );
+                                break;
+                            default:
+                                Swal.fire
+                                ({
+                                    title: "Error Occured while deleting..!",
+                                    text: deleteRes[1],
+                                    type: "error"
+                                }).then(() => {
+                                        App.alert({
+                                            container: "#docs_feedback_alert",
+                                            place: "append",
+                                            type: "danger",
+                                            message: deleteRes[1],
+                                            close: true,
+                                            reset: true,
+                                            focus: true,
+                                            closeInSeconds: 5,
+                                            icon: "warning"
+                                        });
+                                    }
+                                );
+                                break;
+                        }
+                    });
+                });
+
+            rt.on("click",
+                ".downnload_sfile",
+                function (rt) {
+                    var i = $(this).parents("tr")[0];
+                    var filename = i.cells[1].innerText;
+                    rt.preventDefault();
+                    //global loader spinner;
+                    $.ajaxSetup({
+                        global: false,
+                        type: "POST",
+                        url: "/Home/DownloadRfDocfromSharepoint?filename=" +
+                            filename +
+                            "&&ifpNumber=" +
+                            $("#ifpnum_id").val(),
+                        beforeSend: function () {
+                            $(".modalspinner").show();
+                        },
+                        complete: function () {
+                            $(".modalspinner").hide();
+
+                        }
+                    });
+
+                    $.ajax({
+                        data: ""
+                    }).done(function (json) {
+
+                        var deleteRes = json.split('*');
+                        var respstatus = deleteRes[0];
+                        switch (respstatus) {
+                        case "download_success":
+                            Swal.fire
+                            ({
+                                title: "Your File is being downloaded!",
+                                text: deleteRes[1],
+                                type: "success"
+                            }).then(() => {
+                                    App.alert({
+                                        container: "#docs_feedback_alert",
+                                        place: "append",
+                                        type: "success",
+                                        message: deleteRes[1],
+                                        close: true,
+                                        reset: true,
+                                        focus: true,
+                                        closeInSeconds: 5,
+                                        icon: "check"
+                                    });
+                                }
+                            );
+                            break;
+                        default:
+
+                            Swal.fire
+                            ({
+                                title: "Error Occured while downloading..!",
+                                text: "Could not Download file!",
+                                type: "error"
+                            }).then(() => {
+                                    App.alert({
+                                        container: "#docs_feedback_alert",
+                                        place: "append",
+                                        type: "danger",
+                                        message: deleteRes[1],
+                                        close: true,
+                                        reset: true,
+                                        focus: true,
+                                        closeInSeconds: 5,
+                                        icon: "warning"
+                                    });
+                                }
+                            );
+                            break;
                         }
                     });
                 });
@@ -3095,6 +3218,59 @@ var loadRfiFiles = function() {
     }
 }();
 
+var suppregDocs = function() {
+    var p = function() {
+        var tl = $("#tbl_mydocs"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        // targets: [0],
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                        // targets: [0]
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                //stateSave: true,
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Home/PullSupplierRegDocumentsfromSharePoint",
+            data: ""
+        }).done(function(json) {
+            // console.log(JSON.stringify({ data: json }));
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].FileName,
+                    '<a class="trash" href="">Delete</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function () {
+            p();
+        }
+    }
+}();
 
 $('.button-upload-rfi').click(function (e) {
     //To prevent form submit after ajax call
@@ -3337,7 +3513,6 @@ $('.btn_back_2_evalcrit').click(function () {
 $('.btn_back_2_addendumlist').click(function () {
     //switch divs
     var tnType = $(".loaded_tender_type").val();
-
     window.location = "/Home/ActiveAddendumNotices";
     $("#addendum_details").css("display", "none");
 });
@@ -3350,5 +3525,5 @@ $('.btn_go_apply').click(function () {
 
 
 jQuery(document).ready(function() {
-    Ld.init();
+    Ld.init(), suppregDocs.init();
 });
