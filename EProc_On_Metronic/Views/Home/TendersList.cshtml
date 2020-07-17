@@ -25,9 +25,10 @@
             The e-Bidding Portal enables the tenderers to view all Active Invitation For Supply (IFS) Notices, download the
             related tender documents and allow for online submission of their bid responses
         </p>
- <input type="hidden" value="@Session["tenderclass"]" class="loaded_tender_type" />
+ <input type="hidden" value="@Session["tenderclass"]" class="loaded_tender_type" /><br/>
+ <div id = "tenderesponseMsg" style="display: block"></div>
 
-     <!-- START: Active Tender Invitations-->
+ <!-- START: Active Tender Invitations-->
  <div id="tender_displays">
      <div class="row" id="tenderslistdiv">
          <div class="col-md-12">

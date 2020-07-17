@@ -2,21 +2,6 @@
 <definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/eprocurement" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement" xmlns="http://schemas.xmlsoap.org/wsdl/">
   <types>
     <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement" xmlns="http://www.w3.org/2001/XMLSchema">
-      <element name="FnSubmitTenderResponse">
-        <complexType>
-          <sequence>
-            <element minOccurs="1" maxOccurs="1" name="vendornumber" type="string" />
-            <element minOccurs="1" maxOccurs="1" name="invitationnumber" type="string" />
-          </sequence>
-        </complexType>
-      </element>
-      <element name="FnSubmitTenderResponse_Result">
-        <complexType>
-          <sequence>
-            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
-          </sequence>
-        </complexType>
-      </element>
       <element name="FnRegisterVendor">
         <complexType>
           <sequence>
@@ -880,14 +865,23 @@
           </sequence>
         </complexType>
       </element>
+      <element name="FnSubmitTenderResponse">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendornumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="invitationnumber" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSubmitTenderResponse_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
-  <message name="FnSubmitTenderResponse">
-    <part name="parameters" element="tns:FnSubmitTenderResponse" />
-  </message>
-  <message name="FnSubmitTenderResponse_Result">
-    <part name="parameters" element="tns:FnSubmitTenderResponse_Result" />
-  </message>
   <message name="FnRegisterVendor">
     <part name="parameters" element="tns:FnRegisterVendor" />
   </message>
@@ -1182,11 +1176,13 @@
   <message name="FnSupplierRegistrationLinks_Result">
     <part name="parameters" element="tns:FnSupplierRegistrationLinks_Result" />
   </message>
+  <message name="FnSubmitTenderResponse">
+    <part name="parameters" element="tns:FnSubmitTenderResponse" />
+  </message>
+  <message name="FnSubmitTenderResponse_Result">
+    <part name="parameters" element="tns:FnSubmitTenderResponse_Result" />
+  </message>
   <portType name="eprocurement_Port">
-    <operation name="FnSubmitTenderResponse">
-      <input name="FnSubmitTenderResponse" message="tns:FnSubmitTenderResponse" />
-      <output name="FnSubmitTenderResponse_Result" message="tns:FnSubmitTenderResponse_Result" />
-    </operation>
     <operation name="FnRegisterVendor">
       <input name="FnRegisterVendor" message="tns:FnRegisterVendor" />
       <output name="FnRegisterVendor_Result" message="tns:FnRegisterVendor_Result" />
@@ -1383,18 +1379,13 @@
       <input name="FnSupplierRegistrationLinks" message="tns:FnSupplierRegistrationLinks" />
       <output name="FnSupplierRegistrationLinks_Result" message="tns:FnSupplierRegistrationLinks_Result" />
     </operation>
+    <operation name="FnSubmitTenderResponse">
+      <input name="FnSubmitTenderResponse" message="tns:FnSubmitTenderResponse" />
+      <output name="FnSubmitTenderResponse_Result" message="tns:FnSubmitTenderResponse_Result" />
+    </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
     <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
-    <operation name="FnSubmitTenderResponse">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSubmitTenderResponse" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
-      <input name="FnSubmitTenderResponse">
-        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
-      </input>
-      <output name="FnSubmitTenderResponse_Result">
-        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
-      </output>
-    </operation>
     <operation name="FnRegisterVendor">
       <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendor" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="FnRegisterVendor">
@@ -1833,6 +1824,15 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnSupplierRegistrationLinks_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnSubmitTenderResponse">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSubmitTenderResponse" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnSubmitTenderResponse">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnSubmitTenderResponse_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

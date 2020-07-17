@@ -3297,7 +3297,7 @@ namespace EProc_On_Metronic.Controllers
             wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetBidResponseDetails");
             modelitems = JsonConvert.DeserializeObject<List<BidResponseDetailsModel>>(json);
-            var jritems = (from a in modelitems where a.Invitation_For_Supply_No == ittnumber &&a.Pay_to_Vendor_No == Session["vendorNo"].ToString() select a).ToList();
+            var jritems = (from a in modelitems where a.Invitation_For_Supply_No == ittnumber && a.Buy_from_Vendor_No == Session["vendorNo"].ToString() select a).ToList();
             return Json(jritems, JsonRequestBehavior.AllowGet);
         }
         public JsonResult FnPullSingeTenderDetailsrsp(string ittcode)

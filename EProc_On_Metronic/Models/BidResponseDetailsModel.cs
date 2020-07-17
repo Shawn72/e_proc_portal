@@ -29,6 +29,8 @@ namespace EProc_On_Metronic.Models
         public string Pay_to_Vendor_No { get; set; }
         public string Pay_to_Name { get; set; }
         public string Document_Status { get; set; }
+        public string Buy_from_Vendor_No { get; set; }
+        
 
 
     }

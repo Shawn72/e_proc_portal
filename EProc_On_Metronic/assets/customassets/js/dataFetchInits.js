@@ -3518,8 +3518,9 @@ $('.btn_back_2_addendumlist').click(function () {
 
 $('.btn_go_apply').click(function () {
     
-    var ittNumber = $(".btn_go_apply").attr("attr_ittnumber");
-    var ittNoticeNumber = $("#txtTenderNoticeNo").val();
+   // var ittNumber = $(".btn_go_apply").attr("attr_ittnumber");
+   // var ittNoticeNumber = $("#txtTenderNoticeNo").val();
+    var ittNoticeNumber = $(".btn_go_apply").attr("attr_ittnumber");
     // Create a New Tender Response On Navision
     //Set data to be sent    
     $.ajax({
@@ -3531,9 +3532,24 @@ $('.btn_go_apply').click(function () {
         dataType: "json"
     }).done(function (status) {
         var splitstatus = status.split("*");
+        console.log("submit answer: " + splitstatus[1]);
         switch (splitstatus[0]) {
             case "success":
+                //switch divs if bid submit is success
+                $("#tender_responses").css("display", "block");
+                $("#tender_displays").css("display", "none");
                 // Load Tender Response Details
+                App.alert({
+                    container: "#tenderesponseMsg",
+                    place: "append",
+                    type: "success",
+                    message: splitstatus[1],
+                    close: true,
+                    reset: true,
+                    focus: true,
+                    closeInSeconds: 5,
+                    icon: "check"
+                });
                 vendorpreference.init();
                 ownerships.init();
                 break;
@@ -3544,10 +3560,17 @@ $('.btn_go_apply').click(function () {
                        text: "Error on Tender Application, contact the office!",
                        type: "error"
                    }).then(() => {
-                       $("#tenderesponsefeedbacks").css("display", "block");
-                       $("#tenderesponsefeedbacks").css("color", "red");
-                       $('#tenderesponsefeedbacks').attr('class', 'alert alert-danger');
-                       $("#tenderesponsefeedbacks").html("Error downloading the RfQ Document, contact the office!");
+                    App.alert({
+                        container: "#tenderesponseMsg",
+                        place: "append",
+                        type: "danger",
+                        message: splitstatus[1],
+                        close: true,
+                        reset: true,
+                        focus: true,
+                        closeInSeconds: 5,
+                        icon: "warning"
+                    });
                    });
                 break;
             default:
@@ -3557,27 +3580,33 @@ $('.btn_go_apply').click(function () {
                     text: "Exception Error thrown! contact the KeRRA Main Office!",
                     type: "error"
                 }).then(() => {
-                    $("#tenderesponsefeedbacks").css("display", "block");
-                    $("#tenderesponsefeedbacks").css("color", "red");
-                    $('#tenderesponsefeedbacks').attr('class', 'alert alert-danger');
-                    $("#tenderesponsefeedbacks").html(status);
+
+                    App.alert({
+                        container: "#tenderesponseMsg",
+                        place: "append",
+                        type: "danger",
+                        message: splitstatus[1],
+                        close: true,
+                        reset: true,
+                        focus: true,
+                        closeInSeconds: 5,
+                        icon: "warning"
+                    });
+
                 });
-        
-        }
+            }
     });
+
     //load vendor details first
-    var ittNoticeNumber = $(".btn_go_apply").attr("attr_ittnumber");
+ 
     $.ajax({
             type: "POST",
             url: "/Home/FetchTenderResponseDetails?ittnumber=" + ittNoticeNumber,
             data: "",
-            //cache: false,
-            //async: true
+            cache: false,
+            async: true
     }).done(function (json) {
         $(".modalspinner").show();
-            //switch divs
-            $("#tender_responses").css("display", "block");
-            $("#tender_displays").css("display", "none");
             var ittNumber = $(".btn_go_apply").attr("attr_ittnumber");
          
             $("#txtInvTenderNo").val(ittNumber);
@@ -3594,7 +3623,8 @@ $('.btn_go_apply').click(function () {
                 $("#txtInvTenderNo").val(json[i].Invitation_For_Supply_No);
                 $("#txtVendorNo").val(json[i].Pay_to_Vendor_No);
                 $("#txtVendorName").val(json[i].Pay_to_Name);
-                $("#txtDocumentStatus").val(json[i].Document_Status); 
+                $("#txtDocumentStatus").val(json[i].Document_Status);
+
                 //$("#txtAddress2").val(json[i].Address_2);
                 //$("#txtPostCode").val(json[i].Post_Code);
                 //$("#txtCity").val(json[i].City);
@@ -3610,7 +3640,7 @@ $('.btn_go_apply').click(function () {
         //async fetch 2: tender details
         $.ajax({
             type: "POST",
-            url: "/Home/FnPullSingeTenderDetailsrsp?ittpnumber=" + ittNumber,
+            url: "/Home/FnPullSingeTenderDetailsrsp?ittpnumber=" + ittNoticeNumber,
             data: "",
             cache: false,
             async: true
@@ -3673,7 +3703,7 @@ $('.btn_go_apply').click(function () {
 
         });
 
-    //async fetch Confidential Details: tender details
+      //async fetch Confidential Details: tender details
         $.ajax({
             type: "POST",
             url: "/Home/FetchTenderVendorDetails",
@@ -3700,141 +3730,144 @@ $('.btn_go_apply').click(function () {
 
 });
     //Fetch Vendor Preferences
-    var vendorpreference = function () {
-        var y = function () {
-            var tl = $("#tbl_getVendor_Prefereneces"),
-                l = tl.dataTable({
-                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
-                    pageLength: 5,
-                    language: { lengthMenu: " _MENU_ records" },
-                    columnDefs: [
-                        {
-                            orderable: !0,
-                            defaultContent: "-",
-                            targets: "_all"
-                        },
-                        {
-                            searchable: !0,
-                            targets: "_all"
-                        }
-                    ],
-                    order: [
-                        [0, "asc"]
-                    ],
+var vendorpreference = function() {
+    var y = function() {
+        var tl = $("#tbl_getVendor_Prefereneces"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
 
-                    bDestroy: true,
-                    info: false,
-                    processing: true,
-                    retrieve: true
-                });
-
-            $.ajaxSetup({
-                global: false,
-                type: "POST",
-                url: "/Home/GetVendorPreferenceDetails",
-                beforeSend: function () {
-                    $(".modalspinner").show();
-                },
-                complete: function () {
-                    $(".modalspinner").hide();
-                }
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
             });
-            $.ajax({
-                data: ""
-            }).done(function (json) {
-                l.fnClearTable();
 
-                var o = 1;
-                for (var i = 0; i < json.length; i++) {
-                    l.fnAddData([
-                        o++,
-                        json[i].Certifcate_No,
-                        json[i].Registered_Special_Group,
-                        json[i].Products_Service_Category,
-                        new Date(json[i].Effective_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
-                        new Date(json[i].Certificate_Expiry_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
-                       json[i].Certifying_Agency,
-                       '<a class="edit_preferenece" href="">Edit</a>',
-                       '<a class="delete_preferenece" href="">Delete</a>'
-                    ]);
-                }
-            });
-        }
-        return {
-            init: function () {
-                y();
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/GetVendorPreferenceDetails",
+            beforeSend: function() {
+                $(".modalspinner").show();
+            },
+            complete: function() {
+                $(".modalspinner").hide();
             }
+        });
+        $.ajax({
+            data: ""
+        }).done(function(json) {
+            l.fnClearTable();
+
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Certifcate_No,
+                    json[i].Registered_Special_Group,
+                    json[i].Products_Service_Category,
+                    new Date(json[i].Effective_Date).toLocaleDateString('en-US',
+                        { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                    new Date(json[i].Certificate_Expiry_Date).toLocaleDateString('en-US',
+                        { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                    json[i].Certifying_Agency,
+                    '<a class="edit_preferenece" href="">Edit</a>',
+                    '<a class="delete_preferenece" href="">Delete</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function() {
+            y();
         }
-    }()
+    }
+}();
     //Get/Fetch Directors Ownerships Details
-    var ownerships = function () {
-        var on = function () {
-            var tl = $("#tbl_ownership_list"),
-                l = tl.dataTable({
-                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
-                    pageLength: 5,
-                    language: { lengthMenu: " _MENU_ records" },
-                    columnDefs: [
-                        {
-                            orderable: !0,
-                            defaultContent: "-",
-                            targets: "_all"
-                        },
-                        {
-                            searchable: !0,
-                            targets: "_all"
-                        }
-                    ],
-                    order: [
-                        [0, "asc"]
-                    ],
+var ownerships = function() {
+    var on = function() {
+        var tl = $("#tbl_ownership_list"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
 
-                    bDestroy: true,
-                    info: false,
-                    processing: true,
-                    retrieve: true
-                });
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
 
-            $.ajaxSetup({
-                global: false,
-                type: "POST",
-                url: "/Home/GetDirectorOwnership",
-                beforeSend: function () {
-                    $(".modalspinner").show();
-                },
-                complete: function () {
-                    $(".modalspinner").hide();
-                }
-            });
-            $.ajax({
-                data: ""
-            }).done(function (json) {
-                l.fnClearTable();
-                console.log(JSON.stringify({ vendorTestdata: json }));
-                var o = 1;
-                for (var i = 0; i < json.length; i++) {
-                    l.fnAddData([
-                        o++,
-                        json[i].Name,
-                        json[i].Address,
-                        json[i].Post_Code,
-                        json[i].Address_2,
-                        json[i].City,
-                        json[i].Phone_No,
-                        json[i].Country_Region_Code,
-                        json[i].ID_Number,
-                       '<a class="edit_preferenece" href="">Edit</a>',
-                       '<a class="delete_preferenece" href="">Delete</a>'
-                    ]);
-                }
-            });
-        }
-        return {
-            init: function () {
-                on();
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/GetDirectorOwnership",
+            beforeSend: function() {
+                $(".modalspinner").show();
+            },
+            complete: function() {
+                $(".modalspinner").hide();
             }
+        });
+        $.ajax({
+            data: ""
+        }).done(function(json) {
+            l.fnClearTable();
+            console.log(JSON.stringify({ vendorTestdata: json }));
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Name,
+                    json[i].Address,
+                    json[i].Post_Code,
+                    json[i].Address_2,
+                    json[i].City,
+                    json[i].Phone_No,
+                    json[i].Country_Region_Code,
+                    json[i].ID_Number,
+                    '<a class="edit_preferenece" href="">Edit</a>',
+                    '<a class="delete_preferenece" href="">Delete</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function() {
+            on();
         }
-    }()
-    jQuery(document).ready(function () {
-        Ld.init(), suppregDocs.init();
-    });
+    }
+}();
+
+jQuery(document).ready(function () {
+    Ld.init(), suppregDocs.init();
+});
