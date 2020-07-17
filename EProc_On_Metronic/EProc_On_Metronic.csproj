@@ -216,6 +216,7 @@
     <Compile Include="Models\BankModel.cs" />
     <Compile Include="Models\BidderReservedtModel.cs" />
     <Compile Include="Models\BidPreservschemeTModel.cs" />
+    <Compile Include="Models\BidResponseDetailsModel.cs" />
     <Compile Include="Models\BidScopeTModel.cs" />
     <Compile Include="Models\BidSecurityModel.cs" />
     <Compile Include="Models\BlogsModel.cs" />

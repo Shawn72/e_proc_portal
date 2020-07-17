@@ -3290,7 +3290,16 @@ namespace EProc_On_Metronic.Controllers
             var jritems = (from a in modelitems where a.No == Session["vendorNo"].ToString() select a).ToList();
             return Json(jritems, JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult FetchTenderResponseDetails(string ittnumber)
+        {
+            List<BidResponseDetailsModel> modelitems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetBidResponseDetails");
+            modelitems = JsonConvert.DeserializeObject<List<BidResponseDetailsModel>>(json);
+            var jritems = (from a in modelitems where a.Invitation_For_Supply_No == ittnumber &&a.Pay_to_Vendor_No == Session["vendorNo"].ToString() select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult FnPullSingeTenderDetailsrsp(string ittcode)
         {
             List<TenderModel> req = null;
@@ -3321,6 +3330,29 @@ namespace EProc_On_Metronic.Controllers
             var vownership = (from a in ownership where a.No == Session["contactNo"].ToString() select a).ToList();
             return Json(vownership, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult SubmitTenderResponse(string ittpnumber)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                var status = nvWebref.FnSubmitTenderResponse(vendorNo, ittpnumber);
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public JsonResult CheckLogin(string myUserId, string myPassword)
