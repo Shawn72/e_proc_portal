@@ -3537,8 +3537,8 @@ $('.btn_go_apply').click(function () {
             type: "POST",
             url: "/Home/FetchTenderVendorDetails",
             data: "",
-            cache: false,
-            async: true
+            //cache: false,
+            //async: true
     }).done(function (json) {
         $(".modalspinner").show();
             //switch divs
@@ -3586,7 +3586,8 @@ $('.btn_go_apply').click(function () {
             alert("ittNo: "+ittNumber)
             for (var i = 0; i < json.length; i++) {
                 //populate tab 2
-                $("#txtBidChargeCode").val(json[i].Bid_Charge_Code);
+                //$("#txtBidChargeCode").val(json[i].Bid_Charge_Code);
+                $("#txtBidChargeCode").val("Charged sea");
                 $("#txtBidenvelopeType").val(json[i].Bid_Envelop_Type);
                 $("#txtInvtNoticetype").val(json[i].Invitation_Notice_Type);
                 $("#txtRespCenter").val(json[i].Responsibility_Center);
