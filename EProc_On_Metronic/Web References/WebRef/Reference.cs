@@ -29,6 +29,8 @@ namespace EProc_On_Metronic.WebRef {
     [System.Web.Services.WebServiceBindingAttribute(Name="eprocurement_Binding", Namespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement")]
     public partial class eprocurement : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback FnSubmitTenderResponseOperationCompleted;
+        
         private System.Threading.SendOrPostCallback FnRegisterVendorOperationCompleted;
         
         private System.Threading.SendOrPostCallback ResetPassOperationCompleted;
@@ -164,6 +166,9 @@ namespace EProc_On_Metronic.WebRef {
                 this.useDefaultCredentialsSetExplicitly = true;
             }
         }
+        
+        /// <remarks/>
+        public event FnSubmitTenderResponseCompletedEventHandler FnSubmitTenderResponseCompleted;
         
         /// <remarks/>
         public event FnRegisterVendorCompletedEventHandler FnRegisterVendorCompleted;
@@ -311,6 +316,38 @@ namespace EProc_On_Metronic.WebRef {
         
         /// <remarks/>
         public event FnSupplierRegistrationLinksCompletedEventHandler FnSupplierRegistrationLinksCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSubmitTenderResponse", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnSubmitTenderResponse_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnSubmitTenderResponse(string vendornumber, string invitationnumber) {
+            object[] results = this.Invoke("FnSubmitTenderResponse", new object[] {
+                        vendornumber,
+                        invitationnumber});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnSubmitTenderResponseAsync(string vendornumber, string invitationnumber) {
+            this.FnSubmitTenderResponseAsync(vendornumber, invitationnumber, null);
+        }
+        
+        /// <remarks/>
+        public void FnSubmitTenderResponseAsync(string vendornumber, string invitationnumber, object userState) {
+            if ((this.FnSubmitTenderResponseOperationCompleted == null)) {
+                this.FnSubmitTenderResponseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnSubmitTenderResponseOperationCompleted);
+            }
+            this.InvokeAsync("FnSubmitTenderResponse", new object[] {
+                        vendornumber,
+                        invitationnumber}, this.FnSubmitTenderResponseOperationCompleted, userState);
+        }
+        
+        private void OnFnSubmitTenderResponseOperationCompleted(object arg) {
+            if ((this.FnSubmitTenderResponseCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnSubmitTenderResponseCompleted(this, new FnSubmitTenderResponseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendor", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnRegisterVendor_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -2247,6 +2284,32 @@ namespace EProc_On_Metronic.WebRef {
                 return true;
             }
             return false;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
+    public delegate void FnSubmitTenderResponseCompletedEventHandler(object sender, FnSubmitTenderResponseCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3761.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnSubmitTenderResponseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnSubmitTenderResponseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
         }
     }
     

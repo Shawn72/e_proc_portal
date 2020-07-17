@@ -27,13 +27,13 @@ namespace EProc_On_Metronic.Controllers
 
         ///uncomment this while publishing on live server
 
-        //public static string Baseurl = ConfigurationManager.AppSettings["API_SERVER_URL"];
+        public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
 
         ///uncomment this while publishing on live server
 
         ///for use on localhost testings
 
-        public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
+        //public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
         
         ///for use on localhost testings
      
@@ -115,7 +115,10 @@ namespace EProc_On_Metronic.Controllers
         {
             return View();
         }
-
+        public ActionResult TenderDocuments()
+        {
+            return View();
+        }
         public ActionResult TenderbyRegionOverviewInject()
         {
             return View();
@@ -204,7 +207,6 @@ namespace EProc_On_Metronic.Controllers
         public ActionResult TendersList()
         {
             Session["tenderclass"] = "notspecial";
-            Session["holdIttNumber"] = "";
             return View();
         }
 
@@ -3288,16 +3290,67 @@ namespace EProc_On_Metronic.Controllers
             var jritems = (from a in modelitems where a.No == Session["vendorNo"].ToString() select a).ToList();
             return Json(jritems, JsonRequestBehavior.AllowGet);
         }
-
-        public JsonResult FnPullSingeTenderDetailsrsp(string ittpnumber)
+        public JsonResult FetchTenderResponseDetails(string ittnumber)
+        {
+            List<BidResponseDetailsModel> modelitems = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetBidResponseDetails");
+            modelitems = JsonConvert.DeserializeObject<List<BidResponseDetailsModel>>(json);
+            var jritems = (from a in modelitems where a.Invitation_For_Supply_No == ittnumber &&a.Pay_to_Vendor_No == Session["vendorNo"].ToString() select a).ToList();
+            return Json(jritems, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult FnPullSingeTenderDetailsrsp(string ittcode)
         {
             List<TenderModel> req = null;
             WebClient wc = new WebClient();
             wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
-            string json = wc.DownloadString(Baseurl + "api/GetPurchaseCodeHeaders");
+            string json = wc.DownloadString(Baseurl + "api/GetInvitetoTenders");
             req = JsonConvert.DeserializeObject<List<TenderModel>>(json);
-            var items = (from a in req where a.Code == ittpnumber select a).ToList();
+            var items = (from a in req where a.Code == ittcode select a).ToList();
             return Json(items, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetVendorPreferenceDetails()
+        {
+            List<VendorPreferenceModel> vendorpreference = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetVenderPreferences");
+            vendorpreference = JsonConvert.DeserializeObject<List<VendorPreferenceModel>>(json);
+            var vpreference = (from a in vendorpreference where a.Vendor_No == Session["vendorNo"].ToString() select a).ToList();
+            return Json(vpreference, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDirectorOwnership()
+        {
+            List<ContactsModel> ownership = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetPortalContacts");
+            ownership = JsonConvert.DeserializeObject<List<ContactsModel>>(json);
+            var vownership = (from a in ownership where a.No == Session["contactNo"].ToString() select a).ToList();
+            return Json(vownership, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SubmitTenderResponse(string ittpnumber)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                var status = nvWebref.FnSubmitTenderResponse(vendorNo, ittpnumber);
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]

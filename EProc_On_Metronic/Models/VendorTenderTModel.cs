@@ -35,8 +35,8 @@
         public string Reg_Incorporation_Date { get; set; }
         public string Operations_Start_Date { get; set; }
         public string Business_Type { get; set; }
-        public string Address_2 { get; set; }
-        
+        public string Nominal_Capital_LCY { get; set; }
+
 
     }
 }
