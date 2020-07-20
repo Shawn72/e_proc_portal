@@ -51,17 +51,9 @@ var FormWizard = function () {
             function e(e) {
                 return e.id ? "<img class='flag' src='/assets/global/img/flags/" + e.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + e.text : e.text;
             }
+
             if (jQuery().bootstrapWizard) {
-                $("#country_list").select2({
-                    placeholder: "Select",
-                    allowClear: !0,
-                    formatResult: e,
-                    width: "auto",
-                    formatSelection: e,
-                    escapeMarkup: function (e) {
-                        return e;
-                    }
-                });
+               
                 var r = $("#submit_tenderreg_form"),
                     t = $(".alert-danger", r),
                     i = $(".alert-success", r);
@@ -71,23 +63,19 @@ var FormWizard = function () {
                     errorClass: "help-block help-block-error",
                     focusInvalid: !1,
                     rules: {
-                        txtAddress: {
-                            required: !0
-                        },
-                      
-                        txtAddress2: {
-                            required: !0
-                        },
-                        ddlallpostacodes30: {
+                        txtRepdesignation: {
                             required: !0
                         },
 
-                        ddlallcountries: {
+                        txtBidderRepaddr: {
                             required: !0
                         },
-                        ddlOwnershiptype: {
+
+                        txtBidderWitnessName: {
                             required: !0
                         },
+
+                        //separator
                         dtOps: {
                             required: !0
                         },
@@ -184,27 +172,8 @@ var FormWizard = function () {
                             required: !0,
                             number: !0
                         },
-                        txtTotalfixedassets: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-                        txtTotalcurrentliability: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-                        txtTotalLongtermliability: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-                        txtTotalOwnerequity: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-
+                      
+                       
 
 
                         txtTotalRevenue: {
@@ -212,34 +181,10 @@ var FormWizard = function () {
                             required: !0,
                             number: !0
                         },
-                        txtTotalOprXpens: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-                        txtTotalCoGs: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
+                        
+                       
 
-                        txtTotalOthernonOprexp: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-                        txtInterestExpense: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-
-
-                        //custom validators
-                        "payment[]": {
-                            required: !0,
-                            minlength: 1
-                        }
+                        
                     },
                     //custom validator messages
                     messages: {

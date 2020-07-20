@@ -2168,13 +2168,14 @@ var Ld = function () {
 
     return {
         init: function() {
-            e(), rfiresponse(), optends(), rc(), pg(), wks(), optendsSpg(), rgT(), debaredList(), addendumList(), regionPwks();
+            e(), rfiresponse(), rc(), pg(), wks(), optendsSpg(), rgT(), debaredList(), addendumList(), regionPwks();
         }
     }
 }();
 
 var optends = function() {
-    var y = function() {
+    var y = function () {
+        var tnType = $(".loaded_tender_type").val();
         var tl = $("#tbl_open_tenders_n"),
             l = tl.dataTable({
                 lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
@@ -2200,8 +2201,6 @@ var optends = function() {
                 processing: true,
                 retrieve: true
             });
-
-        var tnType = $(".loaded_tender_type").val();
 
         switch (tnType) {
         case "tenderbyregion":
@@ -2234,11 +2233,14 @@ var optends = function() {
             break;
         }
 
-        $(".modalspinner").show();
+       
         $.ajax({
-            data: ""
+            data: "",
+            beforeSend: function () {
+                $(".modalspinner").show();
+            }
         }).done(function(json) {
-
+            $(".modalspinner").hide();
             l.fnClearTable();
             var o = 1;
             for (var i = 0; i < json.length; i++) {
@@ -2255,6 +2257,7 @@ var optends = function() {
             }
             $(".modalspinner").hide();
         });
+
         tl.on("click",
             ".go_respond",
             function(tl) {
@@ -2274,29 +2277,33 @@ var optends = function() {
                     break;
                 }
 
-
                 var i = $(this).parents("tr")[0];
                 var linkval = i.cells[1].innerText;
                 var bidscortemp = i.cells[6].innerText;
+
                 //global loader spinner;
-                $.ajaxSetup({
-                    global: false,
-                    type: "POST",
-                    url: "/Home/GetSingleItTender?ittpnumber=" + linkval,
-                    beforeSend: function() {
-                        //  $(".modalspinner").show();
-                    },
-                    complete: function() {
-                        //  $(".modalspinner").hide();
-                    }
-                });
+                //$.ajaxSetup({
+                //    global: false,
+                //    type: "POST",
+                //    url: "/Home/GetSingleItTender?ittpnumber=" + linkval,
+                //    beforeSend: function() {
+                //        //  $(".modalspinner").show();
+                //    },
+                //    complete: function() {
+                //        //  $(".modalspinner").hide();
+                //    }
+                //});
 
                 //async fetch 2: Tab 1
-                $(".modalspinner").show();
                 $.ajax({
+                    type: "POST",
+                    url: "/Home/GetSingleItTender?ittpnumber=" + linkval,
                     data: "",
                     cache: false,
-                    async: true
+                    async: true,
+                    beforeSend: function () {
+                        $(".modalspinner").show();
+                    }
                 }).done(function(json) {
 
                     for (var i = 0; i < json.length; i++) {
@@ -3541,32 +3548,46 @@ $('.button-go-back').click(function (e) {
     $("#tender_displays").css("display", "block");
 });
 
-$('.btn_go_apply').click(function () {
+$('.btn_go_apply').click(function (e) {
     
-    var ittNumber = $(".btn_go_apply").attr("attr_ittnumber");
-    var ittNoticeNumber = $("#txtTenderNoticeNo").val();
+    var ittNoticeNumber = $(".btn_go_apply").attr("attr_ittnumber");
+
+    //var ittNoticeNumber = $("#txtTenderNoticeNo").val();
     // Create a New Tender Response On Navision
     //Set data to be sent   
-
-    $(".modalspinner").show();
     $.ajax({
         url: "/Home/SubmitTenderResponse?ittpnumber=" + ittNoticeNumber,
         type: "POST",
         data: "",
         cache: false,
         async: true,
-        dataType: "json"
+        dataType: "json",
+        beforeSend: function () {
+            $(".modalspinner").show();
+        }
     }).done(function (status) {
         var splitstatus = status.split("*");
         switch (splitstatus[0]) {
             case "success":
-                // Load Tender Response Details
-                vendorpreference.init();
+                //only switch divs after a successful inserts first
+                $("#tender_responses").css("display", "block");
+                $("#tender_displays").css("display", "none");
 
                 //do something
+                // Load Tender Response Details //NOTE:Load everything else after a successful insert / save to dB first
+                vendorpreference.init();
+                ownerships.init();
+                personnelExperience.init();
+                pricinginformation.init();
+                auditedbalancesheet.init();
+                auditedincomestatement.init();
+                keybidvendorbankaccounts.init();
+                KeyBidLitigationsHistory.init();
+                KeyBidVendorPastExperience.init();
 
                 break;
             case "danger":
+                //otherwiaw get back error
                 Swal.fire
                    ({
                        title: "Tender Response Error!",
@@ -3595,8 +3616,10 @@ $('.btn_go_apply').click(function () {
         }
         $(".modalspinner").hide();
     });
+    
+
     //load vendor details first
-    var ittNoticeNumber = $(".btn_go_apply").attr("attr_ittnumber");
+   // ittNoticeNumber = $(".btn_go_apply").attr("attr_ittnumber");
     $.ajax({
             type: "POST",
             url: "/Home/FetchTenderResponseDetails?ittnumber=" + ittNoticeNumber,
@@ -3604,10 +3627,7 @@ $('.btn_go_apply').click(function () {
             cache: false,
             async: true
     }).done(function (json) {
-        $(".modalspinner").show();
-            //switch divs
-            $("#tender_responses").css("display", "block");
-            $("#tender_displays").css("display", "none");
+       
             var ittNumber = $(".btn_go_apply").attr("attr_ittnumber");
          
             $("#txtInvTenderNo").val(ittNumber);
@@ -3635,15 +3655,17 @@ $('.btn_go_apply').click(function () {
                 $("#txtLangCode").val(json[i].Language_Code);
                 $("#txtRespCenter").val(json[i].Responsibility_Center);
 
-               // Pre-load other response details.
-                ownerships.init();
-                personnelExperience.init();
-                pricinginformation.init();
-                auditedbalancesheet.init();
-                auditedincomestatement.init();
-                keybidvendorbankaccounts.init();
-                KeyBidLitigationsHistory.init();
-                KeyBidVendorPastExperience.init();
+                // Pre-load other response details.
+
+                //ownerships.init();
+                //personnelExperience.init();
+                //pricinginformation.init();
+                //auditedbalancesheet.init();
+                //auditedincomestatement.init();
+                //keybidvendorbankaccounts.init();
+                //KeyBidLitigationsHistory.init();
+                //KeyBidVendorPastExperience.init();
+
                 //$("#txtDocDate")
                 //    .val(new Date(json[i].Document_Date).toLocaleDateString('en-US',
                 //   { day: '2-digit', month: '2-digit', year: 'numeric' }));
@@ -3655,11 +3677,12 @@ $('.btn_go_apply').click(function () {
         //async fetch 2: tender details
         $.ajax({
             type: "POST",
-            url: "/Home/FnPullSingeTenderDetailsrsp?ittpnumber=" + ittNumber,
+            url: "/Home/FnPullSingeTenderDetailsrsp?ittpnumber=" + ittNoticeNumber,
             data: "",
             cache: false,
             async: true
         }).done(function (json) {
+            $(".modalspinner").hide();
             for (var i = 0; i < json.length; i++) {
                 //populate tab 2
                 $("#txtBidChargeCode").val(json[i].Bid_Charge_Code);
@@ -3727,7 +3750,7 @@ $('.btn_go_apply').click(function () {
             cache: false,
             async: true
         }).done(function (json) {
-            
+            $(".modalspinner").hide();
             for (var i = 0; i < json.length; i++) {
                 //populate Vendor Details
                 $("#txtHouseNo").val(json[i].Building_House_No);
@@ -3819,74 +3842,74 @@ var vendorpreference = function() {
 }();
 //Get/Fetch Directors Ownerships Detailstbl_pricing_information
     var ittTenderResponseNumber = $("#txtBidResponseNo").val();
-    var ownerships = function () {
-        var on = function () {
-            var tl = $("#tbl_ownership_list"),
-                l = tl.dataTable({
-                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
-                    pageLength: 5,
-                    language: { lengthMenu: " _MENU_ records" },
-                    columnDefs: [
-                        {
-                            orderable: !0,
-                            defaultContent: "-",
-                            targets: "_all"
-                        },
-                        {
-                            searchable: !0,
-                            targets: "_all"
-                        }
-                    ],
-                    order: [
-                        [0, "asc"]
-                    ],
+var ownerships = function() {
+    var on = function() {
+        var tl = $("#tbl_ownership_list"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
 
-                    bDestroy: true,
-                    info: false,
-                    processing: true,
-                    retrieve: true
-                });
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
 
-            $.ajaxSetup({
-                global: false,
-                type: "POST",
-                url: "/Home/GetDirectorOwnership?ittresponsenumber=" + ittTenderResponseNumber,
-                beforeSend: function () {
-                    $(".modalspinner").show();
-                },
-                complete: function () {
-                    $(".modalspinner").hide();
-                }
-            });
-            $.ajax({
-                data: ""
-            }).done(function (json) {
-                l.fnClearTable();
-                console.log(JSON.stringify({ vendorTestdata: json }));
-                var o = 1;
-                for (var i = 0; i < json.length; i++) {
-                    l.fnAddData([
-                        o++,
-                        json[i].Name,
-                        json[i].Address,
-                        json[i].Post_Code,
-                        json[i].Address_2,
-                        json[i].City,
-                        json[i].Phone_No,
-                        json[i].Country_Region_Code,
-                        json[i].Nationality_ID,
-                       '<a class="edit_preferenece" href="">Edit</a>',
-                       '<a class="delete_preferenece" href="">Delete</a>'
-                    ]);
-                }
-            });
-        }
-        return {
-            init: function () {
-                on();
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/GetDirectorOwnership?ittresponsenumber=" + ittTenderResponseNumber,
+            beforeSend: function() {
+                $(".modalspinner").show();
+            },
+            complete: function() {
+                $(".modalspinner").hide();
             }
+        });
+        $.ajax({
+            data: ""
+        }).done(function(json) {
+            l.fnClearTable();
+            console.log(JSON.stringify({ vendorTestdata: json }));
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Name,
+                    json[i].Address,
+                    json[i].Post_Code,
+                    json[i].Address_2,
+                    json[i].City,
+                    json[i].Phone_No,
+                    json[i].Country_Region_Code,
+                    json[i].Nationality_ID,
+                    '<a class="edit_preferenece" href="">Edit</a>',
+                    '<a class="delete_preferenece" href="">Delete</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function() {
+            on();
         }
-    }()
+    }
+}();
 //Get/Fetch Directors Pricing Details
     var ittBidResponseNumber = $("#txtBidResponseNo").val();
 var pricinginformation = function() {
