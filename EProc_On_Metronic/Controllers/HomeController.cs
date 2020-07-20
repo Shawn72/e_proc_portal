@@ -27,13 +27,13 @@ namespace EProc_On_Metronic.Controllers
 
         ///uncomment this while publishing on live server
 
-        public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
+        // public static string Baseurl = ConfigurationManager.AppSettings["API_SERVER_URL"];
 
         ///uncomment this while publishing on live server
 
         ///for use on localhost testings
 
-        //public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
+        public static string Baseurl = ConfigurationManager.AppSettings["API_LOCALHOST_URL"];
         
         ///for use on localhost testings
      

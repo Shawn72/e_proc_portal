@@ -71,19 +71,17 @@ var FormWizard = function () {
                     errorClass: "help-block help-block-error",
                     focusInvalid: !1,
                     rules: {
-                        ddlbzTypename: {
+                        txtAddress: {
                             required: !0
                         },
-                        txtCertofIncorp: {
-                            minlength: 5,
-                            required: !0
-                        },
-                        ddlVendortype: {
+                      
+                        txtAddress2: {
                             required: !0
                         },
                         ddlallpostacodes30: {
                             required: !0
                         },
+
                         ddlallcountries: {
                             required: !0
                         },

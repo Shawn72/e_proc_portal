@@ -201,7 +201,7 @@
                                                                 <label class="control-label"><strong>Address:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" id="txtAddress" />
+                                                                <input type="text" class="form-control" id="txtAddress" name="txtAddress" readonly />
                                                             </td>
 
                                                             <td>
@@ -217,7 +217,7 @@
                                                                 <label class="control-label"><strong>Address 2:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" id="txtAddress2" />
+                                                                <input type="text" class="form-control" id="txtAddress2" name ="txtAddress2" />
                                                             </td>
 
                                                             <td>
@@ -233,7 +233,7 @@
                                                                 <label class="control-label"><strong>Post Code:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" id="txtPostCode" />
+                                                                <input type="text" class="form-control" id="txtPostCode"   name = "txtPostCode" readonly/>
                                                             </td>
 
                                                             <td>
@@ -249,7 +249,7 @@
                                                                 <label class="control-label"><strong>City:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" id="txtCity" />
+                                                                <input type="text" class="form-control" id="txtCity"   name ="txtCity"  readonly/>
                                                             </td>
 
                                                             <td>
@@ -1252,6 +1252,8 @@
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-offset-4 col-md-8">
+                            <a href="javascript:;" class="btn green btn-outline btn-circle button-go-back"><i class="fas fa fa-angle-left"></i> &nbsp;Go Back </a>
+                          
                             <a href="javascript:;" class="btn green btn-outline btn-circle button-previous"><i class="fas fa fa-angle-left"></i> &nbsp;Back </a>
                             <a href="javascript:;" class="btn green btn-outline btn-circle button-interimsave" style="display: none">Interim Save &nbsp;<i class="fas fa fa-save"></i></a>
                             <a href="javascript:;" class="btn green btn-outline btn-circle button-next">Continue &nbsp;<i class="fas fa fa-angle-right"></i></a>
