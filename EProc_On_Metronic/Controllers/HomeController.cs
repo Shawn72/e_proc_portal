@@ -3298,6 +3298,11 @@ namespace EProc_On_Metronic.Controllers
             string json = wc.DownloadString(Baseurl + "api/GetBidResponseDetails");
             modelitems = JsonConvert.DeserializeObject<List<BidResponseDetailsModel>>(json);
             var jritems = (from a in modelitems where a.Invitation_For_Supply_No == ittnumber &&a.Pay_to_Vendor_No == Session["vendorNo"].ToString() select a).ToList();
+            var result = jritems.FirstOrDefault();
+            if (result != null)
+            {
+                Session["BideResponseNumber"] = result.No;
+            }
             return Json(jritems, JsonRequestBehavior.AllowGet);
         }
         public JsonResult FnPullSingeTenderDetailsrsp(string ittcode)
@@ -3310,24 +3315,104 @@ namespace EProc_On_Metronic.Controllers
             var items = (from a in req where a.Code == ittcode select a).ToList();
             return Json(items, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetVendorPreferenceDetails()
+        public JsonResult GetVendorPreferenceDetails(string ittresponsenumber)
         {
+            var ittresponseid = Session["BideResponseNumber"].ToString();
             List<VendorPreferenceModel> vendorpreference = null;
             WebClient wc = new WebClient();
             wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
             string json = wc.DownloadString(Baseurl + "api/GetVenderPreferences");
             vendorpreference = JsonConvert.DeserializeObject<List<VendorPreferenceModel>>(json);
-            var vpreference = (from a in vendorpreference where a.Vendor_No == Session["vendorNo"].ToString() select a).ToList();
-            return Json(vpreference, JsonRequestBehavior.AllowGet);
+            var vpreference = (from a in vendorpreference where a.Vendor_No == Session["vendorNo"].ToString() &&a.Document_No== ittresponseid select a).ToList();
+          
+                return Json(vpreference, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetDirectorOwnership()
+        public JsonResult GetDirectorOwnership(string ittresponsenumber)
         {
-            List<ContactsModel> ownership = null;
+            var ittresponseid = Session["BideResponseNumber"].ToString();
+            List<BidResponseOwnerModel> ownership = null;
             WebClient wc = new WebClient();
             wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
-            string json = wc.DownloadString(Baseurl + "api/GetPortalContacts");
-            ownership = JsonConvert.DeserializeObject<List<ContactsModel>>(json);
-            var vownership = (from a in ownership where a.No == Session["contactNo"].ToString() select a).ToList();
+            string json = wc.DownloadString(Baseurl + "api/GetBidResponseOwners");
+            ownership = JsonConvert.DeserializeObject<List<BidResponseOwnerModel>>(json);
+            var vownership = (from a in ownership where a.Vendor_No == Session["vendorNo"].ToString()&&a.No== ittresponseid select a).ToList();
+            return Json(vownership, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetBidResponseItemsLines()
+        {
+            var ittresponseid = Session["BideResponseNumber"].ToString();
+            List<BidResponseItemLinesModel> itemlines = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetBidItemsLinesDetails");
+            itemlines = JsonConvert.DeserializeObject<List<BidResponseItemLinesModel>>(json);
+            var vownership = (from a in itemlines where a.Buy_from_Vendor_No == Session["vendorNo"].ToString() && a.Document_No == ittresponseid select a).ToList();
+            return Json(vownership, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetBidResponseStaffQualificationss(string bidresponsenumber)
+        {
+            var ittresponseid = Session["BideResponseNumber"].ToString();
+            List<BidKeyStaffQualificationModel> staffqualification = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetBidKeyStaffQualification");
+            staffqualification = JsonConvert.DeserializeObject<List<BidKeyStaffQualificationModel>>(json);
+            var vownership = (from a in staffqualification where a.Vendor_No == Session["vendorNo"].ToString() && a.No == ittresponseid select a).ToList();
+            return Json(vownership, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetBidResponseAuditBalanceSheet()
+        {
+            var ittresponseid = Session["BideResponseNumber"].ToString();
+            List<BidResponseAuditBalanceSheet> balancesheet = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetBidKeyAuditedBalanaceSheet");
+            balancesheet = JsonConvert.DeserializeObject<List<BidResponseAuditBalanceSheet>>(json);
+            var vownership = (from a in balancesheet where a.Vendor_No == Session["vendorNo"].ToString() && a.No == ittresponseid select a).ToList();
+            return Json(vownership, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetBidResponseAuditIncomeStatement()
+        {
+            var ittresponseid = Session["BideResponseNumber"].ToString();
+            List<BidResponseAuditIncomeStatements> incomestatement = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetBidKeyAuditedIncomeStatement");
+            incomestatement = JsonConvert.DeserializeObject<List<BidResponseAuditIncomeStatements>>(json);
+            var vownership = (from a in incomestatement where a.Vendor_No == Session["vendorNo"].ToString() && a.No == ittresponseid select a).ToList();
+            return Json(vownership, JsonRequestBehavior.AllowGet);
+       }
+        public JsonResult GetBidVendorBankAccounts()
+        {
+            var ittresponseid = Session["BideResponseNumber"].ToString();
+            List<BidVendorBankAccountsModel> bankaccount = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetBidKeyBankAccounts");
+            bankaccount = JsonConvert.DeserializeObject<List<BidVendorBankAccountsModel>>(json);
+            var vownership = (from a in bankaccount where a.Vendor_No == Session["vendorNo"].ToString() && a.No == ittresponseid select a).ToList();
+            return Json(vownership, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetBidVendorPastExperiences()
+        {
+            var ittresponseid = Session["BideResponseNumber"].ToString();
+            List<BidPastExperienceModel> pastexperience = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetKeyBidPastExperience");
+            pastexperience = JsonConvert.DeserializeObject<List<BidPastExperienceModel>>(json);
+            var vownership = (from a in pastexperience where a.Vendor_No == Session["vendorNo"].ToString() && a.No == ittresponseid select a).ToList();
+            return Json(vownership, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetBidLitigationsHistorys()
+        {
+            var ittresponseid = Session["BideResponseNumber"].ToString();
+            List<BidLitigationHistoryModel> litigations = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetKeyBidLitigationHistory");
+            litigations = JsonConvert.DeserializeObject<List<BidLitigationHistoryModel>>(json);
+            var vownership = (from a in litigations where a.Vendor_No == Session["vendorNo"].ToString() && a.No == ittresponseid select a).ToList();
             return Json(vownership, JsonRequestBehavior.AllowGet);
         }
         public JsonResult SubmitTenderResponse(string ittpnumber)

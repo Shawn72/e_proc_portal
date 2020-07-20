@@ -3535,26 +3535,28 @@ $('.btn_go_apply').click(function () {
             case "success":
                 // Load Tender Response Details
                 vendorpreference.init();
-                ownerships.init();
+
+                //do something
+
                 break;
             case "danger":
                 Swal.fire
                    ({
                        title: "Tender Response Error!",
-                       text: "Error on Tender Application, contact the office!",
+                       text: "Sorry, You have already submitted the Tender Response. Kindly Await for Notifications",
                        type: "error"
                    }).then(() => {
                        $("#tenderesponsefeedbacks").css("display", "block");
                        $("#tenderesponsefeedbacks").css("color", "red");
                        $('#tenderesponsefeedbacks').attr('class', 'alert alert-danger');
-                       $("#tenderesponsefeedbacks").html("Error downloading the RfQ Document, contact the office!");
+                       $("#tenderesponsefeedbacks").html("Sorry, You have already submitted the Tender Response. Kindly Await for Notifications");
                    });
                 break;
             default:
                 Swal.fire
                 ({
                     title: "Tender Response Exception Error!",
-                    text: "Exception Error thrown! contact the KeRRA Main Office!",
+                    text: "Sorry, You have already submitted the Tender Response. Kindly Await for Notifications",
                     type: "error"
                 }).then(() => {
                     $("#tenderesponsefeedbacks").css("display", "block");
@@ -3594,14 +3596,29 @@ $('.btn_go_apply').click(function () {
                 $("#txtInvTenderNo").val(json[i].Invitation_For_Supply_No);
                 $("#txtVendorNo").val(json[i].Pay_to_Vendor_No);
                 $("#txtVendorName").val(json[i].Pay_to_Name);
-                $("#txtDocumentStatus").val(json[i].Document_Status); 
-                //$("#txtAddress2").val(json[i].Address_2);
-                //$("#txtPostCode").val(json[i].Post_Code);
-                //$("#txtCity").val(json[i].City);
+                $("#txtDocumentStatus").val(json[i].Document_Status);
+                $("#txtDocDate").val(json[i].Document_Date);
+                $("#txtTaxPinNo").val(json[i].VAT_Registration_No);
+                $("#txtAddress").val(json[i].Pay_to_Address);
+                $("#txtAddress2").val(json[i].Pay_to_Address_2);
+                $("#txtPostCode").val(json[i].Pay_to_Post_Code);
+                $("#txtCity").val(json[i].Pay_to_City);
+                $("#txtCountryCode").val(json[i].Pay_to_Country_Region_Code);
+                $("#txtLangCode").val(json[i].Language_Code);
+                $("#txtRespCenter").val(json[i].Responsibility_Center);
 
+               // Pre-load other response details.
+                ownerships.init();
+                personnelExperience.init();
+                pricinginformation.init();
+                auditedbalancesheet.init();
+                auditedincomestatement.init();
+                keybidvendorbankaccounts.init();
+                KeyBidLitigationsHistory.init();
+                KeyBidVendorPastExperience.init();
                 //$("#txtDocDate")
                 //    .val(new Date(json[i].Document_Date).toLocaleDateString('en-US',
-                //        { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                //   { day: '2-digit', month: '2-digit', year: 'numeric' }));
                 
             }
           $(".modalspinner").hide();
@@ -3668,6 +3685,8 @@ $('.btn_go_apply').click(function () {
                 //$("#txtAdvAmountLmt").val((json[i].Advance_Amount_Limit).toFixed(2));
                 //$("#txtInsurcoverRequired").val(json[i].Insurance_Cover_Required);
                 //$("#txtBiddderArbappointer").val(json[i].Appointer_of_Bid_Arbitrator);
+
+               
             }
 
         });
@@ -3680,8 +3699,10 @@ $('.btn_go_apply').click(function () {
             cache: false,
             async: true
         }).done(function (json) {
+            
             for (var i = 0; i < json.length; i++) {
                 //populate Vendor Details
+                $("#txtHouseNo").val(json[i].Building_House_No);
                 $("#txtPlotNo").val(json[i].Plot_No);
                 $("#txtBankName").val(json[i].Name);
                 $("#txtStreet").val(json[i].Street);
@@ -3698,7 +3719,8 @@ $('.btn_go_apply').click(function () {
         });
 
 });
-    //Fetch Vendor Preferences
+//Fetch Vendor Preferences
+var itttenderrseponse = $('#txtBidResponseNo').val();
     var vendorpreference = function () {
         var y = function () {
             var tl = $("#tbl_getVendor_Prefereneces"),
@@ -3730,7 +3752,7 @@ $('.btn_go_apply').click(function () {
             $.ajaxSetup({
                 global: false,
                 type: "POST",
-                url: "/Home/GetVendorPreferenceDetails",
+                url: "/Home/GetVendorPreferenceDetails?ittresponsenumber=" + itttenderrseponse,
                 beforeSend: function () {
                     $(".modalspinner").show();
                 },
@@ -3747,10 +3769,10 @@ $('.btn_go_apply').click(function () {
                 for (var i = 0; i < json.length; i++) {
                     l.fnAddData([
                         o++,
-                        json[i].Certifcate_No,
+                        json[i].AGPO_Certificate_No,
                         json[i].Registered_Special_Group,
                         json[i].Products_Service_Category,
-                        new Date(json[i].Effective_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                        new Date(json[i].Certificate_Effective_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
                         new Date(json[i].Certificate_Expiry_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
                        json[i].Certifying_Agency,
                        '<a class="edit_preferenece" href="">Edit</a>',
@@ -3765,7 +3787,8 @@ $('.btn_go_apply').click(function () {
             }
         }
     }()
-    //Get/Fetch Directors Ownerships Details
+//Get/Fetch Directors Ownerships Detailstbl_pricing_information
+    var ittTenderResponseNumber = $("#txtBidResponseNo").val();
     var ownerships = function () {
         var on = function () {
             var tl = $("#tbl_ownership_list"),
@@ -3797,7 +3820,7 @@ $('.btn_go_apply').click(function () {
             $.ajaxSetup({
                 global: false,
                 type: "POST",
-                url: "/Home/GetDirectorOwnership",
+                url: "/Home/GetDirectorOwnership?ittresponsenumber=" + ittTenderResponseNumber,
                 beforeSend: function () {
                     $(".modalspinner").show();
                 },
@@ -3821,7 +3844,147 @@ $('.btn_go_apply').click(function () {
                         json[i].City,
                         json[i].Phone_No,
                         json[i].Country_Region_Code,
-                        json[i].ID_Number,
+                        json[i].Nationality_ID,
+                       '<a class="edit_preferenece" href="">Edit</a>',
+                       '<a class="delete_preferenece" href="">Delete</a>',
+
+                        
+                    ]);
+                }
+            });
+        }
+        return {
+            init: function () {
+                on();
+            }
+        }
+    }()
+//Get/Fetch Directors Pricing Details
+    var ittBidResponseNumber = $("#txtBidResponseNo").val();
+    var pricinginformation = function () {
+        var price = function () {
+            var tl = $("#tbl_pricing_information"),
+                l = tl.dataTable({
+                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                    pageLength: 5,
+                    language: { lengthMenu: " _MENU_ records" },
+                    columnDefs: [
+                        {
+                            orderable: !0,
+                            defaultContent: "-",
+                            targets: "_all"
+                        },
+                        {
+                            searchable: !0,
+                            targets: "_all"
+                        }
+                    ],
+                    order: [
+                        [0, "asc"]
+                    ],
+
+                    bDestroy: true,
+                    info: false,
+                    processing: true,
+                    retrieve: true
+                });
+
+            $.ajaxSetup({
+                global: false,
+                type: "POST",
+                url: "/Home/GetBidResponseItemsLines",
+                beforeSend: function () {
+                    $(".modalspinner").show();
+                },
+                complete: function () {
+                    $(".modalspinner").hide();
+                }
+            });
+            $.ajax({
+                data: ""
+            }).done(function (json) {
+                l.fnClearTable();
+                console.log(JSON.stringify({ vendorTestdata: json }));
+                var o = 1;
+                for (var i = 0; i < json.length; i++) {
+                    l.fnAddData([
+                        o++,
+                        json[i].Type,
+                        json[i].No,
+                        json[i].Description,
+                        json[i].Location_Code,
+                        json[i].Quantity,
+                        json[i].Unit_of_Measure,
+                        json[i].Direct_Unit_Cost,
+                        json[i].VAT,
+                        json[i].Amount_Including_VAT,
+                        json[i].Amount_Including_VAT
+                    ]);
+                }
+            });
+        }
+        return {
+            init: function () {
+                price();
+            }
+        }
+    }()
+//Get/Fetch Key Staff Personnel Experience Details
+    var ittBidKeyResponseNumber = $("#txtBidResponseNo").val();
+    var personnelExperience = function () {
+        var personnel = function () {
+            var tl = $("#tbl_keystaff_experience"),
+                l = tl.dataTable({
+                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                    pageLength: 5,
+                    language: { lengthMenu: " _MENU_ records" },
+                    columnDefs: [
+                        {
+                            orderable: !0,
+                            defaultContent: "-",
+                            targets: "_all"
+                        },
+                        {
+                            searchable: !0,
+                            targets: "_all"
+                        }
+                    ],
+                    order: [
+                        [0, "asc"]
+                    ],
+
+                    bDestroy: true,
+                    info: false,
+                    processing: true,
+                    retrieve: true
+                });
+
+            $.ajaxSetup({
+                global: false,
+                type: "POST",
+                url: "/Home/GetBidResponseStaffQualificationss?bidresponsenumber=" + ittBidKeyResponseNumber,
+                beforeSend: function () {
+                    $(".modalspinner").show();
+                },
+                complete: function () {
+                    $(".modalspinner").hide();
+                }
+            });
+            $.ajax({
+                data: ""
+            }).done(function (json) {
+                l.fnClearTable();
+                console.log(JSON.stringify({ vendorTestdata: json }));
+                var o = 1;
+                for (var i = 0; i < json.length; i++) {
+                    l.fnAddData([
+                        o++,
+                        json[i].Staff_No,
+                        json[i].Proposed_Project_Role_ID,
+                        json[i].Qualification_Category,
+                        json[i].Years_of_Experience,
+                        json[i].Experience_From_Year,
+                        json[i].Experience_To_Year,
                        '<a class="edit_preferenece" href="">Edit</a>',
                        '<a class="delete_preferenece" href="">Delete</a>'
                     ]);
@@ -3830,7 +3993,358 @@ $('.btn_go_apply').click(function () {
         }
         return {
             init: function () {
-                on();
+                personnel();
+            }
+        }
+    }()
+   //Get All AuditedBalance Sheet Details
+    var auditedbalancesheet = function () {
+        var auditedbalance = function () {
+            var tl = $("#tbl_audited-balancesheet"),
+                l = tl.dataTable({
+                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                    pageLength: 5,
+                    language: { lengthMenu: " _MENU_ records" },
+                    columnDefs: [
+                        {
+                            orderable: !0,
+                            defaultContent: "-",
+                            targets: "_all"
+                        },
+                        {
+                            searchable: !0,
+                            targets: "_all"
+                        }
+                    ],
+                    order: [
+                        [0, "asc"]
+                    ],
+
+                    bDestroy: true,
+                    info: false,
+                    processing: true,
+                    retrieve: true
+                });
+
+            $.ajaxSetup({
+                global: false,
+                type: "POST",
+                url: "/Home/GetBidResponseAuditBalanceSheet",
+                beforeSend: function () {
+                    $(".modalspinner").show();
+                },
+                complete: function () {
+                    $(".modalspinner").hide();
+                }
+            });
+            $.ajax({
+                data: ""
+            }).done(function (json) {
+                l.fnClearTable();
+                console.log(JSON.stringify({ vendorTestdata: json }));
+                var o = 1;
+                for (var i = 0; i < json.length; i++) {
+                    l.fnAddData([
+                        o++,
+                        json[i].Audit_Year_Code_Reference,
+                        json[i].Current_Assets_LCY,
+                        json[i].Fixed_Assets_LCY,
+                        json[i].Current_Liabilities_LCY,
+                        json[i].Long_term_Liabilities_LCY,
+                        json[i].Owners_Equity_LCY,
+                        json[i].Debt_Ratio,
+                        json[i].Current_Ratio,
+                       '<a class="edit_preferenece" href="">Edit</a>',
+                       '<a class="delete_preferenece" href="">Delete</a>'
+                    ]);
+                }
+            });
+        }
+        return {
+            init: function () {
+                auditedbalance();
+            }
+        }
+    }()
+    //Get All AuditedIncomeStatement  Details
+    var auditedincomestatement = function () {
+        var statement = function () {
+            var tl = $("#tbl_audit_incomestatement_"),
+                l = tl.dataTable({
+                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                    pageLength: 5,
+                    language: { lengthMenu: " _MENU_ records" },
+                    columnDefs: [
+                        {
+                            orderable: !0,
+                            defaultContent: "-",
+                            targets: "_all"
+                        },
+                        {
+                            searchable: !0,
+                            targets: "_all"
+                        }
+                    ],
+                    order: [
+                        [0, "asc"]
+                    ],
+
+                    bDestroy: true,
+                    info: false,
+                    processing: true,
+                    retrieve: true
+                });
+
+            $.ajaxSetup({
+                global: false,
+                type: "POST",
+                url: "/Home/GetBidResponseAuditIncomeStatement",
+                beforeSend: function () {
+                    $(".modalspinner").show();
+                },
+                complete: function () {
+                    $(".modalspinner").hide();
+                }
+            });
+            $.ajax({
+                data: ""
+            }).done(function (json) {
+                l.fnClearTable();
+                console.log(JSON.stringify({ vendorTestdata: json }));
+                var o = 1;
+                for (var i = 0; i < json.length; i++) {
+                    l.fnAddData([
+                        o++,
+                        json[i].Audit_Year_Code_Reference,
+                        json[i].Total_Revenue_LCY,
+                        json[i].Total_COGS_LCY,
+                        json[i].Gross_Margin_LCY,
+                        json[i].Operating_Income_EBIT_LCY,
+                        json[i].Interest_Expense_LCY,
+                        json[i].Income_Before_Taxes_LCY,
+                        json[i].Income_Tax_Expense_LCY,
+                       '<a class="edit_preferenece" href="">Edit</a>',
+                       '<a class="delete_preferenece" href="">Delete</a>'
+                    ]);
+                }
+            });
+        }
+        return {
+            init: function () {
+                statement();
+            }
+        }
+    }()
+    //Get All BankAccounts  Details
+    var keybidvendorbankaccounts = function () {
+        var bankaccount = function () {
+            var tl = $("#tbl_bidvendor_banks"),
+                l = tl.dataTable({
+                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                    pageLength: 5,
+                    language: { lengthMenu: " _MENU_ records" },
+                    columnDefs: [
+                        {
+                            orderable: !0,
+                            defaultContent: "-",
+                            targets: "_all"
+                        },
+                        {
+                            searchable: !0,
+                            targets: "_all"
+                        }
+                    ],
+                    order: [
+                        [0, "asc"]
+                    ],
+
+                    bDestroy: true,
+                    info: false,
+                    processing: true,
+                    retrieve: true
+                });
+
+            $.ajaxSetup({
+                global: false,
+                type: "POST",
+                url: "/Home/GetBidVendorBankAccounts",
+                beforeSend: function () {
+                    $(".modalspinner").show();
+                },
+                complete: function () {
+                    $(".modalspinner").hide();
+                }
+            });
+            $.ajax({
+                data: ""
+            }).done(function (json) {
+                l.fnClearTable();
+                console.log(JSON.stringify({ vendorTestdata: json }));
+                var o = 1;
+                for (var i = 0; i < json.length; i++) {
+                    l.fnAddData([
+                        o++,
+                        json[i].Code,
+                        json[i].Name,
+                        json[i].Currency_Code,
+                        json[i].Address,
+                        json[i].Post_Code,
+                        json[i].City,
+                        json[i].Country_Region_Code,,
+                        json[i].Phone_No,
+                        json[i].Bank_Branch_No,
+                        json[i].Bank_Account_No,
+                       '<a class="edit_preferenece" href="">Edit</a>',
+                       '<a class="delete_preferenece" href="">Delete</a>'
+                    ]);
+                }
+            });
+        }
+        return {
+            init: function () {
+                bankaccount();
+            }
+        }
+    }()
+  //Get All KeyBidVendorPastExperience  Details
+    var KeyBidVendorPastExperience = function () {
+        var experience = function () {
+            var tl = $("#tbl_past_experience"),
+                l = tl.dataTable({
+                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                    pageLength: 5,
+                    language: { lengthMenu: " _MENU_ records" },
+                    columnDefs: [
+                        {
+                            orderable: !0,
+                            defaultContent: "-",
+                            targets: "_all"
+                        },
+                        {
+                            searchable: !0,
+                            targets: "_all"
+                        }
+                    ],
+                    order: [
+                        [0, "asc"]
+                    ],
+
+                    bDestroy: true,
+                    info: false,
+                    processing: true,
+                    retrieve: true
+                });
+
+            $.ajaxSetup({
+                global: false,
+                type: "POST",
+                url: "/Home/GetBidVendorPastExperiences",
+                beforeSend: function () {
+                    $(".modalspinner").show();
+                },
+                complete: function () {
+                    $(".modalspinner").hide();
+                }
+            });
+            $.ajax({
+                data: ""
+            }).done(function (json) {
+                l.fnClearTable();
+                console.log(JSON.stringify({ vendorTestdata: json }));
+                var o = 1;
+                for (var i = 0; i < json.length; i++) {
+                    l.fnAddData([
+                        o++,
+                        json[i].Client_Name,
+                        json[i].Address,
+                        json[i].Phone_No,
+                        json[i].Country_Region_Code,
+                        json[i].E_Mail,
+                        json[i].Project_Scope_Summary,
+                        json[i].Assignment_Project_Name, ,
+                        json[i].Contract_Ref_No,
+                        json[i].Assignment_Value_LCY,
+                        json[i].Assignment_Status,
+                       '<a class="edit_preferenece" href="">Edit</a>',
+                       '<a class="delete_preferenece" href="">Delete</a>'
+                    ]);
+                }
+            });
+        }
+        return {
+            init: function () {
+                experience();
+            }
+        }
+    }()
+    //Get All KeyBidVendorPastExperience  Details
+    var KeyBidLitigationsHistory = function () {
+        var litigation = function () {
+            var tl = $("#tb_litigation_history"),
+                l = tl.dataTable({
+                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                    pageLength: 5,
+                    language: { lengthMenu: " _MENU_ records" },
+                    columnDefs: [
+                        {
+                            orderable: !0,
+                            defaultContent: "-",
+                            targets: "_all"
+                        },
+                        {
+                            searchable: !0,
+                            targets: "_all"
+                        }
+                    ],
+                    order: [
+                        [0, "asc"]
+                    ],
+
+                    bDestroy: true,
+                    info: false,
+                    processing: true,
+                    retrieve: true
+                });
+
+            $.ajaxSetup({
+                global: false,
+                type: "POST",
+                url: "/Home/GetBidLitigationsHistorys",
+                beforeSend: function () {
+                    $(".modalspinner").show();
+                },
+                complete: function () {
+                    $(".modalspinner").hide();
+                }
+            });
+            $.ajax({
+                data: ""
+            }).done(function (json) {
+                l.fnClearTable();
+                console.log(JSON.stringify({ vendorTestdata: json }));
+                var o = 1;
+                for (var i = 0; i < json.length; i++) {
+                    l.fnAddData([
+                        o++,
+                        json[i].Client_Name,
+                        json[i].Address,
+                        json[i].Phone_No,
+                        json[i].Country_Region_Code,
+                        json[i].E_Mail,
+                        json[i].Project_Scope_Summary,
+                        json[i].Assignment_Project_Name, ,
+                        json[i].Contract_Ref_No,
+                        json[i].Assignment_Value_LCY,
+                        json[i].Assignment_Status,
+                       '<a class="edit_preferenece" href="">Edit</a>',
+                       '<a class="delete_preferenece" href="">Delete</a>'
+                    ]);
+                }
+            });
+        }
+        return {
+            init: function () {
+                litigation();
             }
         }
     }()

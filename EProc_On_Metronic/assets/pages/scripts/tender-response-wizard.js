@@ -357,8 +357,8 @@ var FormWizard = function () {
                             $("#regfeedback").css("display", "none");
                             break;
                         case "li2":
-                            $("#form_wizard_tender").find(".button-next").hide(),
-                                $("#form_wizard_tender").find(".button-interimsave").show();
+                            //$("#form_wizard_tender").find(".button-next").hide(),
+                            //    $("#form_wizard_tender").find(".button-interimsave").show();
                             $("#regfeedback").css("display", "none");
                             break;
                         case "li3":
