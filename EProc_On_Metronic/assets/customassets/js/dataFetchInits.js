@@ -2207,13 +2207,14 @@ var optends = function() {
             $.ajaxSetup({
                 global: false,
                 type: "POST",
-                url: "/Home/TendersGoodsRegions",
-                beforeSend: function() {
-                    // $(".modalspinner").show();
-                },
-                complete: function() {
-                    // $(".modalspinner").hide();
-                }
+                url: "/Home/TendersGoodsRegions"
+                //,
+                //beforeSend: function() {
+                //    // $(".modalspinner").show();
+                //},
+                //complete: function() {
+                //    // $(".modalspinner").hide();
+                //}
             });
 
             break;
@@ -2222,13 +2223,14 @@ var optends = function() {
             $.ajaxSetup({
                 global: false,
                 type: "POST",
-                url: "/Home/GetOpentenderList",
-                beforeSend: function() {
-                    // $(".modalspinner").show();
-                },
-                complete: function() {
-                    //$(".modalspinner").hide();
-                }
+                url: "/Home/GetOpentenderList"
+                //,
+                //beforeSend: function() {
+                //    // $(".modalspinner").show();
+                //},
+                //complete: function() {
+                //    //$(".modalspinner").hide();
+                //}
             });
             break;
         }
@@ -2238,9 +2240,12 @@ var optends = function() {
             data: "",
             beforeSend: function () {
                 $(".modalspinner").show();
+            },
+            complete: function () {
+               $(".modalspinner").hide();
             }
         }).done(function(json) {
-            $(".modalspinner").hide();
+           // $(".modalspinner").hide();
             l.fnClearTable();
             var o = 1;
             for (var i = 0; i < json.length; i++) {
@@ -2255,7 +2260,7 @@ var optends = function() {
                     json[i].Bid_Scoring_Template
                 ]);
             }
-            $(".modalspinner").hide();
+           // $(".modalspinner").hide();
         });
 
         tl.on("click",
@@ -3551,7 +3556,8 @@ $('.button-go-back').click(function (e) {
 $('.btn_go_apply').click(function (e) {
     
     var ittNoticeNumber = $(".btn_go_apply").attr("attr_ittnumber");
-
+   // $(".btn_go_apply").attr("disabled", true);
+   
     //var ittNoticeNumber = $("#txtTenderNoticeNo").val();
     // Create a New Tender Response On Navision
     //Set data to be sent   
@@ -3564,11 +3570,13 @@ $('.btn_go_apply').click(function (e) {
         dataType: "json",
         beforeSend: function () {
             $(".modalspinner").show();
+            //document.getElementById("btn_go_apply").disabled = true;
         }
     }).done(function (status) {
         var splitstatus = status.split("*");
         switch (splitstatus[0]) {
             case "success":
+                $(".btn_go_apply").attr('disabled', "disabled");
                 //only switch divs after a successful inserts first
                 $("#tender_responses").css("display", "block");
                 $("#tender_displays").css("display", "none");
@@ -3587,7 +3595,9 @@ $('.btn_go_apply').click(function (e) {
 
                 break;
             case "danger":
-                //otherwiaw get back error
+               
+               // $(".btn_go_apply").prop('disabled', false);
+                //otherwise get back error
                 Swal.fire
                    ({
                        title: "Tender Response Error!",
@@ -3598,6 +3608,7 @@ $('.btn_go_apply').click(function (e) {
                        $("#tenderesponsefeedbacks").css("color", "red");
                        $('#tenderesponsefeedbacks').attr('class', 'alert alert-danger');
                        $("#tenderesponsefeedbacks").html("Sorry, You have already submitted the Tender Response. Kindly Await for Notifications");
+                      $(".btn_go_apply").removeAttr("disabled");
                    });
                 break;
             default:
