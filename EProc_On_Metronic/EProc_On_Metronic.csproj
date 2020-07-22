@@ -226,6 +226,7 @@
     <Compile Include="Models\BidResponseOwnerModel.cs" />
     <Compile Include="Models\BidScopeTModel.cs" />
     <Compile Include="Models\BidSecurityModel.cs" />
+    <Compile Include="Models\BidTenderSecuritycs.cs" />
     <Compile Include="Models\BidVendorBankAccountsModel.cs" />
     <Compile Include="Models\BlogsModel.cs" />
     <Compile Include="Models\BusinessSizeModel.cs" />

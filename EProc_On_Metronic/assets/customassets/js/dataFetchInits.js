@@ -3592,6 +3592,7 @@ $('.btn_go_apply').click(function (e) {
                 keybidvendorbankaccounts.init();
                 KeyBidLitigationsHistory.init();
                 KeyBidVendorPastExperience.init();
+                KeyBidTenderSecurity.init();
 
                 break;
             case "danger":
@@ -4254,7 +4255,6 @@ var keybidvendorbankaccounts = function() {
                     json[i].City,
                     json[i].Country_Region_Code,,
                     json[i].Phone_No,
-                    json[i].Bank_Branch_No,
                     json[i].Bank_Account_No,
                     '<a class="edit_preferenece" href="">Edit</a>',
                     '<a class="delete_preferenece" href="">Delete</a>'
@@ -4388,16 +4388,12 @@ var KeyBidLitigationsHistory = function() {
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
                     o++,
-                    json[i].Client_Name,
-                    json[i].Address,
-                    json[i].Phone_No,
-                    json[i].Country_Region_Code,
-                    json[i].E_Mail,
-                    json[i].Project_Scope_Summary,
-                    json[i].Assignment_Project_Name,,
-                    json[i].Contract_Ref_No,
-                    json[i].Assignment_Value_LCY,
-                    json[i].Assignment_Status,
+                    json[i].Dispute_Matter,
+                    json[i].Other_Dispute_Party,
+                    json[i].Dispute_Amount_LCY,
+                    json[i].Category_of_Matter,
+                    json[i].Year,
+                    json[i].Award_Type,
                     '<a class="edit_preferenece" href="">Edit</a>',
                     '<a class="delete_preferenece" href="">Delete</a>'
                 ]);
@@ -4410,7 +4406,76 @@ var KeyBidLitigationsHistory = function() {
         }
     }
 }();
+//Get All KeyBidVendorPastExperience  Details
+var KeyBidTenderSecurity = function () {
+    var security = function () {
+        var tl = $("#tbl_tender_security"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
 
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/GetBidContractKeySecurity",
+            beforeSend: function () {
+                $(".modalspinner").show();
+            },
+            complete: function () {
+                $(".modalspinner").hide();
+            }
+        });
+        $.ajax({
+            data: ""
+        }).done(function (json) {
+            l.fnClearTable();
+            console.log(JSON.stringify({ vendorTestdata: json }));
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Form_of_Security,
+                    json[i].Security_Type,
+                    json[i].Issuer_Institution_Type,
+                    json[i].Issuer_Guarantor_Name,
+                    json[i].Issuer_Registered_Offices,
+                    json[i].Description,
+                    json[i].Security_Amount_LCY, ,
+                    json[i].Bid_Security_Effective_Date,
+                    json[i].Bid_Security_Validity_Expiry,
+                    '<a class="edit_preferenece" href="">Edit</a>',
+                    '<a class="delete_preferenece" href="">Delete</a>'
+                ]);
+            }
+        });
+    }
+    return {
+        init: function () {
+            security();
+        }
+    }
+}();
 jQuery(document).ready(function () {
     optends.init(),Ld.init(); //, suppregDocs.init();
 });

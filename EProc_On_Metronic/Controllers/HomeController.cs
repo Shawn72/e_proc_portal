@@ -3415,6 +3415,18 @@ namespace EProc_On_Metronic.Controllers
             var vownership = (from a in litigations where a.Vendor_No == Session["vendorNo"].ToString() && a.No == ittresponseid select a).ToList();
             return Json(vownership, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetBidContractKeySecurity()
+        {
+            var ittresponseid = Session["BideResponseNumber"].ToString();
+            List<BidTenderSecuritycs> keysecurity = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetKeyBidSecurityDetails");
+            keysecurity = JsonConvert.DeserializeObject<List<BidTenderSecuritycs>>(json);
+            var vownership = (from a in keysecurity where a.Vendor_No == Session["vendorNo"].ToString() && a.No == ittresponseid select a).ToList();
+            return Json(vownership, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult SubmitTenderResponse(string ittpnumber)
         {
             try

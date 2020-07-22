@@ -63,124 +63,124 @@ var FormWizard = function () {
                     errorClass: "help-block help-block-error",
                     focusInvalid: !1,
                     rules: {
-                        txtRepdesignation: {
-                            required: !0
-                        },
+                        //txtRepdesignation: {
+                        //    required: !0
+                        //},
 
-                        txtBidderRepaddr: {
-                            required: !0
-                        },
+                        //txtBidderRepaddr: {
+                        //    required: !0
+                        //},
 
-                        txtBidderWitnessName: {
-                            required: !0
-                        },
+                        //txtBidderWitnessName: {
+                        //    required: !0
+                        //},
 
-                        //separator
-                        dtOps: {
-                            required: !0
-                        },
-                        dtIncorp: {
-                            required: !0
-                        },
-                        ddlLanguageCode: {
-                            required: !0
-                        },
-                        ddlIndustrygroup: {
-                            required: !0
-                        },
-                        txtVendorLName: {
-                            minlength: 3,
-                            required: !0
-                        },
-                        txtareaVision: {
-                            minlength: 10,
-                            maxlength: 250,
-                            required: !0,
-                        },
-                        txtareaMision: {
-                            minlength: 10,
-                            maxlength: 250,
-                            required: !0
-                        },
-                        txtPoBox: {
-                            minlength: 3,
-                            required: !0,
-                            number: !0
-                        },
-                        txtLocation: {
-                            minlength: 3,
-                            required: !0,
-                        },
-                        txtCity: {
-                            required: !0
-                        },
-                        txtBuildNo: {
-                            minlength: 2,
-                            required: !0,
-                        },
+                        ////separator
+                        //dtOps: {
+                        //    required: !0
+                        //},
+                        //dtIncorp: {
+                        //    required: !0
+                        //},
+                        //ddlLanguageCode: {
+                        //    required: !0
+                        //},
+                        //ddlIndustrygroup: {
+                        //    required: !0
+                        //},
+                        //txtVendorLName: {
+                        //    minlength: 3,
+                        //    required: !0
+                        //},
+                        //txtareaVision: {
+                        //    minlength: 10,
+                        //    maxlength: 250,
+                        //    required: !0,
+                        //},
+                        //txtareaMision: {
+                        //    minlength: 10,
+                        //    maxlength: 250,
+                        //    required: !0
+                        //},
+                        //txtPoBox: {
+                        //    minlength: 3,
+                        //    required: !0,
+                        //    number: !0
+                        //},
+                        //txtLocation: {
+                        //    minlength: 3,
+                        //    required: !0,
+                        //},
+                        //txtCity: {
+                        //    required: !0
+                        //},
+                        //txtBuildNo: {
+                        //    minlength: 2,
+                        //    required: !0,
+                        //},
 
-                        txtStreetroad: {
-                            minlength: 3,
-                            required: !0
-                        },
+                        //txtStreetroad: {
+                        //    minlength: 3,
+                        //    required: !0
+                        //},
 
-                        txtTelphNo: {
-                            minlength: 7,
-                            maxlength: 15,
-                            required: !0
-                        },
-                        txtFloor: {
-                            minlength: 2,
-                            maxlength: 3,
-                            required: !0
-                        },
-                        ddlCompanysize: {
-                            required: !0
-                        },
-                        ddlNominalCap: {
-                            required: !0
-                        },
-                        txtDealertype: {
-                            required: !0
-                        },
+                        //txtTelphNo: {
+                        //    minlength: 7,
+                        //    maxlength: 15,
+                        //    required: !0
+                        //},
+                        //txtFloor: {
+                        //    minlength: 2,
+                        //    maxlength: 3,
+                        //    required: !0
+                        //},
+                        //ddlCompanysize: {
+                        //    required: !0
+                        //},
+                        //ddlNominalCap: {
+                        //    required: !0
+                        //},
+                        //txtDealertype: {
+                        //    required: !0
+                        //},
 
-                        txtwebsiteurl: {
-                            minlength: 5,
-                            required: !0
-                        },
-                        txtMaxbzVal: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-                        txtCntPhoneno: {
-                            minlength: 10,
-                            required: !0
-                        },
-                        txtareaNatureofBz: {
-                            minlength: 10,
-                            maxlength: 50,
-                            required: !0
-                        },
-                        txtPlotNo: {
-                            minlength: 2,
-                            required: !0
-                        },
+                        //txtwebsiteurl: {
+                        //    minlength: 5,
+                        //    required: !0
+                        //},
+                        //txtMaxbzVal: {
+                        //    minlength: 4,
+                        //    required: !0,
+                        //    number: !0
+                        //},
+                        //txtCntPhoneno: {
+                        //    minlength: 10,
+                        //    required: !0
+                        //},
+                        //txtareaNatureofBz: {
+                        //    minlength: 10,
+                        //    maxlength: 50,
+                        //    required: !0
+                        //},
+                        //txtPlotNo: {
+                        //    minlength: 2,
+                        //    required: !0
+                        //},
 
-                        txtTotalcurrentassets: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
+                        //txtTotalcurrentassets: {
+                        //    minlength: 4,
+                        //    required: !0,
+                        //    number: !0
+                        //},
                       
                        
 
 
-                        txtTotalRevenue: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
+                        //txtTotalRevenue: {
+                        //    minlength: 4,
+                        //    required: !0,
+                        //    number: !0
+                        //},
                         
                        
 

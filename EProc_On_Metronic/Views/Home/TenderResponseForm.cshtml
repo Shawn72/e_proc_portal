@@ -97,7 +97,6 @@
 
                                     <div class="tab-pane fade active in" id="tab_1_general">
                                                     <table class="table table-striped table-bordered table-hover table-responsive">
-
                                                         <tr>
                                                             <td>
                                                                 <label class="control-label"><strong>Bid Response No:</strong></label>
@@ -415,10 +414,8 @@
 
                                         </div>
                                         <div class="tab-pane" id="tab2">
-                                            <!-- do table things here-->
                                             <div class="row" id="rfilistdiv">
                                                 <div class="col-md-12">
-                                                    <!-- Begin: life time stats -->
                                                     <div class="portlet light portlet-fit portlet-datatable bordered">
                                                         <div class="portlet-title">
                                                             <div class="caption">
@@ -454,7 +451,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- End: life time stats -->
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -476,6 +472,7 @@
                                                                         <th>Address</th>
                                                                         <th>Post Code</th>
                                                                         <th>Address 2</th>
+                                                                        <th>City</th>
                                                                         <th>Phone No.</th>
                                                                         <th>Nationality No.</th>
                                                                         <th>ID/Passport No.</th>
@@ -493,7 +490,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- END EXAMPLE TABLE PORTLET-->
                                             </div>
                                             <div class="row">
                                                 <div class="portlet-body">
@@ -632,14 +628,12 @@
                                         <div class="tab-pane" id="tab3">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <!-- Begin: life time stats -->
                                                     <div class="portlet light portlet-fit portlet-datatable bordered">
                                                         <div class="portlet-title">
                                                             <div class="caption">
                                                                 <i class="icon-settings font-green"></i>
                                                                 <span class="caption-subject font-green sbold uppercase">Pricing Information</span>
                                                             </div>
-
                                                         </div>
                                                         <div class="portlet-body">
                                                             <div class="table-container">
@@ -664,7 +658,6 @@
                                                                 </table>
                                                             </div>
                                                         </div>
-                                                        <!-- END EXAMPLE TABLE PORTLET-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -870,7 +863,6 @@
                                                 <div class="col-md-12">
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
                                                             <div class="portlet light portlet-fit bordered">
                                                                 <div class="portlet-title">
                                                                     <div class="caption">
@@ -888,9 +880,8 @@
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>#</th>
-                                                                                    <th>Staff Name</th>
+                                                                                    <th>Staff No.</th>
                                                                                     <th>Proposed Project Role ID</th>
-                                                                                    <th>Project Role Description</th>
                                                                                     <th>Qualification Category </th>
                                                                                     <th>Years of Experience </th>
                                                                                     <th>Experience From Year</th>
@@ -908,7 +899,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <!-- END EXAMPLE TABLE PORTLET-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1129,7 +1119,7 @@
                                                                             <button class="close" data-dismiss="alert"></button>
                                                                         </div>
                                                                         <br />
-                                                                        <table class="table table-striped table-hover table-bordered" id="tbl_directors">
+                                                                        <table class="table table-striped table-hover table-bordered" id="tbl_tender_security">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>#</th>
@@ -1245,7 +1235,163 @@
                                                 </div>
                                             </div>
                                         </div>
+                               <div class="tab-pane" id="tab8">
+                                <h3 class="block">Upload mandatory Documents</h3>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                        <div class="portlet light portlet-fit bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="icon-settings font-red"></i>
+                                                    <span class="caption-subject font-red sbold uppercase">Mandatory Documents</span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active">
+                                                        <a href="#tab_1_1" data-toggle="tab"> Required Registration Documents </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#tab_1_2" data-toggle="tab"> Attach Document </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="#tab_1_3" data-toggle="tab"> Attached Document </a>
+                                                    </li>
+
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane fade active in" id="tab_1_1">
+                                                        @Html.Action("DocumentTemplateList", "Home")
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tab_1_2">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4">
+                                                                Select Document to Upload:
+                                                                <span class="required"> * </span>
+                                                            </label>
+                                                            <div class="col-md-6">
+                                                                @Html.Action("DocumentTemplateDroplist", "Home")
+                                                                <span class="help-block"> Document to Upload </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4">
+                                                                External Document (Certificate No):
+                                                                <span class="required"> * </span>
+                                                            </label>
+                                                            <div class="col-md-6">
+                                                                <input type="text" class="form-control input-circle" name="txtCertNo" id="txtCertNo" />
+                                                                <span class="help-block"> Provide the Document Number</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4">
+                                                                Issue Date:
+                                                                <span class="required"> * </span>
+                                                            </label>
+                                                            <div class="col-md-6">
+                                                                <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
+                                                                    <input type="text" class="form-control input-circle-left" readonly id="dtOfIssue" name="dtOfIssue" style="width: 550px">
+                                                                    <span class="input-group-btn input-circle-right">
+                                                                        <button class="btn default" type="button">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                                <span class="help-block"> Select Cerificate Date of Issue </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4">
+                                                                Expiry Date:
+                                                                <span class="required"> * </span>
+                                                            </label>
+                                                            <div class="col-md-6">
+                                                                <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
+                                                                    <input type="text" class="form-control input-circle-left" readonly id="dtOfexpiry" name="dtOfexpiry" style="width: 550px">
+                                                                    <span class="input-group-btn input-circle-right">
+                                                                        <button class="btn default" type="button">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                                <span class="help-block"> Select Certificate Date of Expiry </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="pullUpfileselector" style="display: none">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-4">Select Document</label>
+                                                                <div class="col-md-6">
+                                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                        <div class="input-group input-large">
+                                                                            <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                                                                <span class="fileinput-filename"> </span>
+                                                                            </div>
+                                                                            <span class="input-group-addon btn default btn-file">
+                                                                                <span class="fileinput-new"> Select file </span>
+                                                                                <span class="fileinput-exists"> Change </span>
+                                                                                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileselector" name="inputFileselector[]">
+                                                                            </span>
+                                                                            <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- The global progress bar -->
+                                                            <div class="progress progress-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-4"></label>
+                                                                <div class="col-md-6">
+                                                                    <!-- Display upload status -->
+                                                                    <div id="uploadsMsg" style="display: none"></div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-offset-4 col-md-8">
+                                                                    <a href="javascript:;" class="btn green btn-outline btn-circle button-upload">Upload &nbsp;<i class="fas fa fa-upload"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="tab-pane fade" id="tab_1_3">
+                                                        <table class="table table-striped table-hover table-bordered" id="tbl_mydocs">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>File Name</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- END EXAMPLE TABLE PORTLET-->
                                     </div>
+                                </div>
+                            </div>
+                         </div>
                     </div>
                 </div>
 
