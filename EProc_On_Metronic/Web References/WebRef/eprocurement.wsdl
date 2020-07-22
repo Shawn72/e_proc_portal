@@ -880,6 +880,42 @@
           </sequence>
         </complexType>
       </element>
+      <element name="FngetBidResponseNumber">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="invitationNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vendorNumber" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FngetBidResponseNumber_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInserBidInfoTab1">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="ittNumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bidderRepName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bidderRepDesignation" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bidderRepAddr" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bidderWitnessName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bidderWitnessDesignation" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bidderWitnessAddr" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnInserBidInfoTab1_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
   <message name="FnRegisterVendor">
@@ -1182,6 +1218,18 @@
   <message name="FnSubmitTenderResponse_Result">
     <part name="parameters" element="tns:FnSubmitTenderResponse_Result" />
   </message>
+  <message name="FngetBidResponseNumber">
+    <part name="parameters" element="tns:FngetBidResponseNumber" />
+  </message>
+  <message name="FngetBidResponseNumber_Result">
+    <part name="parameters" element="tns:FngetBidResponseNumber_Result" />
+  </message>
+  <message name="FnInserBidInfoTab1">
+    <part name="parameters" element="tns:FnInserBidInfoTab1" />
+  </message>
+  <message name="FnInserBidInfoTab1_Result">
+    <part name="parameters" element="tns:FnInserBidInfoTab1_Result" />
+  </message>
   <portType name="eprocurement_Port">
     <operation name="FnRegisterVendor">
       <input name="FnRegisterVendor" message="tns:FnRegisterVendor" />
@@ -1382,6 +1430,14 @@
     <operation name="FnSubmitTenderResponse">
       <input name="FnSubmitTenderResponse" message="tns:FnSubmitTenderResponse" />
       <output name="FnSubmitTenderResponse_Result" message="tns:FnSubmitTenderResponse_Result" />
+    </operation>
+    <operation name="FngetBidResponseNumber">
+      <input name="FngetBidResponseNumber" message="tns:FngetBidResponseNumber" />
+      <output name="FngetBidResponseNumber_Result" message="tns:FngetBidResponseNumber_Result" />
+    </operation>
+    <operation name="FnInserBidInfoTab1">
+      <input name="FnInserBidInfoTab1" message="tns:FnInserBidInfoTab1" />
+      <output name="FnInserBidInfoTab1_Result" message="tns:FnInserBidInfoTab1_Result" />
     </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
@@ -1833,6 +1889,24 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnSubmitTenderResponse_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FngetBidResponseNumber">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FngetBidResponseNumber" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FngetBidResponseNumber">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FngetBidResponseNumber_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnInserBidInfoTab1">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInserBidInfoTab1" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnInserBidInfoTab1">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnInserBidInfoTab1_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

@@ -140,6 +140,8 @@
         tabClass: "nav nav-pills",
         nextSelector: ".wizard li.next",
         interimSaveSelector: ".wizard li.next",
+        interimSaveSelector1: ".wizard li.next",
+        interimSaveSelector2: ".wizard li.next",
         previousSelector: ".wizard li.previous",
         firstSelector: ".wizard li.first",
         lastSelector: ".wizard li.last",

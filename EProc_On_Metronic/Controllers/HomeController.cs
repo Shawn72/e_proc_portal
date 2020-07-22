@@ -3438,6 +3438,32 @@ namespace EProc_On_Metronic.Controllers
             }
         }
 
+        public JsonResult AddBidResponseInfoTab1(BidResponseInsertDataTModel bidmodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+                var status = nvWebref.FnInserBidInfoTab1(vendorNo, bidmodel.BidRespNumber, bidmodel.BidderRepName, bidmodel.BidderRepDesignation, bidmodel.BidderRepAddress,
+                    bidmodel.BidderWitnessName, bidmodel.BidderWitnessDesignation, bidmodel.BidderWitnessAddress);
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        
+
         [HttpPost]
         [AllowAnonymous]
         public JsonResult CheckLogin(string myUserId, string myPassword)

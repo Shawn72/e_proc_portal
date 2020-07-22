@@ -3570,17 +3570,13 @@ $('.btn_go_apply').click(function (e) {
         dataType: "json",
         beforeSend: function () {
             $(".modalspinner").show();
-            //document.getElementById("btn_go_apply").disabled = true;
+            $(".btn_go_apply").attr('disabled', "disabled");
         }
     }).done(function (status) {
+
         var splitstatus = status.split("*");
         switch (splitstatus[0]) {
             case "success":
-                $(".btn_go_apply").attr('disabled', "disabled");
-                //only switch divs after a successful inserts first
-                $("#tender_responses").css("display", "block");
-                $("#tender_displays").css("display", "none");
-
                 //do something
                 // Load Tender Response Details //NOTE:Load everything else after a successful insert / save to dB first
                 vendorpreference.init();
@@ -3623,6 +3619,7 @@ $('.btn_go_apply').click(function (e) {
                     $('#tenderesponsefeedbacks').attr('class', 'alert alert-danger');
                     $("#tenderesponsefeedbacks").html(status);
                 });
+                break;
         
         }
         $(".modalspinner").hide();
@@ -3636,12 +3633,16 @@ $('.btn_go_apply').click(function (e) {
             url: "/Home/FetchTenderResponseDetails?ittnumber=" + ittNoticeNumber,
             data: "",
             cache: false,
-            async: true
+            async: true,
+            beforeSend: function () {
+                $(".modalspinner").show();
+                $(".btn_go_apply").attr('disabled', "disabled");
+            }
     }).done(function (json) {
-       
-            var ittNumber = $(".btn_go_apply").attr("attr_ittnumber");
-         
-            $("#txtInvTenderNo").val(ittNumber);
+        $(".modalspinner").hide();
+        var ittNumber = $(".btn_go_apply").attr("attr_ittnumber");
+        var submissionstatus = "";
+        $("#txtInvTenderNo").val(ittNumber);
 
             for (var i = 0; i < json.length; i++) {
                 //populate tab 2
@@ -3666,6 +3667,8 @@ $('.btn_go_apply').click(function (e) {
                 $("#txtLangCode").val(json[i].Language_Code);
                 $("#txtRespCenter").val(json[i].Responsibility_Center);
 
+                submissionstatus = json[i].Document_Status;
+
                 // Pre-load other response details.
 
                 //ownerships.init();
@@ -3680,8 +3683,30 @@ $('.btn_go_apply').click(function (e) {
                 //$("#txtDocDate")
                 //    .val(new Date(json[i].Document_Date).toLocaleDateString('en-US',
                 //   { day: '2-digit', month: '2-digit', year: 'numeric' }));
-                
+
             }
+
+        switch (submissionstatus) {
+            case "Draft":
+                //only switch divs after a successful inserts first
+                $("#tender_responses").css("display", "block");
+                $("#tender_displays").css("display", "none");
+                break;
+            
+            default:
+                Swal.fire
+                ({
+                    title: "Tender Response Exception Error!",
+                    text: "Sorry, You have already submitted the Tender Response. Kindly Await for Notifications",
+                    type: "error"
+                }).then(() => {
+                    $("#tenderesponsefeedbacks").css("display", "block");
+                    $("#tenderesponsefeedbacks").css("color", "red");
+                    $('#tenderesponsefeedbacks').attr('class', 'alert alert-danger');
+                    $("#tenderesponsefeedbacks").html("Your application is not under Draft stage!");
+                });
+                break;
+        }
           $(".modalspinner").hide();
         });
     

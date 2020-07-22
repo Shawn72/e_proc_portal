@@ -107,9 +107,9 @@
                                                             </td>
 
                                                             <td>
-                                                                <label class="control-label"><strong>Bid Representative Designation</strong></label>
+                                                                <label class="control-label"><strong>Bidder Representative Designation</strong></label>
                                                             </td>
-                                                            <td>
+                                                            <td class="form-group">
                                                                 <input type="text" class="form-control" id="txtRepdesignation" name = "txtRepdesignation" />
                                                             </td>
 
@@ -125,7 +125,7 @@
                                                             <td>
                                                                 <label class="control-label"><strong> Bidder Representative Address:</strong></label>
                                                             </td>
-                                                            <td>
+                                                            <td class="form-group">
                                                                 <input type="text" class="form-control" id="txtBidderRepaddr" name ="txtBidderRepaddr" />
                                                             </td>
 
@@ -142,7 +142,7 @@
                                                             <td>
                                                                 <label class="control-label"><strong>Bidder Witness Name:</strong></label>
                                                             </td>
-                                                            <td>
+                                                            <td class="form-group">
                                                                 <input type="text" class="form-control" id="txtBidderWitnessName"  name ="txtBidderWitnessName" />
                                                             </td>
 
@@ -159,8 +159,8 @@
                                                             <td>
                                                                 <label class="control-label"><strong>Bidder Witness Designation:</strong></label>
                                                             </td>
-                                                            <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
+                                                            <td class="form-group">
+                                                                <input type="text" class="form-control" name="txtBidderwitDesignation" id="txtBidderwitDesignation" />
                                                             </td>
 
                                                         </tr>
@@ -175,8 +175,8 @@
                                                             <td>
                                                                 <label class="control-label"><strong> Bidder Witness Address:</strong></label>
                                                             </td>
-                                                            <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
+                                                            <td class="form-group">
+                                                                <input type="text" class="form-control" name="txtBidderWitaddr" id="txtBidderWitaddr" />
                                                             </td>
 
                                                         </tr>
@@ -192,7 +192,7 @@
                                                                 <label class="control-label"><strong>Tender Document Source:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
+                                                                <input type="text" class="form-control" name="txtTenderDocSource" id="txtTenderDocSource" readonly />
                                                             </td>
 
                                                         </tr>
@@ -240,7 +240,7 @@
                                                                 <label class="control-label"><strong>Payment Reference:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtPaymentReference" readonly />
+                                                                <input type="text" class="form-control" name="txtPaymentReference" id="txtPaymentReference" readonly />
                                                             </td>
 
                                                         </tr>
@@ -256,7 +256,7 @@
                                                                 <label class="control-label"><strong>Posted Direct Income Voucher:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtPostedDirect" readonly />
+                                                                <input type="text" class="form-control" name="txtPostedDirect" id="txtPostedDirect" readonly />
                                                             </td>
 
                                                         </tr>
@@ -297,7 +297,7 @@
                                                                 <label class="control-label"><strong>Joint Venture Partner:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" readonly />
+                                                                <input type="text" class="form-control" name="txtJointVenturePartner" id="txtJointVenturePartner" readonly />
                                                             </td>
 
                                                             <td>
@@ -320,7 +320,7 @@
                                                                 <label class="control-label"><strong>Amount:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
+                                                                <input type="text" class="form-control" name="txBidAmount" id="txBidAmount" readonly />
                                                             </td>
 
                                                         </tr>
@@ -336,7 +336,7 @@
                                                                 <label class="control-label"><strong>Amount Including VAT:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
+                                                                <input type="text" class="form-control" name="txtBidAmountIncVaT" id="txtBidAmountIncVaT" readonly />
                                                             </td>
 
                                                         </tr>
@@ -352,7 +352,7 @@
                                                                 <label class="control-label"><strong>No. of Addendum Notices Issued:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
+                                                                <input type="text" class="form-control" name="txtAddNoticeCount" id="txtAddNoticeCount" readonly />
                                                             </td>
 
                                                         </tr>
@@ -368,7 +368,7 @@
                                                                 <label class="control-label"><strong>Last Addendum Notice No:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
+                                                                <input type="text" class="form-control" name="txtLastaddendumNo" id="txtLastaddendumNo" readonly />
                                                             </td>
 
                                                         </tr>
@@ -384,7 +384,7 @@
                                                                 <label class="control-label"><strong> Document Status:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtDocumentStatus" readonly />
+                                                                <input type="text" class="form-control" name="txtDocumentStatus" id="txtDocumentStatus" readonly />
                                                             </td>
 
                                                         </tr>
@@ -392,15 +392,15 @@
                                                             <td>
                                                                 <label class="control-label"><strong>Bidder Respresentative Name:</strong></label>
                                                             </td>
-                                                            <td>
-                                                                <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtbiddderName" readonly />
+                                                            <td class="form-group">
+                                                                <input type="text" class="form-control" name="txtbiddderRepName" id="txtbiddderRepName" />
                                                             </td>
 
                                                             <td>
                                                                 <label class="control-label"><strong>Status:</strong></label>
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
+                                                                <input type="text" class="form-control" name="txtStatus" id="txtStatus" readonly />
                                                             </td>
 
                                                         </tr>
@@ -409,7 +409,7 @@
                                             </div>
                                     <div class="row">
                                     <div class="col-md-offset-4 col-md-8">
-                                        <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-agpo">Save &nbsp;<i class="fas fa fa-save"></i></a>
+                                        <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-bid-respo">Save &nbsp;<i class="fas fa fa-save"></i></a>
                                     </div>
                                 </div>
 

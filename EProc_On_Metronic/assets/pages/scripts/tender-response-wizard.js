@@ -75,16 +75,24 @@ var FormWizard = function () {
                             required: !0
                         },
 
+                       
+                        txtbiddderRepName: {
+                            required: !0
+                        },
+
+                        txtBidderWitaddr: {
+                            required: !0
+                        },
+
+                        txtBidderwitDesignation: {
+                            required: !0
+                        },
+
+
+
+
+
                         //separator
-                        dtOps: {
-                            required: !0
-                        },
-                        dtIncorp: {
-                            required: !0
-                        },
-                        ddlLanguageCode: {
-                            required: !0
-                        },
                         ddlIndustrygroup: {
                             required: !0
                         },
@@ -111,9 +119,7 @@ var FormWizard = function () {
                             minlength: 3,
                             required: !0,
                         },
-                        txtCity: {
-                            required: !0
-                        },
+
                         txtBuildNo: {
                             minlength: 2,
                             required: !0,
@@ -161,38 +167,15 @@ var FormWizard = function () {
                             minlength: 10,
                             maxlength: 50,
                             required: !0
-                        },
-                        txtPlotNo: {
-                            minlength: 2,
-                            required: !0
-                        },
-
-                        txtTotalcurrentassets: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-                      
-                       
-
-
-                        txtTotalRevenue: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-                        
-                       
-
-                        
-                    },
-                    //custom validator messages
-                    messages: {
-                        "payment[]": {
-                            required: "Please accept our terms before you continue!",
-                            minlength: jQuery.validator.format("Please accept our terms before you continue!")
                         }
                     },
+                    //custom validator messages
+                    //messages: {
+                    //    "payment[]": {
+                    //        required: "Please accept our terms before you continue!",
+                    //        minlength: jQuery.validator.format("Please accept our terms before you continue!")
+                    //    }
+                    //},
 
                     errorPlacement: function (e, r) {
                         "gender" == r.attr("name") ? e.insertAfter("#form_gender_error") : "payment[]" == r.attr("name") ?
@@ -209,6 +192,99 @@ var FormWizard = function () {
                     },
                     success: function (e) {
                         "gender" == e.attr("for") || "payment[]" == e.attr("for") ? (e.closest(".form-group").removeClass("has-error").addClass("has-success"), e.remove()) : e.addClass("valid").closest(".form-group").removeClass("has-error").addClass("has-success");
+
+                        $("#form_wizard_tender .button-insert-bid-respo").click(function () {
+                         
+                            //Insert data 
+                            //To prevent form submit after ajax call
+                            event.preventDefault();
+
+                            //reset to empty
+                            $("#tenderesponsefeedbacks").html("");
+                            var bidmodel = {};
+
+                            //input textfields
+                            bidmodel.BidRespNumber = $("#txtBidResponseNo").val();
+                            bidmodel.BidderRepName = $("#txtbiddderRepName").val();
+                            bidmodel.BidderRepDesignation = $("#txtRepdesignation").val();
+                            bidmodel.BidderRepAddress = $("#txtBidderRepaddr").val();
+                            bidmodel.BidderWitnessName = $("#txtBidderWitnessName").val();
+                            bidmodel.BidderWitnessDesignation = $("#txtBidderwitDesignation").val();
+                            bidmodel.BidderWitnessAddress = $("#txtBidderWitaddr").val();
+
+                            /////for test, delete after the test passes
+
+
+                            /////for test, delete after the test passes
+
+                            Swal.fire({
+                                title: "Are you sure?",
+                                text: "Are you sure you'd like to proceed with submission?",
+                                type: "warning",
+                                showCancelButton: true,
+                                closeOnConfirm: true,
+                                confirmButtonText: "Yes, save bid info!",
+                                confirmButtonClass: "btn-success",
+                                confirmButtonColor: "#008000",
+                                position: "center"
+                            }).then((result) => {
+                                if (result.value) {
+                                    $.ajax({
+                                        url: "/Home/AddBidResponseInfoTab1",
+                                        type: "POST",
+                                        data: '{bidmodel: ' + JSON.stringify(bidmodel) + '}',
+                                        // data: JSON.stringify(data),
+                                        dataType: "json",
+                                        contentType: "application/json"
+                                    }).done(function(status) {
+                                            var splitstatus = status.split('*');
+                                            switch (splitstatus[0]) {
+                                            case "success":
+                                                Swal.fire
+                                                ({
+                                                    title: "Details Submitted!",
+                                                    text: splitstatus[1],
+                                                    type: "success"
+                                                }).then(() => {
+                                                    $("#tenderesponsefeedbacks").css("display", "block");
+                                                    $("#tenderesponsefeedbacks").css("color", "green");
+                                                    $('#tenderesponsefeedbacks').addClass("alert alert-success");
+                                                    $("#tenderesponsefeedbacks").html(splitstatus[1]);
+
+                                                    //go back to first tab
+                                                    //$("#genTab").css("class", "active");
+                                                    //$("#specTab").removeClass("active");
+                                                    //  window.location.href = '/Home/Supplier_Registration_Form/';
+
+                                                });
+                                                break;
+                                            default:
+                                                Swal.fire
+                                                ({
+                                                    title: "Error!!!",
+                                                    text: splitstatus[1],
+                                                    type: "error"
+                                                }).then(() => {
+                                                    $("#tenderesponsefeedbacks").css("display", "block");
+                                                    $("#tenderesponsefeedbacks").css("color", "red");
+                                                    $('#tenderesponsefeedbacks').addClass('alert alert-danger');
+                                                    $("#tenderesponsefeedbacks").html(splitstatus[1]);
+                                                });
+                                                break;
+                                            }
+                                        }
+                                    );
+                                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                    Swal.fire(
+                                        'Cancelled',
+                                        'You cancelled your submission!',
+                                        'error'
+                                    );
+                                }
+                            });
+
+                        });
+
                     },
                     submitHandler: function (e) {
                         i.show(), t.hide(), e[0].submit();
@@ -298,11 +374,13 @@ var FormWizard = function () {
                         switch (p) {
                         case "li1":
                             $("#regfeedback").css("display", "none");
+                            $(".button-next").attr("disabled", "disabled");
                             break;
                         case "li2":
                             //$("#form_wizard_tender").find(".button-next").hide(),
                             //    $("#form_wizard_tender").find(".button-interimsave").show();
                             $("#regfeedback").css("display", "none");
+                            $(".button-next").attr("disabled", "disabled");
                             break;
                         case "li3":
                             $("#regfeedback").css("display", "none");
@@ -337,6 +415,7 @@ var FormWizard = function () {
                 $("#form_wizard_tender").bootstrapWizard({
                         nextSelector: ".button-next",
                         interimSaveSelector: ".button-interimsave",
+                        interimSaveSelector1: ".button-insert-bid-respo",
                         previousSelector: ".button-previous",
                         onTabClick: function (e, r, t, i) {
                             return !1;
@@ -360,96 +439,6 @@ var FormWizard = function () {
                         }
                     }),
                     $("#form_wizard_tender").find(".button-previous").hide(),
-                    $("#form_wizard_tender .button-insert-agpo").click(function () {
-
-                        alert("am being developed,...hang on!");
-                        //Insert data 
-                        //To prevent form submit after ajax call
-                        event.preventDefault();
-
-                        //reset to empty
-                        $("#regfeedback").html("");
-                        var agpomodel = {};
-
-                        //input textfields
-                        agpomodel.Certifcate_No = $("#txtAgpoCertNo").val();
-                        agpomodel.Products_Service_Category = $("#txtProdservCat").val();
-                        agpomodel.Vendor_Category = $("#ddlRegSpgrp").val();
-                        agpomodel.Effective_Date = $("#dtagpoCEDt").val();
-                        agpomodel.End_Date = $("#dtagpoCEXt").val();
-
-                        ///for test, delete after the test passes
-
-
-                        ///for test, delete after the test passes
-
-                        Swal.fire({
-                            title: "Are you sure?",
-                            text: "Are you sure you'd like to proceed with submission?",
-                            type: "warning",
-                            showCancelButton: true,
-                            closeOnConfirm: true,
-                            confirmButtonText: "Yes, save Special group!",
-                            confirmButtonClass: "btn-success",
-                            confirmButtonColor: "#008000",
-                            position: "center"
-                        }).then((result) => {
-                            if (result.value) {
-                                $.ajax({
-                                    url: "/Home/AddSpecialGroupEntry",
-                                    type: "POST",
-                                    data: '{agpomodel: ' + JSON.stringify(agpomodel) + '}',
-                                    // data: JSON.stringify(data),
-                                    dataType: "json",
-                                    contentType: "application/json"
-                                }).done(function (status) {
-                                        var splitstatus = status.split('*');
-                                        switch (splitstatus[0]) {
-                                        case "success":
-                                            Swal.fire
-                                            ({
-                                                title: "Details Submitted!",
-                                                text: splitstatus[1],
-                                                type: "success"
-                                            }).then(() => {
-                                                $("#regfeedback").css("display", "block");
-                                                $("#regfeedback").css("color", "green");
-                                                $('#regfeedback').addClass("alert alert-success");
-                                                $("#regfeedback").html(splitstatus[1]);
-
-                                                //go back to first tab
-                                                //$("#genTab").css("class", "active");
-                                                //$("#specTab").removeClass("active");
-                                                window.location.href = '/Home/Supplier_Registration_Form/';
-
-                                            });
-                                            break;
-                                        default:
-                                            Swal.fire
-                                            ({
-                                                title: "Error!!!",
-                                                text: splitstatus[1],
-                                                type: "error"
-                                            }).then(() => {
-                                                $("#regfeedback").css("display", "block");
-                                                $("#regfeedback").css("color", "red");
-                                                $('#regfeedback').addClass('alert alert-danger');
-                                                $("#regfeedback").html(splitstatus[1]);
-                                            });
-                                            break;
-                                        }
-                                    }
-                                );
-                            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                Swal.fire(
-                                    'Cancelled',
-                                    'You cancelled your submission!',
-                                    'error'
-                                );
-                            }
-                        });
-
-                    }),
                     $("#form_wizard_tender .button-insert-balsheet").click(function () {
                         //Insert data 
                         //To prevent form submit after ajax call
@@ -712,7 +701,7 @@ var FormWizard = function () {
                         });
 
                     }),
-                    $("#form_wizard_tender .button-interimsave").click(function () {
+                    $("#form_wizard_tender .button-interimsave2").click(function () {
 
                         //Insert data 
                         event.preventDefault();

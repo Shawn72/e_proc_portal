@@ -129,6 +129,10 @@ namespace EProc_On_Metronic.WebRef {
         
         private System.Threading.SendOrPostCallback FnSubmitTenderResponseOperationCompleted;
         
+        private System.Threading.SendOrPostCallback FngetBidResponseNumberOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnInserBidInfoTab1OperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -316,6 +320,12 @@ namespace EProc_On_Metronic.WebRef {
         
         /// <remarks/>
         public event FnSubmitTenderResponseCompletedEventHandler FnSubmitTenderResponseCompleted;
+        
+        /// <remarks/>
+        public event FngetBidResponseNumberCompletedEventHandler FngetBidResponseNumberCompleted;
+        
+        /// <remarks/>
+        public event FnInserBidInfoTab1CompletedEventHandler FnInserBidInfoTab1Completed;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendor", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnRegisterVendor_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -2269,6 +2279,82 @@ namespace EProc_On_Metronic.WebRef {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FngetBidResponseNumber", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FngetBidResponseNumber_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FngetBidResponseNumber(string invitationNumber, string vendorNumber) {
+            object[] results = this.Invoke("FngetBidResponseNumber", new object[] {
+                        invitationNumber,
+                        vendorNumber});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FngetBidResponseNumberAsync(string invitationNumber, string vendorNumber) {
+            this.FngetBidResponseNumberAsync(invitationNumber, vendorNumber, null);
+        }
+        
+        /// <remarks/>
+        public void FngetBidResponseNumberAsync(string invitationNumber, string vendorNumber, object userState) {
+            if ((this.FngetBidResponseNumberOperationCompleted == null)) {
+                this.FngetBidResponseNumberOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFngetBidResponseNumberOperationCompleted);
+            }
+            this.InvokeAsync("FngetBidResponseNumber", new object[] {
+                        invitationNumber,
+                        vendorNumber}, this.FngetBidResponseNumberOperationCompleted, userState);
+        }
+        
+        private void OnFngetBidResponseNumberOperationCompleted(object arg) {
+            if ((this.FngetBidResponseNumberCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FngetBidResponseNumberCompleted(this, new FngetBidResponseNumberCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnInserBidInfoTab1", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnInserBidInfoTab1_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnInserBidInfoTab1(string vendorNo, string ittNumber, string bidderRepName, string bidderRepDesignation, string bidderRepAddr, string bidderWitnessName, string bidderWitnessDesignation, string bidderWitnessAddr) {
+            object[] results = this.Invoke("FnInserBidInfoTab1", new object[] {
+                        vendorNo,
+                        ittNumber,
+                        bidderRepName,
+                        bidderRepDesignation,
+                        bidderRepAddr,
+                        bidderWitnessName,
+                        bidderWitnessDesignation,
+                        bidderWitnessAddr});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnInserBidInfoTab1Async(string vendorNo, string ittNumber, string bidderRepName, string bidderRepDesignation, string bidderRepAddr, string bidderWitnessName, string bidderWitnessDesignation, string bidderWitnessAddr) {
+            this.FnInserBidInfoTab1Async(vendorNo, ittNumber, bidderRepName, bidderRepDesignation, bidderRepAddr, bidderWitnessName, bidderWitnessDesignation, bidderWitnessAddr, null);
+        }
+        
+        /// <remarks/>
+        public void FnInserBidInfoTab1Async(string vendorNo, string ittNumber, string bidderRepName, string bidderRepDesignation, string bidderRepAddr, string bidderWitnessName, string bidderWitnessDesignation, string bidderWitnessAddr, object userState) {
+            if ((this.FnInserBidInfoTab1OperationCompleted == null)) {
+                this.FnInserBidInfoTab1OperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnInserBidInfoTab1OperationCompleted);
+            }
+            this.InvokeAsync("FnInserBidInfoTab1", new object[] {
+                        vendorNo,
+                        ittNumber,
+                        bidderRepName,
+                        bidderRepDesignation,
+                        bidderRepAddr,
+                        bidderWitnessName,
+                        bidderWitnessDesignation,
+                        bidderWitnessAddr}, this.FnInserBidInfoTab1OperationCompleted, userState);
+        }
+        
+        private void OnFnInserBidInfoTab1OperationCompleted(object arg) {
+            if ((this.FnInserBidInfoTab1Completed != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnInserBidInfoTab1Completed(this, new FnInserBidInfoTab1CompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -3552,6 +3638,58 @@ namespace EProc_On_Metronic.WebRef {
         private object[] results;
         
         internal FnSubmitTenderResponseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FngetBidResponseNumberCompletedEventHandler(object sender, FngetBidResponseNumberCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FngetBidResponseNumberCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FngetBidResponseNumberCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnInserBidInfoTab1CompletedEventHandler(object sender, FnInserBidInfoTab1CompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnInserBidInfoTab1CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnInserBidInfoTab1CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

@@ -222,6 +222,7 @@
     <Compile Include="Models\BidResponseAuditBalanceSheet.cs" />
     <Compile Include="Models\BidResponseAuditIncomeStatements.cs" />
     <Compile Include="Models\BidResponseDetailsModel.cs" />
+    <Compile Include="Models\BidResponseInsertDataTModel.cs" />
     <Compile Include="Models\BidResponseItemLinesModel.cs" />
     <Compile Include="Models\BidResponseOwnerModel.cs" />
     <Compile Include="Models\BidScopeTModel.cs" />
