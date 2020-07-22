@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_EBid_Layout.cshtml";
     var sno = 0;
 }
-
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -14,7 +13,7 @@
         <div class="table table-responsive" style="background-color: aliceblue;">
         @if (!Model.Any())
         {
-            <div class="alert alert-danger">no RFQs open for application, kindly check again later</div>
+            <div class="alert alert-danger">No RFQs open for application, kindly check again later</div>
         }
         else
         {
