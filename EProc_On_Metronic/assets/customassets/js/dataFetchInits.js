@@ -3810,9 +3810,69 @@ $('.btn_go_apply').click(function (e) {
 //Fetch Vendor Preferences
 var itttenderrseponse = $('#txtBidResponseNo').val();
 var vendorpreference = function() {
-    var y = function() {
-        var tl = $("#tbl_getVendor_Prefereneces"),
-            l = tl.dataTable({
+    var e = function () {
+        function e(e, t) {
+            for (var n = e.fnGetData(t), a = $(">td", t), l = 0, r = a.length; l < r; l++) e.fnUpdate(n[l], t, l, !1);
+            e.fnDraw();
+        }
+
+        function t(e, t) {
+            var n = e.fnGetData(t),
+                a = $(">td", t);
+
+                //special groupes to the DropDownList.
+                $.ajax({
+                    url: "/Home/DynamicSpecialCatGroups",
+                        datatype: "JSON",
+                        type: "Get",
+                        success: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                $('#ddlspecialgrpes').append('<option value="' +data[i].Code +'">' +data[i].Description +'</option>');
+                            }
+                        }
+                }),
+
+                a[0].innerHTML = '<input type="text" class="form-control input-small" value="' + n[0] + '">',
+                a[1].innerHTML = '<select class="form-control select2" id="ddlspecialgrpes" name="ddlspecialgrpes" data_live_search = "true"><option value="">--select country--</option></select>',
+                a[2].innerHTML = '<input type="text" class="form-control input-small" value="' + n[2] + '">',
+                a[3].innerHTML =
+                    '<div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">' +
+                    '<input type="text" class="form-control input-circle-left" readonly id="crtEffDte" value="' +n[3] +'">' +
+                        '<span class="input-group-btn input-circle-right">' +
+                            '<button class="btn default" type="button">' +
+                                 '<i class="fa fa-calendar"></i>' +
+                            '</button>' +
+                        '</span>' +
+                    '</div>',
+                a[4].innerHTML =
+                    '<div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">' +
+                        '<input type="text" class="form-control input-circle-left" readonly id="crtEXpDte" value="' +n[4] +'">' +
+                        '<span class="input-group-btn input-circle-right">' +
+                            '<button class="btn default" type="button">' +
+                                '<i class="fa fa-calendar"></i>' +
+                            '</button>' +
+                        '</span>' +
+                    '</div>',
+                a[5].innerHTML = '<input type="text" class="form-control input-small" value="' + n[5] + '">',
+                a[6].innerHTML = '<a class="edit_preference" href="">Save</a>',
+                a[7].innerHTML = '<a class="cancel" href="">Cancel</a>';
+        }
+
+        function n(e, t) {
+            var n = $("input", t);
+                e.fnUpdate(n[0].value, t, 0, !1),
+                e.fnUpdate($("#ddlspecialgrpes option:selected").text(), t, 1, !1),
+                e.fnUpdate(n[1].value, t, 2, !1),
+                e.fnUpdate($("#crtEffDte").val(), t, 3, !1),
+                e.fnUpdate($("#crtEXpDte").val(), t, 4, !1),
+                e.fnUpdate(n[2].value, t, 5, !1),
+                e.fnUpdate('<a class="edit" href="">Edit</a>', t, 6, !1),
+                e.fnUpdate('<a class="delete" href="">Delete</a>', t, 7, !1),
+                e.fnDraw();
+        }
+
+        var a = $("#tbl_getVendor_Prefereneces"),
+            l = a.dataTable({
                 lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
                 pageLength: 5,
                 language: { lengthMenu: " _MENU_ records" },
@@ -3848,6 +3908,7 @@ var vendorpreference = function() {
                 $(".modalspinner").hide();
             }
         });
+
         $.ajax({
             data: ""
         }).done(function(json) {
@@ -3856,7 +3917,6 @@ var vendorpreference = function() {
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
-                    o++,
                     json[i].AGPO_Certificate_No,
                     json[i].Registered_Special_Group,
                     json[i].Products_Service_Category,
@@ -3865,15 +3925,143 @@ var vendorpreference = function() {
                     new Date(json[i].Certificate_Expiry_Date).toLocaleDateString('en-US',
                         { day: '2-digit', month: '2-digit', year: 'numeric' }),
                     json[i].Certifying_Agency,
-                    '<a class="edit_preferenece" href="">Edit</a>',
-                    '<a class="delete_preferenece" href="">Delete</a>'
+                    '<a class="edit_preference" href="">Edit</a>',
+                    '<a class="delete_preference" href="">Delete</a>'
                 ]);
             }
         });
+        r = ($("#tbl_getVendor_Prefereneces_wrapper"), null),
+            o = !1;
+
+        $('body').on('click', '.date-picker', function () {
+            $(this).datepicker('destroy').datepicker({ showOn: 'focus' }).focus();
+        });
+
+        $("#btn_add_preference_new").click(function(e) {
+                if (e.preventDefault(), o && r) {
+                    if (!confirm("Previous row not saved. Do you want to save it ?"))
+                        return l.fnDeleteRow(r), r = null, void (o = !1);
+                    n(l, r), $(r).find("td:first").html("Untitled"), r = null, o = !1
+                }
+                var a = l.fnAddData(["", "", "", "", "", "", "", ""]),
+                    i = l.fnGetNodes(a[0]);
+                t(l, i), r = i, o = !0;
+            }),
+            a.on("click",
+                ".delete_preference",
+                function(e) {
+                    if (e.preventDefault(), 0 != confirm("Are you sure to delete this row ?")) {
+                        var t = $(this).parents("tr")[0];
+                        l.fnDeleteRow(t),
+                            alert("Deleted! functionality under development on the backend)");
+                        //put delete code here below
+
+                        //end delete code
+                    }
+                }), a.on("click",
+                ".cancel",
+                function(t) {
+                    t.preventDefault(), o ? (l.fnDeleteRow(r), r = null, o = !1) : (e(l, r), r = null);
+                }), a.on("click",
+                ".edit_preference",
+                function(a) {
+                    a.preventDefault(), o = !1;
+                    var i = $(this).parents("tr")[0];
+                    if (null !== r && r != i) {
+                        (e(l, r), t(l, i), r = i);
+                    } else if (r == i && "Save" == this.innerHTML) {
+                        (n(l, r), r = null
+
+                            ////call ajax to insert data here
+                            // alert("bank name: " + i.cells[0].innerHTML)
+                        );
+                        //To prevent form submit after ajax call
+                        // e.preventDefault();
+
+                        //reset to empty
+                        $("#prefsfeedback").html("");
+                        var preferencemodel = {};
+                        //dropdownlists
+
+                        //input textfields
+                        //preferencemodel.BankCode = i.cells[0].innerHTML;
+                        //preferencemodel.BankName = i.cells[1].innerHTML;
+                        //preferencemodel.CurrencyCode = i.cells[2].innerHTML;
+                        //preferencemodel.BankAccountNo = i.cells[3].innerHTML;
+
+
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "Are you sure you'd like to proceed to add a preference?",
+                            type: "warning",
+                            showCancelButton: true,
+                            closeOnConfirm: true,
+                            confirmButtonText: "Yes, Add Preference!",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonColor: "#008000",
+                            position: "center"
+                        }).then((result) => {
+                            if (result.value) {
+                                $.ajax({
+                                    url: "/Home/AddaPreference",
+                                    type: "POST",
+                                    data: '{preferencemodel: ' + JSON.stringify(preferencemodel) + '}',
+                                    dataType: "json",
+                                    contentType: "application/json"
+                                }).done(function(status) {
+                                        var splitstatus = status.split('*');
+                                        switch (splitstatus[0]) {
+                                        case "success":
+                                            Swal.fire
+                                            ({
+                                                title: "Preference Added!",
+                                                text: splitstatus[1],
+                                                type: "success"
+                                            }).then(() => {
+                                                $("#prefsfeedback").css("display", "block");
+                                                $("#prefsfeedback").css("color", "green");
+                                                $('#prefsfeedback').addClass("alert alert-success");
+                                                $("#prefsfeedback").html(splitstatus[1]);
+
+                                                // console.log('Bank info submitted : ' + JSON.stringify(bankmodel));
+
+                                            });
+                                            break;
+                                        default:
+                                            Swal.fire
+                                            ({
+                                                title: "Error!!!",
+                                                text: splitstatus[1],
+                                                type: "error"
+                                            }).then(() => {
+                                                $("#prefsfeedback").css("display", "block");
+                                                $("#prefsfeedback").css("color", "red");
+                                                $('#prefsfeedback').addClass('alert alert-danger');
+                                                $("#prefsfeedback").html(splitstatus[1]);
+                                            });
+                                            break;
+                                        }
+                                    }
+                                );
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                Swal.fire(
+                                    'Cancelled',
+                                    'You cancelled your account creation!',
+                                    'error'
+                                );
+                            }
+                        });
+
+                        ////end ajax call here
+
+                    } else {
+                        (t(l, i), r = i);
+                    }
+                });
     }
     return {
         init: function() {
-            y();
+            e();
         }
     }
 }();

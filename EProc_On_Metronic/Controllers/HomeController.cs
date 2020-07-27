@@ -537,6 +537,17 @@ namespace EProc_On_Metronic.Controllers
             return Json(countryitems, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult DynamicSpecialCatGroups()
+        {
+            List<SpecialGrpTModel> docTModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetSpecialGroupes");
+            docTModel = JsonConvert.DeserializeObject<List<SpecialGrpTModel>>(json);
+            var resp = (from a in docTModel where a.Vendor_Group == "Special" select a).ToList();
+            return Json(resp, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public JsonResult RegisterSupplier(VendorModel vendormodel)

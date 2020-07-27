@@ -2622,6 +2622,7 @@
     <Content Include="assets\pages\scripts\table-datatables-responsive.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-rowreorder.min.js" />
     <Content Include="assets\pages\scripts\table-datatables-scroller.min.js" />
+    <Content Include="assets\pages\scripts\tender-bidresponse_editatble-ts.js" />
     <Content Include="assets\pages\scripts\tender-response-wizard.js" />
     <Content Include="assets\pages\scripts\timeline.min.js" />
     <Content Include="assets\pages\scripts\ui-alerts-api.js" />
