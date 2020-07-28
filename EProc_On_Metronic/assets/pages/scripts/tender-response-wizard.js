@@ -374,13 +374,13 @@ var FormWizard = function () {
                         switch (p) {
                         case "li1":
                             $("#regfeedback").css("display", "none");
-                            $(".button-next").attr("disabled", "disabled");
+                            //$(".button-next").attr("disabled", "disabled");
                             break;
                         case "li2":
                             //$("#form_wizard_tender").find(".button-next").hide(),
-                            //    $("#form_wizard_tender").find(".button-interimsave").show();
+                            // $("#form_wizard_tender").find(".button-interimsave").show();
                             $("#regfeedback").css("display", "none");
-                            $(".button-next").attr("disabled", "disabled");
+                           // $(".button-next").attr("disabled", "disabled");
                             break;
                         case "li3":
                             $("#regfeedback").css("display", "none");
@@ -410,7 +410,7 @@ var FormWizard = function () {
                                 a()) : (
                                 //  $("#form_wizard_tender").find(".button-next").show(),
                                 $("#form_wizard_tender").find(".button-submit").hide()),
-                            App.scrollTo($(".page-title"));
+                                App.scrollTo($(".page-title"));
                     };
                 $("#form_wizard_tender").bootstrapWizard({
                         nextSelector: ".button-next",

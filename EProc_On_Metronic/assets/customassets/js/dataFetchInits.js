@@ -18,7 +18,7 @@ var Ld = function () {
             data: ""
         }).done(function (json) {
             $(".modalspinner").hide();
-            console.log(JSON.stringify({ vendorTestdata: json}));
+          //  console.log(JSON.stringify({ vendorTestdata: json}));
             for (var i = 0; i < json.length; i++) {
                 $("#txtDisVendorNo").val(json[i].No),
                 $("#txtBznameRO").val(json[i].Name),
@@ -1460,7 +1460,7 @@ var Ld = function () {
                     cache: false,
                     async: true
                 }).done(function (json9) {
-                    console.log(JSON.stringify({ reserved: json9 }));
+                   // console.log(JSON.stringify({ reserved: json9 }));
                     var td9 = $("#tbl_bid_preserv_scheme"),
                         p9 = td9.dataTable({
                             lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
@@ -2671,7 +2671,7 @@ var optends = function() {
                     cache: false,
                     async: true
                 }).done(function(json9) {
-                    console.log(JSON.stringify({ reserved: json9 }));
+                   // console.log(JSON.stringify({ reserved: json9 }));
                     var td9 = $("#tbl_bid_preserv_scheme"),
                         p9 = td9.dataTable({
                             lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
@@ -3570,7 +3570,7 @@ $('.btn_go_apply').click(function (e) {
         dataType: "json",
         beforeSend: function () {
             $(".modalspinner").show();
-            $(".btn_go_apply").attr('disabled', "disabled");
+           // $(".btn_go_apply").attr('disabled', "disabled");
         }
     }).done(function (status) {
 
@@ -3605,7 +3605,7 @@ $('.btn_go_apply').click(function (e) {
                        $("#tenderesponsefeedbacks").css("color", "red");
                        $('#tenderesponsefeedbacks').attr('class', 'alert alert-danger');
                        $("#tenderesponsefeedbacks").html("Sorry, You have already submitted the Tender Response. Kindly Await for Notifications");
-                      $(".btn_go_apply").removeAttr("disabled");
+                     // $(".btn_go_apply").removeAttr("disabled");
                    });
                 break;
             default:
@@ -3637,7 +3637,7 @@ $('.btn_go_apply').click(function (e) {
             async: true,
             beforeSend: function () {
                 $(".modalspinner").show();
-                $(".btn_go_apply").attr('disabled', "disabled");
+               // $(".btn_go_apply").attr('disabled', "disabled");
             }
     }).done(function (json) {
         $(".modalspinner").hide();
@@ -3692,6 +3692,19 @@ $('.btn_go_apply').click(function (e) {
                 //only switch divs after a successful inserts first
                 $("#tender_responses").css("display", "block");
                 $("#tender_displays").css("display", "none");
+
+                //initial load some data down here //to be deleted after test
+                vendorpreference.init();
+                ownerships.init();
+                personnelExperience.init();
+                pricinginformation.init();
+                auditedbalancesheet.init();
+                auditedincomestatement.init();
+                keybidvendorbankaccounts.init();
+                KeyBidLitigationsHistory.init();
+                KeyBidVendorPastExperience.init();
+                KeyBidTenderSecurity.init();
+
                 break;
             
             default:
@@ -3779,7 +3792,7 @@ $('.btn_go_apply').click(function (e) {
 
         });
 
-    //async fetch Confidential Details: tender details
+        //async fetch Confidential Details: tender details
         $.ajax({
             type: "POST",
             url: "/Home/FetchTenderVendorDetails",
@@ -3866,8 +3879,8 @@ var vendorpreference = function() {
                 e.fnUpdate($("#crtEffDte").val(), t, 3, !1),
                 e.fnUpdate($("#crtEXpDte").val(), t, 4, !1),
                 e.fnUpdate(n[2].value, t, 5, !1),
-                e.fnUpdate('<a class="edit" href="">Edit</a>', t, 6, !1),
-                e.fnUpdate('<a class="delete" href="">Delete</a>', t, 7, !1),
+                e.fnUpdate('<a class ="edit_preference" href="">Edit</a>', t, 6, !1),
+                e.fnUpdate('<a class ="delete_preference" href="">Delete</a>', t, 7, !1),
                 e.fnDraw();
         }
 
@@ -4065,8 +4078,9 @@ var vendorpreference = function() {
         }
     }
 }();
+
 //Get/Fetch Directors Ownerships Detailstbl_pricing_information
-    var ittTenderResponseNumber = $("#txtBidResponseNo").val();
+var ittTenderResponseNumber = $("#txtBidResponseNo").val();
 var ownerships = function() {
     var on = function() {
         var tl = $("#tbl_ownership_list"),
@@ -4110,7 +4124,7 @@ var ownerships = function() {
             data: ""
         }).done(function(json) {
             l.fnClearTable();
-            console.log(JSON.stringify({ vendorTestdata: json }));
+           // console.log(JSON.stringify({ vendorTestdata: json }));
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
@@ -4122,9 +4136,7 @@ var ownerships = function() {
                     json[i].City,
                     json[i].Phone_No,
                     json[i].Country_Region_Code,
-                    json[i].Nationality_ID,
-                    '<a class="edit_preferenece" href="">Edit</a>',
-                    '<a class="delete_preferenece" href="">Delete</a>'
+                    json[i].Nationality_ID
                 ]);
             }
         });
@@ -4180,7 +4192,7 @@ var pricinginformation = function() {
             data: ""
         }).done(function(json) {
             l.fnClearTable();
-            console.log(JSON.stringify({ vendorTestdata: json }));
+          //  console.log(JSON.stringify({ vendorTestdata: json }));
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
@@ -4250,7 +4262,7 @@ var personnelExperience = function() {
             data: ""
         }).done(function(json) {
             l.fnClearTable();
-            console.log(JSON.stringify({ vendorTestdata: json }));
+          //  console.log(JSON.stringify({ vendorTestdata: json }));
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
@@ -4317,7 +4329,7 @@ var auditedbalancesheet = function() {
             data: ""
         }).done(function(json) {
             l.fnClearTable();
-            console.log(JSON.stringify({ vendorTestdata: json }));
+            //console.log(JSON.stringify({ vendorTestdata: json }));
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
@@ -4386,7 +4398,7 @@ var auditedincomestatement = function() {
             data: ""
         }).done(function(json) {
             l.fnClearTable();
-            console.log(JSON.stringify({ vendorTestdata: json }));
+          //  console.log(JSON.stringify({ vendorTestdata: json }));
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
@@ -4455,7 +4467,7 @@ var keybidvendorbankaccounts = function() {
             data: ""
         }).done(function(json) {
             l.fnClearTable();
-            console.log(JSON.stringify({ vendorTestdata: json }));
+          //  console.log(JSON.stringify({ vendorTestdata: json }));
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
@@ -4525,7 +4537,7 @@ var KeyBidVendorPastExperience = function() {
             data: ""
         }).done(function(json) {
             l.fnClearTable();
-            console.log(JSON.stringify({ vendorTestdata: json }));
+          //  console.log(JSON.stringify({ vendorTestdata: json }));
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
@@ -4596,7 +4608,7 @@ var KeyBidLitigationsHistory = function() {
             data: ""
         }).done(function(json) {
             l.fnClearTable();
-            console.log(JSON.stringify({ vendorTestdata: json }));
+           // console.log(JSON.stringify({ vendorTestdata: json }));
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
@@ -4663,7 +4675,7 @@ var KeyBidTenderSecurity = function () {
             data: ""
         }).done(function (json) {
             l.fnClearTable();
-            console.log(JSON.stringify({ vendorTestdata: json }));
+          //  console.log(JSON.stringify({ vendorTestdata: json }));
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
