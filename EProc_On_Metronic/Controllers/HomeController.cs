@@ -3485,7 +3485,34 @@ namespace EProc_On_Metronic.Controllers
             }
         }
 
-        
+        public JsonResult AddaPreference(BidResponseInsertDataTModel preferencemodel)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+
+                CultureInfo usCulture = new CultureInfo("en-US");
+                var myEffdate = DateTime.Parse(preferencemodel.BidPrefAgpoCertEffDte, usCulture.DateTimeFormat);
+                var myExpdate = DateTime.Parse(preferencemodel.BidPrefAgpoCertExpDte, usCulture.DateTimeFormat);
+                
+                var status = nvWebref.FnAddBidPrefr(preferencemodel.BidPrefAgpoCertNo, vendorNo, preferencemodel.BidPrefRespNo, preferencemodel.BidPrefRegisteredGrpe, preferencemodel.BidPrefProductServiceCat,
+                    myEffdate, myExpdate);
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         [HttpPost]
         [AllowAnonymous]

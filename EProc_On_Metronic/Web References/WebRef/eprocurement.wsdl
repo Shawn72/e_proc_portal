@@ -916,6 +916,26 @@
           </sequence>
         </complexType>
       </element>
+      <element name="FnAddBidPrefr">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="agpoCertNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vendornumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="invitationnumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="registeredSpecialgrpe" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="productorserviceCategory" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="certEffectiveDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="certXpiryDate" type="date" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnAddBidPrefr_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
   <message name="FnRegisterVendor">
@@ -1230,6 +1250,12 @@
   <message name="FnInserBidInfoTab1_Result">
     <part name="parameters" element="tns:FnInserBidInfoTab1_Result" />
   </message>
+  <message name="FnAddBidPrefr">
+    <part name="parameters" element="tns:FnAddBidPrefr" />
+  </message>
+  <message name="FnAddBidPrefr_Result">
+    <part name="parameters" element="tns:FnAddBidPrefr_Result" />
+  </message>
   <portType name="eprocurement_Port">
     <operation name="FnRegisterVendor">
       <input name="FnRegisterVendor" message="tns:FnRegisterVendor" />
@@ -1438,6 +1464,10 @@
     <operation name="FnInserBidInfoTab1">
       <input name="FnInserBidInfoTab1" message="tns:FnInserBidInfoTab1" />
       <output name="FnInserBidInfoTab1_Result" message="tns:FnInserBidInfoTab1_Result" />
+    </operation>
+    <operation name="FnAddBidPrefr">
+      <input name="FnAddBidPrefr" message="tns:FnAddBidPrefr" />
+      <output name="FnAddBidPrefr_Result" message="tns:FnAddBidPrefr_Result" />
     </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
@@ -1907,6 +1937,15 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnInserBidInfoTab1_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnAddBidPrefr">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnAddBidPrefr" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnAddBidPrefr">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnAddBidPrefr_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

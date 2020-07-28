@@ -3625,9 +3625,8 @@ $('.btn_go_apply').click(function (e) {
         }
         $(".modalspinner").hide();
     });
-    
 
-    //load vendor details first
+   //load vendor details first
    // ittNoticeNumber = $(".btn_go_apply").attr("attr_ittnumber");
     $.ajax({
             type: "POST",
@@ -3846,11 +3845,11 @@ var vendorpreference = function() {
                 }),
 
                 a[0].innerHTML = '<input type="text" class="form-control input-small" value="' + n[0] + '">',
-                a[1].innerHTML = '<select class="form-control select2" id="ddlspecialgrpes" name="ddlspecialgrpes" data_live_search = "true"><option value="">--select country--</option></select>',
-                a[2].innerHTML = '<input type="text" class="form-control input-small" value="' + n[2] + '">',
+                a[1].innerHTML = '<select class="form-control select2" id="ddlspecialgrpes" name="ddlspecialgrpes" data_live_search = "true"><option value="">--select group--</option></select>',
+                a[2].innerHTML = '<input type="text" class="form-control input-small" value="' + n[1] + '">',
                 a[3].innerHTML =
                     '<div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">' +
-                    '<input type="text" class="form-control input-circle-left" readonly id="crtEffDte" value="' +n[3] +'">' +
+                    '<input type="text" class="form-control input-circle-left" readonly id="crtEffDte" value="' +n[2] +'">' +
                         '<span class="input-group-btn input-circle-right">' +
                             '<button class="btn default" type="button">' +
                                  '<i class="fa fa-calendar"></i>' +
@@ -3859,14 +3858,14 @@ var vendorpreference = function() {
                     '</div>',
                 a[4].innerHTML =
                     '<div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">' +
-                        '<input type="text" class="form-control input-circle-left" readonly id="crtEXpDte" value="' +n[4] +'">' +
+                        '<input type="text" class="form-control input-circle-left" readonly id="crtEXpDte" value="' +n[3] +'">' +
                         '<span class="input-group-btn input-circle-right">' +
                             '<button class="btn default" type="button">' +
                                 '<i class="fa fa-calendar"></i>' +
                             '</button>' +
                         '</span>' +
                     '</div>',
-                a[5].innerHTML = '<input type="text" class="form-control input-small" value="' + n[5] + '">',
+                a[5].innerHTML = '<input type="text" class="form-control input-small" value="' + n[4] + '">',
                 a[6].innerHTML = '<a class="edit_preference" href="">Save</a>',
                 a[7].innerHTML = '<a class="cancel" href="">Cancel</a>';
         }
@@ -3878,7 +3877,7 @@ var vendorpreference = function() {
                 e.fnUpdate(n[1].value, t, 2, !1),
                 e.fnUpdate($("#crtEffDte").val(), t, 3, !1),
                 e.fnUpdate($("#crtEXpDte").val(), t, 4, !1),
-                e.fnUpdate(n[2].value, t, 5, !1),
+                e.fnUpdate(n[4].value, t, 5, !1),
                 e.fnUpdate('<a class ="edit_preference" href="">Edit</a>', t, 6, !1),
                 e.fnUpdate('<a class ="delete_preference" href="">Delete</a>', t, 7, !1),
                 e.fnDraw();
@@ -3926,7 +3925,6 @@ var vendorpreference = function() {
             data: ""
         }).done(function(json) {
             l.fnClearTable();
-
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
@@ -3988,20 +3986,21 @@ var vendorpreference = function() {
                             ////call ajax to insert data here
                             // alert("bank name: " + i.cells[0].innerHTML)
                         );
-                        //To prevent form submit after ajax call
-                        // e.preventDefault();
 
+                        //To prevent form submit after ajax call
+                       
                         //reset to empty
                         $("#prefsfeedback").html("");
                         var preferencemodel = {};
                         //dropdownlists
 
                         //input textfields
-                        //preferencemodel.BankCode = i.cells[0].innerHTML;
-                        //preferencemodel.BankName = i.cells[1].innerHTML;
-                        //preferencemodel.CurrencyCode = i.cells[2].innerHTML;
-                        //preferencemodel.BankAccountNo = i.cells[3].innerHTML;
-
+                        preferencemodel.BidPrefRespNo = $("#txtBidResponseNo").val();
+                        preferencemodel.BidPrefAgpoCertNo = i.cells[0].innerHTML;
+                        preferencemodel.BidPrefRegisteredGrpe = i.cells[1].innerHTML;
+                        preferencemodel.BidPrefProductServiceCat = i.cells[2].innerHTML;
+                        preferencemodel.BidPrefAgpoCertEffDte = i.cells[3].innerHTML;
+                        preferencemodel.BidPrefAgpoCertExpDte = i.cells[4].innerHTML;
 
                         Swal.fire({
                             title: "Are you sure?",
@@ -4035,7 +4034,6 @@ var vendorpreference = function() {
                                                 $("#prefsfeedback").css("color", "green");
                                                 $('#prefsfeedback').addClass("alert alert-success");
                                                 $("#prefsfeedback").html(splitstatus[1]);
-
                                                 // console.log('Bank info submitted : ' + JSON.stringify(bankmodel));
 
                                             });

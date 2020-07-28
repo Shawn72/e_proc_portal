@@ -133,6 +133,8 @@ namespace EProc_On_Metronic.WebRef {
         
         private System.Threading.SendOrPostCallback FnInserBidInfoTab1OperationCompleted;
         
+        private System.Threading.SendOrPostCallback FnAddBidPrefrOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -326,6 +328,9 @@ namespace EProc_On_Metronic.WebRef {
         
         /// <remarks/>
         public event FnInserBidInfoTab1CompletedEventHandler FnInserBidInfoTab1Completed;
+        
+        /// <remarks/>
+        public event FnAddBidPrefrCompletedEventHandler FnAddBidPrefrCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendor", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnRegisterVendor_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -2355,6 +2360,48 @@ namespace EProc_On_Metronic.WebRef {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnAddBidPrefr", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnAddBidPrefr_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnAddBidPrefr(string agpoCertNo, string vendornumber, string invitationnumber, string registeredSpecialgrpe, string productorserviceCategory, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime certEffectiveDate, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime certXpiryDate) {
+            object[] results = this.Invoke("FnAddBidPrefr", new object[] {
+                        agpoCertNo,
+                        vendornumber,
+                        invitationnumber,
+                        registeredSpecialgrpe,
+                        productorserviceCategory,
+                        certEffectiveDate,
+                        certXpiryDate});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnAddBidPrefrAsync(string agpoCertNo, string vendornumber, string invitationnumber, string registeredSpecialgrpe, string productorserviceCategory, System.DateTime certEffectiveDate, System.DateTime certXpiryDate) {
+            this.FnAddBidPrefrAsync(agpoCertNo, vendornumber, invitationnumber, registeredSpecialgrpe, productorserviceCategory, certEffectiveDate, certXpiryDate, null);
+        }
+        
+        /// <remarks/>
+        public void FnAddBidPrefrAsync(string agpoCertNo, string vendornumber, string invitationnumber, string registeredSpecialgrpe, string productorserviceCategory, System.DateTime certEffectiveDate, System.DateTime certXpiryDate, object userState) {
+            if ((this.FnAddBidPrefrOperationCompleted == null)) {
+                this.FnAddBidPrefrOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnAddBidPrefrOperationCompleted);
+            }
+            this.InvokeAsync("FnAddBidPrefr", new object[] {
+                        agpoCertNo,
+                        vendornumber,
+                        invitationnumber,
+                        registeredSpecialgrpe,
+                        productorserviceCategory,
+                        certEffectiveDate,
+                        certXpiryDate}, this.FnAddBidPrefrOperationCompleted, userState);
+        }
+        
+        private void OnFnAddBidPrefrOperationCompleted(object arg) {
+            if ((this.FnAddBidPrefrCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnAddBidPrefrCompleted(this, new FnAddBidPrefrCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -3690,6 +3737,32 @@ namespace EProc_On_Metronic.WebRef {
         private object[] results;
         
         internal FnInserBidInfoTab1CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnAddBidPrefrCompletedEventHandler(object sender, FnAddBidPrefrCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnAddBidPrefrCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnAddBidPrefrCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
