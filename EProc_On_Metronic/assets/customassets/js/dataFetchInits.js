@@ -3907,19 +3907,36 @@ var vendorpreference = function() {
                 info: false,
                 processing: true,
                 retrieve: true
-            });
+            }),
 
-        $.ajaxSetup({
-            global: false,
-            type: "POST",
-            url: "/Home/GetVendorPreferenceDetails?ittresponsenumber=" + itttenderrseponse,
-            beforeSend: function() {
-                $(".modalspinner").show();
-            },
-            complete: function() {
-                $(".modalspinner").hide();
-            }
+        r = ($("#tbl_getVendor_Prefereneces_wrapper"), null),
+            o = !1;
+
+        $('body').on('click', '.date-picker', function () {
+            $(this).datepicker('destroy').datepicker({ showOn: 'focus' }).focus();
         });
+
+        $("#btn_add_preference_new").click(function(e) {
+            if (e.preventDefault(), o && r) {
+                if (!confirm("Previous row not saved. Do you want to save it ?"))
+                    return l.fnDeleteRow(r), r = null, void (o = !1);
+                n(l, r), $(r).find("td:first").html("Untitled"), r = null, o = !1
+            }
+            var a = l.fnAddData(["", "", "", "", "", "", "", ""]),
+                i = l.fnGetNodes(a[0]);
+            t(l, i), r = i, o = !0;
+        });
+            $.ajaxSetup({
+                global: false,
+                type: "POST",
+                url: "/Home/GetVendorPreferenceDetails?ittresponsenumber=" + itttenderrseponse,
+                beforeSend: function() {
+                    $(".modalspinner").show();
+                },
+                complete: function() {
+                    $(".modalspinner").hide();
+                }
+            });
 
         $.ajax({
             data: ""
@@ -3941,23 +3958,6 @@ var vendorpreference = function() {
                 ]);
             }
         });
-        r = ($("#tbl_getVendor_Prefereneces_wrapper"), null),
-            o = !1;
-
-        $('body').on('click', '.date-picker', function () {
-            $(this).datepicker('destroy').datepicker({ showOn: 'focus' }).focus();
-        });
-
-        $("#btn_add_preference_new").click(function(e) {
-                if (e.preventDefault(), o && r) {
-                    if (!confirm("Previous row not saved. Do you want to save it ?"))
-                        return l.fnDeleteRow(r), r = null, void (o = !1);
-                    n(l, r), $(r).find("td:first").html("Untitled"), r = null, o = !1
-                }
-                var a = l.fnAddData(["", "", "", "", "", "", "", ""]),
-                    i = l.fnGetNodes(a[0]);
-                t(l, i), r = i, o = !0;
-            }),
             a.on("click",
                 ".delete_preference",
                 function(e) {
@@ -3981,12 +3981,7 @@ var vendorpreference = function() {
                     if (null !== r && r != i) {
                         (e(l, r), t(l, i), r = i);
                     } else if (r == i && "Save" == this.innerHTML) {
-                        (n(l, r), r = null
-
-                            ////call ajax to insert data here
-                            // alert("bank name: " + i.cells[0].innerHTML)
-                        );
-
+                        (n(l, r), r = null);
                         //To prevent form submit after ajax call
                        
                         //reset to empty
