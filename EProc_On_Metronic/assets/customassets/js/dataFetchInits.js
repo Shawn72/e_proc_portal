@@ -25,32 +25,7 @@ var Ld = function () {
                 $("#txtVATNo").val(json[i].VAT_Registration_No),
                 $("#ddlBusinesstype").val(json[i].Business_Type);
                 //$("#ddlVendortype").text(json[i].Supplier_Type),
-                //$("#ddlOwnershiptype").val(json[i].Ownership_Type),
-                //$("#txtCertofIncorp").val(json[i].Registration_Incorporation_No),
-                //$("#dtIncorp").val(json[i].Reg_Incorporation_Date),
-                //$("#dtOps").val(json[i].Operations_Start_Date),
-                //$("#ddlLanguageCode").val(json[i].Language_Code),
-                //$("#txtareaVision").val(json[i].Vision_Statement),
-                //$("#txtareaMision").val(json[i].Mission_Statement),
-                //$("#txtPoBox").val(json[i].Address),
-                //$("#txtLocation").val(json[i].Address_2),
-                //$("#ddlallpostacodes30").val(json[i].Post_Code),
-                //$("#txtCity").val(json[i].City),
-                //$("#ddlallcountries").val(json[i].Country_Region_Code),
-                //$("#txtwebsiteurl").val(json[i].Website_Url),
-                //$("#txtTelphNo").val(json[i].Tel),
-                //$("#txtBuildNo").val(json[i].Building_House_No),
-                //$("#txtFloor").val(json[i].Floor),
-                //$("#txtPlotNo").val(json[i].Plot_No),
-                //$("#txtStreetroad").val(json[i].Street),
-                //$("#txtFaxNo").val(json[i].Fax_No),
-                //$("#ddlCompanysize").val(json[i].Company_Size),
-                //$("#ddlIndustrygroup").val(json[i].Industry_Group),
-                //$("#ddlNominalCap").val(json[i].Nominal_Capital_LCY),
-                //$("#txtDealertype").text(json[i].Dealer_Type),
-                //$("#txtMaxbzVal").val(json[i].Max_Value_of_Business),
-                //$("#txtCntPhoneno").val(json[i].Phone_No),
-                //$("#txtareaNatureofBz").val(json[i].Nature_of_Business);
+              
             }
         });
     };
@@ -164,6 +139,7 @@ var Ld = function () {
                             $("#txtIfpNo").val(json[i].Code);
                         }
                     });
+
                     //async fetch representative details
                     $.ajax({
                         type: "POST",
@@ -1114,7 +1090,7 @@ var Ld = function () {
                     cache: false,
                     async: true
                 }).done(function (json) {
-                    console.log(JSON.stringify({ iTendTest: json }));
+                    //console.log(JSON.stringify({ iTendTest: json }));
                     for (var i = 0; i < json.length; i++) {
                         //populate tab 2
                         $("#txtTenderNoticeNo").val(json[i].Code);
@@ -2286,18 +2262,33 @@ var optends = function() {
                 var linkval = i.cells[1].innerText;
                 var bidscortemp = i.cells[6].innerText;
 
-                //global loader spinner;
-                //$.ajaxSetup({
-                //    global: false,
-                //    type: "POST",
-                //    url: "/Home/GetSingleItTender?ittpnumber=" + linkval,
-                //    beforeSend: function() {
-                //        //  $(".modalspinner").show();
-                //    },
-                //    complete: function() {
-                //        //  $(".modalspinner").hide();
-                //    }
-                //});
+                //async fetch itt details as per user and determine if its draft
+                $.ajax({
+                    url: "/Home/FetchTenderResponseDetails?ittnumber=" + linkval,
+                    data: "",
+                    async: true
+                }).done(function (json) {
+                    var submissionstatus = "";
+                    for (var i = 0; i < json.length; i++) {
+                        //populate tab 2
+                        submissionstatus = json[i].Document_Status;
+                    }
+
+                    // console.log(submissionstatus)
+                    switch (submissionstatus) {
+                    case "Draft":
+                        // switch button accordingly
+                        $(".continue_div").css("display", "block");
+                        $(".apply_div").css("display", "none");
+                        break;
+
+                    default:
+                        $(".continue_div").css("display", "none");
+                        $(".apply_div").css("display", "block");
+
+                        break;
+                    }
+                });
 
                 //async fetch 2: Tab 1
                 $.ajax({
@@ -3554,9 +3545,12 @@ $('.button-go-back').click(function (e) {
 });
 
 $('.btn_go_apply').click(function (e) {
+
+    //if (('.btn_go_apply').clicked == true) {
+    //    alert("button was clicked");
+    //}
     
     var ittNoticeNumber = $(".btn_go_apply").attr("attr_ittnumber");
-   // $(".btn_go_apply").attr("disabled", true);
    
     //var ittNoticeNumber = $("#txtTenderNoticeNo").val();
     // Create a New Tender Response On Navision
@@ -3597,28 +3591,43 @@ $('.btn_go_apply').click(function (e) {
                 //otherwise get back error
                 Swal.fire
                    ({
-                       title: "Tender Response Error!",
+                       title: "Tender Response Info!",
                        text: splitstatus[1],
                        type: "error"
                    }).then(() => {
-                       $("#tenderesponsefeedbacks").css("display", "block");
-                       $("#tenderesponsefeedbacks").css("color", "red");
-                       $('#tenderesponsefeedbacks').attr('class', 'alert alert-danger');
-                       $("#tenderesponsefeedbacks").html("Sorry, You have already submitted the Tender Response. Kindly Await for Notifications");
-                     // $(".btn_go_apply").removeAttr("disabled");
+
+                        App.alert({
+                            container: "#tenderesponsefeedbacks",
+                            place: "append",
+                            type: "danger",
+                            message: "You have already started application for this tender, kindly continue to submit!",
+                            close: true,
+                            reset: true,
+                            focus: true,
+                            closeInSeconds: 5,
+                            icon: "warning"
+                        });
+
                    });
                 break;
             default:
                 Swal.fire
                 ({
                     title: "Tender Response Exception Error!",
-                    text: "Sorry, You have already submitted the Tender Response. Kindly Await for Notifications",
+                    text: splitstatus[1],
                     type: "error"
                 }).then(() => {
-                    $("#tenderesponsefeedbacks").css("display", "block");
-                    $("#tenderesponsefeedbacks").css("color", "red");
-                    $('#tenderesponsefeedbacks').attr('class', 'alert alert-danger');
-                    $("#tenderesponsefeedbacks").html(status);
+                    App.alert({
+                        container: "#tenderesponsefeedbacks",
+                        place: "append",
+                        type: "danger",
+                        message: splitstatus[1],
+                        close: true,
+                        reset: true,
+                        focus: true,
+                        closeInSeconds: 5,
+                        icon: "warning"
+                    });
                 });
                 break;
         
@@ -3692,6 +3701,9 @@ $('.btn_go_apply').click(function (e) {
                 $("#tender_responses").css("display", "block");
                 $("#tender_displays").css("display", "none");
 
+                $("#continue_div").css("display", "block");
+                $("#save_div").css("display", "none");
+
                 //initial load some data down here //to be deleted after test
                 vendorpreference.init();
                 ownerships.init();
@@ -3707,16 +3719,26 @@ $('.btn_go_apply').click(function (e) {
                 break;
             
             default:
+                //$("#continue_div").css("display", "block");
+                //$("#save_div").css("display", "none");
+
                 Swal.fire
                 ({
                     title: "Tender Response Exception Error!",
-                    text: "Sorry, You have already submitted the Tender Response. Kindly Await for Notifications",
+                    text: "You have already submitted the Tender Response. Kindly Await for Notifications",
                     type: "error"
                 }).then(() => {
-                    $("#tenderesponsefeedbacks").css("display", "block");
-                    $("#tenderesponsefeedbacks").css("color", "red");
-                    $('#tenderesponsefeedbacks').attr('class', 'alert alert-danger');
-                    $("#tenderesponsefeedbacks").html("Your application is not under Draft stage!");
+                    App.alert({
+                        container: "#tenderesponsefeedbacks",
+                        place: "append",
+                        type: "danger",
+                        message: "Your application is not under Draft stage!",
+                        close: true,
+                        reset: true,
+                        focus: true,
+                        closeInSeconds: 5,
+                        icon: "warning"
+                    });
                 });
                 break;
         }
@@ -4074,7 +4096,9 @@ var vendorpreference = function() {
 
 //Get/Fetch Directors Ownerships Detailstbl_pricing_information
 var ittTenderResponseNumber = $("#txtBidResponseNo").val();
-var ownerships = function() {
+var ownerships = function () {
+
+
     var on = function() {
         var tl = $("#tbl_ownership_list"),
             l = tl.dataTable({
@@ -4113,6 +4137,7 @@ var ownerships = function() {
                 $(".modalspinner").hide();
             }
         });
+
         $.ajax({
             data: ""
         }).done(function(json) {
