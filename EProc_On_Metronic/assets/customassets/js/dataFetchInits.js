@@ -3551,90 +3551,6 @@ $('.btn_go_apply').click(function (e) {
     //}
     
     var ittNoticeNumber = $(".btn_go_apply").attr("attr_ittnumber");
-   
-    //var ittNoticeNumber = $("#txtTenderNoticeNo").val();
-    // Create a New Tender Response On Navision
-    //Set data to be sent   
-    $.ajax({
-        url: "/Home/SubmitTenderResponse?ittpnumber=" + ittNoticeNumber,
-        type: "POST",
-        data: "",
-        cache: false,
-        async: true,
-        dataType: "json",
-        beforeSend: function () {
-            $(".modalspinner").show();
-           // $(".btn_go_apply").attr('disabled', "disabled");
-        }
-    }).done(function (status) {
-
-        var splitstatus = status.split("*");
-        switch (splitstatus[0]) {
-            case "success":
-                //do something
-                // Load Tender Response Details //NOTE:Load everything else after a successful insert / save to dB first
-                vendorpreference.init();
-                ownerships.init();
-                personnelExperience.init();
-                pricinginformation.init();
-                auditedbalancesheet.init();
-                auditedincomestatement.init();
-                keybidvendorbankaccounts.init();
-                KeyBidLitigationsHistory.init();
-                KeyBidVendorPastExperience.init();
-                KeyBidTenderSecurity.init();
-
-                break;
-            case "danger":
-               
-               // $(".btn_go_apply").prop('disabled', false);
-                //otherwise get back error
-                Swal.fire
-                   ({
-                       title: "Tender Response Info!",
-                       text: splitstatus[1],
-                       type: "error"
-                   }).then(() => {
-
-                        App.alert({
-                            container: "#tenderesponsefeedbacks",
-                            place: "append",
-                            type: "danger",
-                            message: "You have already started application for this tender, kindly continue to submit!",
-                            close: true,
-                            reset: true,
-                            focus: true,
-                            closeInSeconds: 5,
-                            icon: "warning"
-                        });
-
-                   });
-                break;
-            default:
-                Swal.fire
-                ({
-                    title: "Tender Response Exception Error!",
-                    text: splitstatus[1],
-                    type: "error"
-                }).then(() => {
-                    App.alert({
-                        container: "#tenderesponsefeedbacks",
-                        place: "append",
-                        type: "danger",
-                        message: splitstatus[1],
-                        close: true,
-                        reset: true,
-                        focus: true,
-                        closeInSeconds: 5,
-                        icon: "warning"
-                    });
-                });
-                break;
-        
-        }
-        $(".modalspinner").hide();
-    });
-
    //load vendor details first
    // ittNoticeNumber = $(".btn_go_apply").attr("attr_ittnumber");
     $.ajax({
@@ -3645,10 +3561,9 @@ $('.btn_go_apply').click(function (e) {
             async: true,
             beforeSend: function () {
                 $(".modalspinner").show();
-               // $(".btn_go_apply").attr('disabled', "disabled");
             }
     }).done(function (json) {
-        $(".modalspinner").hide();
+        // $(".modalspinner").hide();
         var ittNumber = $(".btn_go_apply").attr("attr_ittnumber");
         var submissionstatus = "";
         $("#txtInvTenderNo").val(ittNumber);
@@ -3661,38 +3576,26 @@ $('.btn_go_apply').click(function (e) {
                 $("#txtBidChargeCode").val(json[i].Bid_Charge_Code);
                 $("#txtBidChargeAmount").val(json[i].Bid_Charge_LCY); 
                 $("#txtPaymentReference").val(json[i].Payment_Reference_No); 
-                $("#txtPostedDirect").val(json[i].Posted_Direct_Income_Voucher); 
                 $("#txtInvTenderNo").val(json[i].Invitation_For_Supply_No);
                 $("#txtVendorNo").val(json[i].Pay_to_Vendor_No);
                 $("#txtVendorName").val(json[i].Pay_to_Name);
                 $("#txtDocumentStatus").val(json[i].Document_Status);
-                $("#txtDocDate").val(json[i].Document_Date);
                 $("#txtTaxPinNo").val(json[i].VAT_Registration_No);
-                $("#txtAddress").val(json[i].Pay_to_Address);
-                $("#txtAddress2").val(json[i].Pay_to_Address_2);
-                $("#txtPostCode").val(json[i].Pay_to_Post_Code);
-                $("#txtCity").val(json[i].Pay_to_City);
-                $("#txtCountryCode").val(json[i].Pay_to_Country_Region_Code);
-                $("#txtLangCode").val(json[i].Language_Code);
-                $("#txtRespCenter").val(json[i].Responsibility_Center);
 
                 submissionstatus = json[i].Document_Status;
 
                 // Pre-load other response details.
 
-                //ownerships.init();
-                //personnelExperience.init();
-                //pricinginformation.init();
-                //auditedbalancesheet.init();
-                //auditedincomestatement.init();
-                //keybidvendorbankaccounts.init();
-                //KeyBidLitigationsHistory.init();
-                //KeyBidVendorPastExperience.init();
-
-                //$("#txtDocDate")
-                //    .val(new Date(json[i].Document_Date).toLocaleDateString('en-US',
-                //   { day: '2-digit', month: '2-digit', year: 'numeric' }));
-
+                vendorpreference.init();
+                ownerships.init();
+                personnelExperience.init();
+                pricinginformation.init();
+                auditedbalancesheet.init();
+                auditedincomestatement.init();
+                keybidvendorbankaccounts.init();
+                KeyBidLitigationsHistory.init();
+                KeyBidVendorPastExperience.init();
+                KeyBidTenderSecurity.init();
             }
 
         switch (submissionstatus) {
@@ -3715,31 +3618,95 @@ $('.btn_go_apply').click(function (e) {
                 KeyBidLitigationsHistory.init();
                 KeyBidVendorPastExperience.init();
                 KeyBidTenderSecurity.init();
-
                 break;
             
             default:
                 //$("#continue_div").css("display", "block");
                 //$("#save_div").css("display", "none");
 
-                Swal.fire
-                ({
-                    title: "Tender Response Exception Error!",
-                    text: "You have already submitted the Tender Response. Kindly Await for Notifications",
-                    type: "error"
-                }).then(() => {
-                    App.alert({
-                        container: "#tenderesponsefeedbacks",
-                        place: "append",
-                        type: "danger",
-                        message: "Your application is not under Draft stage!",
-                        close: true,
-                        reset: true,
-                        focus: true,
-                        closeInSeconds: 5,
-                        icon: "warning"
-                    });
+                //Swal.fire
+                //({
+                //    title: "Tender Response Exception Error!",
+                //    text: "You have already submitted the Tender Response. Kindly Await for Notifications",
+                //    type: "error"
+                //}).then(() => {
+                //    App.alert({
+                //        container: "#tenderesponsefeedbacks",
+                //        place: "append",
+                //        type: "danger",
+                //        message: "Your application is not under Draft stage!",
+                //        close: true,
+                //        reset: true,
+                //        focus: true,
+                //        closeInSeconds: 5,
+                //        icon: "warning"
+                //    });
+                //});
+
+                //var ittNoticeNumber = $("#txtTenderNoticeNo").val();
+                // Create a New Tender Response On Navision
+                //Set data to be sent   
+                $.ajax({
+                    url: "/Home/SubmitTenderResponse?ittpnumber=" + ittNoticeNumber,
+                    type: "POST",
+                    data: "",
+                    cache: false,
+                    async: true,
+                    dataType: "json",
+                    beforeSend: function () {
+                        $(".modalspinner").show();
+                        // $(".btn_go_apply").attr('disabled', "disabled");
+                    }
+                }).done(function (status) {
+
+                    var splitstatus = status.split("*");
+                    switch (splitstatus[0]) {
+                    case "success":
+                        //do something
+                        // Load Tender Response Details //NOTE:Load everything else after a successful insert / save to dB first
+
+                        $("#tender_responses").css("display", "block");
+                        $("#tender_displays").css("display", "none");
+
+                        vendorpreference.init();
+                        ownerships.init();
+                        personnelExperience.init();
+                        pricinginformation.init();
+                        auditedbalancesheet.init();
+                        auditedincomestatement.init();
+                        keybidvendorbankaccounts.init();
+                        KeyBidLitigationsHistory.init();
+                        KeyBidVendorPastExperience.init();
+                        KeyBidTenderSecurity.init();
+
+                        break;
+                    default:
+                        Swal.fire
+                        ({
+                            title: "Tender Response Exception Error!",
+                            text: splitstatus[1],
+                            type: "error"
+                        }).then(() => {
+                            App.alert({
+                                container: "#tenderesponsefeedbacks",
+                                place: "append",
+                                type: "danger",
+                                message: splitstatus[1],
+                                close: true,
+                                reset: true,
+                                focus: true,
+                                closeInSeconds: 5,
+                                icon: "warning"
+                            });
+                        });
+
+                        break;
+
+                    }
+                    $(".modalspinner").hide();
                 });
+
+
                 break;
         }
           $(".modalspinner").hide();
@@ -3762,53 +3729,6 @@ $('.btn_go_apply').click(function (e) {
                 $("#txtRespCenter").val(json[i].Responsibility_Center);
                 $("#txtDocDate").val(new Date(json[i].Document_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
                 $("#txtTenderDescription").val(json[i].Tender_Summary);
-                //$("#txtExternalDocNo").val(json[i].External_Document_No);
-                //$("#txtSealedBids").val(json[i].Enforce_Mandatory_Pre_bid_Visi);
-                //$("#txtValidityDur").val(json[i].Tender_Validity_Duration);
-                //$("#txtValidityExpry").val(new Date(json[i].Tender_Validity_Expiry_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
-                //$("#txtLocationCode").val(json[i].Location_Code);
-                //$("#txtProductGroup").val(json[i].Requisition_Product_Group);
-                //$("#txtSpecialGrp").val(json[i].Mandatory_Special_Group_Reserv);
-                //$("#txtLotNo").val(json[i].Lot_No);
-                //$("#txtDocStatus").val(json[i].Document_Status);
-                //$("#txtTargetBidder").val(json[i].Target_Bidder_Group);
-                //$("#txtBidSubMethd").val(json[i].Bid_Submission_Method);
-                //$("#txtBidSelctnMethd").val(json[i].Bid_Selection_Method);
-                //$("#txtLanguageCode").val(json[i].Language_Code);
-                //$("#txtSubmisionEndDate").val(new Date(json[i].Submission_End_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
-                //$("#txtAddress2").val(json[i].Address_2);
-                //$("#txtSubEndTime").val(json[i].Submission_Start_Time);
-                //$("#txtPostaCode").val(json[i].Post_Code);
-                //$("#txtPrebidMeetDte").val(new Date(json[i].Mandatory_Pre_bid_Visit_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
-                //$("#txtCity").val(json[i].City);
-                //$("#txtPrebidMtAddress").val(json[i].Prebid_Meeting_Address);
-                //$("#txtCountry").val(json[i].Country_Region_Code);
-                //$("#txtBidOpendate").val(new Date(json[i].Bid_Opening_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
-                //$("#txtPhoneNo").attr("href", "tel:" + json[i].Phone_No);
-                //$("#txtPhoneNo").text(json[i].Phone_No);
-                //$("#txtBidOpenTime").val(json[i].Bid_Opening_Time);
-                //$("#hrefEmail").attr("href", "mailto:" + json[i].E_Mail);
-                //$("#hrefEmail").text(json[i].E_Mail);
-                //$("#txtBidOpenVenue").val(json[i].Bid_Opening_Venue);
-                //$("#txtTenderBoxLoc").val(json[i].Tender_Box_Location_Code);
-                //$("#txtProcEntityName").val(json[i].Procuring_Entity_Name_Contact);
-                //$("#txtPriTendSubAddress").val(json[i].Primary_Tender_Submission);
-
-                //////Tab 3 populate Tender requirements
-                //$("#txtBidsecReq").val(json[i].Bid_Tender_Security_Required);
-                //$("#txtPerfSecReqs").val(json[i].Performance_Security_Required);
-                //$("#txtBidSecPercent").val(json[i].Bid_Security);
-                //$("#txtPerfSecpercent").val(json[i].Performance_Security);
-                //$("#txtBidSecAmnt").val((json[i].Bid_Security_Amount_LCY).toFixed(2));
-                //$("#txtAdvpaySecRequired").val(json[i].Advance_Payment_Security_Req);
-                //$("#txtBidSec_validity").val(json[i].Bid_Security_Validity_Duration);
-                //$("#txtAdvPaysecurity").val((json[i].Advance_Payment_Security).toFixed(2));
-                //$("#txtBidsecXpDate").val(new Date(json[i].Bid_Security_Expiry_Date).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }));
-                //$("#txtAdvAmountLmt").val((json[i].Advance_Amount_Limit).toFixed(2));
-                //$("#txtInsurcoverRequired").val(json[i].Insurance_Cover_Required);
-                //$("#txtBiddderArbappointer").val(json[i].Appointer_of_Bid_Arbitrator);
-
-               
             }
 
         });
@@ -4097,8 +4017,6 @@ var vendorpreference = function() {
 //Get/Fetch Directors Ownerships Detailstbl_pricing_information
 var ittTenderResponseNumber = $("#txtBidResponseNo").val();
 var ownerships = function () {
-
-
     var on = function() {
         var tl = $("#tbl_ownership_list"),
             l = tl.dataTable({
@@ -4166,7 +4084,7 @@ var ownerships = function () {
     }
 }();
 //Get/Fetch Directors Pricing Details
-    var ittBidResponseNumber = $("#txtBidResponseNo").val();
+var ittBidResponseNumber = $("#txtBidResponseNo").val();
 var pricinginformation = function() {
     var price = function() {
         var tl = $("#tbl_pricing_information"),
@@ -4236,7 +4154,7 @@ var pricinginformation = function() {
     }
 }();
 //Get/Fetch Key Staff Personnel Experience Details
-    var ittBidKeyResponseNumber = $("#txtBidResponseNo").val();
+var ittBidKeyResponseNumber = $("#txtBidResponseNo").val();
 var personnelExperience = function() {
     var personnel = function() {
         var tl = $("#tbl_keystaff_experience"),
@@ -4343,6 +4261,7 @@ var auditedbalancesheet = function() {
                 $(".modalspinner").hide();
             }
         });
+
         $.ajax({
             data: ""
         }).done(function(json) {
@@ -4360,12 +4279,106 @@ var auditedbalancesheet = function() {
                     json[i].Owners_Equity_LCY,
                     json[i].Debt_Ratio,
                     json[i].Current_Ratio,
-                    '<a class="edit_preferenece" href="">Edit</a>',
-                    '<a class="delete_preferenece" href="">Delete</a>'
+                    '<a class="delete_aud_bal_sheet" href="">Delete</a>'
                 ]);
             }
         });
-    }
+
+        tl.on("click",
+            ".delete_aud_bal_sheet",
+            function(tl) {
+                tl.preventDefault();
+                var i = $(this).parents("tr")[0];
+
+                // alert(i.cells[1].innerHTML);
+
+                Swal.fire({
+                    title: "Delete Entry?",
+                    text: "Sure you'd like to proceed with deletion?",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: true,
+                    confirmButtonText: "Yes, delete balance sheet entry!",
+                    confirmButtonClass: "btn-success",
+                    confirmButtonColor: "#008000",
+                    position: "center"
+                }).then((result) => {
+                    if (result.value) {
+
+                         //global loader spinner;
+                        $.ajaxSetup({
+                            global: false,
+                            type: "POST",
+                            url: "/Home/DeleteBidAuditedBalSheetentry?yearCode=" + i.cells[1].innerHTML,
+                            beforeSend: function() {
+                                $(".modalspinner").show();
+                            },
+                            complete: function() {
+                                $(".modalspinner").hide();
+                            }
+                        });
+
+                        $.ajax({
+                            data: ''
+                        }).done(function (status) {
+                                var splitstatus = status.split('*');
+                                switch (splitstatus[0]) {
+                                case "success":
+                                    Swal.fire
+                                    ({
+                                        title: "Entry Deleted!",
+                                        text: "Entry Deleted Successfully!",
+                                        type: "success"
+                                    }).then(() => {
+                                        App.alert({
+                                            container: "#financialstatsfeedback",
+                                            place: "append",
+                                            type: "success",
+                                            message: "Entry Removed Successfully, You can add it again!",
+                                            close: true,
+                                            reset: true,
+                                            focus: true,
+                                            closeInSeconds: 5,
+                                            icon: "check"
+                                        });
+                                    });
+                                    auditedbalancesheet.init()
+
+                                    break;
+                                default:
+                                    Swal.fire
+                                    ({
+                                        title: "Error!",
+                                        text: "Error occured while deleting..",
+                                        type: "error"
+                                    }).then(() => {
+                                        App.alert({
+                                            container: "#financialstatsfeedback",
+                                            place: "append",
+                                            type: "danger",
+                                            message: "Could not delete the entry!",
+                                            close: true,
+                                            reset: true,
+                                            focus: true,
+                                            closeInSeconds: 5,
+                                            icon: "warning"
+                                        });
+                                    });
+                                    break;
+                                }
+                            }
+                        );
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire(
+                            'Cancelled',
+                            'You cancelled your deletion!',
+                            'error'
+                        );
+                    }
+            });
+
+            });
+     }
     return {
         init: function() {
             auditedbalance();
@@ -4416,7 +4429,6 @@ var auditedincomestatement = function() {
             data: ""
         }).done(function(json) {
             l.fnClearTable();
-          //  console.log(JSON.stringify({ vendorTestdata: json }));
             var o = 1;
             for (var i = 0; i < json.length; i++) {
                 l.fnAddData([
@@ -4429,11 +4441,105 @@ var auditedincomestatement = function() {
                     json[i].Interest_Expense_LCY,
                     json[i].Income_Before_Taxes_LCY,
                     json[i].Income_Tax_Expense_LCY,
-                    '<a class="edit_preferenece" href="">Edit</a>',
-                    '<a class="delete_preferenece" href="">Delete</a>'
+                    '<a class="delete_audinc_statement" href="">Delete</a>'
                 ]);
             }
         });
+
+        tl.on("click",
+            ".delete_audinc_statement",
+            function (tl) {
+                tl.preventDefault();
+                var i = $(this).parents("tr")[0];
+
+                alert("record to be deleted: "+i.cells[1].innerHTML);
+
+                //Swal.fire({
+                //    title: "Delete Entry?",
+                //    text: "Sure you'd like to proceed with deletion?",
+                //    type: "warning",
+                //    showCancelButton: true,
+                //    closeOnConfirm: true,
+                //    confirmButtonText: "Yes, delete balance sheet entry!",
+                //    confirmButtonClass: "btn-success",
+                //    confirmButtonColor: "#008000",
+                //    position: "center"
+                //}).then((result) => {
+                //    if (result.value) {
+
+                //        //global loader spinner;
+                //        $.ajaxSetup({
+                //            global: false,
+                //            type: "POST",
+                //            url: "/Home/DeleteBidAuditedBalSheetentry?yearCode=" + i.cells[1].innerHTML,
+                //            beforeSend: function () {
+                //                $(".modalspinner").show();
+                //            },
+                //            complete: function () {
+                //                $(".modalspinner").hide();
+                //            }
+                //        });
+
+                //        $.ajax({
+                //            data: ''
+                //        }).done(function (status) {
+                //                var splitstatus = status.split('*');
+                //                switch (splitstatus[0]) {
+                //                case "success":
+                //                    Swal.fire
+                //                    ({
+                //                        title: "Entry Deleted!",
+                //                        text: "Entry Deleted Successfully!",
+                //                        type: "success"
+                //                    }).then(() => {
+                //                        App.alert({
+                //                            container: "#financialstatsfeedback",
+                //                            place: "append",
+                //                            type: "success",
+                //                            message: "Entry Removed Successfully, You can add it again!",
+                //                            close: true,
+                //                            reset: true,
+                //                            focus: true,
+                //                            closeInSeconds: 5,
+                //                            icon: "check"
+                //                        });
+                //                    });
+                //                    auditedbalancesheet.init()
+
+                //                    break;
+                //                default:
+                //                    Swal.fire
+                //                    ({
+                //                        title: "Error!",
+                //                        text: "Error occured while deleting..",
+                //                        type: "error"
+                //                    }).then(() => {
+                //                        App.alert({
+                //                            container: "#financialstatsfeedback",
+                //                            place: "append",
+                //                            type: "danger",
+                //                            message: "Could not delete the entry!",
+                //                            close: true,
+                //                            reset: true,
+                //                            focus: true,
+                //                            closeInSeconds: 5,
+                //                            icon: "warning"
+                //                        });
+                //                    });
+                //                    break;
+                //                }
+                //            }
+                //        );
+                //    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                //        Swal.fire(
+                //            'Cancelled',
+                //            'You cancelled your deletion!',
+                //            'error'
+                //        );
+                //    }
+                //});
+
+            });
     }
     return {
         init: function() {
@@ -4719,6 +4825,76 @@ var KeyBidTenderSecurity = function () {
         }
     }
 }();
+
+//Get Equipment bidder Details
+var KeyBidEquipment = function () {
+    var eq = function () {
+        var tl = $("#tbl_equipment"),
+            l = tl.dataTable({
+                lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                pageLength: 5,
+                language: { lengthMenu: " _MENU_ records" },
+                columnDefs: [
+                    {
+                        orderable: !0,
+                        defaultContent: "-",
+                        targets: "_all"
+                    },
+                    {
+                        searchable: !0,
+                        targets: "_all"
+                    }
+                ],
+                order: [
+                    [0, "asc"]
+                ],
+
+                bDestroy: true,
+                info: false,
+                processing: true,
+                retrieve: true
+            });
+
+        $.ajaxSetup({
+            global: false,
+            type: "POST",
+            url: "/Home/GetBidVendorPastExperiences",
+            beforeSend: function () {
+                $(".modalspinner").show();
+            },
+            complete: function () {
+                $(".modalspinner").hide();
+            }
+        });
+        $.ajax({
+            data: ""
+        }).done(function (json) {
+            l.fnClearTable();
+            var o = 1;
+            for (var i = 0; i < json.length; i++) {
+                l.fnAddData([
+                    o++,
+                    json[i].Client_Name,
+                    json[i].Address,
+                    json[i].Phone_No,
+                    json[i].Country_Region_Code,
+                    json[i].E_Mail,
+                    json[i].Project_Scope_Summary,
+                    json[i].Assignment_Project_Name, ,
+                    json[i].Contract_Ref_No,
+                    json[i].Assignment_Value_LCY,
+                    json[i].Assignment_Status
+                ]);
+            }
+        });
+    }
+    return {
+        init: function () {
+            eq();
+        }
+    }
+}();
+
 jQuery(document).ready(function () {
     optends.init(),Ld.init(); //, suppregDocs.init();
 });

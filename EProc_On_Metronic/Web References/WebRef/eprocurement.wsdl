@@ -446,6 +446,31 @@
           </sequence>
         </complexType>
       </element>
+      <element name="FnSupplierGeneralDetailsRegistration">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="businessname" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vatregistration" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="ownershipType" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="vendortype" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="businesstype" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="certificatenumber" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="dateofIncorporation" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="dateofoperation" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="languageCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vision" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="mision" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnSupplierGeneralDetailsRegistration_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
       <element name="FnInsertBank">
         <complexType>
           <sequence>
@@ -936,6 +961,22 @@
           </sequence>
         </complexType>
       </element>
+      <element name="FnDeleteBidAuditedBalsheet">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="auditYearCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="responseNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="FnDeleteBidAuditedBalsheet_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
   <message name="FnRegisterVendor">
@@ -1093,6 +1134,12 @@
   </message>
   <message name="FnSupplierRegistration_Result">
     <part name="parameters" element="tns:FnSupplierRegistration_Result" />
+  </message>
+  <message name="FnSupplierGeneralDetailsRegistration">
+    <part name="parameters" element="tns:FnSupplierGeneralDetailsRegistration" />
+  </message>
+  <message name="FnSupplierGeneralDetailsRegistration_Result">
+    <part name="parameters" element="tns:FnSupplierGeneralDetailsRegistration_Result" />
   </message>
   <message name="FnInsertBank">
     <part name="parameters" element="tns:FnInsertBank" />
@@ -1256,6 +1303,12 @@
   <message name="FnAddBidPrefr_Result">
     <part name="parameters" element="tns:FnAddBidPrefr_Result" />
   </message>
+  <message name="FnDeleteBidAuditedBalsheet">
+    <part name="parameters" element="tns:FnDeleteBidAuditedBalsheet" />
+  </message>
+  <message name="FnDeleteBidAuditedBalsheet_Result">
+    <part name="parameters" element="tns:FnDeleteBidAuditedBalsheet_Result" />
+  </message>
   <portType name="eprocurement_Port">
     <operation name="FnRegisterVendor">
       <input name="FnRegisterVendor" message="tns:FnRegisterVendor" />
@@ -1360,6 +1413,10 @@
     <operation name="FnSupplierRegistration">
       <input name="FnSupplierRegistration" message="tns:FnSupplierRegistration" />
       <output name="FnSupplierRegistration_Result" message="tns:FnSupplierRegistration_Result" />
+    </operation>
+    <operation name="FnSupplierGeneralDetailsRegistration">
+      <input name="FnSupplierGeneralDetailsRegistration" message="tns:FnSupplierGeneralDetailsRegistration" />
+      <output name="FnSupplierGeneralDetailsRegistration_Result" message="tns:FnSupplierGeneralDetailsRegistration_Result" />
     </operation>
     <operation name="FnInsertBank">
       <input name="FnInsertBank" message="tns:FnInsertBank" />
@@ -1468,6 +1525,10 @@
     <operation name="FnAddBidPrefr">
       <input name="FnAddBidPrefr" message="tns:FnAddBidPrefr" />
       <output name="FnAddBidPrefr_Result" message="tns:FnAddBidPrefr_Result" />
+    </operation>
+    <operation name="FnDeleteBidAuditedBalsheet">
+      <input name="FnDeleteBidAuditedBalsheet" message="tns:FnDeleteBidAuditedBalsheet" />
+      <output name="FnDeleteBidAuditedBalsheet_Result" message="tns:FnDeleteBidAuditedBalsheet_Result" />
     </operation>
   </portType>
   <binding name="eprocurement_Binding" type="tns:eprocurement_Port">
@@ -1703,6 +1764,15 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnSupplierRegistration_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnSupplierGeneralDetailsRegistration">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSupplierGeneralDetailsRegistration" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnSupplierGeneralDetailsRegistration">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnSupplierGeneralDetailsRegistration_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>
@@ -1946,6 +2016,15 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
       <output name="FnAddBidPrefr_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="FnDeleteBidAuditedBalsheet">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnDeleteBidAuditedBalsheet" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="FnDeleteBidAuditedBalsheet">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="FnDeleteBidAuditedBalsheet_Result">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>

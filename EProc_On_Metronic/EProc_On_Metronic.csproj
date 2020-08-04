@@ -214,6 +214,7 @@
     <Compile Include="Models\AuditedFinancialsTModel.cs" />
     <Compile Include="Models\BalanceSheetTModel.cs" />
     <Compile Include="Models\BankModel.cs" />
+    <Compile Include="Models\BidderEquipmentTModel.cs" />
     <Compile Include="Models\BidderReservedtModel.cs" />
     <Compile Include="Models\BidKeyStaffQualificationModel.cs" />
     <Compile Include="Models\BidLitigationHistoryModel.cs" />

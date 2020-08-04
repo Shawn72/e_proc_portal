@@ -1625,10 +1625,9 @@ namespace EProc_On_Metronic.Controllers
                 string storedFilename = "";
                 CultureInfo usCulture = new CultureInfo("en-US");
                 int errCounter = 0, filesCounter = 1, succCounter = 0, entryCounter = 0;
-                DateTime dtofIssue, expiryDate;
                 string uploads ;
-                dtofIssue = DateTime.Parse(dateofissue, usCulture.DateTimeFormat);
-                expiryDate = DateTime.Parse(expirydate, usCulture.DateTimeFormat);
+                var dtofIssue = DateTime.Parse(dateofissue, usCulture.DateTimeFormat);
+                var expiryDate = DateTime.Parse(expirydate, usCulture.DateTimeFormat);
                
           
                 if (browsedfile == null)
@@ -3512,6 +3511,55 @@ namespace EProc_On_Metronic.Controllers
             {
                 return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult GetBidResponseEquipment()
+        {
+            var ittresponseid = Session["BideResponseNumber"].ToString();
+            List<BidderEquipmentTModel> balancesheet = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetKeyBidderEquipment");
+            balancesheet = JsonConvert.DeserializeObject<List<BidderEquipmentTModel>>(json);
+            var jresp = (from a in balancesheet where a.No == ittresponseid select a).ToList();
+            return Json(jresp, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteBidAuditedBalSheetentry(string yearCode)
+        {
+            try
+            {
+                var vendorNo = Session["vendorNo"].ToString();
+                var ittresponseid = Session["BideResponseNumber"].ToString();
+                var nvWebref = WsConfig.EProcWebRef;
+
+                var status = nvWebref.FnDeleteBidAuditedBalsheet(yearCode, vendorNo, ittresponseid);
+                var res = status.Split('*');
+                switch (res[0])
+                {
+                    case "success":
+                        return Json("success*" + res[1], JsonRequestBehavior.AllowGet);
+
+                    default:
+                        return Json("danger*" + res[1], JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("danger*" + ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult DocumentTemplateList_TenderResponse()
+        {
+            List<DocumentsTModel> docTModel = null;
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiUsername + ":" + ApiPassword)));
+            string json = wc.DownloadString(Baseurl + "api/GetDocumentsTemplates_Rfi");
+            docTModel = JsonConvert.DeserializeObject<List<DocumentsTModel>>(json);
+            var madocs = (from a in docTModel where a.Document_Type == "Invitation For Prequalification" select a).ToList();
+
+            return View(madocs);
         }
 
         [HttpPost]

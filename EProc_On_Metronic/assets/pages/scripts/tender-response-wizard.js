@@ -88,95 +88,12 @@ var FormWizard = function () {
                             required: !0
                         },
 
-
-
-
-
                         //separator
                         ddlIndustrygroup: {
                             required: !0
-                        },
-                        txtVendorLName: {
-                            minlength: 3,
-                            required: !0
-                        },
-                        txtareaVision: {
-                            minlength: 10,
-                            maxlength: 250,
-                            required: !0,
-                        },
-                        txtareaMision: {
-                            minlength: 10,
-                            maxlength: 250,
-                            required: !0
-                        },
-                        txtPoBox: {
-                            minlength: 3,
-                            required: !0,
-                            number: !0
-                        },
-                        txtLocation: {
-                            minlength: 3,
-                            required: !0,
-                        },
-
-                        txtBuildNo: {
-                            minlength: 2,
-                            required: !0,
-                        },
-
-                        txtStreetroad: {
-                            minlength: 3,
-                            required: !0
-                        },
-
-                        txtTelphNo: {
-                            minlength: 7,
-                            maxlength: 15,
-                            required: !0
-                        },
-                        txtFloor: {
-                            minlength: 2,
-                            maxlength: 3,
-                            required: !0
-                        },
-                        ddlCompanysize: {
-                            required: !0
-                        },
-                        ddlNominalCap: {
-                            required: !0
-                        },
-                        txtDealertype: {
-                            required: !0
-                        },
-
-                        txtwebsiteurl: {
-                            minlength: 5,
-                            required: !0
-                        },
-                        txtMaxbzVal: {
-                            minlength: 4,
-                            required: !0,
-                            number: !0
-                        },
-                        txtCntPhoneno: {
-                            minlength: 10,
-                            required: !0
-                        },
-                        txtareaNatureofBz: {
-                            minlength: 10,
-                            maxlength: 50,
-                            required: !0
                         }
+                       
                     },
-                    //custom validator messages
-                    //messages: {
-                    //    "payment[]": {
-                    //        required: "Please accept our terms before you continue!",
-                    //        minlength: jQuery.validator.format("Please accept our terms before you continue!")
-                    //    }
-                    //},
-
                     errorPlacement: function (e, r) {
                         "gender" == r.attr("name") ? e.insertAfter("#form_gender_error") : "payment[]" == r.attr("name") ?
                             e.insertAfter("#form_payment_error") : e.insertAfter(r);
@@ -392,9 +309,6 @@ var FormWizard = function () {
                             $("#regfeedback").css("display", "none");
                             break;
                         case "li6":
-                            $("#regfeedback").css("display", "none");
-                            break;
-                        case "li7":
                             $("#regfeedback").css("display", "none");
                             break;
                         default:

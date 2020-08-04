@@ -81,6 +81,8 @@ namespace EProc_On_Metronic.WebRef {
         
         private System.Threading.SendOrPostCallback FnSupplierRegistrationOperationCompleted;
         
+        private System.Threading.SendOrPostCallback FnSupplierGeneralDetailsRegistrationOperationCompleted;
+        
         private System.Threading.SendOrPostCallback FnInsertBankOperationCompleted;
         
         private System.Threading.SendOrPostCallback FnDeleteBankOperationCompleted;
@@ -134,6 +136,8 @@ namespace EProc_On_Metronic.WebRef {
         private System.Threading.SendOrPostCallback FnInserBidInfoTab1OperationCompleted;
         
         private System.Threading.SendOrPostCallback FnAddBidPrefrOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback FnDeleteBidAuditedBalsheetOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -252,6 +256,9 @@ namespace EProc_On_Metronic.WebRef {
         public event FnSupplierRegistrationCompletedEventHandler FnSupplierRegistrationCompleted;
         
         /// <remarks/>
+        public event FnSupplierGeneralDetailsRegistrationCompletedEventHandler FnSupplierGeneralDetailsRegistrationCompleted;
+        
+        /// <remarks/>
         public event FnInsertBankCompletedEventHandler FnInsertBankCompleted;
         
         /// <remarks/>
@@ -331,6 +338,9 @@ namespace EProc_On_Metronic.WebRef {
         
         /// <remarks/>
         public event FnAddBidPrefrCompletedEventHandler FnAddBidPrefrCompleted;
+        
+        /// <remarks/>
+        public event FnDeleteBidAuditedBalsheetCompletedEventHandler FnDeleteBidAuditedBalsheetCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnRegisterVendor", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnRegisterVendor_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -1364,6 +1374,59 @@ namespace EProc_On_Metronic.WebRef {
             if ((this.FnSupplierRegistrationCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.FnSupplierRegistrationCompleted(this, new FnSupplierRegistrationCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnSupplierGeneralDetailsRegi" +
+            "stration", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnSupplierGeneralDetailsRegistration_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnSupplierGeneralDetailsRegistration(string businessname, string vatregistration, int ownershipType, int vendortype, string businesstype, string certificatenumber, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime dateofIncorporation, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime dateofoperation, string languageCode, string vision, string mision, string vendorNo) {
+            object[] results = this.Invoke("FnSupplierGeneralDetailsRegistration", new object[] {
+                        businessname,
+                        vatregistration,
+                        ownershipType,
+                        vendortype,
+                        businesstype,
+                        certificatenumber,
+                        dateofIncorporation,
+                        dateofoperation,
+                        languageCode,
+                        vision,
+                        mision,
+                        vendorNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnSupplierGeneralDetailsRegistrationAsync(string businessname, string vatregistration, int ownershipType, int vendortype, string businesstype, string certificatenumber, System.DateTime dateofIncorporation, System.DateTime dateofoperation, string languageCode, string vision, string mision, string vendorNo) {
+            this.FnSupplierGeneralDetailsRegistrationAsync(businessname, vatregistration, ownershipType, vendortype, businesstype, certificatenumber, dateofIncorporation, dateofoperation, languageCode, vision, mision, vendorNo, null);
+        }
+        
+        /// <remarks/>
+        public void FnSupplierGeneralDetailsRegistrationAsync(string businessname, string vatregistration, int ownershipType, int vendortype, string businesstype, string certificatenumber, System.DateTime dateofIncorporation, System.DateTime dateofoperation, string languageCode, string vision, string mision, string vendorNo, object userState) {
+            if ((this.FnSupplierGeneralDetailsRegistrationOperationCompleted == null)) {
+                this.FnSupplierGeneralDetailsRegistrationOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnSupplierGeneralDetailsRegistrationOperationCompleted);
+            }
+            this.InvokeAsync("FnSupplierGeneralDetailsRegistration", new object[] {
+                        businessname,
+                        vatregistration,
+                        ownershipType,
+                        vendortype,
+                        businesstype,
+                        certificatenumber,
+                        dateofIncorporation,
+                        dateofoperation,
+                        languageCode,
+                        vision,
+                        mision,
+                        vendorNo}, this.FnSupplierGeneralDetailsRegistrationOperationCompleted, userState);
+        }
+        
+        private void OnFnSupplierGeneralDetailsRegistrationOperationCompleted(object arg) {
+            if ((this.FnSupplierGeneralDetailsRegistrationCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnSupplierGeneralDetailsRegistrationCompleted(this, new FnSupplierGeneralDetailsRegistrationCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -2402,6 +2465,40 @@ namespace EProc_On_Metronic.WebRef {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/eprocurement:FnDeleteBidAuditedBalsheet", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", ResponseElementName="FnDeleteBidAuditedBalsheet_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/eprocurement", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
+        public string FnDeleteBidAuditedBalsheet(string auditYearCode, string vendorNo, string responseNo) {
+            object[] results = this.Invoke("FnDeleteBidAuditedBalsheet", new object[] {
+                        auditYearCode,
+                        vendorNo,
+                        responseNo});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void FnDeleteBidAuditedBalsheetAsync(string auditYearCode, string vendorNo, string responseNo) {
+            this.FnDeleteBidAuditedBalsheetAsync(auditYearCode, vendorNo, responseNo, null);
+        }
+        
+        /// <remarks/>
+        public void FnDeleteBidAuditedBalsheetAsync(string auditYearCode, string vendorNo, string responseNo, object userState) {
+            if ((this.FnDeleteBidAuditedBalsheetOperationCompleted == null)) {
+                this.FnDeleteBidAuditedBalsheetOperationCompleted = new System.Threading.SendOrPostCallback(this.OnFnDeleteBidAuditedBalsheetOperationCompleted);
+            }
+            this.InvokeAsync("FnDeleteBidAuditedBalsheet", new object[] {
+                        auditYearCode,
+                        vendorNo,
+                        responseNo}, this.FnDeleteBidAuditedBalsheetOperationCompleted, userState);
+        }
+        
+        private void OnFnDeleteBidAuditedBalsheetOperationCompleted(object arg) {
+            if ((this.FnDeleteBidAuditedBalsheetCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.FnDeleteBidAuditedBalsheetCompleted(this, new FnDeleteBidAuditedBalsheetCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -3061,6 +3158,32 @@ namespace EProc_On_Metronic.WebRef {
         private object[] results;
         
         internal FnSupplierRegistrationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnSupplierGeneralDetailsRegistrationCompletedEventHandler(object sender, FnSupplierGeneralDetailsRegistrationCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnSupplierGeneralDetailsRegistrationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnSupplierGeneralDetailsRegistrationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -3763,6 +3886,32 @@ namespace EProc_On_Metronic.WebRef {
         private object[] results;
         
         internal FnAddBidPrefrCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void FnDeleteBidAuditedBalsheetCompletedEventHandler(object sender, FnDeleteBidAuditedBalsheetCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FnDeleteBidAuditedBalsheetCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal FnDeleteBidAuditedBalsheetCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

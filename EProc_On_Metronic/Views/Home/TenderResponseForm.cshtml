@@ -40,37 +40,31 @@
                             </li>
                             <li id="li2">
                                 <a href="#tab2" data-toggle="tab" class="step">
-                                    <span class="number"> 2 </span><span class="desc"><i class="icon-check"></i> Company Profile</span>
+                                    <span class="number"> 2 </span><span class="desc"><i class="icon-check"></i> Technical Response </span>
                                 </a>
                             </li>
+                            
                             <li id="li3">
                                 <a href="#tab3" data-toggle="tab" class="step">
                                     <span class="number"> 3 </span><span class="desc"><i class="icon-check"></i> Pricing Information </span>
                                 </a>
                             </li>
+
+
                             <li id="li4">
                                 <a href="#tab4" data-toggle="tab" class="step">
-                                    <span class="number"> 4 </span><span class="desc"><i class="icon-check"></i> Project Details </span>
+                                    <span class="number"> 4 </span><span class="desc"><i class="icon-check"></i> Financial Response </span>
                                 </a>
                             </li>
+
                             <li id="li5">
                                 <a href="#tab5" data-toggle="tab" class="step">
-                                    <span class="number"> 5 </span><span class="desc"><i class="icon-check"></i> Personnel & Equipment </span>
+                                    <span class="number"> 5 </span><span class="desc"><i class="icon-check"></i> Past Experience </span>
                                 </a>
                             </li>
                             <li id="li6">
                                 <a href="#tab6" data-toggle="tab" class="step">
-                                    <span class="number"> 6 </span><span class="desc"><i class="icon-check"></i> Finance Capacity </span>
-                                </a>
-                            </li>
-                            <li id="li7">
-                                <a href="#tab7" data-toggle="tab" class="step">
-                                    <span class="number"> 7 </span><span class="desc"><i class="icon-check"></i> Past Experience </span>
-                                </a>
-                            </li>
-                            <li id="li8">
-                                <a href="#tab8" data-toggle="tab" class="step">
-                                    <span class="number"> 8 </span><span class="desc"><i class="icon-check"></i> Documents</span>
+                                    <span class="number"> 6 </span><span class="desc"><i class="icon-check"></i> Documents</span>
                                 </a>
                             </li>
                         </ul>
@@ -92,1150 +86,581 @@
                                 <button class="close" data-dismiss="alert"></button> Your form validation is successful!
                             </div>
                             <div id="regfeedback" class="close" style="display: none" data-dismiss="alert"></div>
-                        <div class="tab-pane active" id="tab1">
-                        <div class="tab-content">
+                                <div class="tab-pane active" id="tab1">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active in" id="tab_1_general">
+                                            <table class="table table-striped table-bordered table-hover table-responsive">
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Bid Response No:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" id="txtBidResponseNo" readonly />
+                                                    </td>
 
-                        <div class="tab-pane fade active in" id="tab_1_general">
-                        <table class="table table-striped table-bordered table-hover table-responsive">
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Bid Response No:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtBidResponseNo" readonly />
-                            </td>
+                                                    <td>
+                                                        <label class="control-label"><strong>Bidder Respresentative Name:</strong></label>
+                                                    </td>
+                                                    <td class="form-group">
+                                                        <input type="text" class="form-control" name="txtbiddderRepName" id="txtbiddderRepName" />
+                                                    </td>
 
-                            <td>
-                                <label class="control-label"><strong>Bidder Representative Designation</strong></label>
-                            </td>
-                            <td class="form-group">
-                                <input type="text" class="form-control" id="txtRepdesignation" name = "txtRepdesignation" />
-                            </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Tender Description:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="txtTenderDescription" id="txtTenderDescription" readonly />
+                                                    </td>
+                                                    <td>
+                                                        <label class="control-label"><strong> Bidder Representative Address:</strong></label>
+                                                    </td>
+                                                    <td class="form-group">
+                                                        <input type="text" class="form-control" id="txtBidderRepaddr" name="txtBidderRepaddr"/>
+                                                    </td>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong> Documents Date:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtDocDate" readonly />
-                            </td>
+                                                </tr>
 
-                            <td>
-                                <label class="control-label"><strong> Bidder Representative Address:</strong></label>
-                            </td>
-                            <td class="form-group">
-                                <input type="text" class="form-control" id="txtBidderRepaddr" name ="txtBidderRepaddr" />
-                            </td>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Vendor No:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" id="txtVendorNo" readonly />
+                                                    </td>
 
-                        </tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Bidder Witness Name:</strong></label>
+                                                    </td>
+                                                    <td class="form-group">
+                                                        <input type="text" class="form-control" id="txtBidderWitnessName"  name ="txtBidderWitnessName" />
+                                                    </td>
 
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Vendor No:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtVendorNo" readonly />
-                            </td>
+                                                </tr>
 
-                            <td>
-                                <label class="control-label"><strong>Bidder Witness Name:</strong></label>
-                            </td>
-                            <td class="form-group">
-                                <input type="text" class="form-control" id="txtBidderWitnessName"  name ="txtBidderWitnessName" />
-                            </td>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Invitation Notice No:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" id="txtInvTenderNo" readonly />
+                                                    </td>
 
-                        </tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Bidder Witness Designation:</strong></label>
+                                                    </td>
+                                                    <td class="form-group">
+                                                        <input type="text" class="form-control" name="txtBidderwitDesignation" id="txtBidderwitDesignation" />
+                                                    </td>
 
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Invitation Notice No:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtInvTenderNo" readonly />
-                            </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Vendor Name:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" id="txtVendorName" readonly />
+                                                    </td>
 
-                            <td>
-                                <label class="control-label"><strong>Bidder Witness Designation:</strong></label>
-                            </td>
-                            <td class="form-group">
-                                <input type="text" class="form-control" name="txtBidderwitDesignation" id="txtBidderwitDesignation" />
-                            </td>
+                                                    <td>
+                                                        <label class="control-label"><strong> Bidder Witness Address:</strong></label>
+                                                    </td>
+                                                    <td class="form-group">
+                                                        <input type="text" class="form-control" name="txtBidderWitaddr" id="txtBidderWitaddr" />
+                                                    </td>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Vendor Name:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtVendorName" readonly />
-                            </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Tax Registration(PIN) No:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" id="txtTaxPinNo" readonly />
+                                                    </td>
+                                                    <td>
+                                                        <label class="control-label"><strong>Bidder Representative Designation</strong></label>
+                                                    </td>
+                                                    <td class="form-group">
+                                                        <input type="text" class="form-control" id="txtRepdesignation" name = "txtRepdesignation" />
+                                                    </td>
 
-                            <td>
-                                <label class="control-label"><strong> Bidder Witness Address:</strong></label>
-                            </td>
-                            <td class="form-group">
-                                <input type="text" class="form-control" name="txtBidderWitaddr" id="txtBidderWitaddr" />
-                            </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Bid Charge Code:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" id="txtBidChargeCode" readonly />
+                                                    </td>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Tax Registration(PIN) No:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtTaxPinNo" readonly />
-                            </td>
+                                                </tr>
+                                                <tr>
 
-                            <td>
-                                <label class="control-label"><strong>Tender Document Source:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtTenderDocSource" id="txtTenderDocSource" readonly />
-                            </td>
+                                                    <td>
+                                                        <label class="control-label"><strong>Bid Charge Amount(LCY):</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="txtProcmethod" id="txtBidChargeAmount" readonly />
+                                                    </td>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Address:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtAddress" name="txtAddress" readonly />
-                            </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Payment Reference:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="txtPaymentReference" id="txtPaymentReference" readonly />
+                                                    </td>
 
-                            <td>
-                                <label class="control-label"><strong>Bid Charge Code:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtBidChargeCode" readonly />
-                            </td>
+                                                </tr>
+                      
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong> Bidder Type:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" id="txtBidderType" readonly />
+                                                    </td>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Address 2:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtAddress2" name ="txtAddress2" />
-                            </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Joint Venture Partner:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="txtJointVenturePartner" id="txtJointVenturePartner" readonly />
+                                                    </td>
+                                                </tr>
+                      
+                                                <tr>
+                           
+                                                </tr>
+                        
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label"><strong>Tender Document Source:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="txtTenderDocSource" id="txtTenderDocSource" readonly />
+                                                    </td>
 
-                            <td>
-                                <label class="control-label"><strong>Bid Charge Amount(LCY):</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtProcmethod" id="txtBidChargeAmount" readonly />
-                            </td>
+                                                    <td>
+                                                        <label class="control-label"><strong> Document Status:</strong></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="txtDocumentStatus" id="txtDocumentStatus" readonly/>
+                                                    </td>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Post Code:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtPostCode"   name = "txtPostCode" readonly/>
-                            </td>
+                                                </tr>
+                                                <tr>
+                            
 
-                            <td>
-                                <label class="control-label"><strong>Payment Reference:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtPaymentReference" id="txtPaymentReference" readonly />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>City:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtCity"   name ="txtCity"  readonly/>
-                            </td>
-
-                            <td>
-                                <label class="control-label"><strong>Posted Direct Income Voucher:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtPostedDirect" id="txtPostedDirect" readonly />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Country/Region Code:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtCountryCode" readonly />
-                            </td>
-
-                            <td>
-                                <label class="control-label"><strong>Language Code:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtLangCode" readonly />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong> Bidder Type:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtBidderType" readonly />
-                            </td>
-
-                            <td>
-                                <label class="control-label"><strong>Purchase Code:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtPurchaseCode" readonly />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Joint Venture Partner:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtJointVenturePartner" id="txtJointVenturePartner" readonly />
-                            </td>
-
-                            <td>
-                                <label class="control-label"><strong>Currency Code:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtCurrencyCode" readonly />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Invitation Notice Type:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtInvtNoticetype" readonly />
-                            </td>
-
-                            <td>
-                                <label class="control-label"><strong>Amount:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txBidAmount" id="txBidAmount" readonly />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong> Bid Envelop Type:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtBidenvelopeType" readonly />
-                            </td>
-
-                            <td>
-                                <label class="control-label"><strong>Amount Including VAT:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtBidAmountIncVaT" id="txtBidAmountIncVaT" readonly />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Tender Description:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtTenderDescription" id="txtTenderDescription" readonly />
-                            </td>
-
-                            <td>
-                                <label class="control-label"><strong>No. of Addendum Notices Issued:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtAddNoticeCount" id="txtAddNoticeCount" readonly />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Responsibility Center:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtRespCenter" readonly />
-                            </td>
-
-                            <td>
-                                <label class="control-label"><strong>Last Addendum Notice No:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtLastaddendumNo" id="txtLastaddendumNo" readonly />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong> Location Code:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="txtLocCode" readonly />
-                            </td>
-
-                            <td>
-                                <label class="control-label"><strong> Document Status:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtDocumentStatus" id="txtDocumentStatus" readonly />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="control-label"><strong>Bidder Respresentative Name:</strong></label>
-                            </td>
-                            <td class="form-group">
-                                <input type="text" class="form-control" name="txtbiddderRepName" id="txtbiddderRepName" />
-                            </td>
-
-                            <td>
-                                <label class="control-label"><strong>Status:</strong></label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="txtStatus" id="txtStatus" readonly />
-                            </td>
-
-                        </tr>
-                        </table>
-                        </div>
-                        </div>
-                                
-
-                        <div class="row">
-                            <div class="col-md-offset-4 col-md-8">
-                                <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-bid-respo" >Save &nbsp;<i class="fas fa fa-save"></i></a>
-                            </div>
-                        </div>
-
-                        </div>
-
-                        <div class="tab-pane" id="tab2">
-                            <div class="row" id="rfilistdiv">
-                                <div class="col-md-12">
-                                    <div class="portlet light portlet-fit portlet-datatable bordered">
-                                        <div class="portlet-title">
-                                            <div class="caption">
-                                                <i class="icon-settings font-green"></i>
-                                                <span class="caption-subject font-green sbold uppercase">Preference and Reservation</span>
-                                            </div>
-
-                                        </div>
-                                        <div class="portlet-body">
-                                            <div class="table-toolbar">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="btn-group">
-                                                            <button id="btn_add_preference_new" class="btn green">
-                                                                Add New
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="btn-group pull-right">
-                                                            <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
-                                                                Tools
-                                                                <i class="fa fa-angle-down"></i>
-                                                            </button>
-                                                            <ul class="dropdown-menu pull-right">
-                                                                <li>
-                                                                    <a href="javascript:;"> Print </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:;"> Save as PDF </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:;"> Export to Excel </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="table-container">
-                                                <div id="prefsfeedback" style="display: none;"></div>
-                                                <table class="table table-striped table-bordered table-hover" id="tbl_getVendor_Prefereneces">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>AGPO Certificate No.</th>
-                                                        <th>Registered Special Group</th>
-                                                        <th>Product/Service Category</th>
-                                                        <th>Certificate Effective Date</th>
-                                                        <th>Certificate Expiry Date</th>
-                                                        <th>Certifying Agency</th>
-                                                        <th>Edit</th>
-                                                        <th>Delete</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="portlet-body">
-                                    <div class="portlet light portlet-fit portlet-datatable bordered">
-                                        <div class="portlet-title">
-                                            <div class="caption">
-                                                <i class="icon-settings font-green"></i>
-                                                <span class="caption-subject font-green sbold uppercase">Owners and Directors</span>
-                                            </div>
-                                        </div>
-
-                                        @*<div class="table-toolbar">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="btn-group">
-                                                        <button id="btn_add_director_new" class="btn green">
-                                                            Add New
-                                                            <i class="fa fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="btn-group pull-right">
-                                                        <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
-                                                            Tools
-                                                            <i class="fa fa-angle-down"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li>
-                                                                <a href="javascript:;"> Print </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:;"> Save as PDF </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:;"> Export to Excel </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>*@
-
-                                        <div class="table-container">
-                                            <div id="dirfeedback" style="display: none;"></div>
-                                            <table class="table table-striped table-bordered table-hover" id="tbl_ownership_list">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Name</th>
-                                                        <th>Address</th>
-                                                        <th>Post Code</th>
-                                                        <th>Address 2</th>
-                                                        <th>City</th>
-                                                        <th>Phone No.</th>
-                                                        <th>Nationality No.</th>
-                                                        <th>ID/Passport No.</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
+                                                </tr>
                                             </table>
-                                                          
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-offset-4 col-md-8">
+                                            <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-bid-respo" >Save &nbsp;<i class="fas fa fa-save"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="portlet-body">
-                                    <div class="portlet light portlet-fit portlet-datatable bordered">
-                                        <div class="portlet-title">
-                                            <div class="caption">
-                                                <i class="icon-settings font-green"></i>
-                                                <span class="caption-subject font-green sbold uppercase">Confidential Business Questionnaire</span>
+                                <div class="tab-pane" id="tab2">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                                    <div class="portlet light portlet-fit bordered">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <i class="icon-settings font-green"></i>
+                                                                <span class="caption-subject font-green sbold uppercase">Equipment</span>
+                                                            </div>
+                                                            <div class="portlet-body">
+                                                                <div id="" style="display: none" data-dismiss="alert"></div>
+
+                                                                <div class="alert" id="tblequipmentfeedback" style="display: none">
+                                                                    <button class="close" data-dismiss="alert"></button>
+                                                                </div>
+                                                                <br />
+                                                                <table class="table table-striped table-hover table-bordered" id="tbl_equipment">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Equipment Type Category</th>
+                                                                        <th>Description</th>
+                                                                        <th>Ownership Type</th>
+                                                                        <th>Equipment Serial/Registration No.</th>
+                                                                        <th>Equipment Usability Code </th>
+                                                                        <th>Years of Previous Use</th>
+                                                                        <th>Equipment Condition Code </th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <!-- END EXAMPLE TABLE PORTLET-->
+                                                    </div>
+                                                </div>
                                             </div>
-
                                         </div>
-                                        <table class="table table-striped table-bordered table-hover table-responsive">
-
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Building/House No:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtHouseNo" readonly />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Preferred Bank Code:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtBankCode" readonly />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Plot No:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtPlotNo" readonly />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Bankers Name:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtBankName" readonly />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Street/Road:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtStreet" readonly />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Bankers Branch:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtBankBranch" readonly />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Nature of Business:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtNatureBusiness" readonly />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>KNTC Agent:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtKNTCAgent" readonly />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Current Trade License No:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" readonly />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Business Type:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtBusinessType" readonly />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Trade Licence Expiry Date:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTradeLisence" readonly />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Nominal Capital LCY:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtCapital" readonly />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Max Value of Business LCY:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtMaxValue" readonly />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Issued Capital LCY:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" readonly />
-                                                </td>
-
-                                            </tr>
-                                        </table>
-                                                      
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab3">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="portlet light portlet-fit portlet-datatable bordered">
+                                <div class="tab-pane" id="tab3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="portlet light portlet-fit portlet-datatable bordered">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="icon-settings font-green"></i>
+                                                        <span class="caption-subject font-green sbold uppercase">Pricing Information</span>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <div class="table-toolbar">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="btn-group">
+                                                                    <button id="btn_add_pricing_new" class="btn green">
+                                                                        Add New
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="btn-group pull-right">
+                                                                    <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
+                                                                        Tools
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-right">
+                                                                        <li>
+                                                                            <a href="javascript:;"> Print </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;"> Save as PDF </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;"> Export to Excel </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-container">
+                                                        <div id="pricingfeedbacks" style="display: none;"></div>
+                                                        <table class="table table-striped table-hover table-bordered" id="tbl_pricing_information">
+                                                            <thead>
+                                                            <tr>
+                                                                <th> #</th>
+                                                                <th> Type</th>
+                                                                <th> No</th>
+                                                                <th> Description</th>
+                                                                <th> Location Code</th>
+                                                                <th> Quantity </th>
+                                                                <th> Unit of Measure</th>
+                                                                <th> Direct Unit Cost Excl VAT </th>
+                                                                <th> VAT % </th>
+                                                                <th> Amount Excl. VAT </th>
+                                                                <th> Amount Inc. VAT </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                                    <div class="portlet light portlet-fit bordered">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <i class="icon-settings font-green"></i>
+                                                                <span class="caption-subject font-green sbold uppercase">Tender Security</span>
+                                                            </div>
+                                                            <div class="portlet-body">
+                                                                <div id="" style="display: none" data-dismiss="alert"></div>
+
+                                                                <div class="alert" id="tbldirectorfeedback" style="display: none">
+                                                                    <button class="close" data-dismiss="alert"></button>
+                                                                </div>
+                                                                <br/>
+                                                                <table class="table table-striped table-hover table-bordered" id="tbl_tender_security">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Form of Security</th>
+                                                                        <th>Security Type</th>
+                                                                        <th>Issuer Institution Type</th>
+                                                                        <th>Issuer/Gurantor Name</th>
+                                                                        <th>Issuer/Registered Officer </th>
+                                                                        <th>Description</th>
+                                                                        <th>Security Amount(LCY)</th>
+                                                                        <th>Security Effective Date </th>
+                                                                        <th>Security Validity Expiry Date</th>
+                                                                        <th>Edit </th>
+                                                                        <th>Delete </th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <!-- END EXAMPLE TABLE PORTLET-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab4">
+                                <p>Kindly complete the Financial Statements summaries for each Audited Year</p>
+                                <div id="financialstatsfeedback" style="display: block"></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                        <div class="portlet light portlet-fit bordered">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="icon-settings font-green"></i>
-                                                <span class="caption-subject font-green sbold uppercase">Pricing Information</span>
+                                                <i class="icon-settings font-red"></i>
+                                                <span class="caption-subject font-red sbold uppercase">Audited Financial Statements</span>
                                             </div>
                                         </div>
                                         <div class="portlet-body">
-                                            <div class="table-toolbar">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="btn-group">
-                                                            <button id="btn_add_pricing_new" class="btn green">
-                                                                Add New
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
+                                            <ul class="nav nav-tabs">
+                                                <li class="active">
+                                                    <a href="#tab_1_balance_sheet" data-toggle="tab"> Balance Sheet Summary</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab_1_income_statement" data-toggle="tab"> Income Statement Summary </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade active in" id="tab_1_balance_sheet">
+                                                    <h3 class="block">Provide your Financial details</h3>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Year Code
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <select class="form-control select2" id="ddlYear" name="ddlYear" data_live_search="true">
+                                                                <option value="">--Select Year---</option>
+                                                                <optgroup label="Year Code List">
+                                                                    <option value="2017">2017</option>
+                                                                    <option value="2018">2018</option>
+                                                                    <option value="2019">2019</option>
+                                                                    <option value="2020">2020</option>
+                                                                </optgroup>
+                                                            </select>
+                                                            <span class="help-block"> Select Year </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div class="btn-group pull-right">
-                                                            <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
-                                                                Tools
-                                                                <i class="fa fa-angle-down"></i>
-                                                            </button>
-                                                            <ul class="dropdown-menu pull-right">
-                                                                <li>
-                                                                    <a href="javascript:;"> Print </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:;"> Save as PDF </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:;"> Export to Excel </a>
-                                                                </li>
-                                                            </ul>
+                                            
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Total Current Assets
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" class="form-control input-circle input-circle" name="txtTotalcurrentassets" id="txtTotalcurrentassets" />
+                                                            <span class="help-block"> Your Total current Assets (KES) </span>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="table-container">
-                                                <div id="pricingfeedbacks" style="display: none;"></div>
-                                                <table class="table table-striped table-hover table-bordered" id="tbl_pricing_information">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Type</th>
-                                                        <th>No</th>
-                                                        <th>Description</th>
-                                                        <th> Location Code</th>
-                                                        <th> Quantity </th>
-                                                        <th> Unit of Measure</th>
-                                                        <th> Direct Unit Cost Excl VAT </th>
-                                                        <th> VAT % </th>
-                                                        <th> Amount Excl. VAT </th>
-                                                        <th> Amount Inc. VAT </th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab4">
-                            <div class="portlet light portlet-fit bordered">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="icon-settings font-green"></i>
-                                        <span class="caption-subject font-green sbold uppercase">Project Terms and Conditions</span>
-                                    </div>
-                                    <div class="portlet-body">
-                                        <table class="table table-striped table-bordered table-hover table-responsive">
 
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Project ID:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Daily Liquidated Damages Unit Cost(LCY):</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Work Category:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Liquidated Damages Limit %(Contract Value):</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Road Code:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Payment Retention %:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Road Link Name:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Retention Amount Limit %(Contract Vlaue):</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Constituency ID:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Minimum Interim Certificate Amount (LCY):</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Engineer Estimate(LCY):</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Primary Region:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Max Works Kickoff Duration(After Contract/Order):</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Primary Branch/Center:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Max Works Charter/Program Duration:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Primary Directorate:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Max Works Completion Duration(After Contract/Order):</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Primary Department:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Payment Terms Code:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Shortcut Dimension 1 Code:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label class="control-label"><strong>Defects Liability(Warranty Period):</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtTenderNoticeNo" id="txtTenderNoticeNo" />
-                                                </td>
-
-                                                <td>
-                                                    <label class="control-label"><strong>Shortcut Dimension 2 Code:</strong></label>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="txtProcmethod" id="txtProcmethod" />
-                                                </td>
-
-                                            </tr>
-                                        </table>
-                                        <div class="row">
-                                            <div class="col-md-offset-4 col-md-8">
-                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-agpo">Save &nbsp;<i class="fas fa fa-save"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab5">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="portlet light portlet-fit bordered">
-                                                <div class="portlet-title">
-                                                    <div class="caption">
-                                                        <i class="icon-settings font-green"></i>
-                                                        <span class="caption-subject font-green sbold uppercase">Personnel</span>
-                                                    </div>
-                                                    <div class="portlet-body">
-                                                        <div id="" style="display: none" data-dismiss="alert"></div>
-
-                                                        <div class="alert" id="tbldirectorfeedback" style="display: none">
-                                                            <button class="close" data-dismiss="alert"></button>
+                                            
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Total Fixed Assets
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" class="form-control input-circle input-circle" name="txtTotalfixedassets" id="txtTotalfixedassets" />
+                                                            <span class="help-block"> Your Total Fixed Assets</span>
                                                         </div>
-                                                        <br />
-                                                        <table class="table table-striped table-hover table-bordered" id="tbl_keystaff_experience">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Total Current Liabilities
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" class="form-control input-circle input-circle" name="txtTotalcurrentliability" id="txtTotalcurrentliability"/>
+                                                            <span class="help-block"> Your Total current liabilities </span>
+                                                        </div>
+                                                    </div>
+                                            
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Total Long-Term Liabilities
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" class="form-control input-circle input-circle" name="txtTotalLongtermliability" id="txtTotalLongtermliability"/>
+                                                            <span class="help-block"> Your Total Long-Term liabilities </span>
+                                                        </div>
+                                                    </div>
+                                            
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Total Owner's Equity
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" class="form-control input-circle input-circle" name="txtTotalOwnerequity" id="txtTotalOwnerequity" />
+                                                            <span class="help-block"> Your Total Owner's Equity </span>
+                                                        </div>
+                                                    </div>
+                                            
+                                                    <div class="row">
+                                                        <div class="col-md-offset-4 col-md-8">
+                                                            <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-balsheet">Save &nbsp;<i class="fas fa fa-save"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                         <table class="table table-striped table-hover table-bordered" id="tbl_audited-balancesheet">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Staff No.</th>
-                                                                    <th>Proposed Project Role ID</th>
-                                                                    <th>Qualification Category </th>
-                                                                    <th>Years of Experience </th>
-                                                                    <th>Experience From Year</th>
-                                                                    <th>Experience To Year </th>
-                                                                    <th>Edit </th>
-                                                                    <th>Delete </th>
-                                                                </tr>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Audit Year Code</th>
+                                                                <th>Total Revenue(LCY)</th>
+                                                                <th>Total COGS(LCY)</th>
+                                                                <th>Gross Margin LCY</th>
+                                                                <th>Operating Income/EBIT (LCY)</th>
+                                                                <th>Interest Expense(LCY) </th>
+                                                                <th>Income Before Taxes(LCY)</th>
+                                                                <th>Income Tax Expenses(LCY)</th>
+                                                                <th>Delete </th>
+                                                            </tr>
                                                             </thead>
                                                             <tbody></tbody>
                                                         </table>
-                                                        <div class="row">
-                                                            <div class="col-md-offset-4 col-md-8">
-                                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-agpo">Add New &nbsp;<i class="fas fa fa-save"></i></a>
-                                                            </div>
-                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                                            <div class="portlet light portlet-fit bordered">
-                                                <div class="portlet-title">
-                                                    <div class="caption">
-                                                        <i class="icon-settings font-green"></i>
-                                                        <span class="caption-subject font-green sbold uppercase">Equipments</span>
-                                                    </div>
-                                                    <div class="portlet-body">
-                                                        <div id="" style="display: none" data-dismiss="alert"></div>
 
-                                                        <div class="alert" id="tbldirectorfeedback" style="display: none">
-                                                            <button class="close" data-dismiss="alert"></button>
-                                                        </div>
-                                                        <br />
-                                                        <table class="table table-striped table-hover table-bordered" id="tbl_directors">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Equipment Type Category</th>
-                                                                    <th>Description</th>
-                                                                    <th>Ownership Type</th>
-                                                                    <th>Equipment Serial/Registration No.</th>
-                                                                    <th>Equipment Usability Code </th>
-                                                                    <th>Years of Previous Used</th>
-                                                                    <th>Equipment Condition Code </th>
-                                                                    <th>Edit </th>
-                                                                    <th>Delete </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody></tbody>
-                                                        </table>
-                                                        <div class="row">
-                                                            <div class="col-md-offset-4 col-md-8">
-                                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-agpo">Save &nbsp;<i class="fas fa fa-save"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
-                                                <!-- END EXAMPLE TABLE PORTLET-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                                            <div class="portlet light portlet-fit bordered">
-                                                <div class="portlet-title">
-                                                    <div class="caption">
-                                                        <i class="icon-settings font-green"></i>
-                                                        <span class="caption-subject font-green sbold uppercase">Audited Balance Sheet</span>
-                                                    </div>
-                                                    <div class="portlet-body">
-                                                        <div id="" style="display: none" data-dismiss="alert"></div>
-
-                                                        <div class="alert" id="auditedbalfeedback" style="display: none">
-                                                            <button class="close" data-dismiss="alert"></button>
-                                                        </div>
-                                                        <br />
-                                                        <table class="table table-striped table-hover table-bordered" id="tbl_audited-balancesheet">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Audit Year Code</th>
-                                                                    <th>Current Assets(LCY)</th>
-                                                                    <th>Fixed Assets(LCY)</th>
-                                                                    <th>Current Liabilities(LCY) </th>
-                                                                    <th>Long Terms Liabilites(LCY)</th>
-                                                                    <th>Owners Equity(LCY) </th>
-                                                                    <th>Debit Ratio</th>
-                                                                    <th>Current Ratio</th>
-                                                                    <th>Edit </th>
-                                                                    <th>Delete </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody></tbody>
-                                                        </table>
-                                                        <div class="row">
-                                                            <div class="col-md-offset-4 col-md-8">
-                                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-agpo">Add New &nbsp;<i class="fas fa fa-save"></i></a>
-                                                            </div>
+                                                <div class="tab-pane fade" id="tab_1_income_statement">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Year Code
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <select class="form-control select2" id="ddlYearI" name="ddlYearI" data_live_search="true">
+                                                                <option value="">--Select Year---</option>
+                                                                <optgroup label="Year Code List">
+                                                                    <option value="2017">2017</option>
+                                                                    <option value="2018">2018</option>
+                                                                    <option value="2019">2019</option>
+                                                                    <option value="2020">2020</option>
+                                                                </optgroup>
+                                                            </select>
+                                                            <span class="help-block"> Select Year </span>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- END EXAMPLE TABLE PORTLET-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                                            <div class="portlet light portlet-fit bordered">
-                                                <div class="portlet-title">
-                                                    <div class="caption">
-                                                        <i class="icon-settings font-green"></i>
-                                                        <span class="caption-subject font-green sbold uppercase">Audited Income Statement </span>
-                                                    </div>
-                                                    <div class="portlet-body">
-                                                        <div id="" style="display: none" data-dismiss="alert"></div>
-
-                                                        <div class="alert" id="tbldirectorfeedback" style="display: none">
-                                                            <button class="close" data-dismiss="alert"></button>
+                                            
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Total Revenue
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" class="form-control input-circle input-circle" name="txtTotalRevenue" id="txtTotalRevenue" />
+                                                            <span class="help-block"> Your Total Revenue (KES) </span>
                                                         </div>
-                                                        <br />
+                                                    </div>
+                                            
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Total Cost of Goods Sold
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" class="form-control input-circle input-circle" name="txtTotalCoGs" id="txtTotalCoGs" />
+                                                            <span class="help-block"> Your Total Cost of Goods Sold (KES) </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Total Operating Expenses
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" class="form-control input-circle input-circle" name="txtTotalOprXpens" id="txtTotalOprXpens" />
+                                                            <span class="help-block"> Your Operating Expenses (KES) </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Other Non-Operating Revenue/Expense
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" class="form-control input-circle input-circle" name="txtTotalOthernonOprexp" id="txtTotalOthernonOprexp" />
+                                                            <span class="help-block"> Your Other Non-Operating Revenue/Expense(KES) </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Interest Expense
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="number" class="form-control input-circle input-circle" name="txtInterestExpense" id="txtInterestExpense" />
+                                                            <span class="help-block"> Your Interest Expense (KES) </span>
+                                                        </div>
+                                                    </div>
+                                            
+                                                    <div class="row">
+                                                        <div class="col-md-offset-4 col-md-8">
+                                                            <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-incomestates">Save &nbsp;<i class="fas fa fa-save"></i></a>
+                                                        </div>
+                                                    </div>
+                                            
+                                                    <div class="row">
                                                         <table class="table table-striped table-hover table-bordered" id="tbl_audit_incomestatement_">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Audit Year Code</th>
-                                                                    <th>Total Revenue(LCY)</th>
-                                                                    <th>Total COGS(LCY)</th>
-                                                                    <th>Gross Margin LCY</th>
-                                                                    <th>Operating Income/EBIT (LCY)</th>
-                                                                    <th>Interest Expense(LCY) </th>
-                                                                    <th>Income Before Taxes(LCY)</th>
-                                                                    <th>Income Tax Expenses(LCY)</th>
-                                                                    <th>Edit </th>
-                                                                    <th>Delete </th>
-                                                                </tr>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Audit Year Code</th>
+                                                                <th>Total Revenue(LCY)</th>
+                                                                <th>Total COGS(LCY)</th>
+                                                                <th>Gross Margin LCY</th>
+                                                                <th>Operating Income/EBIT (LCY)</th>
+                                                                <th>Interest Expense(LCY) </th>
+                                                                <th>Income Before Taxes(LCY)</th>
+                                                                <th>Income Tax Expenses(LCY)</th>
+                                                                <th>Delete </th>
+                                                            </tr>
                                                             </thead>
                                                             <tbody></tbody>
                                                         </table>
-                                                        <div class="row">
-                                                            <div class="col-md-offset-4 col-md-8">
-                                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-agpo">Add New &nbsp;<i class="fas fa fa-save"></i></a>
-                                                            </div>
-                                                        </div>
                                                     </div>
-                                                </div>
-                                                <!-- END EXAMPLE TABLE PORTLET-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="portlet light portlet-fit bordered">
-                                                <div class="portlet-title">
-                                                    <div class="caption">
-                                                        <i class="icon-settings font-green"></i>
-                                                        <span class="caption-subject font-green sbold uppercase">Bank Accounts</span>
-                                                    </div>
-                                                    <div class="portlet-body">
-                                                        <div id="" style="display: none" data-dismiss="alert"></div>
 
-                                                        <div class="alert" id="tbldirectorfeedback" style="display: none">
-                                                            <button class="close" data-dismiss="alert"></button>
-                                                        </div>
-                                                        <br />
-                                                        <table class="table table-striped table-hover table-bordered" id="tbl_bidvendor_banks">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Bank Code</th>
-                                                                    <th>Bank Name</th>
-                                                                    <th>Currency Code</th>
-                                                                    <th>Bank Address </th>
-                                                                    <th>Post Code</th>
-                                                                    <th>City </th>
-                                                                    <th>Country</th>
-                                                                    <th>Bank Phone No</th>
-                                                                    <th>Bank Branch</th>
-                                                                    <th>Bank Account No.</th>
-                                                                    <th>Edit </th>
-                                                                    <th>Delete </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody></tbody>
-                                                        </table>
-                                                        <div class="row">
-                                                            <div class="col-md-offset-4 col-md-8">
-                                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-agpo">Add New &nbsp;<i class="fas fa fa-save"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                                            <div class="portlet light portlet-fit bordered">
-                                                <div class="portlet-title">
-                                                    <div class="caption">
-                                                        <i class="icon-settings font-green"></i>
-                                                        <span class="caption-subject font-green sbold uppercase">Tender Security</span>
-                                                    </div>
-                                                    <div class="portlet-body">
-                                                        <div id="" style="display: none" data-dismiss="alert"></div>
 
-                                                        <div class="alert" id="tbldirectorfeedback" style="display: none">
-                                                            <button class="close" data-dismiss="alert"></button>
-                                                        </div>
-                                                        <br />
-                                                        <table class="table table-striped table-hover table-bordered" id="tbl_tender_security">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Form of Security</th>
-                                                                    <th>Security Type</th>
-                                                                    <th>Issuer Institution Type</th>
-                                                                    <th>Issuer/Gurantor Name</th>
-                                                                    <th>Issuer/Registered Officer </th>
-                                                                    <th>Description</th>
-                                                                    <th>Security Amount(LCY)</th>
-                                                                    <th>Security Effective Date </th>
-                                                                    <th>Security Validity Expiry Date</th>
-                                                                    <th>Edit </th>
-                                                                    <th>Delete </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody></tbody>
-                                                        </table>
-                                                        <div class="row">
-                                                            <div class="col-md-offset-4 col-md-8">
-                                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-agpo">Add New &nbsp;<i class="fas fa fa-save"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- END EXAMPLE TABLE PORTLET-->
-                                            </div>
                                         </div>
+                                        <!-- END EXAMPLE TABLE PORTLET-->
                                     </div>
                                 </div>
-                            </div>
+                        
+                        
 
-                        </div>
-                        <div class="tab-pane" id="tab7">
+                                </div>
+                        <div class="tab-pane" id="tab5">
                             <div class="row">
 
                                 <div class="col-md-12">
@@ -1252,237 +677,201 @@
                                                 <div id="ifpfeedbacks" style="display: none;"></div>
                                                 <table class="table table-striped table-hover table-bordered" id="tbl_past_experience">
                                                     <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Client Name</th>
-                                                            <th>Client Address</th>
-                                                            <th>Phone No.</th>
-                                                            <th>Country</th>
-                                                            <th>Email </th>
-                                                            <th>Project Scope Summary </th>
-                                                            <th>Project Name </th>
-                                                            <th>Contract Ref No  </th>
-                                                            <th>Assignment Value LCY  </th>
-                                                            <th>Assignment Status</th>
-                                                            <th>Edit </th>
-                                                            <th>Delete</th>
-                                                        </tr>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Client Name</th>
+                                                        <th>Client Address</th>
+                                                        <th>Phone No.</th>
+                                                        <th>Country</th>
+                                                        <th>Email </th>
+                                                        <th>Project Scope Summary </th>
+                                                        <th>Project Name </th>
+                                                        <th>Contract Ref No  </th>
+                                                        <th>Assignment Value LCY  </th>
+                                                        <th>Assignment Status</th>
+                                                        <th>Edit </th>
+                                                        <th>Delete</th>
+                                                    </tr>
                                                     </thead>
                                                     <tbody></tbody>
                                                 </table>
-                                                <div class="row">
-                                                    <div class="col-md-offset-4 col-md-8">
-                                                        <a href="javascript:;" class="btn green btn-outline btn-circle button-insert-agpo">Add New &nbsp;<i class="fas fa fa-save"></i></a>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                         <!-- END EXAMPLE TABLE PORTLET-->
                                     </div>
                                 </div>
                             </div>
+                                    
+                        </div>
+
+                        <div class="tab-pane" id="tab6">
+                            <h3 class="block">Upload mandatory Documents</h3>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <!-- Begin: life time stats -->
-                                    <div class="portlet light portlet-fit portlet-datatable bordered">
+                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                    <div class="portlet light portlet-fit bordered">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="icon-settings font-green"></i>
-                                                <span class="caption-subject font-green sbold uppercase">Litigation Experience</span>
+                                                <i class="icon-settings font-red"></i>
+                                                <span class="caption-subject font-red sbold uppercase">Mandatory Documents</span>
                                             </div>
                                         </div>
                                         <div class="portlet-body">
-                                            <div class="table-container">
-                                                <div id="ifpfeedbacks" style="display: none;"></div>
-                                                <table class="table table-striped table-hover table-bordered" id="tb_litigation_history">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Dispute Description</th>
-                                                            <th>Other Disputes Party </th>
-                                                            <th>Disputes Amounts LCY</th>
-                                                            <th>Category of Matter</th>
-                                                            <th>Year </th>
-                                                            <th>Award Type</th>
-                                                            <th>Edit</th>
-                                                            <th>Delete</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <!-- END EXAMPLE TABLE PORTLET-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab8">
-                                <h3 class="block">Upload mandatory Documents</h3>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                                        <div class="portlet light portlet-fit bordered">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <i class="icon-settings font-red"></i>
-                                                    <span class="caption-subject font-red sbold uppercase">Mandatory Documents</span>
+                                            <ul class="nav nav-tabs">
+                                                <li class="active">
+                                                    <a href="#tab_1_1" data-toggle="tab"> Required Registration Documents </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab_1_2" data-toggle="tab"> Attach Document </a>
+                                                </li>
+                                                
+                                                <li>
+                                                    <a href="#tab_1_3" data-toggle="tab"> Attached Document </a>
+                                                </li>
+                                                
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div id="docs_feedback_alert"></div>
+                                                <div class="tab-pane fade active in" id="tab_1_1">
+                                                    @Html.Action("DocumentTemplateList_Rfi", "Home")
                                                 </div>
-                                            </div>
-                                            <div class="portlet-body">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="active">
-                                                        <a href="#tab_1_1" data-toggle="tab"> Required Registration Documents </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#tab_1_2" data-toggle="tab"> Attach Document </a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#tab_1_3" data-toggle="tab"> Attached Document </a>
-                                                    </li>
-
-                                                </ul>
-                                                <div class="tab-content">
-                                                    <div class="tab-pane fade active in" id="tab_1_1">
-                                                        @Html.Action("DocumentTemplateList", "Home")
+                                                <div class="tab-pane fade" id="tab_1_2">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Select Document to Upload:
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            @Html.Action("DocumentTemplateDroplist_Rfi", "Home")
+                                                            <span class="help-block"> Document to Upload </span>
+                                                        </div>
                                                     </div>
-                                                    <div class="tab-pane fade" id="tab_1_2">
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-4">
-                                                                Select Document to Upload:
-                                                                <span class="required"> * </span>
-                                                            </label>
-                                                            <div class="col-md-6">
-                                                                @Html.Action("DocumentTemplateDroplist", "Home")
-                                                                <span class="help-block"> Document to Upload </span>
-                                                            </div>
-                                                        </div>
 
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-4">
-                                                                External Document (Certificate No):
-                                                                <span class="required"> * </span>
-                                                            </label>
-                                                            <div class="col-md-6">
-                                                                <input type="text" class="form-control input-circle" name="txtCertNo" id="txtCertNo" />
-                                                                <span class="help-block"> Provide the Document Number</span>
-                                                            </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            External Document (Certificate No):
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control input-circle" name="txtCertNo_rfi" id="txtCertNo_rfi"/>
+                                                            <span class="help-block"> Provide the Document Number</span>
                                                         </div>
+                                                    </div>
 
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-4">
-                                                                Issue Date:
-                                                                <span class="required"> * </span>
-                                                            </label>
-                                                            <div class="col-md-6">
-                                                                <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
-                                                                    <input type="text" class="form-control input-circle-left" readonly id="dtOfIssue" name="dtOfIssue" style="width: 550px">
-                                                                    <span class="input-group-btn input-circle-right">
-                                                                        <button class="btn default" type="button">
-                                                                            <i class="fa fa-calendar"></i>
-                                                                        </button>
-                                                                    </span>
-                                                                </div>
-                                                                <span class="help-block"> Select Cerificate Date of Issue </span>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Issue Date:
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
+                                                                <input type="text" class="form-control input-circle-left" readonly id="dtOfIssue_rfi" name="dtOfIssue_rfi" style="width: 550px">
+                                                                <span class="input-group-btn input-circle-right">
+                                                                    <button class="btn default" type="button">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                    </button>
+                                                                </span>
                                                             </div>
+                                                            <span class="help-block"> Select Cerificate Date of Issue </span>
                                                         </div>
+                                                    </div>
 
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-4">
-                                                                Expiry Date:
-                                                                <span class="required"> * </span>
-                                                            </label>
-                                                            <div class="col-md-6">
-                                                                <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
-                                                                    <input type="text" class="form-control input-circle-left" readonly id="dtOfexpiry" name="dtOfexpiry" style="width: 550px">
-                                                                    <span class="input-group-btn input-circle-right">
-                                                                        <button class="btn default" type="button">
-                                                                            <i class="fa fa-calendar"></i>
-                                                                        </button>
-                                                                    </span>
-                                                                </div>
-                                                                <span class="help-block"> Select Certificate Date of Expiry </span>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4">
+                                                            Expiry Date:
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-viewmode="years">
+                                                                <input type="text" class="form-control input-circle-left" readonly id="dtOfexpiry_rfi" name="dtOfexpiry_rfi" style="width: 550px">
+                                                                <span class="input-group-btn input-circle-right">
+                                                                    <button class="btn default" type="button">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                    </button>
+                                                                </span>
                                                             </div>
+                                                            <span class="help-block"> Select Certificate Date of Expiry </span>
                                                         </div>
+                                                    </div>
 
-                                                        <div id="pullUpfileselector" style="display: none">
-                                                            <div class="form-group">
-                                                                <label class="control-label col-md-4">Select Document</label>
-                                                                <div class="col-md-6">
-                                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                                        <div class="input-group input-large">
-                                                                            <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
-                                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp;
-                                                                                <span class="fileinput-filename"> </span>
-                                                                            </div>
-                                                                            <span class="input-group-addon btn default btn-file">
-                                                                                <span class="fileinput-new"> Select file </span>
-                                                                                <span class="fileinput-exists"> Change </span>
-                                                                                <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileselector" name="inputFileselector[]">
-                                                                            </span>
-                                                                            <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                                    <div id="pullUpfileselector_rfi" style="display: none">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4">Select Document</label>
+                                                            <div class="col-md-6">
+                                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                    <div class="input-group input-large">
+                                                                        <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                                                            <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                                                            <span class="fileinput-filename"> </span>
                                                                         </div>
+                                                                        <span class="input-group-addon btn default btn-file">
+                                                                            <span class="fileinput-new"> Select file </span>
+                                                                            <span class="fileinput-exists"> Change </span>
+                                                                            <input type="file" accept="application/msword, application/vnd.ms-excel, application/pdf, image/*" id="inputFileselector_rfi" name="inputFileselector_rfi[]"> </span>
+                                                                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-                                                            <!-- The global progress bar -->
-                                                            <div class="progress progress-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                                                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label class="control-label col-md-4"></label>
-                                                                <div class="col-md-6">
-                                                                    <!-- Display upload status -->
-                                                                    <div id="uploadsMsg" style="display: none"></div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-md-offset-4 col-md-8">
-                                                                    <a href="javascript:;" class="btn green btn-outline btn-circle button-upload">Upload &nbsp;<i class="fas fa fa-upload"></i></a>
-                                                                </div>
-                                                            </div>
-
                                                         </div>
 
+                                                        <!-- The global progress bar -->
+                                                        <div class="progress progress-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                            <div class="progress-bar progress-bar-success" style="width: 0%;"></div>
+                                                        </div>
 
-                                                    </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4"></label>
+                                                            <div class="col-md-6">
+                                                                <!-- Display upload status -->
+                                                                <div id="uploadsMsg" style="display: none"></div>
+                                                            </div>
+                                                        </div>
 
-                                                    <div class="tab-pane fade" id="tab_1_3">
-                                                        <table class="table table-striped table-hover table-bordered" id="tbl_mydocs">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>File Name</th>
-                                                                    <th>Actions</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody></tbody>
-                                                        </table>
+                                                        <div class="row">
+                                                            <div class="col-md-offset-4 col-md-8">
+                                                                <a href="javascript:;" class="btn green btn-outline btn-circle button-upload-rfi">Upload &nbsp;<i class="fas fa fa-upload"></i></a>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
 
 
                                                 </div>
-                                            </div>
 
+                                                <div class="tab-pane fade" id="tab_1_3">
+                                                    <input type="hidden" id="ifpnum_id"/>
+                                                    <table class="table table-striped table-hover table-bordered" id="tbl_mydocs_rfi">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>File Name</th>
+                                                            <th>Delete</th>
+                                                            <th>Download</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                </div>
+
+
+                                            </div>
                                         </div>
-                                        <!-- END EXAMPLE TABLE PORTLET-->
+                                   
                                     </div>
+                                    <!-- END EXAMPLE TABLE PORTLET-->
                                 </div>
                             </div>
-                        
+
                         </div>
+                       
                     </div>
                 </div>
+            </div>
 
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-offset-4 col-md-8">
                             <a href="javascript:;" class="btn green btn-outline btn-circle button-go-back"><i class="fas fa fa-angle-left"></i> &nbsp;Go Back </a>
-                          
                             <a href="javascript:;" class="btn green btn-outline btn-circle button-previous"><i class="fas fa fa-angle-left"></i> &nbsp;Back </a>
                             <a href="javascript:;" class="btn green btn-outline btn-circle button-interimsave" style="display: none">Interim Save &nbsp;<i class="fas fa fa-save"></i></a>
                             <a href="javascript:;" class="btn green btn-outline btn-circle button-next">Continue &nbsp;<i class="fas fa fa-angle-right"></i></a>
