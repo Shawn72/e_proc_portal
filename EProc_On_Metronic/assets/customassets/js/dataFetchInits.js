@@ -3733,6 +3733,61 @@ $('.btn_go_apply').click(function (e) {
 
         });
 
+        //async fetch : bid tender docs
+        $.ajax({
+            type: "POST",
+            url: "/Home/DocumentTemplateList_TenderRes?ittpnumber=" + ittNoticeNumber,
+            data: "",
+            cache: false,
+            async: true
+        }).done(function (json7) {
+            //console.log(JSON.stringify({ allreqit: json7 }));
+            var td7 = $("#tbl_mandatory_docs_bidresponse"),
+                p7 = td7.dataTable({
+                    lengthMenu: [[5, 15, 20, -1], [5, 15, 20, "All"]],
+                    pageLength: 5,
+                    language: {
+                        aria: {
+                            sortAscending: ": activate to sort column ascending",
+                            sortDescending: ": activate to sort column descending"
+                        },
+                        emptyTable: "No data available in table",
+                        info: "Showing _START_ to _END_ of _TOTAL_ records",
+                        infoEmpty: "No records found",
+                        infoFiltered: "(filtered1 from _MAX_ total records)",
+                        lengthMenu: "Show _MENU_",
+                        search: "Search:",
+                        zeroRecords: "No matching records found",
+                        paginate: {
+                            previous: "Prev",
+                            next: "Next",
+                            last: "Last",
+                            first: "First"
+                        }
+                    },
+                    bStateSave: !0,
+                    columnDefs: [
+                        { orderable: !0, defaultContent: "-", targets: "_all" },
+                        { searchable: !0, targets: "_all" }
+                    ],
+                    order: [[0, "asc"]],
+                    bDestroy: true,
+                    info: false,
+                    processing: true,
+                    retrieve: true
+                });
+            var k = 1;
+            for (var i = 0; i < json7.length; i++) {
+                p7.fnAddData([
+                    k++,
+                    json7[i].Procurement_Document_Type_ID,
+                    json7[i].Description,
+                    json7[i].Requirement_Type
+
+                ]);
+            }
+        });
+
         //async fetch Confidential Details: tender details
         $.ajax({
             type: "POST",
@@ -4896,5 +4951,5 @@ var KeyBidEquipment = function () {
 }();
 
 jQuery(document).ready(function () {
-    optends.init(),Ld.init(); //, suppregDocs.init();
+    optends.init(), Ld.init(); //, suppregDocs.init();
 });

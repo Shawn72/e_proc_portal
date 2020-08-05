@@ -2990,6 +2990,7 @@
     <Content Include="Views\Home\TenderResponseForm.cshtml" />
     <Content Include="Views\Shared\_TenderResponse_wizard.cshtml" />
     <Content Include="Views\Home\TenderDocuments.cshtml" />
+    <Content Include="Views\Home\DocumentTemplateList_TenderResponse.cshtml" />
     <None Include="Web References\WebRef\eprocurement.wsdl" />
     <None Include="Web References\WebRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
